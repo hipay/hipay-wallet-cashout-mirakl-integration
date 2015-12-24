@@ -1,0 +1,31 @@
+{
+  "name": "hipay/mirakl-silex-integration",
+  "description": "Exemple integration of the mirakl-hipay-connector with silex",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Ivanis Kouamé",
+      "email": "ivanis.kouame@smile.fr"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "silex/silex": "v1.3.4",
+    "doctrine/orm": "v2.4.8",
+    "symfony/console": "v2.8.0",
+    "knplabs/console-service-provider": "v1.0",
+    "hipay/mirakl-connector" : "dev-develop"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hipay\\": "src"
+    }
+  }
+}
