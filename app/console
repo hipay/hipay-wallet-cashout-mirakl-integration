@@ -1,0 +1,24 @@
+#!/usr/bin/php
+<?php
+/**
+ * Console entry point
+ *
+ * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
+ * @copyright 2015 Smile
+ */
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+$app = new Silex\Application();
+
+
+$app->register(new Knp\Provider\ConsoleServiceProvider(), array(
+    'console.name'              => 'HipayMiraklConnector',
+    'console.version'           => '1.0.0',
+    'console.project_directory' => __DIR__.'/..'
+));
+
+$console = $app['console'];
+$console->add();
+
+$console->run();
