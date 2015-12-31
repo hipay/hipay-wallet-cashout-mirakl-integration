@@ -1,0 +1,16 @@
+parameters:
+
+  mirakl.frontKey: ~
+  mirakl.shopKey: ~
+  mirakl.operatorKey: ~
+  mirakl.baseUrl: ~
+
+  hipay.wsLogin: ~
+  hipay.wsPassword: ~
+  hipay.baseUrl: ~
+
+  ftp.host: ~
+  ftp.username: ~
+  ftp.password: ~
+  ftp.port: 21
+  ftp.connectionType: 'ftp'
