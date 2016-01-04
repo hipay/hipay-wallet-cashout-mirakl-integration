@@ -14,3 +14,11 @@ parameters:
   ftp.password: ~
   ftp.port: 21
   ftp.connectionType: 'ftp'
+
+  db.host: ~
+  db.username: ~
+  db.password: ~
+  db.name: ~
+  db.port: 21
+
+  doctrine.debug: false
