@@ -24,7 +24,8 @@
     "knplabs/console-service-provider": "v1.0",
     "hipay/mirakl-connector" : "dev-develop",
     "incenteev/composer-parameter-handler": "~2.0",
-    "gedmo/doctrine-extensions" : "~2.4"
+    "gedmo/doctrine-extensions" : "~2.4",
+    "swiftmailer/swiftmailer": "~5.0"
   },
   "scripts": {
     "post-install-cmd": [
