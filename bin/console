@@ -1,0 +1,31 @@
+#!/usr/bin/php
+<?php
+/**
+ * Console entry point
+ *
+ * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
+ * @copyright 2015 Smile
+ */
+
+require_once '../vendor/autoload.php';
+require_once '../app/bootstrap.php';
+
+use Doctrine\ORM\Tools\Console\ConsoleRunner as ORMConsoleRunner;
+use Hipay\SilexIntegration\Command\Vendor\ProcessCommand as VendorProcessCommand;
+use Hipay\SilexIntegration\Command\Cashout\ProcessCommand as CashoutProcessCommand;
+use Hipay\SilexIntegration\Command\Cashout\GenerateCommand as CashoutGenerateCommand;
+use Symfony\Component\Console\Application;
+
+$console = new Application("Hipay Mirkal Connector Console");
+
+ORMConsoleRunner::addCommands($console);
+
+$console->addCommands(
+    array(
+        new VendorProcessCommand($entityManager),
+        new CashoutProcessCommand($entityManager),
+        new CashoutGenerateCommand($entityManager)
+    )
+);
+
+$console->run();
