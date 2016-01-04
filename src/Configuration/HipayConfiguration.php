@@ -12,7 +12,7 @@ namespace Hipay\SilexIntegration\Configuration;
 
 use Hipay\MiraklConnector\Api\Hipay\ConfigurationInterface;
 
-class HipayConfiguration extends AbstractConfiguration implements ConfigurationInterface
+class HipayConfiguration implements ConfigurationInterface
 {
 
     /**
@@ -21,7 +21,7 @@ class HipayConfiguration extends AbstractConfiguration implements ConfigurationI
      */
     public function getWebServiceLogin()
     {
-        return parent::$parameters['hipay.wsLogin'];
+        return ParameterAccessor::getParameter('hipay.wsLogin');
     }
 
     /**
@@ -30,7 +30,7 @@ class HipayConfiguration extends AbstractConfiguration implements ConfigurationI
      */
     public function getWebServicePassword()
     {
-        return parent::$parameters['hipay.wsPassword'];
+        return ParameterAccessor::getParameter('hipay.wsPassword');
     }
 
     /**
@@ -40,7 +40,7 @@ class HipayConfiguration extends AbstractConfiguration implements ConfigurationI
      */
     public function getBaseUrl()
     {
-        return parent::$parameters['hipay.baseUrl'];
+        return ParameterAccessor::getParameter('hipay.baseUrl');
     }
 
     /**
