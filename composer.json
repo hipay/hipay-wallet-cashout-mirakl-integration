@@ -23,7 +23,8 @@
     "symfony/yaml": "~2.8",
     "knplabs/console-service-provider": "v1.0",
     "hipay/mirakl-connector" : "dev-develop",
-    "incenteev/composer-parameter-handler": "~2.0"
+    "incenteev/composer-parameter-handler": "~2.0",
+    "gedmo/doctrine-extensions" : "~2.4"
   },
   "scripts": {
     "post-install-cmd": [
