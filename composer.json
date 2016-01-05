@@ -24,7 +24,8 @@
     "hipay/mirakl-connector" : "dev-develop",
     "incenteev/composer-parameter-handler": "^2.0",
     "gedmo/doctrine-extensions" : "^2.4",
-    "swiftmailer/swiftmailer": "^5.0"
+    "swiftmailer/swiftmailer": "^5.0",
+    "monolog/monolog": "^1.17"
   },
   "scripts": {
     "post-install-cmd": [
