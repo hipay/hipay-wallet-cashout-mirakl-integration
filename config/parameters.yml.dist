@@ -15,6 +15,9 @@ parameters:
   ftp.port: 21
   ftp.connectionType: 'ftp'
 
+  default.zip.path: '/tmp/documents.zip'
+  default.ftp.path: '/'
+
   db.host: ~
   db.username: ~
   db.password: ~
@@ -22,3 +25,13 @@ parameters:
   db.port: 21
 
   doctrine.debug: false
+
+  log.file.path: "/var/log/hipay.log"
+
+  mail.host: ~
+  mail.port: ~
+  mail.security: ~
+
+  mail.subject: ~
+  mail.to: ~
+  mail.from: ~
