@@ -14,14 +14,15 @@ $paths = array(
     join(DIRECTORY_SEPARATOR, array(__DIR__, "..", "src", "Entity"))
 );
 
-$isDevMode = DbConfiguration::getDebug();
+$dbConfiguration = new DbConfiguration();
+$isDevMode = $dbConfiguration->getDebug();
 
 // the connection configuration
 $dbParams = array(
     'driver'   => 'pdo_mysql',
-    'user'     => DbConfiguration::getUsername(),
-    'password' => DbConfiguration::getPassword(),
-    'dbname'   => DbConfiguration::getDatabaseName(),
+    'user'     => $dbConfiguration->getUsername(),
+    'password' => $dbConfiguration->getPassword(),
+    'dbname'   => $dbConfiguration->getDatabaseName(),
 );
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);

@@ -6,7 +6,10 @@
  * @copyright 2015 Smile
  */
 
-require_once __DIR__.'/../vendor/autoload.php';
+const ROOT_PATH = __DIR__;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../app/bootstrap.php';
 
 $app = new Silex\Application();
 
