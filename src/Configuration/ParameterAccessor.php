@@ -28,22 +28,24 @@ class ParameterAccessor
      */
     public static function getParameter($key) {
         if (!self::$parameters) {
-            $yaml = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'parameters.yml');
+            $parameterFilePath = join(DIRECTORY_SEPARATOR, array(
+                ROOT_PATH,
+                '..',
+                'config',
+                'parameters.yml'
+            ));
+            $yaml = file_get_contents($parameterFilePath);
             self::$parameters = Yaml::parse($yaml);
         }
-        return self::$parameters[$key];
+        return self::$parameters['parameters'][$key];
     }
 
     /**
      * AbstractConfiguration constructor.
      *
-     * Parse the yaml config file (located at $root/config/parameter.yml) to extract the parameters
+     * Made private to forbid instanciation
      */
-    private function __construct()
+    protected function __construct()
     {
-        if (!static::$parameters) {
-            $yaml = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'parameters.yml');
-            static::$parameters = Yaml::parse($yaml);
-        }
     }
 }
