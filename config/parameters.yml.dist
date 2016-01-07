@@ -8,6 +8,7 @@ parameters:
   hipay.wsLogin: ~
   hipay.wsPassword: ~
   hipay.baseUrl: ~
+  hipay.entity: ~
 
   ftp.host: ~
   ftp.username: ~
@@ -24,9 +25,9 @@ parameters:
   db.name: ~
   db.port: 21
 
-  doctrine.debug: false
+  debug: false
 
-  log.file.path: "/var/log/hipay.log"
+  log.file.path: '/var/log/hipay.log'
 
   mail.host: ~
   mail.port: ~
