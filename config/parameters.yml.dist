@@ -27,7 +27,10 @@ parameters:
 
   debug: false
 
-  log.file.path: '/var/log/hipay.log'
+  #the log file path,
+  #{date} will be replaced by the date of execution of the command
+  #{name} will be replace by the name of the command
+  log.file.path: '/var/log/hipay-{name}-{date}.log'
 
   mail.host: ~
   mail.port: ~
@@ -36,3 +39,6 @@ parameters:
   mail.subject: ~
   mail.to: ~
   mail.from: ~
+
+  locale: 'fr_FR'
+  timezone: 'Europe\Paris'
