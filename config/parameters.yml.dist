@@ -9,6 +9,8 @@ parameters:
   hipay.wsPassword: ~
   hipay.baseUrl: ~
   hipay.entity: ~
+  hipay.locale: 'fr_FR'
+  hipay.timezone: 'Europe/Paris'
 
   ftp.host: ~
   ftp.username: ~
@@ -28,9 +30,7 @@ parameters:
   debug: false
 
   #the log file path,
-  #{date} will be replaced by the date of execution of the command
-  #{name} will be replace by the name of the command
-  log.file.path: '/var/log/hipay-{name}-{date}.log'
+  log.file.path: '/var/log/hipay.log'
 
   mail.host: ~
   mail.port: ~
@@ -39,6 +39,3 @@ parameters:
   mail.subject: ~
   mail.to: ~
   mail.from: ~
-
-  locale: 'fr_FR'
-  timezone: 'Europe\Paris'

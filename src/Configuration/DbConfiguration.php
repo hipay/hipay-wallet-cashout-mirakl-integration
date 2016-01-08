@@ -16,35 +16,35 @@ namespace Hipay\SilexIntegration\Configuration;
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  */
-class DbConfiguration
+class DbConfiguration extends AbstractConfiguration
 {
     public function getHost()
     {
-        return ParameterAccessor::getParameter('db.host');
+        return $this->parameters['db.host'];
     }
 
     public function getPort()
     {
-        return ParameterAccessor::getParameter('db.port');
+        return $this->parameters['db.port'];
     }
 
     public function getUsername()
     {
-        return ParameterAccessor::getParameter('db.username');
+        return $this->parameters['db.username'];
     }
 
     public function getPassword()
     {
-        return ParameterAccessor::getParameter('db.password');
+        return $this->parameters['db.password'];
     }
 
     public function getDatabaseName()
     {
-        return ParameterAccessor::getParameter('db.name');
+        return $this->parameters['db.name'];
     }
 
     public function getDebug()
     {
-        return ParameterAccessor::getParameter('doctrine.debug');
+        return $this->parameters['debug'];
     }
 }

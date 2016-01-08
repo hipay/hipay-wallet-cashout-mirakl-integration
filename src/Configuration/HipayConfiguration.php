@@ -12,7 +12,7 @@ namespace Hipay\SilexIntegration\Configuration;
 
 use Hipay\MiraklConnector\Api\Hipay\ConfigurationInterface;
 
-class HipayConfiguration implements ConfigurationInterface
+class HipayConfiguration extends AbstractConfiguration implements ConfigurationInterface
 {
 
     /**
@@ -21,7 +21,7 @@ class HipayConfiguration implements ConfigurationInterface
      */
     public function getWebServiceLogin()
     {
-        return ParameterAccessor::getParameter('hipay.wsLogin');
+        return $this->parameters['hipay.wsLogin'];
     }
 
     /**
@@ -30,7 +30,7 @@ class HipayConfiguration implements ConfigurationInterface
      */
     public function getWebServicePassword()
     {
-        return ParameterAccessor::getParameter('hipay.wsPassword');
+        return $this->parameters['hipay.wsPassword'];
     }
 
     /**
@@ -40,7 +40,7 @@ class HipayConfiguration implements ConfigurationInterface
      */
     public function getBaseUrl()
     {
-        return ParameterAccessor::getParameter('hipay.baseUrl');
+        return $this->parameters['hipay.baseUrl'];
     }
 
     /**
@@ -52,5 +52,30 @@ class HipayConfiguration implements ConfigurationInterface
     public function getOptions()
     {
         return array();
+    }
+
+    /**
+     * Return the entity given to the merchant by Hipay
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->parameters['hipay.entity'];
+    }
+
+    /**
+     * Returns the locale used in the webservice calls
+     */
+    public function getLocale()
+    {
+        return $this->parameters['hipay.locale'];
+    }
+
+    /**
+     * Returns the timezone used in the webservice calls
+     */
+    public function getTimezone()
+    {
+        return $this->parameters['hipay.timezone'];
     }
 }

@@ -5,12 +5,10 @@ use Hipay\MiraklConnector\Api\Mirakl\ConfigurationInterface;
 /**
  * File MirkalConfiguration.php
  *
- * @category
- * @package
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  */
-class MiraklConfiguration implements ConfigurationInterface
+class MiraklConfiguration extends AbstractConfiguration implements ConfigurationInterface
 {
 
     /**
@@ -20,7 +18,7 @@ class MiraklConfiguration implements ConfigurationInterface
      */
     public function getFrontKey()
     {
-        return ParameterAccessor::getParameter('mirakl.frontKey');
+        return $this->parameters['mirakl.frontKey'];
     }
 
     /**
@@ -30,7 +28,7 @@ class MiraklConfiguration implements ConfigurationInterface
      */
     public function getShopKey()
     {
-        return ParameterAccessor::getParameter('mirakl.shopKey');
+        return $this->parameters['mirakl.shopKey'];
     }
 
     /**
@@ -40,7 +38,7 @@ class MiraklConfiguration implements ConfigurationInterface
      */
     public function getOperatorKey()
     {
-        return ParameterAccessor::getParameter('mirakl.operatorKey');
+        return $this->parameters['mirakl.operatorKey'];
     }
 
     /**
@@ -50,7 +48,7 @@ class MiraklConfiguration implements ConfigurationInterface
      */
     public function getBaseUrl()
     {
-        return ParameterAccessor::getParameter('mirakl.baseUrl');
+        return $this->parameters['mirakl.baseUrl'];
     }
 
     /**

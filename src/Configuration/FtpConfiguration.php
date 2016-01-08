@@ -12,31 +12,31 @@ namespace Hipay\SilexIntegration\Configuration;
 
 use Hipay\MiraklConnector\Service\Ftp\ConfigurationInterface;
 
-class FtpConfiguration implements ConfigurationInterface
+class FtpConfiguration extends AbstractConfiguration implements ConfigurationInterface
 {
 
     public function getHost()
     {
-        return ParameterAccessor::getParameter('ftp.host');
+        return $this->parameters['ftp.host'];
     }
 
     public function getPort()
     {
-        return ParameterAccessor::getParameter('ftp.port');
+        return $this->parameters['ftp.port'];
     }
 
     public function getUsername()
     {
-        return ParameterAccessor::getParameter('ftp.username');
+        return $this->parameters['ftp.username'];
     }
 
     public function getPassword()
     {
-        return ParameterAccessor::getParameter('ftp.password');
+        return $this->parameters['ftp.password'];
     }
 
     public function getConnectionType()
     {
-        return ParameterAccessor::getParameter('ftp.connectionType');
+        return $this->parameters['ftp.connectionType'];
     }
 }
