@@ -8,24 +8,53 @@
  */
 const ROOT_PATH = __DIR__;
 
-require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../app/bootstrap.php';
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner as ORMConsoleRunner;
 use Hipay\SilexIntegration\Command\Vendor\ProcessCommand as VendorProcessCommand;
 use Hipay\SilexIntegration\Command\Cashout\ProcessCommand as CashoutProcessCommand;
 use Hipay\SilexIntegration\Command\Cashout\GenerateCommand as CashoutGenerateCommand;
+use Hipay\SilexIntegration\Command\Vendor\RecordCommand;
 use Symfony\Component\Console\Application;
 
-$console = new Application("Hipay Mirkal Connector Console");
+$console = new Application("Hipay Mirakl Connector Console");
+
+
+$console->setHelperSet($helperSet);
+
+$console->setCatchExceptions(true);
 
 ORMConsoleRunner::addCommands($console);
 
+$vendorProcessCommand = new VendorProcessCommand($logger, $vendorProcessor);
+$vendorProcessCommand->setZipPath($parameters['default.zip.path']);
+$vendorProcessCommand->setFtpPath($parameters['default.ftp.path']);
+
+$cashoutGenerateCommand = new CashoutGenerateCommand(
+    $logger,
+    $cashoutInitializer,
+    $parameters['cycle.days'],
+    $parameters['cycle.hour'],
+    $parameters['cycle.minute'],
+    $parameters['cycle.interval.before'],
+    $parameters['cycle.interval.after']
+);
+
+$cashoutProcessCommand = new CashoutProcessCommand(
+    $logger,
+    $cashoutProcessor,
+    $parameters['label.public'],
+    $parameters['label.private'],
+    $parameters['label.withdraw']
+);
+
+$vendorRecordCommand = new RecordCommand($logger, $vendorProcessor);
 $console->addCommands(
     array(
-        new VendorProcessCommand($entityManager),
-        new CashoutProcessCommand($entityManager),
-        new CashoutGenerateCommand($entityManager)
+        $vendorProcessCommand,
+        $vendorRecordCommand,
+        $cashoutProcessCommand,
+        $cashoutGenerateCommand
     )
 );
 

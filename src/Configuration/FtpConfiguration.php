@@ -39,4 +39,24 @@ class FtpConfiguration extends AbstractConfiguration implements ConfigurationInt
     {
         return $this->parameters['ftp.connectionType'];
     }
+
+    /**
+     * Returns the ftp timeout
+     *
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->parameters['ftp.timeout'];
+    }
+
+    /**
+     * Return the true if connection is passive, false otherwise
+     *
+     * @return boolean
+     */
+    public function isPassive()
+    {
+        return $this->parameters['ftp.passive'];
+    }
 }

@@ -1,0 +1,194 @@
+<?php
+namespace Hipay\SilexIntegration\Entity;
+
+use DateTime;
+use Hipay\MiraklConnector\Cashout\Model\Operation\OperationInterface;
+use Hipay\MiraklConnector\Cashout\Model\Operation\Status;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Class Operation
+ *
+ * @ORM\Entity(repositoryClass="Hipay\SilexIntegration\Entity\OperationRepository")
+ * @ORM\Table(name="operations")
+ */
+class Operation implements OperationInterface
+{
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", unique=true, nullable=false)
+     */
+    protected $miraklId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", unique=true, nullable=false)
+     */
+    protected $hipayId;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float", nullable=false)
+     */
+    protected $amount;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    protected $cycleDate;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", unique=true, nullable=true)
+     */
+    protected $withdrawId;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", unique=true, nullable=true)
+     */
+    protected $transferId;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", unique=false, nullable=false)
+     */
+    protected $status;
+
+    /**
+     * @return mixed
+     */
+    public function getMiraklId()
+    {
+        return $this->miraklId;
+    }
+
+    /**
+     * @param mixed $miraklId
+     */
+    public function setMiraklId($miraklId)
+    {
+        $this->miraklId = $miraklId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHipayId()
+    {
+        return $this->hipayId;
+    }
+
+    /**
+     * @param mixed $hipayId
+     */
+    public function setHipayId($hipayId)
+    {
+        $this->hipayId = $hipayId;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @param float $amount
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCycleDate()
+    {
+        return $this->cycleDate;
+    }
+
+    /**
+     * @param DateTime $cycleDate
+     * @return void
+     */
+    public function setCycleDate(DateTime $cycleDate)
+    {
+        $this->cycleDate = $cycleDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWithdrawId()
+    {
+        return $this->withdrawId;
+    }
+
+    /**
+     * @param mixed $hipayWithdrawId
+     */
+    public function setWithdrawId($hipayWithdrawId)
+    {
+        $this->withdrawId = $hipayWithdrawId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return new Status($this->status);
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus(Status $status)
+    {
+        $this->status = $status->getValue();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     * @Assert\Type(type="integer")
+     */
+    public function getTransferId()
+    {
+        return $this->transferId;
+    }
+
+    /**
+     * @param int $transferId
+     */
+    public function setTransferId($transferId)
+    {
+        $this->transferId = $transferId;
+    }
+}

@@ -17,6 +17,8 @@ parameters:
   ftp.password: ~
   ftp.port: 21
   ftp.connectionType: 'ftp'
+  ftp.timeout: 90
+  ftp.passive: false
 
   default.zip.path: '/tmp/documents.zip'
   default.ftp.path: '/'
@@ -35,7 +37,28 @@ parameters:
   mail.host: ~
   mail.port: ~
   mail.security: ~
+  mail.username: ~
+  mail.password: ~
 
   mail.subject: ~
   mail.to: ~
   mail.from: ~
+
+  label.public: ~
+  label.private: ~
+  label.withdraw: ~
+
+  cycle.days:
+    - 01
+    - 11
+    - 21
+  cycle.hour: 0
+  cycle.minute: 1
+  cycle.interval.before: '12h'
+  cycle.interval.after: '12h'
+
+  account.technical.email: ~
+  account.technical.hipayId: ~
+
+  account.operator.email : ~
+  account.operator.hipayId : ~

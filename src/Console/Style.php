@@ -1,6 +1,7 @@
 <?php
 namespace Hipay\SilexIntegration\Console;
 
+use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -24,7 +25,18 @@ class Style extends SymfonyStyle
      */
     public function note($message)
     {
-        $this->block($message, 'NOTE', 'fg=cyan', ' ! ');
+        $this->block($message, 'NOTE', 'fg=cyan');
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function subSection($message)
+    {
+        $this->writeln(array(
+            sprintf('<comment>%s</comment>', $message),
+            sprintf('<comment>%s</comment>', str_repeat('.', Helper::strlenWithoutDecoration($this->getFormatter(), $message))),
+        ));
+        $this->newLine();
+    }
 }
