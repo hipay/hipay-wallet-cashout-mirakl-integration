@@ -99,4 +99,13 @@ class VendorRepository extends EntityRepository implements ManagerInterface
         $this->_em->persist($vendor);
         $this->_em->flush();
     }
+
+    /**
+     * @param $vendor
+     * @return boolean
+     */
+    public function isValid(VendorInterface $vendor)
+    {
+        return true;
+    }
 }

@@ -56,10 +56,15 @@ class ProcessCommand extends AbstractCommand
     {
         $inputedDate =  $input->getArgument(self::LAST_UPDATE);
         $lastUpdate = $inputedDate ? \DateTime::createFromFormat('Y-m-d',$inputedDate) : null;
-        $this->logger->info("Inputed last update {date}", array('date' => $lastUpdate));
+        $this->logger->debug("Inputed last update {date}", array('date' => $lastUpdate));
 
         $zipPath = $input->getArgument(self::ZIP_PATH) ?: static::DEFAULT_ZIP_PATH;
+
         $ftpPath = $input->getArgument(self::FTP_PATH) ?: static::DEFAULT_FTP_PATH;
+        $this->logger->debug(
+            "Arguments \n lastUpdate : $lastUpdate \n zipPath : $zipPath \n ftpPath : $ftpPath ",
+            array('zipPath' => $zipPath, 'lastUpdated' => $lastUpdate, 'ftpPath' => $ftpPath)
+        );
 
         try {
             $this->processor->process($zipPath, $ftpPath, $lastUpdate);

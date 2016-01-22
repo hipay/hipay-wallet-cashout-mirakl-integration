@@ -19,10 +19,11 @@ use Symfony\Component\Console\Application;
 
 $console = new Application("Hipay Mirakl Connector Console");
 
-
 $console->setHelperSet($helperSet);
 
 $console->setCatchExceptions(true);
+
+$console->setDispatcher($eventDispatcher);
 
 ORMConsoleRunner::addCommands($console);
 
@@ -49,13 +50,14 @@ $cashoutProcessCommand = new CashoutProcessCommand(
 );
 
 $vendorRecordCommand = new RecordCommand($logger, $vendorProcessor);
-$console->addCommands(
-    array(
-        $vendorProcessCommand,
-        $vendorRecordCommand,
-        $cashoutProcessCommand,
-        $cashoutGenerateCommand
-    )
+
+$commands = array(
+    $vendorProcessCommand,
+    $vendorRecordCommand,
+    $cashoutProcessCommand,
+    $cashoutGenerateCommand
 );
+
+$console->addCommands($commands);
 
 $console->run();

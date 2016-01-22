@@ -1,17 +1,9 @@
 <?php
-/**
- * File OperationRepository.php
- *
- * @category
- * @package
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
- */
-
 namespace Hipay\SilexIntegration\Entity;
 
-
 use DateTime;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\ExpressionBuilder;
 use Doctrine\ORM\EntityRepository;
 use Hipay\MiraklConnector\Cashout\Model\Operation\ManagerInterface;
 use Hipay\MiraklConnector\Cashout\Model\Operation\OperationInterface;
@@ -64,18 +56,6 @@ class OperationRepository extends EntityRepository implements ManagerInterface
     }
 
     /**
-     * Check if an operation is savable
-     *
-     * @param OperationInterface $operation
-     *
-     * @return bool
-     */
-    public function isSavable(OperationInterface $operation)
-    {
-        // TODO: Implement isSavable() method.
-    }
-
-    /**
      * Finds operations
      *
      * @param Status $status status to filter upon
@@ -99,6 +79,62 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      */
     public function findByTransactionId($transactionId)
     {
-        // TODO: Implement findByTransactionId() method.
+        return $this->findOneBy(array("withdrawId" => $transactionId));
+    }
+
+    /**
+     * Check if an operation is valid
+     *
+     * @param OperationInterface $operation
+     *
+     * @return bool
+     */
+    public function isValid(OperationInterface $operation)
+    {
+        return true;
+    }
+
+    /**
+     * Finds operations
+     *
+     * @param Status $status status to filter upon
+     *
+     * @return OperationInterface[]
+     */
+    public function findByStatus(Status $status)
+    {
+        $this->findBy(array("status" => $status->getValue()));
+    }
+
+    /**
+     * Finds an operation
+     *
+     * @param int $hipayId |false if operator
+     * @param DateTime $date optional date to filter upon
+     *
+     * @return OperationInterface|null
+     */
+    public function findByHipayIdAndCycleDate(
+        $hipayId,
+        DateTime $date
+    )
+    {
+        $criteria = new Criteria();
+        $exprBuilder = new ExpressionBuilder();
+        $criteria->where($exprBuilder->eq('hipayId', $hipayId));
+        $criteria->andWhere($exprBuilder->eq('cycleDate', $date));
+        $this->matching($criteria);
+    }
+
+    /**
+     * Find an operation by transactionId
+     *
+     * @param $withdrawalId
+     *
+     * @return OperationInterface|null
+     */
+    public function findByWithdrawalId($withdrawalId)
+    {
+        $this->findOneBy(array("withdrawId" => $withdrawalId));
     }
 }

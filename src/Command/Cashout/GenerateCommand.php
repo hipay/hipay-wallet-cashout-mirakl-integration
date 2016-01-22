@@ -29,12 +29,16 @@ class GenerateCommand extends AbstractCommand
 
     /** @var  array  */
     protected $cycleDays;
+
     /** @var  int */
     protected $cycleHour;
+
     /** @var  int */
     protected $cycleMinute;
+
     /** @var */
     protected $cycleIntervalBefore;
+
     /** @var */
     protected $cycleIntervalAfter;
 
@@ -110,10 +114,23 @@ class GenerateCommand extends AbstractCommand
         $cycleDate = $cycleDate ? new DateTime($cycleDate) : $this->getCycleDate($this->cycleDays, $cronDate);
 
         $cycleStartDate = clone $cycleDate;
-        $cycleStartDate->sub(DateInterval::createFromDateString($input->getOption(self::INTERVAL_BEFORE)));
+        $intervalBefore = DateInterval::createFromDateString($input->getOption(self::INTERVAL_BEFORE));
+        $cycleStartDate->sub($intervalBefore);
         $cycleEndDate = clone $cycleDate;
-        $cycleEndDate->add(DateInterval::createFromDateString($input->getOption(self::INTERVAL_AFTER)));
+        $intervalAfter = DateInterval::createFromDateString($input->getOption(self::INTERVAL_AFTER));
+        $cycleEndDate->add($intervalAfter);
 
+        $format = '%y years %m months %d days %h hours %m minutes %i seconds';
+        $this->logger->debug("Arguments : \n" .
+            "Cycle date : {$cycleDate->format('Y-m-d H:i')}\n".
+            "Interval before : {$intervalBefore->format($format)}\n".
+            "Interval after : {$intervalBefore->format($format)}\n",
+            array(
+                'cycleDate' => $cycleDate,
+                'intervalBefore' => $intervalBefore,
+                'intervalAfter' => $intervalAfter
+            )
+        );
         try {
             $this->processor->process($cycleStartDate, $cycleEndDate, $cycleDate);
         } catch (Exception $e) {

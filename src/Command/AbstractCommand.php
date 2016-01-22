@@ -1,8 +1,15 @@
 <?php
 namespace Hipay\SilexIntegration\Command;
 
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\PsrHandler;
+use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Hipay\SilexIntegration\Console\Logger as ConsoleLogger;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * File AbstractCommand.php
@@ -25,4 +32,19 @@ abstract class AbstractCommand extends Command
         $this->logger = $logger;
     }
 
+    public function initialize(InputInterface $input, OutputInterface $output)
+    {
+        parent::initialize($input, $output);
+    }
+
+    public function addDebugLogger(Logger $logger, SymfonyStyle $output) {
+        $lineFormatter = new LineFormatter("[%datetime%] %channel%.%level_name%: %message%\n");
+        $lineFormatter->allowInlineLineBreaks(true);
+        $lineFormatter->ignoreEmptyContextAndExtra(true);
+
+        $stdoutHandler = new PsrHandler(new ConsoleLogger($output));
+        $stdoutHandler->setFormatter($lineFormatter);
+
+        $logger->pushHandler($stdoutHandler);
+    }
 }

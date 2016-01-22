@@ -14,22 +14,26 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Hipay\MiraklConnector\Vendor\Processor as VendorProcessor;
 use Hipay\MiraklConnector\Cashout\Initializer as CashoutInitializer;
+use Hipay\MiraklConnector\Cashout\Processor as CashoutProcessor;
 use Hipay\MiraklConnector\Notification\Handler as NotificationHandler;
+use Hipay\SilexIntegration\Command\AbstractCommand;
 use Hipay\SilexIntegration\Configuration\DbConfiguration;
 use Hipay\SilexIntegration\Configuration\FtpConfiguration;
 use Hipay\SilexIntegration\Configuration\HipayConfiguration;
 use Hipay\SilexIntegration\Configuration\MiraklConfiguration;
+use Hipay\SilexIntegration\Console\Style;
 use Hipay\SilexIntegration\Entity\OperationRepository;
 use Hipay\SilexIntegration\Entity\Vendor;
 use Hipay\SilexIntegration\Entity\VendorRepository;
 use Hipay\SilexIntegration\Model\TransactionValidator;
 use Hipay\SilexIntegration\Parameter\Accessor;
-use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\FilterHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator;
@@ -69,18 +73,6 @@ $helperSet = ConsoleRunner::createHelperSet($entityManager);
 
 $logger = new Logger("hipay");
 
-if ($debug) {
-    $lineFormatter = new LineFormatter("[%datetime%] %channel%.%level_name%: %message%\n");
-    $lineFormatter->allowInlineLineBreaks(true);
-    $lineFormatter->ignoreEmptyContextAndExtra(true);
-
-    $stdoutHandler = new StreamHandler(STDOUT);
-    $stdoutHandler->setFormatter($lineFormatter);
-
-    $logger->pushHandler($stdoutHandler);
-}
-
-
 $logFilePath = $parameters['log.file.path'] ?: DEFAULT_LOG_PATH;
 $logger->pushHandler(new FilterHandler(new StreamHandler($logFilePath),Logger::WARNING));
 
@@ -106,7 +98,7 @@ $messageTemplate->setCharset('utf-8');
 $logger->pushHandler(
     new FilterHandler(
         new SwiftMailerHandler($mailer, $messageTemplate),
-        Logger::ALERT
+        Logger::CRITICAL
     )
 );
 
@@ -122,6 +114,17 @@ $hipayConfiguration = new HipayConfiguration($parameters);
 $ftpConfiguration = new FtpConfiguration($parameters);
 
 $eventDispatcher = new EventDispatcher();
+
+$eventDispatcher->addListener(
+    ConsoleEvents::COMMAND,
+    function (ConsoleCommandEvent $event, $eventName, $dispatcher) use ($parameters, $logger){
+        $command = $event->getCommand();
+        if ($parameters['debug'] && $command instanceof AbstractCommand) {
+            $style = new Style($event->getInput(), $event->getOutput());
+            $command->addDebugLogger($logger, $style);
+        }
+    }
+);
 
 /** @var VendorRepository $vendorRepository */
 $vendorRepository = $entityManager->getRepository('Hipay\\SilexIntegration\\Entity\\Vendor');
@@ -160,10 +163,11 @@ $cashoutInitializer = new CashoutInitializer(
     $operatorAccount,
     $technicalAccount,
     $transactionValidator,
-    $operationRepository
+    $operationRepository,
+    $vendorRepository
 );
 
-$cashoutProcessor = new Hipay\MiraklConnector\Cashout\Processor(
+$cashoutProcessor = new CashoutProcessor(
     $miraklConfiguration,
     $hipayConfiguration,
     $eventDispatcher,

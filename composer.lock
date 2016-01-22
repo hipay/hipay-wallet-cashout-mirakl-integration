@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "34c7366f32d2833699ba00f43a85466a",
-    "content-hash": "f9ff604a8d3f8cc62c986bb93a1576c3",
+    "hash": "18a34da57cbab0ea0665cbbc1a35e591",
+    "content-hash": "302a5ebd0c909ea4bfbc8a0ce087482d",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -766,12 +766,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "3ef860cbebb92dc55d763285051155049c30514a"
+                "reference": "987e213b87c96bc1af52bbda2a6ed5c76a51a0c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/3ef860cbebb92dc55d763285051155049c30514a",
-                "reference": "3ef860cbebb92dc55d763285051155049c30514a",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/987e213b87c96bc1af52bbda2a6ed5c76a51a0c2",
+                "reference": "987e213b87c96bc1af52bbda2a6ed5c76a51a0c2",
                 "shasum": ""
             },
             "require": {
@@ -809,7 +809,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-01-21 18:12:34"
+            "time": "2016-01-22 18:04:14"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1404,6 +1404,79 @@
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
             "time": "2016-01-13 10:28:07"
+        },
+        {
+            "name": "symfony/doctrine-bridge",
+            "version": "v2.8.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/doctrine-bridge.git",
+                "reference": "a9039c3325bde9802e61bd446d8d1768c249daa3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/doctrine-bridge/zipball/a9039c3325bde9802e61bd446d8d1768c249daa3",
+                "reference": "a9039c3325bde9802e61bd446d8d1768c249daa3",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "~2.4",
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "doctrine/data-fixtures": "1.0.*",
+                "doctrine/dbal": "~2.4",
+                "doctrine/orm": "~2.4,>=2.4.5",
+                "symfony/dependency-injection": "~2.2|~3.0.0",
+                "symfony/expression-language": "~2.2|~3.0.0",
+                "symfony/form": "~2.8|~3.0.0",
+                "symfony/http-kernel": "~2.2|~3.0.0",
+                "symfony/property-access": "~2.3|~3.0.0",
+                "symfony/property-info": "~2.8|3.0",
+                "symfony/security": "~2.2|~3.0.0",
+                "symfony/stopwatch": "~2.2|~3.0.0",
+                "symfony/translation": "~2.0,>=2.0.5|~3.0.0",
+                "symfony/validator": "~2.5,>=2.5.5|~3.0.0"
+            },
+            "suggest": {
+                "doctrine/data-fixtures": "",
+                "doctrine/dbal": "",
+                "doctrine/orm": "",
+                "symfony/form": "",
+                "symfony/property-info": "",
+                "symfony/validator": ""
+            },
+            "type": "symfony-bridge",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Bridge\\Doctrine\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Doctrine Bridge",
+            "homepage": "https://symfony.com",
+            "time": "2016-01-12 17:46:01"
         },
         {
             "name": "symfony/event-dispatcher",

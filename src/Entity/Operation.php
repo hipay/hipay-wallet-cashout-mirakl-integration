@@ -7,12 +7,12 @@ use Hipay\MiraklConnector\Cashout\Model\Operation\Status;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Operation
  *
  * @ORM\Entity(repositoryClass="Hipay\SilexIntegration\Entity\OperationRepository")
  * @ORM\Table(name="operations")
+ *
  */
 class Operation implements OperationInterface
 {
@@ -27,28 +27,28 @@ class Operation implements OperationInterface
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", unique=false, nullable=false)
      */
     protected $miraklId;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", unique=false, nullable=false)
      */
     protected $hipayId;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float", nullable=false)
+     * @ORM\Column(type="float", unique=false, nullable=false)
      */
     protected $amount;
 
     /**
      * @var DateTime
      *
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", unique=false, nullable=false)
      */
     protected $cycleDate;
 
@@ -156,7 +156,7 @@ class Operation implements OperationInterface
      */
     public function getStatus()
     {
-        return new Status($this->status);
+        return $this->status;
     }
 
     /**
