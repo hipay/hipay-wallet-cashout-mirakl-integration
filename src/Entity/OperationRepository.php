@@ -65,10 +65,14 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      */
     public function findByStatusAndCycleDate(
         Status $status,
-        DateTime $date = null
+        DateTime $date
     )
     {
-        // TODO: Implement findByStatusAndCycleDate() method.
+        $criteria = new Criteria();
+        $exprBuilder = new ExpressionBuilder();
+        $criteria->where($exprBuilder->eq('status', $status->getValue()));
+        $criteria->andWhere($exprBuilder->eq('cycleDate', $date));
+        return $this->matching($criteria);
     }
 
     /**
@@ -103,7 +107,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      */
     public function findByStatus(Status $status)
     {
-        $this->findBy(array("status" => $status->getValue()));
+        return $this->findBy(array("status" => $status->getValue()));
     }
 
     /**
@@ -119,11 +123,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
         DateTime $date
     )
     {
-        $criteria = new Criteria();
-        $exprBuilder = new ExpressionBuilder();
-        $criteria->where($exprBuilder->eq('hipayId', $hipayId));
-        $criteria->andWhere($exprBuilder->eq('cycleDate', $date));
-        $this->matching($criteria);
+        return $this->findOneBy(array("hipayId" => $hipayId, 'cycleDate' => $date));
     }
 
     /**
@@ -135,6 +135,6 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      */
     public function findByWithdrawalId($withdrawalId)
     {
-        $this->findOneBy(array("withdrawId" => $withdrawalId));
+        return $this->findOneBy(array("withdrawId" => $withdrawalId));
     }
 }
