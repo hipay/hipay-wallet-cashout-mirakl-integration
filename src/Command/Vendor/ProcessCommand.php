@@ -45,7 +45,7 @@ class ProcessCommand extends AbstractCommand
     {
         $this->setName('vendor:process')
             ->setDescription('Update the vendors data')
-            ->addArgument(self::LAST_UPDATE, InputArgument::OPTIONAL, 'The last time the database was updated')
+            ->addArgument(self::LAST_UPDATE, InputArgument::OPTIONAL, 'The last time the database was updated (Format : Y-m-d)')
             ->addArgument(self::ZIP_PATH, InputArgument::OPTIONAL, 'The path where to save the zip file', $this->zipPath)
             ->addArgument(self::FTP_PATH, InputArgument::OPTIONAL, 'The path on the ftp where to save the documents', $this->ftpPath);
     }
@@ -62,7 +62,7 @@ class ProcessCommand extends AbstractCommand
 
         $ftpPath = $input->getArgument(self::FTP_PATH) ?: static::DEFAULT_FTP_PATH;
         $this->logger->debug(
-            "Arguments \n lastUpdate : $lastUpdate \n zipPath : $zipPath \n ftpPath : $ftpPath ",
+            "Arguments \n lastUpdate : $inputedDate \n zipPath : $zipPath \n ftpPath : $ftpPath ",
             array('zipPath' => $zipPath, 'lastUpdated' => $lastUpdate, 'ftpPath' => $ftpPath)
         );
 
