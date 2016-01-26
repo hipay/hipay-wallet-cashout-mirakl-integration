@@ -113,17 +113,16 @@ class OperationRepository extends EntityRepository implements ManagerInterface
     /**
      * Finds an operation
      *
-     * @param int $hipayId |false if operator
+     * @param int $miraklId
      * @param DateTime $date optional date to filter upon
-     *
      * @return OperationInterface|null
      */
-    public function findByHipayIdAndCycleDate(
-        $hipayId,
+    public function findByMiraklIdAndCycleDate(
+        $miraklId,
         DateTime $date
     )
     {
-        return $this->findOneBy(array("hipayId" => $hipayId, 'cycleDate' => $date));
+        return $this->findOneBy(array("hipayId" => $miraklId, 'cycleDate' => $date));
     }
 
     /**
