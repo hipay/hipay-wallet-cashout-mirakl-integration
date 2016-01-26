@@ -1,13 +1,15 @@
 parameters:
-
+  #Mirakl Configuration
   mirakl.frontKey: ~
   mirakl.shopKey: ~
   mirakl.operatorKey: ~
   mirakl.baseUrl: ~
 
+  #Hipay configuration
   hipay.wsLogin: ~
   hipay.wsPassword: ~
   hipay.baseUrl: ~
+  ## To get from hipay
   hipay.entity: ~
   hipay.locale: 'fr_FR'
   hipay.timezone: 'Europe/Paris'
@@ -23,6 +25,7 @@ parameters:
   default.zip.path: '/tmp/documents.zip'
   default.ftp.path: '/'
 
+  db.driver: 'pdo_mysql'
   db.host: ~
   db.username: ~
   db.password: ~

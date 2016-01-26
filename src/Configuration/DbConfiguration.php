@@ -43,8 +43,8 @@ class DbConfiguration extends AbstractConfiguration
         return $this->parameters['db.name'];
     }
 
-    public function getDebug()
+    public function getDriver()
     {
-        return $this->parameters['debug'];
+        return $this->parameters['db.driver'];
     }
 }

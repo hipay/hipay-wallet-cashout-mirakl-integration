@@ -52,11 +52,11 @@ $debug = $parameters['debug'];
 
 $dbConfiguration = new DbConfiguration($parameters);
 
-$isDevMode = $dbConfiguration->getDebug();
+$isDevMode = $debug;
 
 // the connection configuration
 $dbParams = array(
-    'driver'   => 'pdo_mysql',
+    'driver'   => $dbConfiguration->getDriver(),
     'user'     => $dbConfiguration->getUsername(),
     'password' => $dbConfiguration->getPassword(),
     'dbname'   => $dbConfiguration->getDatabaseName(),
