@@ -122,7 +122,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
         DateTime $date
     )
     {
-        return $this->findOneBy(array("hipayId" => $miraklId, 'cycleDate' => $date));
+        return $this->findOneBy(array("miraklId" => $miraklId, 'cycleDate' => $date));
     }
 
     /**
