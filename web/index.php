@@ -12,8 +12,9 @@ const ROOT_PATH = __DIR__;
 require_once __DIR__ . '/../app/bootstrap.php';
 
 $app = new Silex\Application();
-$app->post('/',function (Request $request) use ($app, $notificationHandler) {
+$app->post('/', function (Request $request) use ($app, $notificationHandler) {
     $notificationHandler->handleHipayNotification($request->get('xml'));
+    return 'Notification handled';
 });
 
 $app->get('/', function () {
