@@ -64,7 +64,7 @@ class GenerateCommand extends AbstractCommand
     {
 
         $this->processor = $processor;
-        $this->cycleDays = $cycleDays;
+        $this->cycleDays =  is_array($cycleDays) ? $cycleDays : array($cycleDays);
         $this->cycleHour = $cycleHour;
         $this->cycleMinute = $cycleMinute;
         $this->cycleIntervalBefore = $cycleIntervalBefore;
