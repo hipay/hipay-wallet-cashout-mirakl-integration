@@ -5,6 +5,7 @@ use Hipay\SilexIntegration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Hipay\MiraklConnector\Vendor\Processor as VendorProcessor;
 
@@ -46,8 +47,8 @@ class ProcessCommand extends AbstractCommand
         $this->setName('vendor:process')
             ->setDescription('Update the vendors data')
             ->addArgument(self::LAST_UPDATE, InputArgument::OPTIONAL, 'The last time the database was updated (Format : Y-m-d)')
-            ->addArgument(self::ZIP_PATH, InputArgument::OPTIONAL, 'The path where to save the zip file', $this->zipPath)
-            ->addArgument(self::FTP_PATH, InputArgument::OPTIONAL, 'The path on the ftp where to save the documents', $this->ftpPath);
+            ->addOption(self::ZIP_PATH, 'z',InputOption::VALUE_REQUIRED, 'The path where to save the zip file', $this->zipPath)
+            ->addOption(self::FTP_PATH, 'f', InputOption::VALUE_REQUIRED, 'The path on the ftp where to save the documents', $this->ftpPath);
     }
 
 
@@ -58,9 +59,9 @@ class ProcessCommand extends AbstractCommand
         $lastUpdate = $inputedDate ? \DateTime::createFromFormat('Y-m-d',$inputedDate) : null;
         $this->logger->debug("Inputed last update {date}", array('date' => $lastUpdate));
 
-        $zipPath = $input->getArgument(self::ZIP_PATH) ?: static::DEFAULT_ZIP_PATH;
+        $zipPath = $input->getOption(self::ZIP_PATH) ?: static::DEFAULT_ZIP_PATH;
 
-        $ftpPath = $input->getArgument(self::FTP_PATH) ?: static::DEFAULT_FTP_PATH;
+        $ftpPath = $input->getOption(self::FTP_PATH) ?: static::DEFAULT_FTP_PATH;
         $this->logger->debug(
             "Arguments \n lastUpdate : $inputedDate \n zipPath : $zipPath \n ftpPath : $ftpPath ",
             array('zipPath' => $zipPath, 'lastUpdated' => $lastUpdate, 'ftpPath' => $ftpPath)
