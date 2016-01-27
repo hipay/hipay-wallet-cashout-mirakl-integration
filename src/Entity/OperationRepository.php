@@ -12,7 +12,6 @@ use Hipay\MiraklConnector\Vendor\Model\VendorInterface;
 
 class OperationRepository extends EntityRepository implements ManagerInterface
 {
-
     /**
      * Save a batch of operation
      *
@@ -52,7 +51,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      *
      * @return OperationInterface[]
      */
-    public function findByStatusAndCycleDate(
+    public function findByStatusAndAfterCycleDate(
         Status $status,
         DateTime $date
     )
@@ -60,7 +59,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
         $criteria = new Criteria();
         $exprBuilder = new ExpressionBuilder();
         $criteria->where($exprBuilder->eq('status', $status->getValue()));
-        $criteria->andWhere($exprBuilder->eq('cycleDate', $date));
+        $criteria->andWhere($exprBuilder->gte('cycleDate', $date));
         return $this->matching($criteria);
     }
 
