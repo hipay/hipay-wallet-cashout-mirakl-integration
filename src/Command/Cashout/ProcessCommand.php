@@ -53,11 +53,7 @@ class ProcessCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $this->processor->process(
-                $this->publicLabelTemplate,
-                $this->privateLabelTemplate,
-                $this->withdrawLabelTemplate
-            );
+            $this->processor->process();
         } catch (Exception $e) {
             $this->logger->critical($e->getMessage());
         }

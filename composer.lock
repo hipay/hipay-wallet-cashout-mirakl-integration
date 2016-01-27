@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "18a34da57cbab0ea0665cbbc1a35e591",
-    "content-hash": "302a5ebd0c909ea4bfbc8a0ce087482d",
+    "hash": "4e08fca89434593fba75edf6b209cf75",
+    "content-hash": "6ec96c4dce405da7dac6ce30392dc0dd",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -766,23 +766,21 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "67de4a01f60bedfbef122fcc49b01e5dab0b0c87"
+                "reference": "cb0c2749e37f3135aa5189bec1f07fc208b760a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/67de4a01f60bedfbef122fcc49b01e5dab0b0c87",
-                "reference": "67de4a01f60bedfbef122fcc49b01e5dab0b0c87",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/cb0c2749e37f3135aa5189bec1f07fc208b760a4",
+                "reference": "cb0c2749e37f3135aa5189bec1f07fc208b760a4",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.2",
                 "ext-soap": "*",
                 "guzzlehttp/guzzle": "^3.8",
-                "mustache/mustache": "*",
                 "php": ">=5.3.9",
                 "psr/log": "*",
                 "symfony/event-dispatcher": "^2.8",
-                "symfony/expression-language": "^2.8",
                 "symfony/intl": "^2.8",
                 "symfony/validator": "^2.8",
                 "touki/ftp": "^1.2"
@@ -811,7 +809,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-01-27 10:43:45"
+            "time": "2016-01-27 14:11:56"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1539,55 +1537,6 @@
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
             "time": "2016-01-13 10:28:07"
-        },
-        {
-            "name": "symfony/expression-language",
-            "version": "v2.8.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/expression-language.git",
-                "reference": "720eb3405f14fddea22626cb69b64e6dac82a749"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/expression-language/zipball/720eb3405f14fddea22626cb69b64e6dac82a749",
-                "reference": "720eb3405f14fddea22626cb69b64e6dac82a749",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\ExpressionLanguage\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony ExpressionLanguage Component",
-            "homepage": "https://symfony.com",
-            "time": "2016-01-03 15:33:41"
         },
         {
             "name": "symfony/http-foundation",

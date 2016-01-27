@@ -9,9 +9,16 @@ use Hipay\MiraklConnector\Cashout\Model\Operation\ManagerInterface;
 use Hipay\MiraklConnector\Cashout\Model\Operation\OperationInterface;
 use Hipay\MiraklConnector\Cashout\Model\Operation\Status;
 use Hipay\MiraklConnector\Vendor\Model\VendorInterface;
+use Mustache_Engine;
 
 class OperationRepository extends EntityRepository implements ManagerInterface
 {
+    protected $privateLabelTemplate = "private {{miraklId}} – {{hipayId}} - {{cycleDate}}";
+
+    protected $publicLabelTemplate = "public {{miraklId}} – {{hipayId}} - {{cycleDate}}";
+
+    protected $withdrawLabelTemplate = "withdraw {{miraklId}} – {{hipayId}} - {{cycleDate}}";
+
     /**
      * Save a batch of operation
      *
@@ -60,7 +67,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
         $exprBuilder = new ExpressionBuilder();
         $criteria->where($exprBuilder->eq('status', $status->getValue()));
         $criteria->andWhere($exprBuilder->gte('cycleDate', $date));
-        return $this->matching($criteria);
+        return $this->matching($criteria)->toArray();
     }
 
     /**
@@ -140,5 +147,105 @@ class OperationRepository extends EntityRepository implements ManagerInterface
         $operation = new Operation();
         $operation->setMiraklId($miraklId);
         return $operation;
+    }
+
+    /**
+     * Generate the public label of a transfer operation
+     *
+     * @param OperationInterface $operation
+     *
+     * @return string
+     */
+    public function generatePublicLabel(OperationInterface $operation)
+    {
+        $m = new Mustache_Engine;
+        return $m->render($this->publicLabelTemplate, array(
+            'miraklId' => $operation->getMiraklId(),
+            'amount' => round($operation->getAmount(), 2),
+            'hipayId' => $operation->getHipayId(),
+            'cycleDate' => $operation->getCycleDate()->format('Y-m-d'),
+            'cycleDateTime' => $operation->getCycleDate()->format(
+                'Y-m-d H:i:s'
+            ),
+            'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
+            'date' => date('Y-m-d'),
+            'datetime' => date('Y-m-d H:i:s'),
+            'time' => date('H:i:s'),
+        ));
+    }
+
+    /**
+     * Generate the private label of a transfer operation
+     *
+     * @param OperationInterface $operation
+     *
+     * @return string
+     */
+    public function generatePrivateLabel(OperationInterface $operation)
+    {
+        $m = new Mustache_Engine;
+        return $m->render($this->privateLabelTemplate, array(
+            'miraklId' => $operation->getMiraklId(),
+            'amount' => round($operation->getAmount(), 2),
+            'hipayId' => $operation->getHipayId(),
+            'cycleDate' => $operation->getCycleDate()->format('Y-m-d'),
+            'cycleDateTime' => $operation->getCycleDate()->format(
+                'Y-m-d H:i:s'
+            ),
+            'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
+            'date' => date('Y-m-d'),
+            'datetime' => date('Y-m-d H:i:s'),
+            'time' => date('H:i:s'),
+        ));
+    }
+
+    /**
+     * Generate the label of a withdraw operation
+     *
+     * @param OperationInterface $operation
+     *
+     * @return string
+     */
+    public function generateWithdrawLabel(OperationInterface $operation)
+    {
+        $m = new Mustache_Engine;
+        return $m->render($this->withdrawLabelTemplate, array(
+            'miraklId' => $operation->getMiraklId(),
+            'amount' => round($operation->getAmount(), 2),
+            'hipayId' => $operation->getHipayId(),
+            'cycleDate' => $operation->getCycleDate()->format('Y-m-d'),
+            'cycleDateTime' => $operation->getCycleDate()->format(
+                'Y-m-d H:i:s'
+            ),
+            'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
+            'date' => date('Y-m-d'),
+            'datetime' => date('Y-m-d H:i:s'),
+            'time' => date('H:i:s'),
+        ));
+    }
+
+    /**
+     * @param mixed $privateLabelTemplate
+     */
+    public function setPrivateLabelTemplate($privateLabelTemplate)
+    {
+        $this->privateLabelTemplate = $privateLabelTemplate ?
+            $privateLabelTemplate : $this->privateLabelTemplate;
+    }
+
+    /**
+     * @param mixed $publicLabelTemplate
+     */
+    public function setPublicLabelTemplate($publicLabelTemplate)
+    {
+        $this->publicLabelTemplate = $publicLabelTemplate ? $publicLabelTemplate : $this->publicLabelTemplate;
+    }
+
+    /**
+     * @param mixed $withdrawLabelTemplate
+     */
+    public function setWithdrawLabelTemplate($withdrawLabelTemplate)
+    {
+        $this->withdrawLabelTemplate = $withdrawLabelTemplate ? $withdrawLabelTemplate : $this->withdrawLabelTemplate ;
     }
 }

@@ -47,9 +47,9 @@ parameters:
   mail.to: ~
   mail.from: ~
 
-  label.public: ~
-  label.private: ~
-  label.withdraw: ~
+  label.public: "public {{miraklId}} – {{hipayId}} - {{cycleDate}}"
+  label.private: "private {{miraklId}} – {{hipayId}} - {{cycleDate}}"
+  label.withdraw: "withdraw {{miraklId}} – {{hipayId}} - {{cycleDate}}"
 
   cycle.days:
     - 01

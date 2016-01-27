@@ -140,6 +140,10 @@ $vendorProcessor = new VendorProcessor(
 
 /** @var OperationRepository $operationRepository */
 $operationRepository = $entityManager->getRepository('Hipay\\SilexIntegration\\Entity\\Operation');
+$operationRepository->setPublicLabelTemplate($parameters['label.public']);
+$operationRepository->setPrivateLabelTemplate($parameters['label.private']);
+$operationRepository->setWithdrawLabelTemplate($parameters['label.withdraw']);
+
 
 $operatorAccount = new Vendor(
     $parameters['account.operator.email'],
