@@ -80,6 +80,7 @@ class Operation implements OperationInterface
 
     /**
      * @param mixed $miraklId
+     * @return void
      */
     public function setMiraklId($miraklId)
     {
@@ -96,6 +97,7 @@ class Operation implements OperationInterface
 
     /**
      * @param mixed $hipayId
+     * @return void
      */
     public function setHipayId($hipayId)
     {

@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Hipay\MiraklConnector\Cashout\Model\Operation\ManagerInterface;
 use Hipay\MiraklConnector\Cashout\Model\Operation\OperationInterface;
 use Hipay\MiraklConnector\Cashout\Model\Operation\Status;
+use Hipay\MiraklConnector\Vendor\Model\VendorInterface;
 
 class OperationRepository extends EntityRepository implements ManagerInterface
 {
@@ -41,19 +42,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
         $this->_em->flush();
     }
 
-    /**
-     * Create an operation
-     *
-     * @param int $shopId the mirakl shop id |false if it is an operator operation
-     *
-     * @return OperationInterface
-     */
-    public function create($shopId)
-    {
-        $operation = new Operation();
-        $operation->setMiraklId($shopId);
-        return $operation;
-    }
+
 
     /**
      * Finds operations
@@ -135,5 +124,22 @@ class OperationRepository extends EntityRepository implements ManagerInterface
     public function findByWithdrawalId($withdrawalId)
     {
         return $this->findOneBy(array("withdrawId" => $withdrawalId));
+    }
+
+    /**
+     * Create an operation.
+     *
+     * @param float $amount
+     * @param DateTime $cycleDate
+     * @param int $miraklId
+     * @param VendorInterface $vendor
+     *
+     * @return OperationInterface
+     */
+    public function create($amount, DateTime $cycleDate, $miraklId = null, VendorInterface $vendor = null)
+    {
+        $operation = new Operation();
+        $operation->setMiraklId($miraklId);
+        return $operation;
     }
 }
