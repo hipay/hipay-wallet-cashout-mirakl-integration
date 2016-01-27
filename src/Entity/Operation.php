@@ -27,14 +27,14 @@ class Operation implements OperationInterface
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=false, nullable=false)
+     * @ORM\Column(type="integer", unique=false, nullable=true)
      */
     protected $miraklId;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=false, nullable=false)
+     * @ORM\Column(type="integer", unique=false, nullable=true)
      */
     protected $hipayId;
 
