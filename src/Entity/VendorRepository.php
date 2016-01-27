@@ -8,8 +8,6 @@ use Hipay\MiraklConnector\Vendor\Model\VendorInterface;
 /**
  * Class VendorRepository
  *
- * @category
- * @package
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  */

@@ -173,7 +173,8 @@ $cashoutProcessor = new CashoutProcessor(
     $eventDispatcher,
     $logger,
     $operationRepository,
-    $vendorRepository
+    $vendorRepository,
+    $operatorAccount
 );
 
 $notificationHandler = new NotificationHandler($operationRepository, $vendorRepository, $eventDispatcher);

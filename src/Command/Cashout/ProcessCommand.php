@@ -1,5 +1,6 @@
 <?php
 namespace Hipay\SilexIntegration\Command\Cashout;
+
 use Exception;
 use Hipay\MiraklConnector\Cashout\Processor as CashoutProcessor;
 use Hipay\SilexIntegration\Command\AbstractCommand;

@@ -1,5 +1,6 @@
 <?php
 namespace Hipay\SilexIntegration\Command\Cashout;
+
 use DateInterval;
 use \DateTime;
 use Exception;
