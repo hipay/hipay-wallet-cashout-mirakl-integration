@@ -19,7 +19,7 @@ use HiPay\Wallet\Mirakl\Notification\Handler as NotificationHandler;
 use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use HiPay\Wallet\Mirakl\Integration\Configuration\DbConfiguration;
 use HiPay\Wallet\Mirakl\Integration\Configuration\FtpConfiguration;
-use HiPay\Wallet\Mirakl\Integration\Configuration\HipayConfiguration;
+use HiPay\Wallet\Mirakl\Integration\Configuration\HiPayConfiguration;
 use HiPay\Wallet\Mirakl\Integration\Configuration\MiraklConfiguration;
 use HiPay\Wallet\Mirakl\Integration\Console\Style;
 use HiPay\Wallet\Mirakl\Integration\Entity\OperationRepository;
@@ -110,7 +110,7 @@ $validator = Validation::createValidatorBuilder()
     ->getValidator();
 
 $miraklConfiguration = new MiraklConfiguration($parameters);
-$hipayConfiguration = new HipayConfiguration($parameters);
+$hipayConfiguration = new HiPayConfiguration($parameters);
 $ftpConfiguration = new FtpConfiguration($parameters);
 
 $eventDispatcher = new EventDispatcher();

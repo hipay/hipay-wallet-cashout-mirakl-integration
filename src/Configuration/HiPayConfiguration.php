@@ -1,9 +1,9 @@
 <?php
 namespace HiPay\Wallet\Mirakl\Integration\Configuration;
 
-use HiPay\Wallet\Mirakl\Api\Hipay\ConfigurationInterface;
+use HiPay\Wallet\Mirakl\Api\HiPay\ConfigurationInterface;
 
-class HipayConfiguration extends AbstractConfiguration implements ConfigurationInterface
+class HiPayConfiguration extends AbstractConfiguration implements ConfigurationInterface
 {
 
     /**
