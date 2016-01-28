@@ -55,7 +55,9 @@ class BankInfosCommand extends AbstractCommand
     public function configure()
     {
         parent::configure();
-        $this->addArgument(static::HIPAY_ID, InputArgument::REQUIRED);
+        $this->setName('vendor:wallet:bankInfos')
+             ->setDescription('List the wallets created at HiPay')
+             ->addArgument(static::HIPAY_ID, InputArgument::REQUIRED);
     }
 
     public function execute(InputInterface $input, OutputInterface $output)

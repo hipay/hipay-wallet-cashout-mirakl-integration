@@ -36,7 +36,14 @@ class ListCommand extends AbstractCommand
     public function configure()
     {
         parent::configure();
-        $this->addOption(self::PAST_DATE, 'date', InputOption::VALUE_REQUIRED, "Limit to the wallet created after given date");
+        $this->setName('vendor:wallet:list')
+            ->setDescription('List the wallets created at HiPay')
+            ->addOption(
+            self::PAST_DATE,
+            'date',
+            InputOption::VALUE_REQUIRED,
+            "Limit to the wallet created after given date"
+        );
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
