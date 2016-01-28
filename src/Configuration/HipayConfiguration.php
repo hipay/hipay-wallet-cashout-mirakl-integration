@@ -8,9 +8,9 @@
  * @copyright 2015 Smile
  */
 
-namespace Hipay\SilexIntegration\Configuration;
+namespace HiPay\Wallet\Mirakl\Integration\Configuration;
 
-use Hipay\MiraklConnector\Api\Hipay\ConfigurationInterface;
+use HiPay\Wallet\Mirakl\Api\Hipay\ConfigurationInterface;
 
 class HipayConfiguration extends AbstractConfiguration implements ConfigurationInterface
 {

@@ -1,16 +1,16 @@
 <?php
-namespace Hipay\SilexIntegration\Entity;
+namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use DateTime;
-use Hipay\MiraklConnector\Cashout\Model\Operation\OperationInterface;
-use Hipay\MiraklConnector\Cashout\Model\Operation\Status;
+use HiPay\Wallet\Mirakl\Cashout\Model\Operation\OperationInterface;
+use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Operation
  *
- * @ORM\Entity(repositoryClass="Hipay\SilexIntegration\Entity\OperationRepository")
+ * @ORM\Entity(repositoryClass="HiPay\Wallet\Mirakl\Integration\Entity\OperationRepository")
  * @ORM\Table(name="operations")
  *
  */

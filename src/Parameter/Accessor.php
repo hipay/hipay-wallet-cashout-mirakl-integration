@@ -8,7 +8,7 @@
  * @copyright 2015 Smile
  */
 
-namespace Hipay\SilexIntegration\Parameter;
+namespace HiPay\Wallet\Mirakl\Integration\Parameter;
 
 use ArrayAccess;
 use Symfony\Component\Yaml\Yaml;

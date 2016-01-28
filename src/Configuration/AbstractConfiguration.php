@@ -8,7 +8,7 @@
  * @copyright 2015 Smile
  */
 
-namespace Hipay\SilexIntegration\Configuration;
+namespace HiPay\Wallet\Mirakl\Integration\Configuration;
 
 
 use ArrayAccess;

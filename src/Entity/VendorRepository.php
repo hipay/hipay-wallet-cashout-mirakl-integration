@@ -1,9 +1,9 @@
 <?php
-namespace Hipay\SilexIntegration\Entity;
+namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Hipay\MiraklConnector\Vendor\Model\ManagerInterface;
-use Hipay\MiraklConnector\Vendor\Model\VendorInterface;
+use HiPay\Wallet\Mirakl\Vendor\Model\ManagerInterface;
+use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 
 /**
  * Class VendorRepository

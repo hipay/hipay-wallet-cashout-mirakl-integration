@@ -1,11 +1,11 @@
 <?php
-namespace Hipay\SilexIntegration\Command\Cashout;
+namespace HiPay\Wallet\Mirakl\Integration\Command\Cashout;
 
 use DateInterval;
 use \DateTime;
 use Exception;
-use Hipay\MiraklConnector\Cashout\Initializer as CashoutInitializer;
-use Hipay\SilexIntegration\Command\AbstractCommand;
+use HiPay\Wallet\Mirakl\Cashout\Initializer as CashoutInitializer;
+use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

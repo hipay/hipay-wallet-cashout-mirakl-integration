@@ -11,10 +11,10 @@ const ROOT_PATH = __DIR__;
 require_once __DIR__ . '/../app/bootstrap.php';
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner as ORMConsoleRunner;
-use Hipay\SilexIntegration\Command\Vendor\ProcessCommand as VendorProcessCommand;
-use Hipay\SilexIntegration\Command\Cashout\ProcessCommand as CashoutProcessCommand;
-use Hipay\SilexIntegration\Command\Cashout\GenerateCommand as CashoutGenerateCommand;
-use Hipay\SilexIntegration\Command\Vendor\RecordCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Vendor\ProcessCommand as VendorProcessCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Cashout\ProcessCommand as CashoutProcessCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Cashout\GenerateCommand as CashoutGenerateCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Vendor\RecordCommand;
 use Symfony\Component\Console\Application;
 
 $console = new Application("Hipay Mirakl Connector Console");
@@ -43,10 +43,7 @@ $cashoutGenerateCommand = new CashoutGenerateCommand(
 
 $cashoutProcessCommand = new CashoutProcessCommand(
     $logger,
-    $cashoutProcessor,
-    $parameters['label.public'],
-    $parameters['label.private'],
-    $parameters['label.withdraw']
+    $cashoutProcessor
 );
 
 $vendorRecordCommand = new RecordCommand($logger, $vendorProcessor);

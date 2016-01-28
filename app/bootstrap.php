@@ -12,21 +12,21 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
-use Hipay\MiraklConnector\Vendor\Processor as VendorProcessor;
-use Hipay\MiraklConnector\Cashout\Initializer as CashoutInitializer;
-use Hipay\MiraklConnector\Cashout\Processor as CashoutProcessor;
-use Hipay\MiraklConnector\Notification\Handler as NotificationHandler;
-use Hipay\SilexIntegration\Command\AbstractCommand;
-use Hipay\SilexIntegration\Configuration\DbConfiguration;
-use Hipay\SilexIntegration\Configuration\FtpConfiguration;
-use Hipay\SilexIntegration\Configuration\HipayConfiguration;
-use Hipay\SilexIntegration\Configuration\MiraklConfiguration;
-use Hipay\SilexIntegration\Console\Style;
-use Hipay\SilexIntegration\Entity\OperationRepository;
-use Hipay\SilexIntegration\Entity\Vendor;
-use Hipay\SilexIntegration\Entity\VendorRepository;
-use Hipay\SilexIntegration\Model\TransactionValidator;
-use Hipay\SilexIntegration\Parameter\Accessor;
+use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
+use HiPay\Wallet\Mirakl\Cashout\Initializer as CashoutInitializer;
+use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
+use HiPay\Wallet\Mirakl\Notification\Handler as NotificationHandler;
+use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
+use HiPay\Wallet\Mirakl\Integration\Configuration\DbConfiguration;
+use HiPay\Wallet\Mirakl\Integration\Configuration\FtpConfiguration;
+use HiPay\Wallet\Mirakl\Integration\Configuration\HipayConfiguration;
+use HiPay\Wallet\Mirakl\Integration\Configuration\MiraklConfiguration;
+use HiPay\Wallet\Mirakl\Integration\Console\Style;
+use HiPay\Wallet\Mirakl\Integration\Entity\OperationRepository;
+use HiPay\Wallet\Mirakl\Integration\Entity\Vendor;
+use HiPay\Wallet\Mirakl\Integration\Entity\VendorRepository;
+use HiPay\Wallet\Mirakl\Integration\Model\TransactionValidator;
+use HiPay\Wallet\Mirakl\Integration\Parameter\Accessor;
 use Monolog\Handler\FilterHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SwiftMailerHandler;
@@ -178,7 +178,8 @@ $cashoutProcessor = new CashoutProcessor(
     $logger,
     $operationRepository,
     $vendorRepository,
-    $operatorAccount
+    $operatorAccount,
+    $technicalAccount
 );
 
 $notificationHandler = new NotificationHandler($operationRepository, $vendorRepository, $eventDispatcher);

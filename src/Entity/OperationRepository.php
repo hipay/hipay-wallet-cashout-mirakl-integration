@@ -1,14 +1,14 @@
 <?php
-namespace Hipay\SilexIntegration\Entity;
+namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\ExpressionBuilder;
 use Doctrine\ORM\EntityRepository;
-use Hipay\MiraklConnector\Cashout\Model\Operation\ManagerInterface;
-use Hipay\MiraklConnector\Cashout\Model\Operation\OperationInterface;
-use Hipay\MiraklConnector\Cashout\Model\Operation\Status;
-use Hipay\MiraklConnector\Vendor\Model\VendorInterface;
+use HiPay\Wallet\Mirakl\Cashout\Model\Operation\ManagerInterface;
+use HiPay\Wallet\Mirakl\Cashout\Model\Operation\OperationInterface;
+use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
+use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use Mustache_Engine;
 
 class OperationRepository extends EntityRepository implements ManagerInterface
@@ -159,19 +159,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
     public function generatePublicLabel(OperationInterface $operation)
     {
         $m = new Mustache_Engine;
-        return $m->render($this->publicLabelTemplate, array(
-            'miraklId' => $operation->getMiraklId(),
-            'amount' => round($operation->getAmount(), 2),
-            'hipayId' => $operation->getHipayId(),
-            'cycleDate' => $operation->getCycleDate()->format('Y-m-d'),
-            'cycleDateTime' => $operation->getCycleDate()->format(
-                'Y-m-d H:i:s'
-            ),
-            'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
-            'date' => date('Y-m-d'),
-            'datetime' => date('Y-m-d H:i:s'),
-            'time' => date('H:i:s'),
-        ));
+        return $m->render($this->publicLabelTemplate, $this->getData($operation));
     }
 
     /**
@@ -184,19 +172,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
     public function generatePrivateLabel(OperationInterface $operation)
     {
         $m = new Mustache_Engine;
-        return $m->render($this->privateLabelTemplate, array(
-            'miraklId' => $operation->getMiraklId(),
-            'amount' => round($operation->getAmount(), 2),
-            'hipayId' => $operation->getHipayId(),
-            'cycleDate' => $operation->getCycleDate()->format('Y-m-d'),
-            'cycleDateTime' => $operation->getCycleDate()->format(
-                'Y-m-d H:i:s'
-            ),
-            'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
-            'date' => date('Y-m-d'),
-            'datetime' => date('Y-m-d H:i:s'),
-            'time' => date('H:i:s'),
-        ));
+        return $m->render($this->privateLabelTemplate, $this->getData($operation));
     }
 
     /**
@@ -209,19 +185,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
     public function generateWithdrawLabel(OperationInterface $operation)
     {
         $m = new Mustache_Engine;
-        return $m->render($this->withdrawLabelTemplate, array(
-            'miraklId' => $operation->getMiraklId(),
-            'amount' => round($operation->getAmount(), 2),
-            'hipayId' => $operation->getHipayId(),
-            'cycleDate' => $operation->getCycleDate()->format('Y-m-d'),
-            'cycleDateTime' => $operation->getCycleDate()->format(
-                'Y-m-d H:i:s'
-            ),
-            'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
-            'date' => date('Y-m-d'),
-            'datetime' => date('Y-m-d H:i:s'),
-            'time' => date('H:i:s'),
-        ));
+        return $m->render($this->withdrawLabelTemplate, $this->getData($operation));
     }
 
     /**
@@ -238,7 +202,8 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      */
     public function setPublicLabelTemplate($publicLabelTemplate)
     {
-        $this->publicLabelTemplate = $publicLabelTemplate ? $publicLabelTemplate : $this->publicLabelTemplate;
+        $this->publicLabelTemplate = $publicLabelTemplate ?
+            $publicLabelTemplate : $this->publicLabelTemplate;
     }
 
     /**
@@ -246,6 +211,23 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      */
     public function setWithdrawLabelTemplate($withdrawLabelTemplate)
     {
-        $this->withdrawLabelTemplate = $withdrawLabelTemplate ? $withdrawLabelTemplate : $this->withdrawLabelTemplate ;
+        $this->withdrawLabelTemplate = $withdrawLabelTemplate ?
+            $withdrawLabelTemplate : $this->withdrawLabelTemplate ;
+    }
+
+    private function getData(OperationInterface $operation) {
+        return array(
+            'miraklId' => $operation->getMiraklId(),
+            'amount' => round($operation->getAmount(), 2),
+            'hipayId' => $operation->getHipayId(),
+            'cycleDate' => $operation->getCycleDate()->format('Y-m-d'),
+            'cycleDateTime' => $operation->getCycleDate()->format(
+                'Y-m-d H:i:s'
+            ),
+            'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
+            'date' => date('Y-m-d'),
+            'datetime' => date('Y-m-d H:i:s'),
+            'time' => date('H:i:s'),
+        );
     }
 }

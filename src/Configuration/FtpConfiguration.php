@@ -8,9 +8,9 @@
  * @copyright 2015 Smile
  */
 
-namespace Hipay\SilexIntegration\Configuration;
+namespace HiPay\Wallet\Mirakl\Integration\Configuration;
 
-use Hipay\MiraklConnector\Service\Ftp\ConfigurationInterface;
+use HiPay\Wallet\Mirakl\Service\Ftp\ConfigurationInterface;
 
 class FtpConfiguration extends AbstractConfiguration implements ConfigurationInterface
 {

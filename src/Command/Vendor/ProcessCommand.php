@@ -1,13 +1,13 @@
 <?php
-namespace Hipay\SilexIntegration\Command\Vendor;
+namespace HiPay\Wallet\Mirakl\Integration\Command\Vendor;
 
-use Hipay\SilexIntegration\Command\AbstractCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Hipay\MiraklConnector\Vendor\Processor as VendorProcessor;
+use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
 
 /**
  * File ProcessCommand.php

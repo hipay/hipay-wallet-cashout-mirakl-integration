@@ -1,5 +1,5 @@
 <?php
-namespace Hipay\SilexIntegration\Console;
+namespace HiPay\Wallet\Mirakl\Integration\Console;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;

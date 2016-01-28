@@ -1,7 +1,7 @@
 <?php
-namespace Hipay\SilexIntegration\Configuration;
+namespace HiPay\Wallet\Mirakl\Integration\Configuration;
 
-use Hipay\MiraklConnector\Api\Mirakl\ConfigurationInterface;
+use HiPay\Wallet\Mirakl\Api\Mirakl\ConfigurationInterface;
 /**
  * File MirkalConfiguration.php
  *

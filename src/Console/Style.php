@@ -1,5 +1,5 @@
 <?php
-namespace Hipay\SilexIntegration\Console;
+namespace HiPay\Wallet\Mirakl\Integration\Console;
 
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Style\SymfonyStyle;

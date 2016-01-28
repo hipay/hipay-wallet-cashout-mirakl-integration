@@ -47,7 +47,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Hipay\\SilexIntegration\\": "src"
+      "Hipay\\Wallet\\Mirakl\\Integration\\": "src"
     }
   }
 }

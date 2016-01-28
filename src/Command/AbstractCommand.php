@@ -1,5 +1,5 @@
 <?php
-namespace Hipay\SilexIntegration\Command;
+namespace HiPay\Wallet\Mirakl\Integration\Command;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\PsrHandler;
@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Hipay\SilexIntegration\Console\Logger as ConsoleLogger;
+use HiPay\Wallet\Mirakl\Integration\Console\Logger as ConsoleLogger;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**

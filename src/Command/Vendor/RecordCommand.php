@@ -1,9 +1,9 @@
 <?php
 
-namespace Hipay\SilexIntegration\Command\Vendor;
+namespace HiPay\Wallet\Mirakl\Integration\Command\Vendor;
 
-use Hipay\MiraklConnector\Vendor\Processor;
-use Hipay\SilexIntegration\Command\AbstractCommand;
+use HiPay\Wallet\Mirakl\Vendor\Processor;
+use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

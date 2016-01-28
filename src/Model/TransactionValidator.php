@@ -1,6 +1,6 @@
 <?php
-namespace Hipay\SilexIntegration\Model;
-use Hipay\MiraklConnector\Cashout\Model\Transaction\ValidatorInterface;
+namespace HiPay\Wallet\Mirakl\Integration\Model;
+use HiPay\Wallet\Mirakl\Cashout\Model\Transaction\ValidatorInterface;
 
 /**
  * File TransactionValidator.php

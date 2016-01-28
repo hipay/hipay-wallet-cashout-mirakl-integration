@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e08fca89434593fba75edf6b209cf75",
+    "hash": "3713d3ea9ffeb0acd1c814bce5ffdfbe",
     "content-hash": "6ec96c4dce405da7dac6ce30392dc0dd",
     "packages": [
         {
@@ -591,16 +591,16 @@
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.10",
+            "version": "v2.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "7e7fc55fa3fad79031727fbc7d8e418b641be875"
+                "reference": "2527d8f93779458e097447b5f92132bc65e672f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/7e7fc55fa3fad79031727fbc7d8e418b641be875",
-                "reference": "7e7fc55fa3fad79031727fbc7d8e418b641be875",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/2527d8f93779458e097447b5f92132bc65e672f4",
+                "reference": "2527d8f93779458e097447b5f92132bc65e672f4",
                 "shasum": ""
             },
             "require": {
@@ -666,7 +666,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-12-18 20:34:21"
+            "time": "2016-01-28 10:00:33"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -766,12 +766,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "37d4a1e0c19c03ca2d4c81332ff2e5b2676d0c57"
+                "reference": "306c2527eddaa2c3768448f4ff9bf415323b1d0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/37d4a1e0c19c03ca2d4c81332ff2e5b2676d0c57",
-                "reference": "37d4a1e0c19c03ca2d4c81332ff2e5b2676d0c57",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/306c2527eddaa2c3768448f4ff9bf415323b1d0e",
+                "reference": "306c2527eddaa2c3768448f4ff9bf415323b1d0e",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +792,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Hipay\\MiraklConnector\\": "src"
+                    "HiPay\\Wallet\\Mirakl\\": "src"
                 }
             },
             "license": [
@@ -804,12 +804,12 @@
                     "email": "ivanis.kouame@smile.fr"
                 }
             ],
-            "description": "Library to ease the connection between Mirakl and Hipay",
+            "description": "Library to ease the connection between Mirakl and HiPay",
             "support": {
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-01-27 15:17:41"
+            "time": "2016-01-28 14:23:56"
         },
         {
             "name": "incenteev/composer-parameter-handler",

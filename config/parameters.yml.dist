@@ -11,6 +11,7 @@ parameters:
   hipay.baseUrl: ~
   ## To get from hipay
   hipay.entity: ~
+  hipay.merchantGroupId: ~
   hipay.locale: 'fr_FR'
   hipay.timezone: 'Europe/Paris'
 

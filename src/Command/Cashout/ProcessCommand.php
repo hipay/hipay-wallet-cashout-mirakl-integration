@@ -1,9 +1,9 @@
 <?php
-namespace Hipay\SilexIntegration\Command\Cashout;
+namespace HiPay\Wallet\Mirakl\Integration\Command\Cashout;
 
 use Exception;
-use Hipay\MiraklConnector\Cashout\Processor as CashoutProcessor;
-use Hipay\SilexIntegration\Command\AbstractCommand;
+use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
+use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,28 +19,13 @@ class ProcessCommand extends AbstractCommand
     /** @var  CashoutProcessor */
     protected $processor;
 
-    /** @var  string */
-    protected $publicLabelTemplate;
-
-    /** @var  string */
-    protected $privateLabelTemplate;
-
-    /** @var  string */
-    protected $withdrawLabelTemplate;
-
     public function __construct(
         LoggerInterface $logger,
-        CashoutProcessor $processor,
-        $publicLabelTemplate,
-        $privateLabelTemplate,
-        $withdrawLabelTemplate
+        CashoutProcessor $processor
     )
     {
         parent::__construct($logger);
         $this->processor = $processor;
-        $this->publicLabelTemplate = $publicLabelTemplate;
-        $this->privateLabelTemplate = $privateLabelTemplate;
-        $this->withdrawLabelTemplate = $withdrawLabelTemplate;
 
     }
 

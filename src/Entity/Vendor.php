@@ -1,11 +1,11 @@
 <?php
-namespace Hipay\SilexIntegration\Entity;
+namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use DateTime;
 use Gedmo\Timestampable\Timestampable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use Hipay\MiraklConnector\Vendor\Model\VendorInterface;
+use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  *
- * @ORM\Entity(repositoryClass="Hipay\SilexIntegration\Entity\VendorRepository")
+ * @ORM\Entity(repositoryClass="HiPay\Wallet\Mirakl\Integration\Entity\VendorRepository")
  * @ORM\Table(name="vendors")
  */
 class Vendor implements VendorInterface, Timestampable
