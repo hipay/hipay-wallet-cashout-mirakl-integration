@@ -1,13 +1,4 @@
 <?php
-/**
- * File AbstractConfiguration.php
- *
- * @category
- * @package
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
- */
-
 namespace HiPay\Wallet\Mirakl\Integration\Parameter;
 
 use ArrayAccess;

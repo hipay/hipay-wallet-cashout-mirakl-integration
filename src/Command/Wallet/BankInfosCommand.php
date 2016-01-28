@@ -1,5 +1,6 @@
 <?php
 namespace HiPay\Wallet\Mirakl\Integration\Command\Wallet;
+
 use HiPay\Wallet\Mirakl\Vendor\Model\ManagerInterface;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use HiPay\Wallet\Mirakl\Vendor\Processor;

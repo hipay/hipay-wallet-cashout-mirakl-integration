@@ -1,5 +1,4 @@
 <?php
-
 namespace HiPay\Wallet\Mirakl\Integration\Command\Vendor;
 
 use HiPay\Wallet\Mirakl\Vendor\Processor;

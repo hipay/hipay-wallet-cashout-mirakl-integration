@@ -7,6 +7,7 @@ use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Class Operation
  *

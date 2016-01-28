@@ -1,13 +1,4 @@
 <?php
-/**
- * File HipayConfiguration.php
- *
- * @category
- * @package
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
- */
-
 namespace HiPay\Wallet\Mirakl\Integration\Configuration;
 
 use HiPay\Wallet\Mirakl\Api\Hipay\ConfigurationInterface;

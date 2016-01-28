@@ -2,6 +2,7 @@
 namespace HiPay\Wallet\Mirakl\Integration\Configuration;
 
 use HiPay\Wallet\Mirakl\Api\Mirakl\ConfigurationInterface;
+
 /**
  * File MirkalConfiguration.php
  *
