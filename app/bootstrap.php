@@ -127,7 +127,7 @@ $eventDispatcher->addListener(
 );
 
 /** @var VendorRepository $vendorRepository */
-$vendorRepository = $entityManager->getRepository('Hipay\\SilexIntegration\\Entity\\Vendor');
+$vendorRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
 
 $vendorProcessor = new VendorProcessor(
     $miraklConfiguration,
@@ -139,7 +139,7 @@ $vendorProcessor = new VendorProcessor(
 );
 
 /** @var OperationRepository $operationRepository */
-$operationRepository = $entityManager->getRepository('Hipay\\SilexIntegration\\Entity\\Operation');
+$operationRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');
 $operationRepository->setPublicLabelTemplate($parameters['label.public']);
 $operationRepository->setPrivateLabelTemplate($parameters['label.private']);
 $operationRepository->setWithdrawLabelTemplate($parameters['label.withdraw']);
