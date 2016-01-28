@@ -1,6 +1,7 @@
 <?php
 namespace HiPay\Wallet\Mirakl\Integration\Command\Wallet;
 
+use HiPay\Wallet\Mirakl\Api\HiPay\Model\Status\BankInfo;
 use HiPay\Wallet\Mirakl\Vendor\Model\ManagerInterface;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use HiPay\Wallet\Mirakl\Vendor\Processor;
@@ -56,7 +57,7 @@ class BankInfosCommand extends AbstractCommand
     {
         parent::configure();
         $this->setName('vendor:wallet:bankInfos')
-             ->setDescription('List the wallets created at HiPay')
+             ->setDescription('Fetch the wallet bank info from HiPay')
              ->addArgument(static::HIPAY_ID, InputArgument::REQUIRED);
     }
 
@@ -68,10 +69,17 @@ class BankInfosCommand extends AbstractCommand
 
         $hipayID = $input->getArgument(self::HIPAY_ID);
 
-        $bankData = $this->vendorProcessor->getBankInfo($this->getVendor($hipayID))->getData();
+        $vendor = $this->getVendor($hipayID);
 
-        foreach ($bankData as $key => $value) {
-            $io->writeln("$key \t $value");
+        $status = $this->vendorProcessor->getBankInfoStatus($vendor);
+        $io->writeln($status);
+
+        if ($status == BankInfo::VALIDATED) {
+            $bankData = $this->vendorProcessor->getBankInfo($vendor)->getData();
+
+            foreach ($bankData as $key => $value) {
+                $io->writeln("$key \t $value");
+            }
         }
     }
 
