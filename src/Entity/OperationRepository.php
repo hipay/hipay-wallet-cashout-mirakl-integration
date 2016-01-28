@@ -58,7 +58,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      *
      * @return OperationInterface[]
      */
-    public function findByStatusAndAfterCycleDate(
+    public function findByStatusAndAfterUpdatedAt(
         Status $status,
         DateTime $date
     )
@@ -66,7 +66,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
         $criteria = new Criteria();
         $exprBuilder = new ExpressionBuilder();
         $criteria->where($exprBuilder->eq('status', $status->getValue()));
-        $criteria->andWhere($exprBuilder->gte('cycleDate', $date));
+        $criteria->andWhere($exprBuilder->gte('updatedAt', $date));
         return $this->matching($criteria)->toArray();
     }
 

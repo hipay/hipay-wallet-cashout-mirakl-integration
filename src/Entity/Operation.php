@@ -72,6 +72,15 @@ class Operation implements OperationInterface
     protected $status;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime", unique=false, nullable= false)
+     *
+     * @Gedmo\Timestampable(on="update")
+     */
+    protected $updatedAt;
+
+    /**
      * @return mixed
      */
     public function getMiraklId()
@@ -194,4 +203,22 @@ class Operation implements OperationInterface
     {
         $this->transferId = $transferId;
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt(DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+
 }
