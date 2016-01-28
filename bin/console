@@ -15,6 +15,8 @@ use HiPay\Wallet\Mirakl\Integration\Command\Vendor\ProcessCommand as VendorProce
 use HiPay\Wallet\Mirakl\Integration\Command\Cashout\ProcessCommand as CashoutProcessCommand;
 use HiPay\Wallet\Mirakl\Integration\Command\Cashout\GenerateCommand as CashoutGenerateCommand;
 use HiPay\Wallet\Mirakl\Integration\Command\Vendor\RecordCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Wallet\BankInfosCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Wallet\ListCommand;
 use Symfony\Component\Console\Application;
 
 $console = new Application("Hipay Mirakl Connector Console");
@@ -48,11 +50,27 @@ $cashoutProcessCommand = new CashoutProcessCommand(
 
 $vendorRecordCommand = new RecordCommand($logger, $vendorProcessor);
 
+$listCommand = new ListCommand(
+    $logger,
+    $vendorProcessor,
+    $parameters['hipay.merchantGroupId']
+);
+
+$bankInfoCommand = new BankInfosCommand(
+    $logger,
+    $vendorProcessor,
+    $vendorRepository,
+    $operatorAccount,
+    $technicalAccount
+);
+
 $commands = array(
     $vendorProcessCommand,
     $vendorRecordCommand,
     $cashoutProcessCommand,
-    $cashoutGenerateCommand
+    $cashoutGenerateCommand,
+    $listCommand,
+    $bankInfoCommand
 );
 
 $console->addCommands($commands);
