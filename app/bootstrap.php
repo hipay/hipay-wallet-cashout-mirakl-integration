@@ -12,6 +12,8 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use HiPay\Wallet\Mirakl\Exception\Event\ThrowException;
+use HiPay\Wallet\Mirakl\Exception\InvalidBankInfoException;
 use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
 use HiPay\Wallet\Mirakl\Cashout\Initializer as CashoutInitializer;
 use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
@@ -52,8 +54,6 @@ $debug = $parameters['debug'];
 
 $dbConfiguration = new DbConfiguration($parameters);
 
-$isDevMode = $debug;
-
 // the connection configuration
 $dbParams = array(
     'driver'   => $dbConfiguration->getDriver(),
@@ -66,7 +66,7 @@ $eventManager = new Doctrine\Common\EventManager();
 $timestampableListener = new Gedmo\Timestampable\TimestampableListener();
 $eventManager->addEventSubscriber($timestampableListener);
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
+$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $debug, null, null, false);
 $entityManager = EntityManager::create($dbParams, $annotationMetadataConfiguration, $eventManager);
 
 $helperSet = ConsoleRunner::createHelperSet($entityManager);
@@ -76,7 +76,7 @@ $logger = new Logger("hipay");
 $logFilePath = $parameters['log.file.path'] ?: DEFAULT_LOG_PATH;
 $logger->pushHandler(new FilterHandler(new StreamHandler($logFilePath),Logger::WARNING));
 
-$swiftTransport = new \Swift_SmtpTransport(
+$swiftTransport = new Swift_SmtpTransport(
     $parameters['mail.host'],
     $parameters['mail.port'],
     $parameters['mail.security']
@@ -90,16 +90,13 @@ if (isset($parameters['mail.username']) && isset($parameters['mail.password'])) 
 
 $mailer = new Swift_Mailer($swiftTransport);
 
-$messageTemplate = new \Swift_Message();
+$messageTemplate = new Swift_Message();
 $messageTemplate->setSubject($parameters['mail.subject']);
 $messageTemplate->setTo($parameters['mail.to']);
 $messageTemplate->setFrom($parameters['mail.from']);
 $messageTemplate->setCharset('utf-8');
 $logger->pushHandler(
-    new FilterHandler(
-        new SwiftMailerHandler($mailer, $messageTemplate),
-        Logger::CRITICAL
-    )
+    new SwiftMailerHandler($mailer, $messageTemplate, Logger::CRITICAL)
 );
 
 $logger->pushProcessor(new PsrLogMessageProcessor());
@@ -117,7 +114,7 @@ $eventDispatcher = new EventDispatcher();
 
 $eventDispatcher->addListener(
     ConsoleEvents::COMMAND,
-    function (ConsoleCommandEvent $event, $eventName, $dispatcher) use ($parameters, $logger){
+    function (ConsoleCommandEvent $event) use ($parameters, $logger){
         $command = $event->getCommand();
         if ($parameters['debug'] && $command instanceof AbstractCommand) {
             $style = new Style($event->getInput(), $event->getOutput());
@@ -137,6 +134,19 @@ $vendorProcessor = new VendorProcessor(
     $ftpConfiguration,
     $vendorRepository
 );
+$vendorMail = clone $messageTemplate;
+//Send mail to vendor in the case of invalid bank info
+$vendorProcessor->addListener('invalid.bankInfo', function (ThrowException $event)
+    use ($mailer, $vendorMail) {
+
+    /** @var InvalidBankInfoException $ex */
+    $ex = $event->getException();
+
+    $vendor = $ex->getVendor();
+    $vendorMail->setTo($vendor->getEmail());
+    $vendorMail->setBody($ex->getMessage());
+    $mailer->send($vendorMail);
+});
 
 /** @var OperationRepository $operationRepository */
 $operationRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');
