@@ -144,7 +144,10 @@ $vendorProcessor->addListener('invalid.bankInfo', function (ThrowException $even
 
     $vendor = $ex->getVendor();
     $vendorMail->setTo($vendor->getEmail());
-    $vendorMail->setBody($ex->getMessage());
+    $vendorMail->setBody(
+        "Your banking information in Mirakl is not in sync with HiPay data.
+        Please either correct it in Mirakl or contact HiPay to change it."
+    );
     $mailer->send($vendorMail);
 });
 

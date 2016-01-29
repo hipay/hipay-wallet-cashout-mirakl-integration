@@ -1,7 +1,6 @@
 <?php
 namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
-use DateTime;
 use Gedmo\Timestampable\Timestampable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -48,14 +47,6 @@ class Vendor implements VendorInterface, Timestampable
      * @Assert\Email
      */
     protected $email;
-
-    /**
-     * @var \DateTime $lastModification
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    protected $lastModification;
 
     /**
      * @var int
@@ -110,22 +101,6 @@ class Vendor implements VendorInterface, Timestampable
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastModification()
-    {
-        return $this->lastModification;
-    }
-
-    /**
-     * @param DateTime $lastModification
-     */
-    public function setLastModification($lastModification)
-    {
-        $this->lastModification = $lastModification;
     }
 
     /**
