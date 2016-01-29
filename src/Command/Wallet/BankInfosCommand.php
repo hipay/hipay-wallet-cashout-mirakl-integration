@@ -2,6 +2,7 @@
 namespace HiPay\Wallet\Mirakl\Integration\Command\Wallet;
 
 use HiPay\Wallet\Mirakl\Api\HiPay\Model\Status\BankInfo;
+use HiPay\Wallet\Mirakl\Integration\Entity\Vendor;
 use HiPay\Wallet\Mirakl\Vendor\Model\ManagerInterface;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use HiPay\Wallet\Mirakl\Vendor\Processor;
@@ -23,6 +24,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class BankInfosCommand extends AbstractCommand
 {
     const HIPAY_ID = 'hipayId';
+    const EMAIL = 'email';
 
     /** @var Processor  */
     protected $vendorProcessor;
@@ -58,7 +60,7 @@ class BankInfosCommand extends AbstractCommand
         parent::configure();
         $this->setName('vendor:wallet:bankInfos')
              ->setDescription('Fetch the wallet bank info from HiPay')
-             ->addArgument(static::HIPAY_ID, InputArgument::REQUIRED);
+             ->addArgument(static::HIPAY_ID, InputArgument::REQUIRED, 'The HiPay wallet id');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -68,17 +70,21 @@ class BankInfosCommand extends AbstractCommand
 
         $hipayID = $input->getArgument(self::HIPAY_ID);
 
-        $vendor = $this->getVendor($hipayID);
+        $vendor = new Vendor(false, false, $hipayID);
 
         $status = $this->vendorProcessor->getBankInfoStatus($vendor);
         $io->writeln($status);
 
-        if ($status == BankInfo::VALIDATED) {
+        if (trim($status) == BankInfo::VALIDATED) {
             $bankData = $this->vendorProcessor->getBankInfo($vendor)->getData();
 
+            $rows = array();
+
             foreach ($bankData as $key => $value) {
-                $io->writeln("$key \t $value");
+                $rows[] = array($key, $value);
             }
+
+            $io->table(array('key', 'value'), $rows);
         }
     }
 
