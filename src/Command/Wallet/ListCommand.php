@@ -48,7 +48,6 @@ class ListCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
         $io = new SymfonyStyle($input, $output);
         $pastDate = $input->getOption(self::PAST_DATE) ? new \DateTime($input->getOption(self::PAST_DATE)) : null;
         $data = $this->vendorProcessor->getWallets($this->merchantGroupId, $pastDate);

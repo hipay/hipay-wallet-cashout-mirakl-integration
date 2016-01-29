@@ -63,7 +63,6 @@ class BankInfosCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input, $output);
         $io = new SymfonyStyle($input, $output);
         $io->title("Banking information");
 
