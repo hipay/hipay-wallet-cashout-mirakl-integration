@@ -58,7 +58,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      *
      * @return OperationInterface[]
      */
-    public function findByStatusAndAfterUpdatedAt(
+    public function findByStatusAndBeforeUpdatedAt(
         Status $status,
         DateTime $date
     )
@@ -215,7 +215,7 @@ class OperationRepository extends EntityRepository implements ManagerInterface
             $withdrawLabelTemplate : $this->withdrawLabelTemplate ;
     }
 
-    private function getData(OperationInterface $operation) {
+    protected function getData(OperationInterface $operation) {
         return array(
             'miraklId' => $operation->getMiraklId(),
             'amount' => round($operation->getAmount(), 2),
