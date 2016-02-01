@@ -1,6 +1,7 @@
 <?php
 namespace HiPay\Wallet\Mirakl\Integration\Command\Wallet;
 
+use DateTime;
 use HiPay\Wallet\Mirakl\Vendor\Processor;
 use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
@@ -42,14 +43,14 @@ class ListCommand extends AbstractCommand
             self::PAST_DATE,
             'date',
             InputOption::VALUE_REQUIRED,
-            "Limit to the wallet created after given date"
+            "Limit to the wallet created after given date (format YYYY-mm-dd)"
         );
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $pastDate = $input->getOption(self::PAST_DATE) ? new \DateTime($input->getOption(self::PAST_DATE)) : null;
+        $pastDate = $input->getOption(self::PAST_DATE) ? new DateTime($input->getOption(self::PAST_DATE)) : null;
         $data = $this->vendorProcessor->getWallets($this->merchantGroupId, $pastDate);
         $io->title("Hipay Wallets");
         $io->table(array_keys(reset($data)), $data);

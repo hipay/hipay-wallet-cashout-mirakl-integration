@@ -1,6 +1,7 @@
 <?php
 namespace HiPay\Wallet\Mirakl\Integration\Command\Vendor;
 
+use DateTime;
 use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -46,7 +47,7 @@ class ProcessCommand extends AbstractCommand
     {
         $this->setName('vendor:process')
             ->setDescription('Update the vendors data')
-            ->addArgument(self::LAST_UPDATE, InputArgument::OPTIONAL, 'The last time the database was updated (Format : Y-m-d)')
+            ->addArgument(self::LAST_UPDATE, InputArgument::OPTIONAL, 'The last time the database was updated (Format : YYYY-mm-dd)')
             ->addOption(self::ZIP_PATH, 'z',InputOption::VALUE_REQUIRED, 'The path where to save the zip file', $this->zipPath)
             ->addOption(self::FTP_PATH, 'f', InputOption::VALUE_REQUIRED, 'The path on the ftp where to save the documents', $this->ftpPath);
     }
@@ -56,7 +57,7 @@ class ProcessCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $inputedDate =  $input->getArgument(self::LAST_UPDATE);
-        $lastUpdate = $inputedDate ? \DateTime::createFromFormat('Y-m-d',$inputedDate) : null;
+        $lastUpdate = $inputedDate ? new DateTime($inputedDate) : null;
         $this->logger->debug("Inputed last update {date}", array('date' => $lastUpdate));
 
         $zipPath = $input->getOption(self::ZIP_PATH) ?: static::DEFAULT_ZIP_PATH;

@@ -82,26 +82,26 @@ class GenerateCommand extends AbstractCommand
                 self::CRON_DATE,
                 'e',
                 InputOption::VALUE_REQUIRED,
-                "A specific date consider to generate the cycle date.". PHP_EOL . "Format : YYYY-mm-dd",
+                "A specific date consider to generate the cycle date.". "Format : YYYY-mm-dd",
                 date('Y-m-d')
             )
             ->addArgument(
                 self::CYCLE_DATE,
                 InputArgument::OPTIONAL,
-                "Directly set the cycle date." . PHP_EOL . "Format : YYYY-mm-dd"
+                "Directly set the cycle date." . "Format : YYYY-mm-dd"
             )
             ->addOption(
                 self::INTERVAL_BEFORE,
                 'b',
                 InputOption::VALUE_REQUIRED,
-                'Time to retire for the interval',
+                'Time to retire for the interval (parseable by DateInterval::createFromDateString)',
                 $this->cycleIntervalBefore
             )
             ->addOption(
                 self::INTERVAL_AFTER,
                 'a',
                 InputOption::VALUE_REQUIRED,
-                'Time to add for the interval',
+                'Time to add for the interval (parseable by DateInterval::createFromDateString)',
                 $this->cycleIntervalAfter
             );
     }
