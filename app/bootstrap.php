@@ -29,7 +29,6 @@ use HiPay\Wallet\Mirakl\Integration\Entity\Vendor;
 use HiPay\Wallet\Mirakl\Integration\Entity\VendorRepository;
 use HiPay\Wallet\Mirakl\Integration\Model\TransactionValidator;
 use HiPay\Wallet\Mirakl\Integration\Parameter\Accessor;
-use Monolog\Handler\FilterHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
@@ -74,7 +73,7 @@ $helperSet = ConsoleRunner::createHelperSet($entityManager);
 $logger = new Logger("hipay");
 
 $logFilePath = $parameters['log.file.path'] ?: DEFAULT_LOG_PATH;
-$logger->pushHandler(new FilterHandler(new StreamHandler($logFilePath),Logger::WARNING));
+$logger->pushHandler(new StreamHandler($logFilePath));
 
 $swiftTransport = new Swift_SmtpTransport(
     $parameters['mail.host'],
