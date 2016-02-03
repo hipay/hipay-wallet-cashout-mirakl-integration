@@ -54,14 +54,14 @@ class Operation implements OperationInterface
     protected $cycleDate;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", unique=true, nullable=true)
+     * @var string
+     * @ORM\Column(type="string", unique=true, nullable=true)
      */
     protected $withdrawId;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", unique=true, nullable=true)
+     * @var string
+     * @ORM\Column(type="string", unique=true, nullable=true)
      */
     protected $transferId;
 
@@ -153,7 +153,7 @@ class Operation implements OperationInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getWithdrawId()
     {
@@ -161,7 +161,7 @@ class Operation implements OperationInterface
     }
 
     /**
-     * @param mixed $hipayWithdrawId
+     * @param string $hipayWithdrawId
      */
     public function setWithdrawId($hipayWithdrawId)
     {
@@ -193,8 +193,7 @@ class Operation implements OperationInterface
     }
 
     /**
-     * @return int
-     * @Assert\Type(type="integer")
+     * @return string
      */
     public function getTransferId()
     {
@@ -202,7 +201,7 @@ class Operation implements OperationInterface
     }
 
     /**
-     * @param int $transferId
+     * @param string $transferId
      */
     public function setTransferId($transferId)
     {
