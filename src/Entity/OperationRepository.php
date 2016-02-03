@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityRepository;
 use HiPay\Wallet\Mirakl\Cashout\Model\Operation\ManagerInterface;
 use HiPay\Wallet\Mirakl\Cashout\Model\Operation\OperationInterface;
 use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
-use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use Mustache_Engine;
 
 class OperationRepository extends EntityRepository implements ManagerInterface
@@ -137,12 +136,12 @@ class OperationRepository extends EntityRepository implements ManagerInterface
      *
      * @param float $amount
      * @param DateTime $cycleDate
+     * @param string $paymentVoucher
      * @param int $miraklId
-     * @param VendorInterface $vendor
      *
      * @return OperationInterface
      */
-    public function create($amount, DateTime $cycleDate, $miraklId = null, VendorInterface $vendor = null)
+    public function create($amount, DateTime $cycleDate, $paymentVoucher, $miraklId = null)
     {
         $operation = new Operation();
         $operation->setMiraklId($miraklId);
@@ -228,6 +227,27 @@ class OperationRepository extends EntityRepository implements ManagerInterface
             'date' => date('Y-m-d'),
             'datetime' => date('Y-m-d H:i:s'),
             'time' => date('H:i:s'),
+        );
+    }
+
+    /**
+     * Finds an operation.
+     *
+     * @param int $miraklId |null if operator
+     * @param int $paymentVoucherNumber optional date to filter upon
+     *
+     * @return OperationInterface|null
+     */
+    public function findByMiraklIdAndPaymentVoucherNumber(
+        $miraklId,
+        $paymentVoucherNumber
+    )
+    {
+        return $this->findBy(
+            array(
+                'miraklId' => $miraklId,
+                'paymentVoucher' => $paymentVoucherNumber
+            )
         );
     }
 }

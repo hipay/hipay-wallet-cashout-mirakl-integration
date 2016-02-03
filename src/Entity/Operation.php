@@ -72,6 +72,11 @@ class Operation implements OperationInterface
     protected $status;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", unique=false, nullable=false)
+     */
+    protected $paymentVoucher;
+    /**
      * @var DateTime
      *
      * @ORM\Column(type="datetime", unique=false, nullable= false)
@@ -221,4 +226,21 @@ class Operation implements OperationInterface
     }
 
 
+    /**
+     * @return string
+     */
+    public function getPaymentVoucher()
+    {
+        return $this->paymentVoucher;
+    }
+
+    /**
+     * @param $paymentVoucher
+     *
+     * @return void
+     */
+    public function setPaymentVoucher($paymentVoucher)
+    {
+        $this->paymentVoucher = $paymentVoucher;
+    }
 }
