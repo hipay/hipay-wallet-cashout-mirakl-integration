@@ -13,7 +13,7 @@ require_once __DIR__ . '/../app/bootstrap.php';
 
 $app = new Silex\Application();
 $app->post('/', function (Request $request) use ($app, $notificationHandler) {
-    $notificationHandler->handleHipayNotification($request->get('xml'));
+    $notificationHandler->handleHipayNotification($request->getContent());
     return 'Notification handled';
 });
 
