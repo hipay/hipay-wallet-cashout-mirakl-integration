@@ -144,7 +144,7 @@ $vendorProcessor->addListener('invalid.bankInfo', function (ThrowException $even
     $vendor = $ex->getVendor();
     $vendorMail->setTo($vendor->getEmail());
     $vendorMail->setBody(
-        "Your banking information in Mirakl is not in sync with HiPay data.
+        "Your banking information in Mirakl is not in sync with HiPay data.\n
         Please either correct it in Mirakl or contact HiPay to change it."
     );
     $mailer->send($vendorMail);
@@ -159,13 +159,13 @@ $operationRepository->setWithdrawLabelTemplate($parameters['label.withdraw']);
 
 $operatorAccount = new Vendor(
     $parameters['account.operator.email'],
-    false,
+    null,
     $parameters['account.operator.hipayId']
 );
 
 $technicalAccount = new Vendor(
     $parameters['account.technical.email'],
-    false,
+    null,
     $parameters['account.technical.hipayId']
 );
 
