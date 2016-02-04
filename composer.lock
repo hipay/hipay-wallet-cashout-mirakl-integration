@@ -766,12 +766,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "4996ff334b37827a6d8d0f77a69a19af7018cc86"
+                "reference": "70794fc79d6bfb889dd75d0b4d27537a75c2bd5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/4996ff334b37827a6d8d0f77a69a19af7018cc86",
-                "reference": "4996ff334b37827a6d8d0f77a69a19af7018cc86",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/70794fc79d6bfb889dd75d0b4d27537a75c2bd5a",
+                "reference": "70794fc79d6bfb889dd75d0b4d27537a75c2bd5a",
                 "shasum": ""
             },
             "require": {
@@ -809,7 +809,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-02-04 13:38:17"
+            "time": "2016-02-04 15:21:12"
         },
         {
             "name": "incenteev/composer-parameter-handler",
