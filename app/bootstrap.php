@@ -126,10 +126,11 @@ $eventDispatcher->addListener(
 $vendorRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
 
 $vendorProcessor = new VendorProcessor(
-    $miraklConfiguration,
-    $hipayConfiguration,
     $eventDispatcher,
     $logger,
+    $miraklConfiguration,
+    $hipayConfiguration,
+
     $ftpConfiguration,
     $vendorRepository
 );
@@ -172,10 +173,10 @@ $technicalAccount = new Vendor(
 $transactionValidator = new TransactionValidator();
 
 $cashoutInitializer = new CashoutInitializer(
-    $miraklConfiguration,
-    $hipayConfiguration,
     $eventDispatcher,
     $logger,
+    $miraklConfiguration,
+    $hipayConfiguration,
     $operatorAccount,
     $technicalAccount,
     $transactionValidator,
@@ -184,14 +185,14 @@ $cashoutInitializer = new CashoutInitializer(
 );
 
 $cashoutProcessor = new CashoutProcessor(
-    $miraklConfiguration,
-    $hipayConfiguration,
     $eventDispatcher,
     $logger,
+    $miraklConfiguration,
+    $hipayConfiguration,
     $operationRepository,
     $vendorRepository,
     $operatorAccount,
     $technicalAccount
 );
 
-$notificationHandler = new NotificationHandler($operationRepository, $vendorRepository, $eventDispatcher);
+$notificationHandler = new NotificationHandler($eventDispatcher, $logger,  $operationRepository, $vendorRepository);
