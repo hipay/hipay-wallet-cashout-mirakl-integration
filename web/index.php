@@ -14,13 +14,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 $app = new Silex\Application();
+
 $app->post('/', function (Request $request) use ($app, $notificationHandler) {
     $notificationHandler->handleHipayNotification($request->getContent());
     return new Response(null, 204);
 });
 
-
-$app->error(function (Exception $e, $code) use ($app, $notificationHandler) {
+$app->error(function (Exception $e) use ($app, $notificationHandler) {
     $notificationHandler->handleException($e);
     return new Response($e->getMessage());
 });

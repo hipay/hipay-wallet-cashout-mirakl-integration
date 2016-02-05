@@ -12,6 +12,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use HiPay\Wallet\Mirakl\Api\Factory;
 use HiPay\Wallet\Mirakl\Exception\Event\ThrowException;
 use HiPay\Wallet\Mirakl\Exception\InvalidBankInfoException;
 use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
@@ -125,13 +126,13 @@ $eventDispatcher->addListener(
 /** @var VendorRepository $vendorRepository */
 $vendorRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
 
+$apiFactory = new Factory($miraklConfiguration, $hipayConfiguration);
+$ftpFactory = new \HiPay\Wallet\Mirakl\Service\Ftp\Factory($ftpConfiguration);
 $vendorProcessor = new VendorProcessor(
     $eventDispatcher,
     $logger,
-    $miraklConfiguration,
-    $hipayConfiguration,
-
-    $ftpConfiguration,
+    $apiFactory,
+    $ftpFactory,
     $vendorRepository
 );
 $vendorMail = clone $messageTemplate;
@@ -175,8 +176,7 @@ $transactionValidator = new TransactionValidator();
 $cashoutInitializer = new CashoutInitializer(
     $eventDispatcher,
     $logger,
-    $miraklConfiguration,
-    $hipayConfiguration,
+    $apiFactory,
     $operatorAccount,
     $technicalAccount,
     $transactionValidator,
@@ -187,8 +187,7 @@ $cashoutInitializer = new CashoutInitializer(
 $cashoutProcessor = new CashoutProcessor(
     $eventDispatcher,
     $logger,
-    $miraklConfiguration,
-    $hipayConfiguration,
+    $apiFactory,
     $operationRepository,
     $vendorRepository,
     $operatorAccount,
