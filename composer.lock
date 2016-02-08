@@ -766,12 +766,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "e5da18452aa88b43de5faadb27c31337873356e3"
+                "reference": "afea19334a8d782f1f7795039daf782c192ac959"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/e5da18452aa88b43de5faadb27c31337873356e3",
-                "reference": "e5da18452aa88b43de5faadb27c31337873356e3",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/afea19334a8d782f1f7795039daf782c192ac959",
+                "reference": "afea19334a8d782f1f7795039daf782c192ac959",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +792,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "HiPay\\Wallet\\Mirakl\\": "src"
+                    "HiPay\\Wallet\\Mirakl\\": "src",
+                    "HiPay\\Wallet\\Mirakl\\Test\\": "tests"
                 }
             },
             "license": [
@@ -809,7 +810,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-02-05 14:38:35"
+            "time": "2016-02-08 09:42:19"
         },
         {
             "name": "incenteev/composer-parameter-handler",
