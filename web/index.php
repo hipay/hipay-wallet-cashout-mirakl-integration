@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 $app = new Silex\Application();
 
 $app->post('/', function (Request $request) use ($app, $notificationHandler) {
-    $notificationHandler->handleHipayNotification($request->getContent());
+    $notificationHandler->handleHipayNotification(urldecode($request->request->get('xml')));
     return new Response(null, 204);
 });
 
