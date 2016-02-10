@@ -79,11 +79,25 @@ class Operation implements OperationInterface
     /**
      * @var DateTime
      *
-     * @ORM\Column(type="datetime", unique=false, nullable= false)
+     * @ORM\Column(type="datetime", unique=false, nullable=false)
      *
      * @Gedmo\Timestampable(on="update")
      */
     protected $updatedAt;
+
+    /**
+     * @var float
+     * @ORM\Column(type="integer", unique=false, nullable=true)
+     */
+    protected $withdrawnAmount;
+
+    /**
+     * @return float
+     */
+    public function getWithdrawnAmount()
+    {
+        return $this->withdrawnAmount;
+    }
 
     /**
      * @return mixed
@@ -241,5 +255,14 @@ class Operation implements OperationInterface
     public function setPaymentVoucher($paymentVoucher)
     {
         $this->paymentVoucher = $paymentVoucher;
+    }
+
+    /**
+     * @param $amount
+     * @return void
+     */
+    public function setWithdrawnAmount($amount)
+    {
+        $this->withdrawnAmount = $amount;
     }
 }

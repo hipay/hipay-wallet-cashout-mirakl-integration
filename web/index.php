@@ -6,8 +6,6 @@
  * @copyright 2015 Smile
  */
 
-const ROOT_PATH = __DIR__;
-
 require_once __DIR__ . '/../app/bootstrap.php';
 
 use Symfony\Component\HttpFoundation\Request;

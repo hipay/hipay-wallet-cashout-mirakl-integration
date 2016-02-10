@@ -766,16 +766,17 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "56c24d6cf349ea6b84afcf9707e81f4c7d94c5a9"
+                "reference": "ad562ed26d4c3c7c22c75516c546ea9bed1e1b86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/56c24d6cf349ea6b84afcf9707e81f4c7d94c5a9",
-                "reference": "56c24d6cf349ea6b84afcf9707e81f4c7d94c5a9",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/ad562ed26d4c3c7c22c75516c546ea9bed1e1b86",
+                "reference": "ad562ed26d4c3c7c22c75516c546ea9bed1e1b86",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.2",
+                "doctrine/cache": "^1.5",
                 "ext-soap": "*",
                 "guzzlehttp/guzzle": "^3.8",
                 "php": ">=5.3.9",
@@ -786,8 +787,9 @@
                 "touki/ftp": "^1.2"
             },
             "require-dev": {
+                "phpspec/prophecy": "~1.0",
                 "phpunit/phpunit": "^4.8",
-                "phpunit/phpunit-mock-objects": "^2.3"
+                "symfony/phpunit-bridge": "^2.8"
             },
             "type": "library",
             "autoload": {
@@ -810,7 +812,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-02-08 14:02:27"
+            "time": "2016-02-10 15:50:25"
         },
         {
             "name": "incenteev/composer-parameter-handler",

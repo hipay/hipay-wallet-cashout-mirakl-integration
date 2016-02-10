@@ -190,8 +190,7 @@ $cashoutProcessor = new CashoutProcessor(
     $apiFactory,
     $operationRepository,
     $vendorRepository,
-    $operatorAccount,
-    $technicalAccount
+    $operatorAccount
 );
 
-$notificationHandler = new NotificationHandler($eventDispatcher, $logger,  $operationRepository, $vendorRepository);
+$notificationHandler = new NotificationHandler($eventDispatcher, $logger,  $operationRepository);
