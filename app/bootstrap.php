@@ -61,6 +61,8 @@ $dbParams = array(
     'user'     => $dbConfiguration->getUsername(),
     'password' => $dbConfiguration->getPassword(),
     'dbname'   => $dbConfiguration->getDatabaseName(),
+    'host'     => $dbConfiguration->getHost(),
+    'port'     => $dbConfiguration->getPort()
 );
 
 $eventManager = new Doctrine\Common\EventManager();
