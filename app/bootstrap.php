@@ -9,6 +9,7 @@
 $loader = require_once __DIR__ . '/../vendor/autoload.php';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
@@ -66,7 +67,7 @@ $eventManager = new Doctrine\Common\EventManager();
 $timestampableListener = new Gedmo\Timestampable\TimestampableListener();
 $eventManager->addEventSubscriber($timestampableListener);
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $debug, null, null, false);
+$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $debug, new ArrayCache(), null, false);
 $entityManager = EntityManager::create($dbParams, $annotationMetadataConfiguration, $eventManager);
 
 $helperSet = ConsoleRunner::createHelperSet($entityManager);
