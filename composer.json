@@ -1,7 +1,7 @@
 {
   "name": "hipay/mirakl-silex-integration",
   "description": "Exemple integration of the mirakl-hipay-connector with silex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
