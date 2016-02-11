@@ -67,7 +67,7 @@ $eventManager = new Doctrine\Common\EventManager();
 $timestampableListener = new Gedmo\Timestampable\TimestampableListener();
 $eventManager->addEventSubscriber($timestampableListener);
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $debug, new ArrayCache(), null, false);
+$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $debug, null, new ArrayCache(), false);
 $entityManager = EntityManager::create($dbParams, $annotationMetadataConfiguration, $eventManager);
 
 $helperSet = ConsoleRunner::createHelperSet($entityManager);
