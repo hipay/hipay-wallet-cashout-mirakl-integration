@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aa32d19418643eba5e22424bba98f562",
-    "content-hash": "6ec96c4dce405da7dac6ce30392dc0dd",
+    "hash": "59d863555b60b1ae303e4403c7af010f",
+    "content-hash": "8388bb0873e89e90a8dfea0a4063cb76",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -762,16 +762,16 @@
         },
         {
             "name": "hipay/mirakl-connector",
-            "version": "dev-develop",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "e78241153f3789e2e20bb7376447885b3fe769fb"
+                "reference": "54bedce554401eae05f3f2139ff2bc3f5a7d1b96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/e78241153f3789e2e20bb7376447885b3fe769fb",
-                "reference": "e78241153f3789e2e20bb7376447885b3fe769fb",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/54bedce554401eae05f3f2139ff2bc3f5a7d1b96",
+                "reference": "54bedce554401eae05f3f2139ff2bc3f5a7d1b96",
                 "shasum": ""
             },
             "require": {
@@ -809,10 +809,10 @@
             ],
             "description": "Library to ease the connection between Mirakl and HiPay",
             "support": {
-                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
+                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/1.0.0",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-02-10 18:06:52"
+            "time": "2016-02-11 11:22:14"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2283,9 +2283,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "hipay/mirakl-connector": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
