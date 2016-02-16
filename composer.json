@@ -1,7 +1,7 @@
 {
   "name": "hipay/mirakl-silex-integration",
   "description": "Exemple integration of the mirakl-hipay-connector with silex",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
@@ -21,7 +21,7 @@
     "doctrine/orm": "^2.4",
     "symfony/console": "^2.6",
     "symfony/yaml": "^2.6",
-    "hipay/mirakl-connector" : "dev-develop",
+    "hipay/mirakl-connector" : "1.0.0",
     "incenteev/composer-parameter-handler": "^2.0",
     "gedmo/doctrine-extensions" : "^2.4",
     "swiftmailer/swiftmailer": "^5.0",
