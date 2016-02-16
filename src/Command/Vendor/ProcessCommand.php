@@ -36,10 +36,14 @@ class ProcessCommand extends AbstractCommand
 
     public function __construct(
         LoggerInterface $logger,
-        VendorProcessor $processor
+        VendorProcessor $processor,
+        $zipPath,
+        $ftpPath
     )
     {
         $this->processor = $processor;
+        $this->zipPath = $zipPath;
+        $this->ftpPath = $ftpPath;
         parent::__construct($logger);
     }
 

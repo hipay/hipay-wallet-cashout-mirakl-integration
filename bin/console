@@ -27,9 +27,12 @@ $console->setDispatcher($eventDispatcher);
 
 ORMConsoleRunner::addCommands($console);
 
-$vendorProcessCommand = new VendorProcessCommand($logger, $vendorProcessor);
-$vendorProcessCommand->setZipPath($parameters['default.zip.path']);
-$vendorProcessCommand->setFtpPath($parameters['default.ftp.path']);
+$vendorProcessCommand = new VendorProcessCommand(
+    $logger,
+    $vendorProcessor,
+    $parameters['default.zip.path'],
+    $parameters['default.ftp.path']
+);
 
 $cashoutGenerateCommand = new CashoutGenerateCommand(
     $logger,

@@ -13,9 +13,10 @@ use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
-use HiPay\Wallet\Mirakl\Api\Factory;
+use HiPay\Wallet\Mirakl\Api\Factory as ApiFactory;
 use HiPay\Wallet\Mirakl\Exception\Event\ThrowException;
 use HiPay\Wallet\Mirakl\Exception\InvalidBankInfoException;
+use HiPay\Wallet\Mirakl\Service\Ftp\Factory as FTPFactory;
 use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
 use HiPay\Wallet\Mirakl\Cashout\Initializer as CashoutInitializer;
 use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
@@ -129,8 +130,8 @@ $eventDispatcher->addListener(
 /** @var VendorRepository $vendorRepository */
 $vendorRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
 
-$apiFactory = new Factory($miraklConfiguration, $hipayConfiguration);
-$ftpFactory = new \HiPay\Wallet\Mirakl\Service\Ftp\Factory($ftpConfiguration);
+$apiFactory = new ApiFactory($miraklConfiguration, $hipayConfiguration);
+$ftpFactory = new FTPFactory($ftpConfiguration);
 $vendorProcessor = new VendorProcessor(
     $eventDispatcher,
     $logger,
