@@ -8,8 +8,8 @@ dependencies:
 
 test:
   pre:
-    - docker-compose docker-compose build
-    - docker-compose docker-compose up -d
+    - docker-compose build
+    - docker-compose up -d
     - docker exec hipay-mirakl-running /var/www/html/docker/setup.sh
 
   override:
