@@ -6,7 +6,7 @@ test:
   pre:
     - docker-compose build
     - docker-compose up -d
-    - docker exec hipay-mirakl-running /var/www/html/docker/setup.sh
+    - sudo lxc-attach -n "$(docker inspect --format '{{.Id}}' hipay-mirakl-running)" -- bash -c /var/www/html/docker/setup.sh
 
   override:
-    - docker exec hipay-mirakl-running curl -s localhost
+    - sudo lxc-attach -n "$(docker inspect --format '{{.Id}}' hipay-mirakl-running)" -- bash -c curl -s localhost
