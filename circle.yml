@@ -1,0 +1,12 @@
+machine:
+  services:
+    - docker
+
+test:
+  pre:
+    - docker-compose docker-compose build
+    - docker-compose docker-compose up -d
+    - docker exec hipay-mirakl-running /var/www/html/docker/setup.sh
+
+  override:
+    - docker exec hipay-mirakl-running curl -s localhost
