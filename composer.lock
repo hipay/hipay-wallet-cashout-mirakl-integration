@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "58ce9e927f0379fb61d3a4fc1290b647",
-    "content-hash": "01cd57cd5e4142fdf7c9eebbcd9da1d9",
+    "hash": "5b709ff3a5e6f782382da69c8fa923f8",
+    "content-hash": "34151c73846f7f2ae3e9a5c7633d88ea",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -762,16 +762,16 @@
         },
         {
             "name": "hipay/mirakl-connector",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "34fac98b4167902916c955f152b48f5c2a2a1186"
+                "reference": "dce30967810ac8bdce0a4f4ffa8be4804cff63e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/34fac98b4167902916c955f152b48f5c2a2a1186",
-                "reference": "34fac98b4167902916c955f152b48f5c2a2a1186",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/dce30967810ac8bdce0a4f4ffa8be4804cff63e8",
+                "reference": "dce30967810ac8bdce0a4f4ffa8be4804cff63e8",
                 "shasum": ""
             },
             "require": {
@@ -812,7 +812,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-02-17 09:57:57"
+            "time": "2016-02-17 12:40:26"
         },
         {
             "name": "incenteev/composer-parameter-handler",
