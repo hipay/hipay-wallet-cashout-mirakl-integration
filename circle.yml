@@ -10,3 +10,4 @@ test:
 
   override:
     - docker exec hipay-mirakl-running curl -s localhost
+    
