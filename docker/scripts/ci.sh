@@ -8,7 +8,6 @@ echo "
     mirakl.operatorKey: ${MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY}
     mirakl.baseUrl: ${MIRAKL_CONNECTOR_MIRAKL_BASE_URL}
 
-    # HiPay info (to be updated)
     hipay.wsLogin: ${MIRAKL_CONNECTOR_HIPAY_WS_LOGIN}
     hipay.wsPassword: ${MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD}
     hipay.baseUrl: ${MIRAKL_CONNECTOR_HIPAY_BASE_URL}
