@@ -31,7 +31,7 @@ parameters:
   db.username: ~
   db.password: ~
   db.name: ~
-  db.port: 21
+  db.port: 3306
 
   debug: false
 

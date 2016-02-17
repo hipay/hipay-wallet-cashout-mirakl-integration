@@ -32,7 +32,7 @@ parameters:
     db.username: dev
     db.password: '123456'
     db.name: app
-    db.port: 21
+    db.port: 3306
 
     mail.host: smtp
     mail.port: 1025
