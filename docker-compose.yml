@@ -1,43 +1,37 @@
-version: '2'
-services:
-  web:
-    build: .
-    links:
-      - db
-      - ftp
-      - smtp
-    depends_on:
-      - db
-      - ftp
-      - smtp
-    container_name: hipay-mirakl-running
-    volumes:
-      - .:/var/www/html
-    ports:
-      - "80:80"
-    environment:
-      XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
+web:
+  build: .
+  links:
+    - db
+    - ftp
+    - smtp
+  container_name: hipay-mirakl-running
+  volumes:
+    - .:/var/www/html
+  ports:
+    - "80:80"
+  environment:
+    XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
 
-  db:
-    image: mysql
-    container_name: hipay-mirakl-db-running
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_USER: dev
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: app
+db:
+  image: mysql
+  container_name: hipay-mirakl-db-running
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: 123456
+    MYSQL_USER: dev
+    MYSQL_PASSWORD: 123456
+    MYSQL_DATABASE: app
 
-  ftp:
-    image: nikkor/pure-ftpd-with-user
-    container_name: hipay-mirakl-ftp-running
-    ports:
-      - "21:21"
-      - "30000-30009:30000-30009"
+ftp:
+  image: nikkor/pure-ftpd-with-user
+  container_name: hipay-mirakl-ftp-running
+  ports:
+    - "21:21"
+    - "30000-30009:30000-30009"
 
-  smtp:
-    image: schickling/mailcatcher
-    container_name: hipay-mirakl-smtp-running
-    ports:
-      - "1080:1080"
+smtp:
+  image: schickling/mailcatcher
+  container_name: hipay-mirakl-smtp-running
+  ports:
+    - "1080:1080"
