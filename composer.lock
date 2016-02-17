@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e25ae7a108308b0ab0f0dfce29311a07",
-    "content-hash": "363699fdcf964a5b86587c2fb186f5ec",
+    "hash": "58ce9e927f0379fb61d3a4fc1290b647",
+    "content-hash": "01cd57cd5e4142fdf7c9eebbcd9da1d9",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -762,16 +762,16 @@
         },
         {
             "name": "hipay/mirakl-connector",
-            "version": "dev-develop",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:hipay/hipay-wallet-cashout-mirakl.git",
-                "reference": "a145710211ee8ad92e5271a8f91e976f0753cd38"
+                "reference": "34fac98b4167902916c955f152b48f5c2a2a1186"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/a145710211ee8ad92e5271a8f91e976f0753cd38",
-                "reference": "a145710211ee8ad92e5271a8f91e976f0753cd38",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl/zipball/34fac98b4167902916c955f152b48f5c2a2a1186",
+                "reference": "34fac98b4167902916c955f152b48f5c2a2a1186",
                 "shasum": ""
             },
             "require": {
@@ -812,7 +812,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl/issues"
             },
-            "time": "2016-02-16 16:56:47"
+            "time": "2016-02-17 09:57:57"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2283,9 +2283,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "hipay/mirakl-connector": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
