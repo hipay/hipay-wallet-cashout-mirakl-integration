@@ -2,6 +2,10 @@ machine:
   services:
     - docker
 
+dependencies:
+  override:
+    sudo pip install --upgrade docker-compose==1.6.0
+
 test:
   pre:
     - docker-compose docker-compose build
@@ -10,4 +14,3 @@ test:
 
   override:
     - docker exec hipay-mirakl-running curl -s localhost
-    
