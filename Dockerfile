@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y \
 	ftp \
 	libssl-dev \
 	mysql-client \
-	phpunit \
     git
 
 # pdo_mysql
