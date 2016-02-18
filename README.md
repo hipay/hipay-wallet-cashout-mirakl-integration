@@ -125,6 +125,11 @@ If these are not the same, an error notification is sent.
 |zipPath    |String   |Path where the zip containing the documents should be saved
 |ftpPath    |String   |Path on the FTP where the KYC files should be transferred
 
+### Cron exemple
+This command should be played often (as often as the vendor update their data)
+
+0 0 */7 * * path/to/bin/console vendor:process \`date +%Y-%m-%d\`
+
 ## Cashout generate
 
 
@@ -149,7 +154,13 @@ Functions:
 |intervalBefore     |Interval   |Interval to remove from cycleDate
 |intervalAfter      |Interval   |Interval to add to cycleDate
 
-## Cashout generate
+### Cron exemple
+
+This command should be run right after the payment cycle was made at Mirakl
+
+30 0 1,11,21 * * path/to/bin/console vendor:process \`date +%Y-%m-%d\`
+
+## Cashout process
 
 
     $ bin/console cashout:process
@@ -165,7 +176,48 @@ This command doesn’t have any argument.
 ### Option
 This command doesn’t have any option.
 
-The following command
+### Cron exemple
+
+This command should be run as soon as possible (when you have payments you want to transfer to your sellers)
+
+30 2 1,11,21 * * path/to/bin/console vendor:process \`date +%Y-%m-%d\`
+
+The following commands are not included in the full cashout process but may be useful for debugging :
+You need to have debug at true to see something
+
+## Wallet list
+
+
+    $ bin/console vendor:wallet:list
+
+
+### Execution
+1. Retrive from HiPay the wallet associated with a merchant group id (associated with an entity)
+2. Display them in a table
+
+
+### Argument
+|Name       |Type | Required | Description                           |
+|-----------|-----|----------|---------------------------------------|
+|merchantGroupId  |Integer |✗         |a merchant group id for fetching the wallets                   |
+
+### Option
+This command doesn’t have any option.
+
+
+## Bank information
+
+### Execution
+1. Retrive from HiPay the bank information status
+2. If that status is validated, display the information stored by HiPay
+
+### Argument
+|Name       |Type | Required | Description                           |
+|-----------|-----|----------|---------------------------------------|
+|hipayId  |Integer |✓         |The wallet id from which we fetch the bank information              |
+
+### Option
+This command doesn’t have any option.
 
 # Parameters
 
