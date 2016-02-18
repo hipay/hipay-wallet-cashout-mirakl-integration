@@ -192,7 +192,7 @@ You need to have debug at true to see something
 
 
 ### Execution
-1. Retrive from HiPay the wallet associated with a merchant group id (associated with an entity)
+1. Retrieve from HiPay the wallet associated with a merchant group id (associated with an entity)
 2. Display them in a table
 
 
