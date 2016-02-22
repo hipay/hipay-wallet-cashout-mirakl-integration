@@ -153,6 +153,13 @@ class GenerateCommand extends AbstractCommand
         $month = $currentMonth;
         $year = $currentYear;
 
+        $cycleDays = array_map(function ($entry) {
+            if (!is_integer($entry)) {
+                $entry = intval(date('j'), strtotime($entry));
+            }
+            return $entry;
+        }, $cycleDays);
+
         $cycleDays = array_unique($cycleDays);
         sort($cycleDays, SORT_NUMERIC);
 
