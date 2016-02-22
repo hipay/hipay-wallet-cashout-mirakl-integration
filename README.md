@@ -44,6 +44,32 @@ Business IT Services for technical support at [http://help.hipay.com](http://hel
 
 # Database tables
 
+Two tables need to be created. Should you follow the instruction in the Installation section, below are the changes in the database :
+
+## Vendors
+
+| Field    | Type         | Null | Key | Default | Extra          |
+|----------|--------------|------|-----|---------|----------------|
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| miraklId | int(11)      | NO   | UNI | NULL    |                |
+| email    | varchar(255) | NO   | UNI | NULL    |                |
+| hipayId  | int(11)      | NO   | UNI | NULL    |                |
+
+## Operations
+
+| Field          | Type         | Null | Key | Default | Extra          |
+|----------------|--------------|------|-----|---------|----------------|
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| miraklId       | int(11)      | YES  |     | NULL    |                |
+| hipayId        | int(11)      | YES  |     | NULL    |                |
+| amount         | double       | NO   |     | NULL    |                |
+| cycleDate      | datetime     | NO   |     | NULL    |                |
+| withdrawId     | varchar(255) | YES  | UNI | NULL    |                |
+| transferId     | varchar(255) | YES  | UNI | NULL    |                |
+| status         | int(11)      | NO   |     | NULL    |                |
+| updatedAt      | datetime     | NO   |     | NULL    |                |
+| paymentVoucher | varchar(255) | NO   |     | NULL    |                |
+
 # Installation
 Before starting the installation, please read all instructions.
 All relative paths are relative to the root of the installation.
