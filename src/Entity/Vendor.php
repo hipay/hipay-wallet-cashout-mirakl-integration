@@ -41,7 +41,7 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", unique=true, nullable=false)
      * @Assert\NotBlank
      * @Assert\Type(type="string")
      * @Assert\Email
