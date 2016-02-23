@@ -1,0 +1,43 @@
+parameters:
+
+    # Mirakl info (to be updated)
+    mirakl.frontKey: ~
+    mirakl.shopKey: ~
+    mirakl.operatorKey: ~
+    mirakl.baseUrl: ~
+
+    # HiPay info (to be updated)
+    hipay.wsLogin: ~
+    hipay.wsPassword: ~
+    hipay.baseUrl: 'https://test-ws.hipay.com/'
+    hipay.entity: ~
+    hipay.merchantGroupId: ~
+
+    account.technical.email: null
+    account.technical.hipayId: null
+    account.operator.email: null
+    account.operator.hipayId: null
+
+    # In dev, all emails are catched and not really sent
+    mail.subject: 'Mirakl HiPay Connector Notification'
+    mail.to: marketplace.operator@hipay.com
+    mail.from: mirakl.hipay.connector@hipay.com
+
+    # Other services launched with Docker Compose
+    ftp.host: ftp
+    ftp.username: joe
+    ftp.password: '123456'
+
+    db.host: db
+    db.username: dev
+    db.password: '123456'
+    db.name: app
+    db.port: 3306
+
+    mail.host: smtp
+    mail.port: 1025
+    mail.security: null
+    mail.username:
+    mail.password:
+
+
