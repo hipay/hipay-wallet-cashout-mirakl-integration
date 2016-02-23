@@ -1,0 +1,14 @@
+machine:
+  services:
+    - docker
+
+test:
+  pre:
+    - docker-compose build
+    - docker-compose up -d
+    - sudo chmod -R 766 ./docker/config
+    - ./docker/scripts/ci.sh
+    - sudo lxc-attach -n "$(docker inspect --format '{{.Id}}' hipay-mirakl-running)" -- bash -c "cd /var/www/html && docker/scripts/setup.sh"
+
+  override:
+    - curl --retry 2 --retry-delay 5 -v http://localhost
