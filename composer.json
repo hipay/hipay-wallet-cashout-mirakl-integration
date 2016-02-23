@@ -3,7 +3,7 @@
   "description": "Exemple integration of the mirakl-hipay-connector with silex",
   "version": "1.0.4",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "Ivanis Kouamé",
