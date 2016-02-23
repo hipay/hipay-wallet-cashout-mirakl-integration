@@ -13,7 +13,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl"
+      "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library"
     }
   ],
   "require": {
