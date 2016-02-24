@@ -1,3 +1,6 @@
+# Version 1.0.4
+Read me update.
+
 # Version 1.0.1
 Minor bug fixes.
 
