@@ -1,6 +1,6 @@
 {
   "name": "hipay/hipay-wallet-cashout-mirakl-integration",
-  "description": "Exemple integration of the mirakl-hipay-connector with silex",
+  "description": "Turnkey integration which handles cash-out operations between HiPay and the Mirakl marketplace solution.",
   "version": "1.0.3",
   "minimum-stability": "stable",
   "license": "Apache-2.0",

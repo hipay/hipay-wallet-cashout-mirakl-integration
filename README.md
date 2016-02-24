@@ -1,6 +1,6 @@
 # HiPay Wallet cash-out integration for Mirakl
 
-[![Build Status](https://circleci.com/gh/hipay/hipay-wallet-cashout-mirakl-integration/tree/master.svg?style=shield)](https://circleci.com/gh/hipay/hipay-wallet-cashout-mirakl-integration/tree/master)
+[![Build Status](https://circleci.com/gh/hipay/hipay-wallet-cashout-mirakl-integration/tree/master.svg?style=shield)](https://circleci.com/gh/hipay/hipay-wallet-cashout-mirakl-integration/tree/master) [![Package version](https://img.shields.io/packagist/v/hipay/hipay-wallet-cashout-mirakl-integration.svg)](https://packagist.org/packages/hipay/hipay-wallet-cashout-mirakl-integration) [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/hipay/hipay-wallet-cashout-mirakl-integration/master/LICENSE.md)
 
 The **HiPay Wallet cash-out integration for Mirakl** is an application based on the [Silex PHP micro-framework][silex] which intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.
 Note that this application integrates the [HiPay Wallet cash-out library for Mirakl][repo-lib].
@@ -19,8 +19,8 @@ Read the **[project documentation][doc-home]** for comprehensive information abo
 
 - Automatically creates a HiPay Wallet account for each of your Mirakl merchant
 - Automatically retrieves your Mirakl payment operations for paying your Mirakl merchants
-- Transfer funds from your technical HiPay Wallet account to your merchants' HiPay Wallet ones
-- Transfer operator's fees from your technical HiPay Wallet account to your operator's HiPay Wallet account
+- Transfers funds from your technical HiPay Wallet account to your merchants' HiPay Wallet ones
+- Transfers operator's fees from your technical HiPay Wallet account to your operator's HiPay Wallet account
 - Leverages the HiPay Wallet API in order to execute withdrawals from HiPay Wallet to both the operator's and merchants' bank accounts
 
 ## License
@@ -31,7 +31,7 @@ The **HiPay Wallet cash-out integration for Mirakl** is available under the **Ap
 
 [hipay-help]: http://help.hipay.com
 
-[project-issues]: https://github.com/hipay/hipay-wallet-cashout-mirakl/issues
+[project-issues]: https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/issues
 [project-license]: https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
 [project-changelog]: https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/CHANGELOG.md
 
