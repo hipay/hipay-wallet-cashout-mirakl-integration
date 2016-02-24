@@ -1,3 +1,6 @@
+# Version 1.0.4
+Read me update.
+
 # Version 1.0.2
 Update *HiPay Wallet cash-out library for Mirakl* repository URL.
 
