@@ -1,3 +1,6 @@
+# Version 1.0.5
+Add Code Climate badge.
+
 # Version 1.0.4
 Read me update.
 
