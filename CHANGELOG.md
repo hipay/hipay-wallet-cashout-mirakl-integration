@@ -1,3 +1,6 @@
+# Version 1.0.6
+Fix mistakes in README.
+
 # Version 1.0.5
 Add Code Climate badge.
 
