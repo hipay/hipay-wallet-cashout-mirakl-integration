@@ -30,8 +30,7 @@ ORMConsoleRunner::addCommands($console);
 $vendorProcessCommand = new VendorProcessCommand(
     $logger,
     $vendorProcessor,
-    $parameters['default.zip.path'],
-    $parameters['default.ftp.path']
+    $parameters['default.tmp.path']
 );
 
 $cashoutGenerateCommand = new CashoutGenerateCommand(

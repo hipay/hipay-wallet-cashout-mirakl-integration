@@ -2,14 +2,14 @@ parameters:
 
     # Mirakl info (to be updated)
     mirakl.frontKey: ~
-    mirakl.shopKey: ~
     mirakl.operatorKey: ~
     mirakl.baseUrl: ~
 
     # HiPay info (to be updated)
     hipay.wsLogin: ~
     hipay.wsPassword: ~
-    hipay.baseUrl: 'https://test-ws.hipay.com/'
+    hipay.baseSoapUrl: 'https://test-ws.hipay.com/'
+    hipay.baseRestUrl: 'https://test-merchant.hipaywallet.com/'
     hipay.entity: ~
     hipay.merchantGroupId: ~
 
@@ -24,9 +24,6 @@ parameters:
     mail.from: mirakl.hipay.connector@hipay.com
 
     # Other services launched with Docker Compose
-    ftp.host: ftp
-    ftp.username: joe
-    ftp.password: '123456'
 
     db.host: db
     db.username: dev
