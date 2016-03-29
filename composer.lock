@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ce640991f9703419b82099da7e314b3",
-    "content-hash": "ba56141174a8f95134051e9ad7de492a",
+    "hash": "368d89c7d8aedeb75d1b2f18e0465cbc",
+    "content-hash": "6b1361ef9e07516a141256ddb2797b74",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -762,16 +762,16 @@
         },
         {
             "name": "hipay/hipay-wallet-cashout-mirakl-library",
-            "version": "dev-feature/WALMIRAKL-10",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
-                "reference": "653d7cecdfa76290ea75b3bb4b27562e78308629"
+                "reference": "5c9008a2a2783d1184f3c97428172b392caeca3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/653d7cecdfa76290ea75b3bb4b27562e78308629",
-                "reference": "653d7cecdfa76290ea75b3bb4b27562e78308629",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/5c9008a2a2783d1184f3c97428172b392caeca3b",
+                "reference": "5c9008a2a2783d1184f3c97428172b392caeca3b",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 }
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
-            "time": "2016-03-29 14:12:41"
+            "time": "2016-03-29 14:45:03"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2251,9 +2251,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "hipay/hipay-wallet-cashout-mirakl-library": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
