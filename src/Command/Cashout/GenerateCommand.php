@@ -125,7 +125,7 @@ class GenerateCommand extends AbstractCommand
         $this->logger->debug("Arguments : \n" .
             "Cycle date : {$cycleDate->format('Y-m-d H:i')}\n".
             "Interval before : {$intervalBefore->format($format)}\n".
-            "Interval after : {$intervalBefore->format($format)}\n",
+            "Interval after : {$intervalAfter->format($format)}\n",
             array(
                 'cycleDate' => $cycleDate,
                 'intervalBefore' => $intervalBefore,

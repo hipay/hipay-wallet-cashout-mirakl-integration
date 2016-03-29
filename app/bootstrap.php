@@ -137,22 +137,6 @@ $vendorProcessor = new VendorProcessor(
     $vendorRepository,
     $documentRepository
 );
-$vendorMail = clone $messageTemplate;
-//Send mail to vendor in the case of invalid bank info
-$vendorProcessor->addListener('invalid.bankInfo', function (ThrowException $event)
-    use ($mailer, $vendorMail) {
-
-    /** @var InvalidBankInfoException $ex */
-    $ex = $event->getException();
-
-    $vendor = $ex->getVendor();
-    $vendorMail->setTo($vendor->getEmail());
-    $vendorMail->setBody(
-        "Your banking information in Mirakl is not in sync with HiPay data.\n
-        Please either correct it in Mirakl or contact HiPay to change it."
-    );
-    $mailer->send($vendorMail);
-});
 
 /** @var OperationRepository $operationRepository */
 $operationRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');

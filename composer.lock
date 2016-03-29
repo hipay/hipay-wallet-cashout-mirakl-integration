@@ -463,60 +463,6 @@
             "time": "2015-11-06 14:35:42"
         },
         {
-            "name": "doctrine/instantiator",
-            "version": "1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3,<8.0-DEV"
-            },
-            "require-dev": {
-                "athletic/athletic": "~0.1.8",
-                "ext-pdo": "*",
-                "ext-phar": "*",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.com/"
-                }
-            ],
-            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-            "homepage": "https://github.com/doctrine/instantiator",
-            "keywords": [
-                "constructor",
-                "instantiate"
-            ],
-            "time": "2015-06-14 21:17:01"
-        },
-        {
             "name": "doctrine/lexer",
             "version": "v1.0.1",
             "source": {
@@ -820,12 +766,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
-                "reference": "260438969609824e1b90b33c1b8a5db795437a87"
+                "reference": "653d7cecdfa76290ea75b3bb4b27562e78308629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/260438969609824e1b90b33c1b8a5db795437a87",
-                "reference": "260438969609824e1b90b33c1b8a5db795437a87",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/653d7cecdfa76290ea75b3bb4b27562e78308629",
+                "reference": "653d7cecdfa76290ea75b3bb4b27562e78308629",
                 "shasum": ""
             },
             "require": {
@@ -867,7 +813,7 @@
                 }
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
-            "time": "2016-03-28 16:36:47"
+            "time": "2016-03-29 14:12:41"
         },
         {
             "name": "incenteev/composer-parameter-handler",

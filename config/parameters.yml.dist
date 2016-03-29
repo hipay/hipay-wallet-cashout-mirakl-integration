@@ -50,8 +50,8 @@ parameters:
     - 21
   cycle.hour: 0
   cycle.minute: 1
-  cycle.interval.before: '12h'
-  cycle.interval.after: '12h'
+  cycle.interval.before: '12 hour'
+  cycle.interval.after: '12 hour'
 
   account.technical.email: ~
   account.technical.hipayId: ~
