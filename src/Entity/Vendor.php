@@ -49,7 +49,7 @@ class Vendor implements VendorInterface, Timestampable
     protected $email;
 
     /**
-     * @var int
+     * @var int The HiPay Wallet account ID
      *
      * @ORM\Column(type="integer", unique=true, nullable=false)
      * @Assert\NotBlank
@@ -57,6 +57,23 @@ class Vendor implements VendorInterface, Timestampable
      * @Assert\GreaterThan(value=0)
      */
     protected $hipayId;
+
+    /**
+     * @var int The HiPay account user space ID
+     *
+     * @ORM\Column(type="integer", unique=true, nullable=true)
+     * @Assert\Type(type="integer")
+     * @Assert\GreaterThan(value=0)
+     */
+    protected $hipayUserSpaceId;
+
+    /**
+     * @var int Whether the HiPay Wallet account is identified
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     * @Assert\NotNull
+     */
+    protected $hipayIdentified;
 
     /**
      * Vendor constructor.
@@ -118,4 +135,37 @@ class Vendor implements VendorInterface, Timestampable
     {
         $this->hipayId = $hipayId;
     }
+
+    /**
+     * @return int
+     */
+    public function getHipayUserSpaceId()
+    {
+        return $this->hipayUserSpaceId;
+    }
+
+    /**
+     * @param int $hipayUserSpaceId
+     */
+    public function setHipayUserSpaceId($hipayUserSpaceId)
+    {
+        $this->hipayUserSpaceId = $hipayUserSpaceId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHipayIdentified()
+    {
+        return $this->hipayIdentified;
+    }
+
+    /**
+     * @param int $hipayIdentified
+     */
+    public function setHipayIdentified($hipayIdentified)
+    {
+        $this->hipayIdentified = $hipayIdentified;
+    }
+
 }

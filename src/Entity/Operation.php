@@ -87,7 +87,7 @@ class Operation implements OperationInterface
 
     /**
      * @var float
-     * @ORM\Column(type="integer", unique=false, nullable=true)
+     * @ORM\Column(type="float", unique=false, nullable=true)
      */
     protected $withdrawnAmount;
 

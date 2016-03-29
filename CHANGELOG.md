@@ -1,3 +1,8 @@
+# Version 2.0.0
+- Leverages the new version of the HiPay Wallet cash-out library for Mirakl which handles KYC documents upload through HiPay Wallet REST API.
+- Removes Mirakl shopKey parameter
+- Removes FTP configuration (not needed anymore as documents are transferred through HiPay Wallet REST API)
+
 # Version 1.0.6
 Fix mistakes in README.
 

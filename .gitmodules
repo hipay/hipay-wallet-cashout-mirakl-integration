@@ -1,0 +1,3 @@
+[submodule "docker/scripts/wait-for-it"]
+	path = docker/scripts/wait-for-it
+	url = https://github.com/vishnubob/wait-for-it.git

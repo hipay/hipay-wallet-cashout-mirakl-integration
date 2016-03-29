@@ -4,13 +4,13 @@ cp docker/config/parameters_example.yml docker/config/parameters.yml
 
 echo "
     mirakl.frontKey: ${MIRAKL_CONNECTOR_MIRAKL_FRONT_KEY}
-    mirakl.shopKey: ${MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY}
     mirakl.operatorKey: ${MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY}
     mirakl.baseUrl: ${MIRAKL_CONNECTOR_MIRAKL_BASE_URL}
 
     hipay.wsLogin: ${MIRAKL_CONNECTOR_HIPAY_WS_LOGIN}
     hipay.wsPassword: ${MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD}
-    hipay.baseUrl: ${MIRAKL_CONNECTOR_HIPAY_BASE_URL}
+    hipay.baseSoapUrl: ${MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL}
+    hipay.baseRestUrl: ${MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL}
     hipay.entity: ${MIRAKL_CONNECTOR_HIPAY_ENTITY}
     hipay.merchantGroupId: ${MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID}
 

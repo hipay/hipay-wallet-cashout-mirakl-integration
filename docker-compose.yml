@@ -2,7 +2,6 @@ web:
   build: .
   links:
     - db
-    - ftp
     - smtp
   container_name: hipay-mirakl-running
   volumes:
@@ -22,13 +21,6 @@ db:
     MYSQL_USER: dev
     MYSQL_PASSWORD: 123456
     MYSQL_DATABASE: app
-
-ftp:
-  image: nikkor/pure-ftpd-with-user
-  container_name: hipay-mirakl-ftp-running
-  ports:
-    - "21:21"
-    - "30000-30009:30000-30009"
 
 smtp:
   image: schickling/mailcatcher

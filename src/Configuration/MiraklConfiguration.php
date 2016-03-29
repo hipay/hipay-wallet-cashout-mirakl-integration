@@ -23,16 +23,6 @@ class MiraklConfiguration extends AbstractConfiguration implements Configuration
     }
 
     /**
-     * Return the shop api key
-     *
-     * @return string
-     */
-    public function getShopKey()
-    {
-        return $this->parameters['mirakl.shopKey'];
-    }
-
-    /**
      * Return the operator api key
      *
      * @return string

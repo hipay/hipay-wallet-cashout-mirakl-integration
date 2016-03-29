@@ -4,13 +4,12 @@ COPY . /var/www/html
 
 RUN apt-get update && apt-get install -y \
 	vim \
-	ftp \
 	libssl-dev \
 	mysql-client \
     git
 
 # pdo_mysql
-RUN docker-php-ext-install pdo_mysql ftp
+RUN docker-php-ext-install pdo_mysql
 
 # zip
 RUN buildRequirements="zlib1g-dev" \
