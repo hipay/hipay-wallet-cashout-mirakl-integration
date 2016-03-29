@@ -16,14 +16,12 @@ use Doctrine\ORM\EntityManager;
 use HiPay\Wallet\Mirakl\Api\Factory as ApiFactory;
 use HiPay\Wallet\Mirakl\Exception\Event\ThrowException;
 use HiPay\Wallet\Mirakl\Exception\InvalidBankInfoException;
-use HiPay\Wallet\Mirakl\Service\Ftp\Factory as FTPFactory;
 use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
 use HiPay\Wallet\Mirakl\Cashout\Initializer as CashoutInitializer;
 use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
 use HiPay\Wallet\Mirakl\Notification\Handler as NotificationHandler;
 use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use HiPay\Wallet\Mirakl\Integration\Configuration\DbConfiguration;
-use HiPay\Wallet\Mirakl\Integration\Configuration\FtpConfiguration;
 use HiPay\Wallet\Mirakl\Integration\Configuration\HiPayConfiguration;
 use HiPay\Wallet\Mirakl\Integration\Configuration\MiraklConfiguration;
 use HiPay\Wallet\Mirakl\Integration\Console\Style;
@@ -112,7 +110,6 @@ $validator = Validation::createValidatorBuilder()
 
 $miraklConfiguration = new MiraklConfiguration($parameters);
 $hipayConfiguration = new HiPayConfiguration($parameters);
-$ftpConfiguration = new FtpConfiguration($parameters);
 
 $eventDispatcher = new EventDispatcher();
 
@@ -127,34 +124,19 @@ $eventDispatcher->addListener(
     }
 );
 
+$documentRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Document');
+
 /** @var VendorRepository $vendorRepository */
 $vendorRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
 
 $apiFactory = new ApiFactory($miraklConfiguration, $hipayConfiguration);
-$ftpFactory = new FTPFactory($ftpConfiguration);
 $vendorProcessor = new VendorProcessor(
     $eventDispatcher,
     $logger,
     $apiFactory,
-    $ftpFactory,
-    $vendorRepository
+    $vendorRepository,
+    $documentRepository
 );
-$vendorMail = clone $messageTemplate;
-//Send mail to vendor in the case of invalid bank info
-$vendorProcessor->addListener('invalid.bankInfo', function (ThrowException $event)
-    use ($mailer, $vendorMail) {
-
-    /** @var InvalidBankInfoException $ex */
-    $ex = $event->getException();
-
-    $vendor = $ex->getVendor();
-    $vendorMail->setTo($vendor->getEmail());
-    $vendorMail->setBody(
-        "Your banking information in Mirakl is not in sync with HiPay data.\n
-        Please either correct it in Mirakl or contact HiPay to change it."
-    );
-    $mailer->send($vendorMail);
-});
 
 /** @var OperationRepository $operationRepository */
 $operationRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');
@@ -197,4 +179,4 @@ $cashoutProcessor = new CashoutProcessor(
     $operatorAccount
 );
 
-$notificationHandler = new NotificationHandler($eventDispatcher, $logger,  $operationRepository);
+$notificationHandler = new NotificationHandler($eventDispatcher, $logger,  $operationRepository, $vendorRepository);

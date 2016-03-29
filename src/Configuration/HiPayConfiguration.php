@@ -25,13 +25,23 @@ class HiPayConfiguration extends AbstractConfiguration implements ConfigurationI
     }
 
     /**
-     * Returns the base url who serve to construct the call
+     * Returns the base url who serve to construct the call (Soap)
      *
      * @return string
      */
-    public function getBaseUrl()
+    public function getBaseSoapUrl()
     {
-        return $this->parameters['hipay.baseUrl'];
+        return $this->parameters['hipay.baseSoapUrl'];
+    }
+
+    /**
+     * Returns the base url who serve to construct the call (REST)
+     *
+     * @return string
+     */
+    public function getBaseRestUrl()
+    {
+        return $this->parameters['hipay.baseRestUrl'];
     }
 
     /**

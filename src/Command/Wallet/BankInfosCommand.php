@@ -3,7 +3,7 @@ namespace HiPay\Wallet\Mirakl\Integration\Command\Wallet;
 
 use HiPay\Wallet\Mirakl\Api\HiPay\Model\Status\BankInfo;
 use HiPay\Wallet\Mirakl\Integration\Entity\Vendor;
-use HiPay\Wallet\Mirakl\Vendor\Model\ManagerInterface;
+use HiPay\Wallet\Mirakl\Vendor\Model\VendorManagerInterface;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use HiPay\Wallet\Mirakl\Vendor\Processor;
 use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
@@ -43,7 +43,7 @@ class BankInfosCommand extends AbstractCommand
     public function __construct(
         LoggerInterface $logger,
         Processor $processor,
-        ManagerInterface $manager,
+        VendorManagerInterface $manager,
         VendorInterface $operator,
         VendorInterface $technical
     )

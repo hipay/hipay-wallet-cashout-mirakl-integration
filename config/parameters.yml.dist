@@ -1,30 +1,22 @@
 parameters:
   #Mirakl Configuration
   mirakl.frontKey: ~
-  mirakl.shopKey: ~
   mirakl.operatorKey: ~
   mirakl.baseUrl: ~
 
   #Hipay configuration
   hipay.wsLogin: ~
   hipay.wsPassword: ~
-  hipay.baseUrl: ~
+  hipay.baseSoapUrl: 'https://test-ws.hipay.com'
+  hipay.baseRestUrl: 'https://test-merchant.hipaywallet.com'
+
   ## To get from hipay
   hipay.entity: ~
   hipay.merchantGroupId: ~
   hipay.locale: 'fr_FR'
   hipay.timezone: 'Europe/Paris'
 
-  ftp.host: ~
-  ftp.username: ~
-  ftp.password: ~
-  ftp.port: 21
-  ftp.connectionType: 'ftp'
-  ftp.timeout: 90
-  ftp.passive: false
-
-  default.zip.path: '/tmp/documents.zip'
-  default.ftp.path: '/'
+  default.tmp.path: '/tmp'
 
   db.driver: 'pdo_mysql'
   db.host: ~
@@ -58,8 +50,8 @@ parameters:
     - 21
   cycle.hour: 0
   cycle.minute: 1
-  cycle.interval.before: '12h'
-  cycle.interval.after: '12h'
+  cycle.interval.before: '12 hour'
+  cycle.interval.after: '12 hour'
 
   account.technical.email: ~
   account.technical.hipayId: ~

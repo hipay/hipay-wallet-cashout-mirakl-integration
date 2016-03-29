@@ -2,7 +2,7 @@
 namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use HiPay\Wallet\Mirakl\Vendor\Model\ManagerInterface;
+use HiPay\Wallet\Mirakl\Vendor\Model\VendorManagerInterface;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 
 /**
@@ -11,7 +11,7 @@ use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  */
-class VendorRepository extends EntityRepository implements ManagerInterface
+class VendorRepository extends EntityRepository implements VendorManagerInterface
 {
     /**
      * @param $email
@@ -25,10 +25,12 @@ class VendorRepository extends EntityRepository implements ManagerInterface
         $email,
         $miraklId,
         $hipayId,
+        $hipayUserSpaceId,
+        $hipayIdentified,
         array $miraklData = array()
     )
     {
-        $vendor = new Vendor($email, $miraklId, $hipayId);
+        $vendor = new Vendor($email, $miraklId, $hipayId, $hipayUserSpaceId, $hipayIdentified);
         return $vendor;
     }
 
