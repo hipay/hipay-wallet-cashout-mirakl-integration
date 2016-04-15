@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "368d89c7d8aedeb75d1b2f18e0465cbc",
-    "content-hash": "6b1361ef9e07516a141256ddb2797b74",
+    "hash": "658d5f6ac6263bf4be5db3f75c8cae54",
+    "content-hash": "ad340bce94319a2c2ff1f692dad08e23",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -762,16 +762,16 @@
         },
         {
             "name": "hipay/hipay-wallet-cashout-mirakl-library",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
-                "reference": "5c9008a2a2783d1184f3c97428172b392caeca3b"
+                "reference": "546adc072c46c5ec5a605f8ccf8bc84c87bba85d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/5c9008a2a2783d1184f3c97428172b392caeca3b",
-                "reference": "5c9008a2a2783d1184f3c97428172b392caeca3b",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/546adc072c46c5ec5a605f8ccf8bc84c87bba85d",
+                "reference": "546adc072c46c5ec5a605f8ccf8bc84c87bba85d",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 }
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
-            "time": "2016-03-29 14:45:03"
+            "time": "2016-04-15 13:57:28"
         },
         {
             "name": "incenteev/composer-parameter-handler",
