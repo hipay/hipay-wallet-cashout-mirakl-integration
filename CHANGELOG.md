@@ -1,3 +1,9 @@
+# Version 2.0.2
+Updates the HiPay Wallet cash-out library for Mirakl dependency to version 2.0.2. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.0.2).
+
+# Version 2.0.1
+Updates the HiPay Wallet cash-out library for Mirakl dependency to version 2.0.2. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.0.1).
+
 # Version 2.0.0
 - Leverages the new version of the HiPay Wallet cash-out library for Mirakl which handles KYC documents upload through HiPay Wallet REST API.
 - Removes Mirakl shopKey parameter
