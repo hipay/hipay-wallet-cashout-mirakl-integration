@@ -24,6 +24,7 @@ class GenerateCommand extends AbstractCommand
     const CYCLE_DATE = 'cycleDate';
     const INTERVAL_BEFORE = 'beforeInterval';
     const INTERVAL_AFTER = 'afterInterval';
+    const TRANSACTION_FILTER_REGEX = 'transactionFilterRegex';
 
     /** @var  CashoutInitializer */
     protected $processor;
@@ -43,6 +44,9 @@ class GenerateCommand extends AbstractCommand
     /** @var */
     protected $cycleIntervalAfter;
 
+    /** @var string */
+    protected $transactionFilterRegex;
+
     /**
      * GenerateCommand constructor.
      * @param LoggerInterface $logger
@@ -52,6 +56,7 @@ class GenerateCommand extends AbstractCommand
      * @param int $cycleMinute
      * @param $cycleIntervalBefore
      * @param $cycleIntervalAfter
+     * @param $transactionFilterRegex
      */
     public function __construct(
         LoggerInterface $logger,
@@ -60,7 +65,8 @@ class GenerateCommand extends AbstractCommand
         $cycleHour,
         $cycleMinute,
         $cycleIntervalBefore,
-        $cycleIntervalAfter
+        $cycleIntervalAfter,
+        $transactionFilterRegex
     )
     {
 
@@ -70,6 +76,8 @@ class GenerateCommand extends AbstractCommand
         $this->cycleMinute = $cycleMinute;
         $this->cycleIntervalBefore = $cycleIntervalBefore;
         $this->cycleIntervalAfter = $cycleIntervalAfter;
+        $this->transactionFilterRegex = $transactionFilterRegex;
+
         parent::__construct($logger);
     }
 
@@ -103,6 +111,13 @@ class GenerateCommand extends AbstractCommand
                 InputOption::VALUE_REQUIRED,
                 'Time to add for the interval (parseable by DateInterval::createFromDateString)',
                 $this->cycleIntervalAfter
+            )
+            ->addOption(
+                self::TRANSACTION_FILTER_REGEX,
+                'f',
+                InputOption::VALUE_OPTIONAL,
+                'The regex to test transaction number against. May be null.',
+                $this->transactionFilterRegex
             );
     }
 
@@ -110,6 +125,8 @@ class GenerateCommand extends AbstractCommand
     {
         $cronDate = new DateTime($input->getOption(self::CRON_DATE));
         $cronDate->setTime($this->cycleHour, $this->cycleMinute);
+
+        $transactionFilterRegex = $input->getOption(self::TRANSACTION_FILTER_REGEX);
 
         $cycleDate = $input->getArgument(self::CYCLE_DATE);
         $cycleDate = $cycleDate ? new DateTime($cycleDate) : $this->getCycleDate($this->cycleDays, $cronDate);
@@ -133,7 +150,7 @@ class GenerateCommand extends AbstractCommand
             )
         );
         try {
-            $this->processor->process($cycleStartDate, $cycleEndDate, $cycleDate);
+            $this->processor->process($cycleStartDate, $cycleEndDate, $cycleDate, $transactionFilterRegex);
         } catch (Exception $e) {
             $this->logger->critical($e->getMessage());
         }
