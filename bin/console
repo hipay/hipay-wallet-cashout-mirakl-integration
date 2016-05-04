@@ -40,7 +40,8 @@ $cashoutGenerateCommand = new CashoutGenerateCommand(
     $parameters['cycle.hour'],
     $parameters['cycle.minute'],
     $parameters['cycle.interval.before'],
-    $parameters['cycle.interval.after']
+    $parameters['cycle.interval.after'],
+    $parameters['cashout.transactionFilterRegex']
 );
 
 $cashoutProcessCommand = new CashoutProcessCommand(
