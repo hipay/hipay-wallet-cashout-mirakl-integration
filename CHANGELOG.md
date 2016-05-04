@@ -1,3 +1,9 @@
+# Version 2.1.0
+
+- This version adds a parameter allowing you to filter shops during the cash-out initialization process.
+
+- Updates the HiPay Wallet cash-out library for Mirakl dependency to version 2.1.0. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.1.0).
+
 # Version 2.0.3
 Updates the HiPay Wallet cash-out library for Mirakl dependency to version 2.0.3. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.0.3).
 
