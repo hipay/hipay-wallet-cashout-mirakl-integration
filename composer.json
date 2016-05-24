@@ -1,7 +1,7 @@
 {
   "name": "hipay/hipay-wallet-cashout-mirakl-integration",
   "description": "Turnkey integration which handles cash-out operations between HiPay and the Mirakl marketplace solution.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "minimum-stability": "stable",
   "license": "Apache-2.0",
   "authors": [
