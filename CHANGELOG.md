@@ -1,3 +1,7 @@
+# Version 2.1.1
+
+- Fixes issue with operations in error (i.e., due to to unidentified accounts) not being processed when the operations were 24 hours old. The correct behavior is to retry the operation processing once per day. [Pull request here](https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/pull/4).
+
 # Version 2.1.0
 
 - This version adds a parameter allowing you to filter shops during the cash-out initialization process.
