@@ -1,3 +1,7 @@
+# Version 2.1.2
+
+Updates the HiPay Wallet cash-out library for Mirakl dependency to version 2.1.1. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.1.1).
+
 # Version 2.1.1
 
 - Fixes issue with operations in error (i.e., due to to unidentified accounts) not being processed when the operations were 24 hours old. The correct behavior is to retry the operation processing once per day. [Pull request here](https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/pull/4).
