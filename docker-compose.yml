@@ -7,7 +7,7 @@ web:
   volumes:
     - .:/var/www/html
   ports:
-    - "80:80"
+    - "8080:80"
   environment:
     XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
 

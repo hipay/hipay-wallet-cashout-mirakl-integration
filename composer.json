@@ -14,6 +14,12 @@
       "email": "jtiret@hipay.com"
     }
   ],
+  "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library"
+        }
+    ],
   "require": {
     "php": ">=5.3.9",
     "doctrine/orm": "~2.4.8",
