@@ -1,3 +1,7 @@
+# Version 2.2.0
+
+Updates the HiPay Wallet cash-out library for Mirakl dependency to version 2.2.1.
+
 # Version 2.1.2
 
 Updates the HiPay Wallet cash-out library for Mirakl dependency to version 2.1.1. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.1.1).
