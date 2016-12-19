@@ -11,17 +11,17 @@
     }
   ],
   "repositories": [
-        {
-            "type": "path",
-            "url": "../librairy"
-        }
-    ],
+    {
+      "type": "vcs",
+      "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library"
+    }
+  ],
   "require": {
     "php": ">=5.3.9",
     "doctrine/orm": "~2.4.8",
     "symfony/console": "^2.6",
     "symfony/yaml": "^2.6",
-    "hipay/hipay-wallet-cashout-mirakl-library" : "~2.1",
+    "hipay/hipay-wallet-cashout-mirakl-library" : "dev-feature/WALMRKLINT-15",
     "incenteev/composer-parameter-handler": "^2.0",
     "gedmo/doctrine-extensions" : "^2.4",
     "swiftmailer/swiftmailer": "^5.0",
