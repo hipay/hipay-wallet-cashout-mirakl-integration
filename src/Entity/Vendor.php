@@ -76,6 +76,14 @@ class Vendor implements VendorInterface, Timestampable
     protected $hipayIdentified;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=false)
+     * @Assert\NotNull
+     */
+    protected $vatNumber;
+
+    /**
      * Vendor constructor.
      * @param int $miraklId
      * @param string $email
@@ -166,6 +174,22 @@ class Vendor implements VendorInterface, Timestampable
     public function setHipayIdentified($hipayIdentified)
     {
         $this->hipayIdentified = $hipayIdentified;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVatNumber()
+    {
+        return $this->vatNumber;
+    }
+
+    /**
+     * @param string $vatNumber
+     */
+    public function setVatNumber($vatNumber)
+    {
+        $this->vatNumber = $vatNumber;
     }
 
 }
