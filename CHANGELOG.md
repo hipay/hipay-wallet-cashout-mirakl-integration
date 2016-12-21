@@ -1,3 +1,8 @@
+# Version 2.2.2
+
+Fix Transfers the vat number in the Wallet account creation
+Fix Correct routing when URI is not
+
 # Version 2.2.1
 
 Updates links to documentation.
