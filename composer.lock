@@ -762,7 +762,7 @@
         },
         {
             "name": "hipay/hipay-wallet-cashout-mirakl-library",
-            "version": "2.2.3",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
@@ -813,7 +813,7 @@
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
             "support": {
-                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/2.2.3",
+                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/2.2.1",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/issues"
             },
             "time": "2016-09-03 08:00:14"
