@@ -812,15 +812,11 @@
                 }
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
-<<<<<<< HEAD
-            "time": "2016-12-19 14:32:03"
-=======
             "support": {
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/2.2.3",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/issues"
             },
             "time": "2016-12-21 13:20:22"
->>>>>>> 2.2.2
         },
         {
             "name": "incenteev/composer-parameter-handler",
