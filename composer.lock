@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "c6d51151982c860423283d07394645d0",
-=======
-    "hash": "0cd5e799054050d03f081a4f4cb42a11",
->>>>>>> 2.2.2
+    "hash": "8028f5c93b0e372381073e4e0f44b98d",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -801,7 +797,6 @@
                     "HiPay\\Wallet\\Mirakl\\Test\\": "tests"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -2254,9 +2249,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "hipay/hipay-wallet-cashout-mirakl-library": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
