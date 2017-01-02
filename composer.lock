@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3f0489811c86c6c97e967f71c0b12b3d",
+    "hash": "a441ce022767b2a36675abd89c62c047",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -761,16 +761,16 @@
         },
         {
             "name": "hipay/hipay-wallet-cashout-mirakl-library",
-            "version": "dev-feature/WALMRKLINT-18",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
-                "reference": "91a6c9901e01085cb982e243cdcb6ea77814ffb7"
+                "reference": "958b96705ba7af5257a0473e9bc5300c6f65bd4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/91a6c9901e01085cb982e243cdcb6ea77814ffb7",
-                "reference": "91a6c9901e01085cb982e243cdcb6ea77814ffb7",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/958b96705ba7af5257a0473e9bc5300c6f65bd4d",
+                "reference": "958b96705ba7af5257a0473e9bc5300c6f65bd4d",
                 "shasum": ""
             },
             "require": {
@@ -808,10 +808,10 @@
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
             "support": {
-                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/feature/WALMRKLINT-18",
+                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/develop",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/issues"
             },
-            "time": "2016-12-30 09:50:18"
+            "time": "2017-01-02 13:18:26"
         },
         {
             "name": "incenteev/composer-parameter-handler",
