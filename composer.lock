@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "447152f8b73d027038c4476f8f60177c",
+    "hash": "5d4638768f00cb08ab0a1167ad07682d",
+    "content-hash": "279d8df14287b6de942052a90cf88449",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -761,16 +762,16 @@
         },
         {
             "name": "hipay/hipay-wallet-cashout-mirakl-library",
-            "version": "2.3.0",
+            "version": "dev-feature/WALMRKLINT-22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
-                "reference": "5c0ffd32d12f42a6d39a27b182ae99b2f6c4a111"
+                "reference": "e72ac8aeb9e5b461f623d867eb5e8a95cb0258b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/5c0ffd32d12f42a6d39a27b182ae99b2f6c4a111",
-                "reference": "5c0ffd32d12f42a6d39a27b182ae99b2f6c4a111",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/e72ac8aeb9e5b461f623d867eb5e8a95cb0258b2",
+                "reference": "e72ac8aeb9e5b461f623d867eb5e8a95cb0258b2",
                 "shasum": ""
             },
             "require": {
@@ -808,10 +809,10 @@
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
             "support": {
-                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/2.3.0",
+                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/feature/WALMRKLINT-22",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/issues"
             },
-            "time": "2017-01-02 17:34:39"
+            "time": "2017-01-12 10:10:08"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2249,7 +2250,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "hipay/hipay-wallet-cashout-mirakl-library": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
