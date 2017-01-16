@@ -78,8 +78,7 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=false)
-     * @Assert\NotNull
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $vatNumber;
 
