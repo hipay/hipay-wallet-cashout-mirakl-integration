@@ -30,33 +30,38 @@ $app->post('/{anyplace}', function (Request $request) use ($app, $notificationHa
     $mailer_message = new Swift_Message();
 
     $xml = rawurldecode($request->request->get('xml'));
-    $date = new DateTime((string)$xml->result->date.' '.(string)$xml->result->time);
-    $hipayId = (int) $xml->result->account_id;
+    if (is_string($xml)) {
+        $xml = strtr(rawurldecode($xml), array("\n" => ''));
+        $xml = new SimpleXMLElement($xml);
 
-    $response_notif = $notificationHandler->handleHipayNotification($xml);
+        $date = new DateTime((string)$xml->result->date.' '.(string)$xml->result->time);
+        $hipayId = (int)$xml->result->account_id;
 
-    if ( !$response_notif && !is_null($mailer) && !is_null($mailer_message) ) {
-        // init email content with response API
-        $body = '
+
+        $response_notif = $notificationHandler->handleHipayNotification(rawurldecode($request->request->get('xml')));
+
+        if ( !$response_notif && !is_null($mailer) && !is_null($mailer_message) ) {
+            // init email content with response API
+            $body = '
             <p><b>Operation - ' . (string) $xml->result->operation . '</b></p>
             <p>Informations:</p>
-            <ul>
-                <li>Status: ' . $xml->result->status . '</li>
-                <li>Message: ' . $xml->result->message . '</li>
-                <li>Date: ' . $date->format('Y-m-d H:i:s') . '</li>
-                <li>Document type: ' . $xml->result->document_type . '</li>
-                <li>Document type label: ' . $xml->result->document_type_label . '</li>
-                <li>Account ID: ' . $hipayId . '</li>
-            </ul>';
+            <ul>';
+            $arr_xml = $xml->result;
+            foreach((array)$arr_xml as $key=>$value) {
+                $body .= '<li>' . $key . ': ' . $value . '</li>';
+            }
+            $body .= '</ul>';
 
-        $mailer_message->setSubject('[' . $parameters['mail.subject'] . ' - ' . $hipayId . '] ' . (string) $xml->result->operation);
-        $mailer_message->setTo($parameters['mail.to']);
-        $mailer_message->setFrom($parameters['mail.from']);
-        $mailer_message->setCharset('utf-8');
-        $mailer_message->setContentType("text/html");
-        $mailer_message->setBody($body);
-        $mailer->send($mailer_message);
+            $mailer_message->setSubject('[' . $parameters['mail.subject'] . ' - ' . $hipayId . '] ' . (string) $xml->result->operation);
+            $mailer_message->setTo($parameters['mail.to']);
+            $mailer_message->setFrom($parameters['mail.from']);
+            $mailer_message->setCharset('utf-8');
+            $mailer_message->setContentType("text/html");
+            $mailer_message->setBody($body);
+            $mailer->send($mailer_message);
+        }
     }
+
 
 
     return new Response(null, 204);
