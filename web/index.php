@@ -28,7 +28,42 @@ $app->post('/{anyplace}', function (Request $request) use ($app, $notificationHa
     }
     $mailer = new Swift_Mailer($swiftTransport);
     $mailer_message = new Swift_Message();
-    $notificationHandler->handleHipayNotification(rawurldecode($request->request->get('xml')), $parameters, $mailer, $mailer_message);
+
+    $xml = rawurldecode($request->request->get('xml'));
+    if (is_string($xml)) {
+        $xml = strtr(rawurldecode($xml), array("\n" => ''));
+        $xml = new SimpleXMLElement($xml);
+
+        $date = new DateTime((string)$xml->result->date.' '.(string)$xml->result->time);
+        $hipayId = (int)$xml->result->account_id;
+
+
+        $response_notif = $notificationHandler->handleHipayNotification(rawurldecode($request->request->get('xml')));
+
+        if ( !$response_notif && !is_null($mailer) && !is_null($mailer_message) ) {
+            // init email content with response API
+            $body = '
+            <p><b>Operation - ' . (string) $xml->result->operation . '</b></p>
+            <p>Informations:</p>
+            <ul>';
+            $arr_xml = $xml->result;
+            foreach((array)$arr_xml as $key=>$value) {
+                $body .= '<li>' . $key . ': ' . $value . '</li>';
+            }
+            $body .= '</ul>';
+
+            $mailer_message->setSubject('[' . $parameters['mail.subject'] . ' - ' . $hipayId . '] ' . (string) $xml->result->operation);
+            $mailer_message->setTo($parameters['mail.to']);
+            $mailer_message->setFrom($parameters['mail.from']);
+            $mailer_message->setCharset('utf-8');
+            $mailer_message->setContentType("text/html");
+            $mailer_message->setBody($body);
+            $mailer->send($mailer_message);
+        }
+    }
+
+
+
     return new Response(null, 204);
 })->assert("anyplace", ".*");
 
