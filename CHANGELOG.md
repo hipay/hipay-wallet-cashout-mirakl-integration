@@ -3,7 +3,7 @@
 - The login is no longer the email, it is now registered by the concatenation of the name of the shop and its ID
 - Migration to REST API for Bank info management 
 - Migration to REST API for account creation
-- New management of callback notifications 
+- New management of callback notifications with HTML Structure
 
 # Version 2.3.0
 
