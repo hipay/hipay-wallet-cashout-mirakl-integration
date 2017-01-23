@@ -98,7 +98,7 @@ $messageTemplate->setTo($parameters['mail.to']);
 $messageTemplate->setFrom($parameters['mail.from']);
 $messageTemplate->setCharset('utf-8');
 $logger->pushHandler(
-    new SwiftMailerHandler($mailer, $messageTemplate, Logger::CRITICAL)
+    new SwiftMailerHandler($mailer, $messageTemplate, $parameters['email.logger.alert.level'])
 );
 
 $logger->pushProcessor(new PsrLogMessageProcessor());
