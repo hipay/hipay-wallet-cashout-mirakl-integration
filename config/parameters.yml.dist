@@ -70,4 +70,4 @@ parameters:
   # CRITICAL = 500;
   # ALERT = 550;
   # EMERGENCY = 600;
-  email.logger.alert.level: 500
+  email.logger.alert.level: 300
