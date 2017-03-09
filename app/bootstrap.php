@@ -31,7 +31,6 @@ use HiPay\Wallet\Mirakl\Integration\Entity\VendorRepository;
 use HiPay\Wallet\Mirakl\Integration\Model\TransactionValidator;
 use HiPay\Wallet\Mirakl\Integration\Parameter\Accessor;
 use Monolog\Handler\StreamHandler;
-use Monolog\Handler\SwiftMailerHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Symfony\Component\Console\ConsoleEvents;
@@ -40,6 +39,9 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use HiPay\Wallet\Mirakl\Integration\Handler\HipaySwiftMailerHandler;
+
+include dirname(__FILE__) .'/../vendor/erusev/parsedown/Parsedown.php';
 
 $paths = array(
     join(DIRECTORY_SEPARATOR, array(__DIR__, "..", "src", "Entity"))
@@ -97,8 +99,10 @@ $messageTemplate->setSubject($parameters['mail.subject']);
 $messageTemplate->setTo($parameters['mail.to']);
 $messageTemplate->setFrom($parameters['mail.from']);
 $messageTemplate->setCharset('utf-8');
+$messageTemplate->setContentType("text/html");
+
 $logger->pushHandler(
-    new SwiftMailerHandler($mailer, $messageTemplate, $parameters['email.logger.alert.level'])
+    new HipaySwiftMailerHandler($mailer, $messageTemplate, $parameters['email.logger.alert.level'])
 );
 
 $logger->pushProcessor(new PsrLogMessageProcessor());
