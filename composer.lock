@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b0e6bbec96fda77fd9fe30fc059a8bf",
+    "content-hash": "8a6aa74415e1bc9f9618a743d7e34059",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -804,16 +804,16 @@
         },
         {
             "name": "hipay/hipay-wallet-cashout-mirakl-library",
-            "version": "dev-feature/WALMRKLINT-11",
+            "version": "dev-feature/WALMRKLINT-45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
-                "reference": "28e981740a1940a61a8ff33a652c9c28d6625de7"
+                "reference": "245602158f9c50369909ed634547d14767cc98ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/28e981740a1940a61a8ff33a652c9c28d6625de7",
-                "reference": "28e981740a1940a61a8ff33a652c9c28d6625de7",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/245602158f9c50369909ed634547d14767cc98ba",
+                "reference": "245602158f9c50369909ed634547d14767cc98ba",
                 "shasum": ""
             },
             "require": {
@@ -830,7 +830,7 @@
             "require-dev": {
                 "php-mock/php-mock-prophecy": "dev-master",
                 "phpspec/prophecy": "~1.0",
-                "phpunit/phpunit": "^4.8",
+                "phpunit/phpunit": "5.7.*",
                 "symfony/phpunit-bridge": "^2.8"
             },
             "type": "library",
@@ -851,10 +851,10 @@
             ],
             "description": "This library intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.",
             "support": {
-                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/feature/WALMRKLINT-11",
+                "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/feature/WALMRKLINT-45",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/issues"
             },
-            "time": "2017-03-09 11:14:35"
+            "time": "2017-03-13 14:45:35"
         },
         {
             "name": "incenteev/composer-parameter-handler",

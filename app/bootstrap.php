@@ -183,4 +183,4 @@ $cashoutProcessor = new CashoutProcessor(
     $operatorAccount
 );
 
-$notificationHandler = new NotificationHandler($eventDispatcher, $logger,  $operationRepository, $vendorRepository);
+$notificationHandler = new NotificationHandler($eventDispatcher, $logger,  $operationRepository, $vendorRepository, $apiFactory);
