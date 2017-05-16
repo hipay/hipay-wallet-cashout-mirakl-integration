@@ -1,0 +1,42 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+	<div class="starter-template">
+		<h1>Sign in</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<p class="lead">
+				Bienvenue sur le Dashboard du connecteur HiPay - Mirakl
+			</p>
+			<p>Cette interface à pour but de:</p>
+			<p>
+				<ul>
+					<li>Vous informez sur le statut de vos vendeurs, transferts et les retraits bancaires</li>
+					<li>Vous donnez la main pour relancer une action qui a précédemment échouée</li>
+					<li>Centraliser toutes les informations relatives à l'intéraction entre HiPay et Mirakl</li>
+				</ul>
+			</p>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<p>Nous vous invitons à renseigner ci-dessous vos identifiants opérateurs Webservices:</p>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="panel panel-default ">
+				<div class="panel-body">
+					{{ form(form, {'action': path('login'), 'method': 'POST'}) }}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+{% endblock %}
