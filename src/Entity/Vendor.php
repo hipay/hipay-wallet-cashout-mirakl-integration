@@ -83,6 +83,13 @@ class Vendor implements VendorInterface, Timestampable
     protected $vatNumber;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $callbackSalt;
+
+    /**
      * Vendor constructor.
      * @param int $miraklId
      * @param string $email
@@ -189,6 +196,22 @@ class Vendor implements VendorInterface, Timestampable
     public function setVatNumber($vatNumber)
     {
         $this->vatNumber = $vatNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCallbackSalt()
+    {
+        return $this->callbackSalt;
+    }
+
+    /**
+     * @param string $callbackSalt
+     */
+    public function setCallbackSalt($callbackSalt)
+    {
+        $this->callbackSalt = $callbackSalt;
     }
 
 }

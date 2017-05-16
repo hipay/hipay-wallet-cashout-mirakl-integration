@@ -27,10 +27,12 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
         $hipayId,
         $hipayUserSpaceId,
         $hipayIdentified,
+        $vatNumber,
+        $callbackSalt,
         array $miraklData = array()
     )
     {
-        if (array_key_exists('pro_details', $miraklData)) {
+        if ($vatNumber == null && array_key_exists('pro_details', $miraklData)) {
             $vatNumber = $miraklData['pro_details']['VAT_number'];
         }
 

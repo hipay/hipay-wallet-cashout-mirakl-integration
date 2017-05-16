@@ -1,69 +1,23 @@
 <?php
 /**
- * Main entry point
+ * 2017 HiPay
  *
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>, updated by Flavius Bindea - BFB Consulting
- * @copyright 2015 Smile, BFB Consulting
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
  */
 
 require_once __DIR__ . '/../app/bootstrap.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use HiPay\Wallet\Mirakl\Integration\Parameter\Accessor;
 
 $app = new Silex\Application();
 
 $app->post('/{anyplace}', function (Request $request) use ($app, $notificationHandler) {
-    //Get the parameters
-    $parameters = new Accessor(__DIR__ . "/../config/parameters.yml");
-    $swiftTransport = new Swift_SmtpTransport(
-        $parameters['mail.host'],
-        $parameters['mail.port'],
-        $parameters['mail.security']
-    );
-    if (isset($parameters['mail.username']) && isset($parameters['mail.password'])) {
-        $swiftTransport->setUsername($parameters['mail.username']);
-        $swiftTransport->setPassword($parameters['mail.password']);
-    }
-    $mailer = new Swift_Mailer($swiftTransport);
-    $mailer_message = new Swift_Message();
-
-    $xml = rawurldecode($request->request->get('xml'));
-    if (is_string($xml)) {
-        $xml = strtr(rawurldecode($xml), array("\n" => ''));
-        $xml = new SimpleXMLElement($xml);
-
-        $date = new DateTime((string)$xml->result->date.' '.(string)$xml->result->time);
-        $hipayId = (int)$xml->result->account_id;
-
-
-        $response_notif = $notificationHandler->handleHipayNotification(rawurldecode($request->request->get('xml')));
-
-        if ( !$response_notif && !is_null($mailer) && !is_null($mailer_message) ) {
-            // init email content with response API
-            $body = '
-            <p><b>Operation - ' . (string) $xml->result->operation . '</b></p>
-            <p>Informations:</p>
-            <ul>';
-            $arr_xml = $xml->result;
-            foreach((array)$arr_xml as $key=>$value) {
-                $body .= '<li>' . $key . ': ' . $value . '</li>';
-            }
-            $body .= '</ul>';
-
-            $mailer_message->setSubject('[' . $parameters['mail.subject'] . ' - ' . $hipayId . '] ' . (string) $xml->result->operation);
-            $mailer_message->setTo($parameters['mail.to']);
-            $mailer_message->setFrom($parameters['mail.from']);
-            $mailer_message->setCharset('utf-8');
-            $mailer_message->setContentType("text/html");
-            $mailer_message->setBody($body);
-            $mailer->send($mailer_message);
-        }
-    }
-
-
-
+    $notificationHandler->handleHipayNotification(rawurldecode($request->request->get('xml')));
     return new Response(null, 204);
 })->assert("anyplace", ".*");
 
