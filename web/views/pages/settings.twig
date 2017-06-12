@@ -9,7 +9,39 @@
 		<div class="col-md-6">
 			<div class="panel panel-default ">
 				<div class="panel-body">
-                    {{ form(form, {'action': path('settings'), 'method': 'POST'}) }}
+					<form class="form-horizontal">
+						<div class="col-lg-12">
+							<h2>Correction des erreurs</h2>
+							<p>
+								Cliquez sur le bouton "Relancer" si vous avez une erreur d'exécution pour l'une ou plusieurs des action suivantes:
+							</p>
+						</div>
+						<div class="col-lg-12">
+							<p>
+								<select multiple="" class="form-control">
+									<option>Création de compte Wallet</option>
+									<option>Transfert</option>
+									<option>Retrait</option>
+								</select>
+							</p>
+						</div>
+
+						<div class="col-lg-12">
+							<p>
+								<a href="#" class="btn btn-default btn-lg btn-block" id="reload_actions">Relancer</a>
+							</p>
+						</div>
+						<div class="col-lg-12">
+							<p>
+								<div class="alert alert-dismissible alert-danger" style="display:none;">
+									<strong>Error</strong> - Nous avons détecté un problème technique, si le problème persiste veuillez contacter le support HiPay support.mkp@hipay.com.
+								</div>
+								<div class="alert alert-dismissible alert-success" style="display:none;">
+									<strong>Succès !</strong> Relance terminée.
+								</div>
+							</p>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

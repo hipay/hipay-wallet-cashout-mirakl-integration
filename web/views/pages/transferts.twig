@@ -7,8 +7,56 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p class="text-center">
-				Contenu TODO
-			</p>
+			<table class="table table-striped table-hover "  id="table_logs">
+				<thead>
+				<tr>
+					<th>Mirakl ID</th>
+					<th>HiPay ID</th>
+					<th>Montant</th>
+					<th>Statut transfert</th>
+					<th>Statut retrait</th>
+					<th>Balance</th>
+				</tr>
+				</thead>
+				<tbody>
+                {% for key, row in rows %}
+					<tr>
+						<td>{{ row.mirakl_id }}</td>
+						<td>{{ row.hipay_id }}</td>
+						<td>{{ row.amount }}</td>
+						<td class="{% if row.transfert == 'KO' %}{{ row.class }} {% endif %}">{{ row.transfert }}&nbsp;&nbsp;
+                            {% if row.transfert == 'KO' and row.message != '' %}
+								<span class="bs-component">
+								<button
+										type="button"
+										class="btn btn-info btn-xs"
+										data-container="body"
+										data-toggle="popover"
+										data-placement="bottom"
+										data-content="{{ row.message }}"
+										data-original-title=""
+										title="">Show message</button>
+							</span>
+                            {% endif %}</td>
+						<td class="{% if row.withdrawal == 'KO' %}{{ row.class }} {% endif %}">{{ row.withdrawal }}&nbsp;
+                            {% if row.withdrawal == 'KO' and row.message != '' %}
+								<span class="bs-component">
+								<button
+										type="button"
+										class="btn btn-info btn-xs"
+										data-container="body"
+										data-toggle="popover"
+										data-placement="bottom"
+										data-content="{{ row.message }}"
+										data-original-title=""
+										title="">Show message</button>
+							</span>
+                            {% endif %}</td>
+						<td>{{ row.balance }}</td>
+					</tr>
+                {% endfor %}
+				</tbody>
+			</table>
 		</div>
 	</div>
 {% endblock %}

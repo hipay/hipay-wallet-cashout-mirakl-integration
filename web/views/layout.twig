@@ -4,17 +4,25 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 		<head>
-				<meta charset="utf-8">
-				<meta http-equiv="X-UA-Compatible" content="IE=edge">
-				<title>Connector Mirakl for HiPay</title>
-				<meta name="description" content="">
-				<meta name="viewport" content="width=device-width, initial-scale=1">
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<title>Connector Mirakl for HiPay</title>
+			<meta name="description" content="">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
 
-				<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-				<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/paper/bootstrap.min.css" rel="stylesheet">
-				<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-
-				<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+			<link href="{{ asset('css/paper.bootstrap.min.css') }}" rel="stylesheet">
+			<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+			<link href="{{ asset('components/datepicker/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+			<link href="{{ asset('components/tables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+			<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+			<script src="{{ asset('js/jquery-1.10.2.min.js') }}"></script>
+			<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+			<script src="{{ asset('components/datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+			<script src="{{ asset('components/datepicker/locales/bootstrap-datepicker.en-GB.min.js') }}"></script>
+			<script src="{{ asset('components/datepicker/locales/bootstrap-datepicker.fr.min.js') }}"></script>
+			<script src="{{ asset('components/tables/jquery.dataTables.min.js') }}"></script>
+			<script src="{{ asset('components/tables/dataTables.bootstrap.min.js') }}"></script>
 		</head>
 		<body>
 			<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -56,7 +64,7 @@
 
                 {% endblock %}
 			</div><!-- /.container -->
-			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-			<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+			<script src="{{ asset('js/custom.js') }}"></script>
 		</body>
 </html>
