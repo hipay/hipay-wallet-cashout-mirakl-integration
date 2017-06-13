@@ -50,8 +50,6 @@ config/parameters.ini
 ### Symfony Patch ###
 /web/bundles/
 /web/uploads/
-/web/css/
-/web/js/
 
 
 ### Composer ###
