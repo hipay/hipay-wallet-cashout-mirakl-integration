@@ -6,48 +6,46 @@ use HiPay\Wallet\Mirakl\Vendor\Model\VendorManagerInterface;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 
 /**
- * Class VendorRepository
+ * 2017 HiPay
  *
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
  */
-class VendorRepository extends EntityRepository implements VendorManagerInterface
+class LogGeneralRepository extends EntityRepository implements LogGeneralManagerInterface
 {
     /**
-     * @param $email
      * @param $miraklId
-     * @param $hipayId
-     * @param array $miraklData
+     * @param $type
+     * @param $action
+     * @param $message
+     * @param $date
      *
-     * @return VendorInterface
+     * @return LogGeneralInterface
      */
     public function create(
-        $email,
         $miraklId,
-        $hipayId,
-        $hipayUserSpaceId,
-        $hipayIdentified,
-        $vatNumber,
-        $callbackSalt,
-        array $miraklData = array()
+        $type,
+        $action,
+        $message,
+        $date
     )
     {
-        if ($vatNumber == null && array_key_exists('pro_details', $miraklData)) {
-            $vatNumber = $miraklData['pro_details']['VAT_number'];
-        }
 
-        $vendor = new Vendor($email, $miraklId, $hipayId, $hipayUserSpaceId, $hipayIdentified, $vatNumber);
-        return $vendor;
+        $logGeneral = new LogGeneral($miraklId, $type, $action, $message, $date);
+        return $logGeneral;
     }
 
     /**
      * @param array $vendors
      * @return mixed
      */
-    public function saveAll(array $vendors)
+    public function saveAll(array $logGeneral)
     {
-        foreach ($vendors as $vendor) {
-            $this->_em->persist($vendor);
+        foreach ($logGeneral as $log) {
+            $this->_em->persist($log);
         }
 
         $this->_em->flush();
@@ -56,14 +54,12 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
     /**
      * Insert more data if you want
      *
-     * @param VendorInterface $vendor
-     * @param array $miraklData
+     * @param LogGeneralInterface $logGeneral
      *
      * @return void
      */
     public function update(
-        VendorInterface $vendor,
-        array $miraklData
+        LogGeneralInterface $logGeneral
     )
     {
         return;
@@ -71,7 +67,7 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
 
     /**
      * @param $shopId
-     * @return VendorInterface|null if not found
+     * @return LogGeneralInterface|null if not found
      */
     public function findByMiraklId($shopId)
     {
@@ -79,38 +75,20 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
     }
 
     /**
-     * @param $shopId
-     * @return VendorInterface|null if not found
-     */
-    public function findByHipayId($shopId)
-    {
-        return $this->findOneBy(array('hipayId' => $shopId));
-    }
-
-    /**
-     * @param string $email
-     * @return VendorInterface|null if not found
-     */
-    public function findByEmail($email)
-    {
-        return $this->findOneBy(array('email' => $email));
-    }
-
-    /**
-     * @param VendorInterface $vendor
+     * @param LogGeneralInterface $logGeneral
      * @return mixed
      */
-    public function save($vendor)
+    public function save($logGeneral)
     {
-        $this->_em->persist($vendor);
+        $this->_em->persist($logGeneral);
         $this->_em->flush();
     }
 
     /**
-     * @param $vendor
+     * @param $logGeneral
      * @return boolean
      */
-    public function isValid(VendorInterface $vendor)
+    public function isValid(LogGeneralInterface $logGeneral)
     {
         return true;
     }

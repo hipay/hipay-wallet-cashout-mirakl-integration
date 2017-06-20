@@ -8,15 +8,15 @@ use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Vendor
+ * 2017 HiPay
  *
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
+ * NOTICE OF LICENSE
  *
- * @ORM\Entity(repositoryClass="HiPay\Wallet\Mirakl\Integration\Entity\VendorRepository")
- * @ORM\Table(name="vendors")
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
  */
-class Vendor implements VendorInterface, Timestampable
+class LogGeneral implements LogGeneralInterface, Timestampable
 {
     /**
      * @var int
@@ -41,65 +41,45 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Type(type="string")
-     * @Assert\Email
+     * @ORM\Column(type="string", nullable=false)
      */
-    protected $email;
+    protected $type;
 
     /**
-     * @var int The HiPay Wallet account ID
+     * @var string
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Type(type="integer")
-     * @Assert\GreaterThan(value=0)
+     * @ORM\Column(type="string", nullable=false)
      */
-    protected $hipayId;
-
-    /**
-     * @var int The HiPay account user space ID
-     *
-     * @ORM\Column(type="integer", unique=true, nullable=true)
-     * @Assert\Type(type="integer")
-     * @Assert\GreaterThan(value=0)
-     */
-    protected $hipayUserSpaceId;
-
-    /**
-     * @var int Whether the HiPay Wallet account is identified
-     *
-     * @ORM\Column(type="integer", nullable=false)
-     * @Assert\NotNull
-     */
-    protected $hipayIdentified;
+    protected $action;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $vatNumber;
+    protected $message;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Regex(
+     *     pattern="#[0-9]{2}/[0-9]{2}/[0-9]{4}#",
+     *      message="The date format must be [0-9]{2}/[0-9]{2}/[0-9]{4}"
+     * )
      */
-    protected $callbackSalt;
+    protected $date;
 
     /**
-     * Vendor constructor.
+     * LogGeneral constructor.
      * @param int $miraklId
-     * @param string $email
-     * @param int $hipayId
      */
-    public function __construct($email, $miraklId, $hipayId)
+    public function __construct($miraklId, $type, $action, $message, $date)
     {
         $this->miraklId = $miraklId;
-        $this->email = $email;
-        $this->hipayId = $hipayId;
+        $this->type = $type;
+        $this->action = $action;
+        $this->message = $message;
+        $this->date = $date;
     }
 
     /**
@@ -121,97 +101,64 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @return string
      */
-    public function getEmail()
+    public function getType()
     {
-        return $this->email;
+        return $this->type;
     }
 
     /**
-     * @param string $email
+     * @param string $type
      */
-    public function setEmail($email)
+    public function setType($type)
     {
-        $this->email = $email;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHipayId()
-    {
-        return $this->hipayId;
-    }
-
-    /**
-     * @param int $hipayId
-     */
-    public function setHipayId($hipayId)
-    {
-        $this->hipayId = $hipayId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHipayUserSpaceId()
-    {
-        return $this->hipayUserSpaceId;
-    }
-
-    /**
-     * @param int $hipayUserSpaceId
-     */
-    public function setHipayUserSpaceId($hipayUserSpaceId)
-    {
-        $this->hipayUserSpaceId = $hipayUserSpaceId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHipayIdentified()
-    {
-        return $this->hipayIdentified;
-    }
-
-    /**
-     * @param int $hipayIdentified
-     */
-    public function setHipayIdentified($hipayIdentified)
-    {
-        $this->hipayIdentified = $hipayIdentified;
+        $this->type = $type;
     }
 
     /**
      * @return string
      */
-    public function getVatNumber()
+    public function getAction()
     {
-        return $this->vatNumber;
+        return $this->action;
     }
 
     /**
-     * @param string $vatNumber
+     * @param string $action
      */
-    public function setVatNumber($vatNumber)
+    public function setAction($action)
     {
-        $this->vatNumber = $vatNumber;
+        $this->action = $action;
     }
 
     /**
      * @return string
      */
-    public function getCallbackSalt()
+    public function getMessage()
     {
-        return $this->callbackSalt;
+        return $this->message;
     }
 
     /**
-     * @param string $callbackSalt
+     * @param string $message
      */
-    public function setCallbackSalt($callbackSalt)
+    public function setMessage($message)
     {
-        $this->callbackSalt = $callbackSalt;
+        $this->message = $message;
     }
 
+    /**
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param string $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
 }

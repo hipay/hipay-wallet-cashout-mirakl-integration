@@ -11,6 +11,7 @@
 					<thead>
 					<tr>
 						<th>Mirakl ID</th>
+						<th>Login</th>
 						<th>Etat</th>
 						<th>Statut compte Wallet</th>
 						<th>HiPay ID</th>
@@ -21,6 +22,7 @@
     				{% for key, row in rows %}
 					<tr>
 						<td>{{ row.mirakl_id }}</td>
+						<td>{{ row.login }}</td>
 						<td class="{{ row.class }}"></td>
 						<td>{{ row.status }}&nbsp;&nbsp;
 							{% if row.message != '' %}

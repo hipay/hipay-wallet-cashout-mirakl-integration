@@ -19,7 +19,7 @@ use HiPay\Wallet\Mirakl\Notification\Model\LogVendorsInterface;
  * Class LogVendorsRepository
  *
  */
-class VendorRepository extends EntityRepository implements LogVendorsManagerInterface
+class LogVendorsRepository extends EntityRepository implements LogVendorsManagerInterface
 {
     /**
      * @param $miraklId

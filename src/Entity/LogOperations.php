@@ -15,6 +15,7 @@ use DateTime;
 use HiPay\Wallet\Mirakl\Notification\Model\LogOperationsInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use HiPay\Wallet\Mirakl\Notification\Model\vatNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -82,12 +83,11 @@ class LogOperations implements LogOperationsInterface
     protected $message;
 
     /**
-     * @var DateTime
+     * @var string
      *
-     * @ORM\Column(type="datetime", unique=false, nullable=false)
-     *
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $date;
+    protected $balance;
 
     /**
      * Vendor constructor.
@@ -197,19 +197,18 @@ class LogOperations implements LogOperationsInterface
     }
 
     /**
-     * @return DateTime
+     * @return string
      */
-    public function getDate()
+    public function getBalance()
     {
-        return $this->date;
+        return $this->balance;
     }
 
     /**
-     * @param DateTime $date
+     * @param string $balance
      */
-    public function setDate(DateTime $date)
+    public function setBalance($balance)
     {
-        $this->date = $date;
+        $this->balance = $balance;
     }
-
 }

@@ -12,6 +12,8 @@
 				<tr>
 					<th>Mirakl ID</th>
 					<th>HiPay ID</th>
+					<th>Date ordre de paiement</th>
+					<th>Id ordre de paiement</th>
 					<th>Montant</th>
 					<th>Statut transfert</th>
 					<th>Statut retrait</th>
@@ -23,6 +25,8 @@
 					<tr>
 						<td>{{ row.mirakl_id }}</td>
 						<td>{{ row.hipay_id }}</td>
+						<td>{{ row.date_payment_cycle }}</td>
+						<td>{{ row.id_payment_cycle }}</td>
 						<td>{{ row.amount }}</td>
 						<td class="{% if row.transfert == 'KO' %}{{ row.class }} {% endif %}">{{ row.transfert }}&nbsp;&nbsp;
                             {% if row.transfert == 'KO' and row.message != '' %}
