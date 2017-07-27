@@ -15,7 +15,6 @@ use DateTime;
 use HiPay\Wallet\Mirakl\Notification\Model\LogOperationsInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use HiPay\Wallet\Mirakl\Notification\Model\vatNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

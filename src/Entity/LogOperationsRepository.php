@@ -3,8 +3,7 @@ namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use HiPay\Wallet\Mirakl\Notification\Model\LogOperationsInterface;
-use HiPay\Wallet\Mirakl\Vendor\Model\VendorManagerInterface;
-use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
+use HiPay\Wallet\Mirakl\Notification\Model\LogOperationsManagerInterface;
 
 /**
  * 2017 HiPay

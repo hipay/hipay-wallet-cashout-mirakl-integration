@@ -4,7 +4,7 @@ namespace HiPay\Wallet\Mirakl\Integration\Entity;
 use Gedmo\Timestampable\Timestampable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
+use HiPay\Wallet\Mirakl\Notification\Model\LogGeneralInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -57,6 +57,12 @@ class LogGeneral implements LogGeneralInterface, Timestampable
      *
      * @ORM\Column(type="string", nullable=true)
      */
+    protected $error;
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
     protected $message;
 
     /**
@@ -73,11 +79,12 @@ class LogGeneral implements LogGeneralInterface, Timestampable
      * LogGeneral constructor.
      * @param int $miraklId
      */
-    public function __construct($miraklId, $type, $action, $message, $date)
+    public function __construct($miraklId, $type, $action, $error, $message, $date)
     {
         $this->miraklId = $miraklId;
         $this->type = $type;
         $this->action = $action;
+        $this->error = $error;
         $this->message = $message;
         $this->date = $date;
     }
@@ -128,6 +135,22 @@ class LogGeneral implements LogGeneralInterface, Timestampable
     public function setAction($action)
     {
         $this->action = $action;
+    }
+
+    /**
+     * @return string
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    /**
+     * @param string $error
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
     }
 
     /**
