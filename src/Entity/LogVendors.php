@@ -182,9 +182,9 @@ class LogVendors implements LogVendorsInterface
     }
 
     /**
-     * @param DateTime $date
+     * @param String $date
      */
-    public function setDate(DateTime $date)
+    public function setDate($date)
     {
         $this->date = $date;
     }

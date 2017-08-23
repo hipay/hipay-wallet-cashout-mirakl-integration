@@ -1,4 +1,14 @@
 <?php
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
+
 namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use Gedmo\Timestampable\Timestampable;
@@ -8,13 +18,10 @@ use HiPay\Wallet\Mirakl\Notification\Model\LogGeneralInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * 2017 HiPay
+ * Class LogOperations
  *
- * NOTICE OF LICENSE
- *
- * @author    HiPay <support.wallet@hipay.com>
- * @copyright 2016 HiPay
- * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ * @ORM\Entity(repositoryClass="HiPay\Wallet\Mirakl\Integration\Entity\LogGeneralRepository")
+ * @ORM\Table(name="log_general")
  */
 class LogGeneral implements LogGeneralInterface, Timestampable
 {
