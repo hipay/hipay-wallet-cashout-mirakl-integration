@@ -1,0 +1,26 @@
+
+<h3>Vendeur (Mirakl ID: {{vendor.miraklId}} / HiPay ID: {{vendor.hipayId}})</h3>
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Type de document</th>
+            <th>Statut</th>
+            <th>Motif refus</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for document in documents %}
+            <tr>
+                <td>
+                    {{document.label}}
+                </td>
+                <td class="{%if document.status_code == 1 %}info {% elseif document.status_code == 2 %}success{%endif%}">
+                    {{document.status_label}}
+                </td>
+                <td>
+                    -
+                </td>
+            </tr>
+        {%endfor%}
+    </tbody>
+</table>

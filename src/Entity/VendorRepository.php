@@ -1,7 +1,9 @@
 <?php
+
 namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorManagerInterface;
 use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
 
@@ -13,6 +15,7 @@ use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
  */
 class VendorRepository extends EntityRepository implements VendorManagerInterface
 {
+
     /**
      * @param $email
      * @param $miraklId
@@ -22,14 +25,8 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
      * @return VendorInterface
      */
     public function create(
-        $email,
-        $miraklId,
-        $hipayId,
-        $hipayUserSpaceId,
-        $hipayIdentified,
-        $vatNumber,
-        $callbackSalt,
-        array $miraklData = array()
+    $email, $miraklId, $hipayId, $hipayUserSpaceId, $hipayIdentified, $vatNumber, $callbackSalt,
+    array $miraklData = array()
     )
     {
         if ($vatNumber == null && array_key_exists('pro_details', $miraklData)) {
@@ -62,8 +59,7 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
      * @return void
      */
     public function update(
-        VendorInterface $vendor,
-        array $miraklData
+    VendorInterface $vendor, array $miraklData
     )
     {
         return;
@@ -114,4 +110,5 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
     {
         return true;
     }
+
 }

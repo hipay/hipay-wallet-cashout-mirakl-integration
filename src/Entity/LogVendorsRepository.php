@@ -21,6 +21,7 @@ use HiPay\Wallet\Mirakl\Notification\Model\LogVendorsInterface;
  */
 class LogVendorsRepository extends EntityRepository implements LogVendorsManagerInterface
 {
+
     /**
      * @param $miraklId
      * @param $hipayId
@@ -32,16 +33,10 @@ class LogVendorsRepository extends EntityRepository implements LogVendorsManager
      * @return LogVendorsInterface
      */
     public function create(
-        $miraklId,
-        $hipayId,
-        $status,
-        $message,
-        $nbDoc,
-        $date
+    $miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc
     )
     {
-
-        $logVendor = new LogVendors($miraklId, $hipayId, $status, $message, $nbDoc, $date);
+        $logVendor = new LogVendors($miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc);
         return $logVendor;
     }
 
@@ -67,8 +62,7 @@ class LogVendorsRepository extends EntityRepository implements LogVendorsManager
      * @return void
      */
     public function update(
-        LogVendorsInterface $vendor,
-        array $logData
+    LogVendorsInterface $vendor, array $logData
     )
     {
         return;
@@ -109,5 +103,60 @@ class LogVendorsRepository extends EntityRepository implements LogVendorsManager
     public function isValid(LogVendorsInterface $logVendors)
     {
         return true;
+    }
+
+    public function findAjax($first, $limit, $sortedColumn, $dir, $search)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder->select('a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.nbDoc, a.date');
+        $this->prepateAjaxRequest($queryBuilder, $search);
+
+        $queryBuilder->setFirstResult($first)
+            ->setMaxResults($limit)
+            ->orderBy('a.'.$sortedColumn, $dir)
+        ;
+
+        $query = $queryBuilder->getQuery();
+
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    public function countAll()
+    {
+
+        $count = $this->createQueryBuilder('post')
+                ->select('COUNT(post)')
+                ->getQuery()->getSingleScalarResult();
+
+        return intval($count);
+    }
+
+    public function countFiltered($search)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder->select('COUNT(a.miraklId)');
+        $this->prepateAjaxRequest($queryBuilder, $search);
+
+        $result = $queryBuilder->getQuery()->getSingleScalarResult();
+
+        return intval($result);
+    }
+
+    private function prepateAjaxRequest(&$queryBuilder, $search)
+    {
+        $queryBuilder->from($this->_entityName, 'a');
+
+        if (!empty($search)) {
+            $queryBuilder->where(
+                    $queryBuilder->expr()->orX(
+                        $queryBuilder->expr()->like('a.miraklId', '?1'), 
+                        $queryBuilder->expr()->like('a.login', '?1'),
+                        $queryBuilder->expr()->like('a.hipayId','?1')
+                    )
+                )
+                ->setParameter(1, '%'.$search.'%');
+        }
     }
 }

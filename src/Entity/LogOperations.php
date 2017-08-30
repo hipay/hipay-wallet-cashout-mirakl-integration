@@ -56,6 +56,20 @@ class LogOperations implements LogOperationsInterface
     protected $hipayId;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", unique=false, nullable=false)
+     */
+    protected $paymentVoucher;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime", unique=false, nullable=false)
+     *
+     */
+    protected $dateCreated;
+
+    /**
      * @var float
      *
      * @ORM\Column(type="float", unique=false, nullable=false)

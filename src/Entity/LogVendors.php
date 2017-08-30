@@ -38,7 +38,7 @@ class LogVendors implements LogVendorsInterface
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      * @Assert\NotBlank
      * @Assert\Type(type="integer")
      * @Assert\GreaterThan(value=0)
@@ -48,12 +48,25 @@ class LogVendors implements LogVendorsInterface
     /**
      * @var int The HiPay Wallet account ID
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      * @Assert\NotBlank
      * @Assert\Type(type="integer")
      * @Assert\GreaterThan(value=0)
      */
     protected $hipayId;
+
+    /**
+     * @var string The HiPay Wallet account login
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $login;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", unique=false, nullable=false)
+     */
+    protected $statusWalletAccount;
 
     /**
      * @var int
@@ -87,10 +100,16 @@ class LogVendors implements LogVendorsInterface
      * @param int $miraklId
      * @param int $hipayId
      */
-    public function __construct($miraklId, $hipayId)
+    public function __construct($miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc)
     {
         $this->miraklId = $miraklId;
         $this->hipayId = $hipayId;
+        $this->login = $login;
+        $this->statusWalletAccount = $statusWalletAccount;
+        $this->status = $status;
+        $this->message = $message;
+        $this->nbDoc = $nbDoc;
+        $this->date = new \DateTime();
     }
 
     /**

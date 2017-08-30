@@ -19,9 +19,10 @@
   "require": {
     "php": ">=5.3.9",
     "doctrine/orm": "~2.4.8",
+    "dflydev/doctrine-orm-service-provider": "^1.0.7",
     "symfony/console": "^2.6",
     "symfony/yaml": "^2.6",
-    "hipay/hipay-wallet-cashout-mirakl-library" : "dev-develop",
+    "hipay/hipay-wallet-cashout-mirakl-library" : "dev-feature/WALMRKLINT-50",
     "incenteev/composer-parameter-handler": "^2.0",
     "gedmo/doctrine-extensions" : "^2.4",
     "swiftmailer/swiftmailer": "^5.0",
@@ -38,7 +39,8 @@
     "symfony/translation": "~2.3",
     "symfony/doctrine-bridge": "^2.8",
     "mustache/mustache": "^2.9",
-    "erusev/parsedown":"^1.6"
+    "erusev/parsedown":"^1.6",
+    "symfony/serializer": "2.8.26"
   },
   "scripts": {
     "post-install-cmd": [
