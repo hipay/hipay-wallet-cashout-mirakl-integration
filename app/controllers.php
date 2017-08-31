@@ -7,7 +7,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use HiPay\Wallet\Mirakl\Integration\Parameter\Accessor;
 use HiPay\Wallet\Mirakl\Integration\Controller\LogVendorController;
+use HiPay\Wallet\Mirakl\Integration\Controller\VendorController;
 use HiPay\Wallet\Mirakl\Integration\Controller\LogOperationsController;
+use HiPay\Wallet\Mirakl\Integration\Controller\OperationController;
+use HiPay\Wallet\Mirakl\Integration\Controller\LogGeneralController;
 use HiPay\Wallet\Mirakl\Integration\Controller\DocumentController;
 use HiPay\Wallet\Mirakl\Integration\Controller\TranslationController;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,14 +27,6 @@ $app['log.vendors.controller'] = function() use ($app) {
     return new LogVendorController($app['log.vendors.repository'], $app['serializer'], $app['translator']);
 };
 
-$app->get('/',function() use ($app) {
-    if (null === $user = $app['session']->get('user')) {
-        return $app->redirect($app["url_generator"]->generate("login"));
-    }
-
-    return $app['twig']->render('pages/vendors.twig');
-})->bind('vendors');
-
 $app->get('/log-vendors-ajax',function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
@@ -40,6 +35,25 @@ $app->get('/log-vendors-ajax',function() use ($app) {
     return $app['log.vendors.controller']->ajaxAction($app['request']);
 })->bind('log-vendors-ajax');
 
+$app['vendors.controller'] = function() use ($app) {
+    return new VendorController($app['vendors.repository'], $app['serializer'], $app['translator']);
+};
+
+$app->get('/vendors-ajax',function() use ($app) {
+    if (null === $user = $app['session']->get('user')) {
+        return $app->redirect($app["url_generator"]->generate("login"));
+    }
+
+    return $app['vendors.controller']->ajaxAction($app['request']);
+})->bind('vendors-ajax');
+
+$app->get('/',function() use ($app) {
+    if (null === $user = $app['session']->get('user')) {
+        return $app->redirect($app["url_generator"]->generate("login"));
+    }
+
+    return $app['twig']->render('pages/vendors.twig');
+})->bind('vendors');
 
 $app['documents.controller'] = function() use ($app) {
     return new DocumentController($app['api.hipay']);
@@ -93,42 +107,45 @@ $app->get('/log-operations-ajax',function() use ($app) {
     return $app['log.operations.controller']->ajaxAction($app['request']);
 })->bind('log-operations-ajax');
 
+$app['operations.repository'] = function() use ($app){
+    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');
+};
+
+$app['operations.controller'] = function() use ($app) {
+    return new OperationController($app['operations.repository'], $app['serializer'], $app['translator']);
+};
+
+$app->get('/operations-ajax',function() use ($app) {
+    if (null === $user = $app['session']->get('user')) {
+        return $app->redirect($app["url_generator"]->generate("login"));
+    }
+
+    return $app['operations.controller']->ajaxAction($app['request']);
+})->bind('operations-ajax');
+
+
+$app['log.general.repository'] = function() use ($app){
+    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogGeneral');
+};
+
+$app['log.general.controller'] = function() use ($app) {
+    return new LogGeneralController($app['log.general.repository'], $app['serializer'], $app['translator']);
+};
+
+$app->get('/log-general-ajax',function() use ($app) {
+    if (null === $user = $app['session']->get('user')) {
+        return $app->redirect($app["url_generator"]->generate("login"));
+    }
+
+    return $app['log.general.controller']->ajaxAction($app['request']);
+})->bind('log-general-ajax');
+
 
 $app->get('/logs',
           function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
-
-    $message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-    $message .= 'Suspendisse rutrum et mauris euismod faucibus.';
-    $message .= 'Vivamus eu sapien lacus. ';
-    $message .= 'Sed sit amet nunc efficitur risus bibendum bibendum.';
-    $message .= 'Pellentesque eu lectus sodales, pharetra libero id, condimentum urna.';
-    $rows    = array(
-        array('date' => '27/03/2017 12:43:23', 'type_info' => 'WARNING', 'error_message' => "Error Bank info is empty",
-            'action' => 'Création Wallet', 'mirakl_id' => '44356', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '27/03/2017 12:43:23', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44355', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '26/03/2017 12:43:23', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44354', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '26/03/2017 12:43:23', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44353', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '26/03/2017 12:43:23', 'type_info' => 'WARNING', 'error_message' => "Error Bank info is empty",
-            'action' => 'Création Wallet', 'mirakl_id' => '44356', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '25/03/2017 12:50:23', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44351', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '25/03/2017 12:32:21', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44350', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '25/03/2017 12:30:53', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44349', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '24/03/2017 16:45:33', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44348', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '24/03/2017 16:43:23', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44347', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-        array('date' => '24/03/2017 16:40:13', 'type_info' => 'INFO', 'error_message' => "", 'action' => 'Création Wallet',
-            'mirakl_id' => '44346', 'message' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id vehicula eros, vel mollis dui. Pellentesque sapien sem, pulvinar vel massa non, varius venenatis nibh. Cras eget commodo augue, posuere dictum purus.',),
-    );
 
     return $app['twig']->render('pages/logs.twig', array('rows' => $rows));
 })->bind('logs');

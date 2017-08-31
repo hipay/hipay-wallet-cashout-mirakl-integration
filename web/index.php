@@ -28,7 +28,7 @@ require_once __DIR__ . '/../app/bootstrap.php';
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => '../views',
+    'twig.path' => __DIR__.'/../views',
 ));
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());

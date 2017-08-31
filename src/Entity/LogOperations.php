@@ -38,7 +38,7 @@ class LogOperations implements LogOperationsInterface
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", unique=false, nullable=true)
      * @Assert\NotBlank
      * @Assert\Type(type="integer")
      * @Assert\GreaterThan(value=0)
@@ -48,10 +48,7 @@ class LogOperations implements LogOperationsInterface
     /**
      * @var int The HiPay Wallet account ID
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Type(type="integer")
-     * @Assert\GreaterThan(value=0)
+     * @ORM\Column(type="integer", unique=false, nullable=true)
      */
     protected $hipayId;
 
@@ -64,7 +61,7 @@ class LogOperations implements LogOperationsInterface
     /**
      * @var DateTime
      *
-     * @ORM\Column(type="datetime", unique=false, nullable=false)
+     * @ORM\Column(type="datetime", unique=false, nullable=true)
      *
      */
     protected $dateCreated;
@@ -78,13 +75,13 @@ class LogOperations implements LogOperationsInterface
 
     /**
      * @var int
-     * @ORM\Column(type="integer", unique=false, nullable=false)
+     * @ORM\Column(type="integer", unique=false, nullable=true)
      */
     protected $statusTransferts;
 
     /**
      * @var int
-     * @ORM\Column(type="integer", unique=false, nullable=false)
+     * @ORM\Column(type="integer", unique=false, nullable=true)
      */
     protected $statusWithDrawal;
 
@@ -107,10 +104,13 @@ class LogOperations implements LogOperationsInterface
      * @param int $miraklId
      * @param int $hipayId
      */
-    public function __construct($miraklId, $hipayId)
+    public function __construct($miraklId, $hipayId, $paymentVoucher, $amount, $balance)
     {
         $this->miraklId = $miraklId;
         $this->hipayId = $hipayId;
+        $this->paymentVoucher = $paymentVoucher;
+        $this->amount = $amount;
+        $this->balance = $balance;
     }
 
     /**

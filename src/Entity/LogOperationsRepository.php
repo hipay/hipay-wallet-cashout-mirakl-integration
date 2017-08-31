@@ -27,17 +27,9 @@ class LogOperationsRepository extends EntityRepository implements LogOperationsM
      *
      * @return LogOperationsInterface
      */
-    public function create(
-        $miraklId,
-        $hipayId,
-        $amount,
-        $statusTransferts,
-        $statusWithDrawal,
-        $message,
-        $balance
-    )
+    public function create($miraklId, $hipayId, $paymentVoucher, $amount, $balance)
     {
-        $logOperations = new LogOperations($miraklId, $hipayId, $amount, $statusTransferts, $statusWithDrawal, $message, $balance);
+        $logOperations = new LogOperations($miraklId, $hipayId, $paymentVoucher, $amount, $balance);
         return $logOperations;
     }
 
@@ -103,6 +95,27 @@ class LogOperationsRepository extends EntityRepository implements LogOperationsM
     public function isValid(LogOperationsInterface $logOperations)
     {
         return true;
+    }
+
+    /**
+     * Finds an operation.
+     *
+     * @param int $miraklId |null if operator
+     * @param int $paymentVoucherNumber optional date to filter upon
+     *
+     * @return OperationInterface|null
+     */
+    public function findByMiraklIdAndPaymentVoucherNumber(
+        $miraklId,
+        $paymentVoucherNumber
+    )
+    {
+        return $this->findOneBy(
+            array(
+                'miraklId' => $miraklId,
+                'paymentVoucher' => $paymentVoucherNumber
+            )
+        );
     }
 
     public function findAjax($first, $limit, $sortedColumn, $dir, $search)

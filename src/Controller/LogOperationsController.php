@@ -4,54 +4,67 @@ namespace HiPay\Wallet\Mirakl\Integration\Controller;
 
 use HiPay\Wallet\Mirakl\Integration\Entity\LogOperationsRepository;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Silex\Translator;
+use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
 
-class LogOperationsController
+class LogOperationsController extends AbstractTableController
 {
-    protected $repo;
-    protected $serializer;
-    protected $translator;
 
     public function __construct(LogOperationsRepository $repo, Serializer $serializer, Translator $translator)
     {
-        $this->repo       = $repo;
-        $this->serializer = $serializer;
-        $this->translator = $translator;
+        parent::__construct($repo, $serializer, $translator);
     }
 
-    public function ajaxAction(Request $request)
-    {
-        $first = $request->get('start');
-        $limit = $request->get('length');
-
-        $order        = $request->get('order');
-        $columns      = $request->get('columns');
-        $order        = end($order);
-        $sortedColumn = $columns[$order["column"]]["data"];
-        $search       = $request->get('search');
-
-        $data = $this->repo->findAjax($first, $limit, $sortedColumn, $order["dir"], $search["value"]);
-        $data = $this->prepareAjaxData($data);
-
-        $returnArray = array(
-            'draw' => (int) $request->get('draw'),
-            'recordsTotal' => $this->repo->countAll(),
-            'recordsFiltered' => $this->repo->countFiltered($search["value"]),
-            'data' => $data
-        );
-
-        return $this->serializer->serialize($returnArray, 'json');
-    }
-
-    private function prepareAjaxData($data)
+    protected function prepareAjaxData($data)
     {
         foreach ($data as $key => $logRow) {
-            $data[$key]['dateCreated'] = $logRow['dateCreated']->format('Y-m-d H:m:s');
+
+            $data[$key]['statusTransferts'] = array(
+                "status" => $logRow['statusTransferts'],
+                "label" => $this->getStatusLabel($logRow['statusTransferts']),
+                "button" => $this->getStatusMessage($logRow['statusTransferts'], $logRow)
+            );
+
+            $data[$key]['statusWithDrawal'] = array(
+                "status" => $logRow['statusWithDrawal'],
+                "label" => $this->getStatusLabel($logRow['statusWithDrawal']),
+                "button" => $this->getStatusMessage($logRow['statusWithDrawal'], $logRow)
+            );
         }
 
         return $data;
     }
 
+    private function getStatusLabel($status){
+        switch($status){
+            case Status::WITHDRAW_FAILED :
+                return $this->translator->trans('withdraw.request.failed');
+                break;
+            case Status::WITHDRAW_CANCELED :
+                return $this->translator->trans('withdraw.request.canceled');
+                break;
+            case Status::WITHDRAW_REQUESTED :
+                return $this->translator->trans('withdraw.request.requested');
+                break;
+            case Status::TRANSFER_FAILED :
+                return $this->translator->trans('transfer.request.failed');
+                break;
+            case Status::TRANSFER_SUCCESS :
+                return $this->translator->trans('transfer.request.success');
+                break;
+        }
+    }
+
+    private function getStatusMessage($status, $logRow)
+    {
+        switch ($status) {
+            case Status::TRANSFER_SUCCESS:
+            case Status::WITHDRAW_REQUESTED:
+                return "";
+            case Status::WITHDRAW_FAILED:
+            case Status::WITHDRAW_FAILED:
+            case Status::WITHDRAW_CANCELED:
+                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="'.$this->translator->trans($logRow["message"]).'" data-original-title="" title="" >'.$this->translator->trans("show.message").'</button>';
+        }
+    }
 }

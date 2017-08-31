@@ -3,13 +3,11 @@
 namespace HiPay\Wallet\Mirakl\Integration\Controller;
 
 use HiPay\Wallet\Mirakl\Integration\Entity\LogVendorsRepository;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use HiPay\Wallet\Mirakl\Notification\Model\LogVendorsInterface;
+use Symfony\Component\Serializer\Serializer;
 use Silex\Translator;
 
-class LogVendorController
+class LogVendorController extends AbstractTableController
 {
     protected $repo;
     protected $serializer;
@@ -22,55 +20,31 @@ class LogVendorController
         $this->translator = $translator;
     }
 
-    public function ajaxAction(Request $request)
-    {
-        $first = $request->get('start');
-        $limit = $request->get('length');
-
-        $order        = $request->get('order');
-        $columns      = $request->get('columns');
-        $order        = end($order);
-        $sortedColumn = $columns[$order["column"]]["data"];
-        $search       = $request->get('search');
-
-        $data = $this->repo->findAjax($first, $limit, $sortedColumn, $order["dir"], $search["value"]);
-        $data = $this->prepareAjaxData($data);
-
-        $returnArray = array(
-            'draw' => (int) $request->get('draw'),
-            'recordsTotal' => $this->repo->countAll(),
-            'recordsFiltered' => $this->repo->countFiltered($search["value"]),
-            'data' => $data
-        );
-
-        return $this->serializer->serialize($returnArray, 'json');
-    }
-
-    private function prepareAjaxData($data)
+    protected function prepareAjaxData($data)
     {
         foreach ($data as $key => $logRow) {
-            $data[$key]['date'] = $logRow['date']->format('Y-m-d H:m:s');
+            $data[$key]['date']                = $logRow['date']->format('Y-m-d H:i:s');
             $data[$key]['statusWalletAccount'] = array(
-                    "status" => $logRow['statusWalletAccount'],
-                    "label" => $this->getStatusWalletAccountString($logRow['statusWalletAccount'])
-                );
-            $data[$key]['document'] = array(
-                    "nb" => $logRow['nbDoc'],
-                    "miraklId" => $logRow['miraklId']
-                );
-            $data[$key]['status'] = array(
-                    "status" => $logRow['status'],
-                    "label" => $this->getStatusString($logRow['status']),
-                    "button" => $this->getStatusMessage($logRow)
-                );
-
+                "status" => $logRow['statusWalletAccount'],
+                "label" => $this->getStatusWalletAccountString($logRow['statusWalletAccount'])
+            );
+            $data[$key]['document']            = array(
+                "nb" => $logRow['nbDoc'],
+                "miraklId" => $logRow['miraklId']
+            );
+            $data[$key]['status']              = array(
+                "status" => $logRow['status'],
+                "label" => $this->getStatusString($logRow['status']),
+                "button" => $this->getStatusMessage($logRow)
+            );
         }
 
         return $data;
     }
 
-    private function getStatusMessage($logRow){
-        switch($logRow['status']){
+    private function getStatusMessage($logRow)
+    {
+        switch ($logRow['status']) {
             case LogVendorsInterface::SUCCESS:
             case LogVendorsInterface::INFO:
                 return "";
@@ -82,8 +56,9 @@ class LogVendorController
         }
     }
 
-    private function getStatusWalletAccountString($statusWalletAccount){
-        switch($statusWalletAccount){
+    private function getStatusWalletAccountString($statusWalletAccount)
+    {
+        switch ($statusWalletAccount) {
             case LogVendorsInterface::WALLET_CREATED:
                 return $this->translator->trans("Created");
             case LogVendorsInterface::WALLET_NOT_CREATED:
@@ -95,8 +70,9 @@ class LogVendorController
         }
     }
 
-    private function getStatusString($status){
-        switch($status){
+    private function getStatusString($status)
+    {
+        switch ($status) {
             case LogVendorsInterface::SUCCESS:
                 return $this->translator->trans("Success");
             case LogVendorsInterface::INFO:

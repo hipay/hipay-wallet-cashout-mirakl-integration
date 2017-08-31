@@ -19,7 +19,7 @@ use HiPay\Wallet\Mirakl\Notification\Model\LogVendorsInterface;
  * Class LogVendorsRepository
  *
  */
-class LogVendorsRepository extends EntityRepository implements LogVendorsManagerInterface
+class LogVendorsRepository extends AbstractTableRepository implements LogVendorsManagerInterface
 {
 
     /**
@@ -105,58 +105,29 @@ class LogVendorsRepository extends EntityRepository implements LogVendorsManager
         return true;
     }
 
-    public function findAjax($first, $limit, $sortedColumn, $dir, $search)
-    {
-        $queryBuilder = $this->_em->createQueryBuilder();
-        $queryBuilder->select('a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.nbDoc, a.date');
-        $this->prepateAjaxRequest($queryBuilder, $search);
-
-        $queryBuilder->setFirstResult($first)
-            ->setMaxResults($limit)
-            ->orderBy('a.'.$sortedColumn, $dir)
-        ;
-
-        $query = $queryBuilder->getQuery();
-
-        $results = $query->getResult();
-
-        return $results;
+    protected function getSelectString(){
+        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.nbDoc, a.date';
     }
 
-    public function countAll()
-    {
-
-        $count = $this->createQueryBuilder('post')
-                ->select('COUNT(post)')
-                ->getQuery()->getSingleScalarResult();
-
-        return intval($count);
+    protected function getCountString(){
+        return 'COUNT(a.miraklId)';
     }
 
-    public function countFiltered($search)
+    protected function prepareAjaxRequest($queryBuilder, $search)
     {
-        $queryBuilder = $this->_em->createQueryBuilder();
-        $queryBuilder->select('COUNT(a.miraklId)');
-        $this->prepateAjaxRequest($queryBuilder, $search);
-
-        $result = $queryBuilder->getQuery()->getSingleScalarResult();
-
-        return intval($result);
-    }
-
-    private function prepateAjaxRequest(&$queryBuilder, $search)
-    {
-        $queryBuilder->from($this->_entityName, 'a');
-
+        
         if (!empty($search)) {
             $queryBuilder->where(
                     $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('a.miraklId', '?1'), 
+                        $queryBuilder->expr()->like('a.miraklId', '?1'),
                         $queryBuilder->expr()->like('a.login', '?1'),
                         $queryBuilder->expr()->like('a.hipayId','?1')
                     )
                 )
                 ->setParameter(1, '%'.$search.'%');
         }
+
+        return $queryBuilder;
     }
+    
 }

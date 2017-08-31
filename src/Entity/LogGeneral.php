@@ -22,8 +22,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="HiPay\Wallet\Mirakl\Integration\Entity\LogGeneralRepository")
  * @ORM\Table(name="log_general")
+ * @ORM\HasLifecycleCallbacks
  */
-class LogGeneral implements LogGeneralInterface, Timestampable
+class LogGeneral
 {
     /**
      * @var int
@@ -34,11 +35,10 @@ class LogGeneral implements LogGeneralInterface, Timestampable
      */
     protected $id;
 
-
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      * @Assert\NotBlank
      * @Assert\Type(type="integer")
      * @Assert\GreaterThan(value=0)
@@ -46,149 +46,137 @@ class LogGeneral implements LogGeneralInterface, Timestampable
     protected $miraklId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(name="action", type="text", nullable=true)
      */
-    protected $type;
+    private $action;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(name="message", type="text")
      */
-    protected $action;
+    private $message;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(name="context", type="array")
      */
-    protected $error;
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $message;
+    private $context;
 
     /**
-     * @var string
-     *
-     * @Assert\Regex(
-     *     pattern="#[0-9]{2}/[0-9]{2}/[0-9]{4}#",
-     *      message="The date format must be [0-9]{2}/[0-9]{2}/[0-9]{4}"
-     * )
+     * @ORM\Column(name="level", type="smallint")
      */
-    protected $date;
+    private $level;
 
     /**
-     * LogGeneral constructor.
-     * @param int $miraklId
+     * @ORM\Column(name="level_name", type="string", length=50)
      */
-    public function __construct($miraklId, $type, $action, $error, $message, $date)
+    private $levelName;
+
+    /**
+     * @ORM\Column(name="extra", type="array")
+     */
+    private $extra;
+
+    /**
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    public function __construct($miraklId = null, $action = null, $message = null, $context = null, $level = null,
+                                $levelName = null, $extra = null)
     {
-        $this->miraklId = $miraklId;
-        $this->type = $type;
-        $this->action = $action;
-        $this->error = $error;
-        $this->message = $message;
-        $this->date = $date;
+        $this->miraklId  = $miraklId;
+        $this->action    = $action;
+        $this->message   = $message;
+        $this->context   = $context;
+        $this->level     = $level;
+        $this->levelName = $levelName;
+        $this->extra     = $extra;
     }
 
-    /**
-     * @return int
-     */
-    public function getMiraklId()
+    function getMiraklId()
     {
         return $this->miraklId;
     }
 
-    /**
-     * @param int $miraklId
-     */
-    public function setMiraklId($miraklId)
-    {
-        $this->miraklId = $miraklId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAction()
+    function getAction()
     {
         return $this->action;
     }
 
-    /**
-     * @param string $action
-     */
-    public function setAction($action)
-    {
-        $this->action = $action;
-    }
-
-    /**
-     * @return string
-     */
-    public function getError()
-    {
-        return $this->error;
-    }
-
-    /**
-     * @param string $error
-     */
-    public function setError($error)
-    {
-        $this->error = $error;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
+    function getMessage()
     {
         return $this->message;
     }
 
-    /**
-     * @param string $message
-     */
-    public function setMessage($message)
+    function getContext()
+    {
+        return $this->context;
+    }
+
+    function getLevel()
+    {
+        return $this->level;
+    }
+
+    function getLevelName()
+    {
+        return $this->levelName;
+    }
+
+    function getExtra()
+    {
+        return $this->extra;
+    }
+
+    function getId()
+    {
+        return $this->id;
+    }
+
+    function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    function setMiraklId($miraklId)
+    {
+        $this->miraklId = $miraklId;
+    }
+
+    function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    function setMessage($message)
     {
         $this->message = $message;
     }
 
-    /**
-     * @return string
-     */
-    public function getDate()
+    function setContext($context)
     {
-        return $this->date;
+        $this->context = $context;
+    }
+
+    function setLevel($level)
+    {
+        $this->level = $level;
+    }
+
+    function setLevelName($levelName)
+    {
+        $this->levelName = $levelName;
+    }
+
+    function setExtra($extra)
+    {
+        $this->extra = $extra;
     }
 
     /**
-     * @param string $date
+     * @ORM\PrePersist
      */
-    public function setDate($date)
+    public function onPrePersist()
     {
-        $this->date = $date;
+        $this->createdAt = new \DateTime();
     }
 }

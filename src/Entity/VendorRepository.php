@@ -13,7 +13,7 @@ use HiPay\Wallet\Mirakl\Vendor\Model\VendorInterface;
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  */
-class VendorRepository extends EntityRepository implements VendorManagerInterface
+class VendorRepository extends AbstractTableRepository implements VendorManagerInterface
 {
 
     /**
@@ -109,6 +109,30 @@ class VendorRepository extends EntityRepository implements VendorManagerInterfac
     public function isValid(VendorInterface $vendor)
     {
         return true;
+    }
+
+    protected function getSelectString(){
+        return 'a.miraklId, a.hipayId, a.hipayIdentified';
+    }
+
+    protected function getCountString(){
+        return 'COUNT(a.miraklId)';
+    }
+
+    protected function prepareAjaxRequest($queryBuilder, $search)
+    {
+
+        if (!empty($search)) {
+            $queryBuilder->where(
+                    $queryBuilder->expr()->orX(
+                        $queryBuilder->expr()->like('a.miraklId', '?1'),
+                        $queryBuilder->expr()->like('a.hipayId','?1')
+                    )
+                )
+                ->setParameter(1, '%'.$search.'%');
+        }
+
+        return $queryBuilder;
     }
 
 }

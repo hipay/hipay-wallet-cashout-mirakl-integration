@@ -41,7 +41,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use HiPay\Wallet\Mirakl\Integration\Handler\HipaySwiftMailerHandler;
 use Silex\Provider\DoctrineServiceProvider;
 use Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
-
+use HiPay\Wallet\Mirakl\Integration\Handler\MonologDBHandler;
 
 include dirname(__FILE__).'/../vendor/erusev/parsedown/Parsedown.php';
 
@@ -137,6 +137,10 @@ $logger->pushHandler(
 
 $logger->pushProcessor(new PsrLogMessageProcessor());
 
+$logger->pushHandler(
+    new MonologDBHandler($entityManager, $parameters['db.logger.level'])
+);
+
 /** @var ValidatorInterface $validator */
 $validator = Validation::createValidatorBuilder()
     ->enableAnnotationMapping()
@@ -182,6 +186,8 @@ $operationRepository->setPrivateLabelTemplate($parameters['label.private']);
 $operationRepository->setWithdrawLabelTemplate($parameters['label.withdraw']);
 
 
+$logOperationsRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogOperations');
+
 $operatorAccount = new Vendor(
     $parameters['account.operator.email'], null, $parameters['account.operator.hipayId']
 );
@@ -194,11 +200,11 @@ $transactionValidator = new TransactionValidator();
 
 $cashoutInitializer = new CashoutInitializer(
     $eventDispatcher, $logger, $apiFactory, $operatorAccount, $technicalAccount, $transactionValidator,
-    $operationRepository, $vendorRepository
+    $operationRepository, $logOperationsRepository, $vendorRepository
 );
 
 $cashoutProcessor = new CashoutProcessor(
-    $eventDispatcher, $logger, $apiFactory, $operationRepository, $vendorRepository, $operatorAccount
+    $eventDispatcher, $logger, $apiFactory, $operationRepository, $vendorRepository, $operatorAccount, $logOperationsRepository
 );
 
 $notificationHandler = new NotificationHandler($eventDispatcher, $logger, $operationRepository, $vendorRepository, $logVendorRepository,
