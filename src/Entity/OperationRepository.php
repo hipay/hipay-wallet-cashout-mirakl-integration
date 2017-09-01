@@ -259,7 +259,7 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
         return 'COUNT(a.miraklId)';
     }
 
-    protected function prepareAjaxRequest($queryBuilder, $search)
+    protected function prepareAjaxRequest($queryBuilder, $search, $custom)
     {
 
         if (!empty($search)) {

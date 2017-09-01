@@ -32,13 +32,15 @@ abstract class AbstractTableController
         $sortedColumn = $columns[$order["column"]]["data"];
         $search       = $request->get('search');
 
-        $data = $this->repo->findAjax($first, $limit, $sortedColumn, $order["dir"], $search["value"]);
+        $params = $request->query->all();
+
+        $data = $this->repo->findAjax($first, $limit, $sortedColumn, $order["dir"], $search["value"], $params);
         $data = $this->prepareAjaxData($data);
 
         $returnArray = array(
             'draw' => (int) $request->get('draw'),
             'recordsTotal' => $this->repo->countAll(),
-            'recordsFiltered' => $this->repo->countFiltered($search["value"]),
+            'recordsFiltered' => $this->repo->countFiltered($search["value"], $params),
             'data' => $data
         );
 

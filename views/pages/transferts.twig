@@ -1,25 +1,61 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-	<div class="starter-template">
-		<h1>Transfert & Withdrawal management</h1>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<p class="text-center">
-			<table class="table table-striped table-hover "  id="table_transferts">
-				<thead>
-				<tr>
-					<th>Mirakl ID</th>
-					<th>HiPay ID</th>
-					<th>Id ordre de paiement</th>
-					<th>Montant</th>
-					<th>Statut transfert</th>
-					<th>Statut retrait</th>
-					<th>Balance</th>
-				</tr>
-				</thead>
-			</table>
-		</div>
-	</div>
+    <div class="starter-template">
+        <h1>Transfert & Withdrawal management</h1>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Filtre(s)</div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="col-md-3">
+                        <label for="start" class=" control-label">Statut transfert</label>
+                        <div id="sandbox-container">
+                            <select id="status-transfer" class="form-control">
+                                <option value="-1" >Select transfer status</option>
+                                <option value="3" >{{ 'transfer.request.success'|trans }}</option>
+                                <option value="-9" >{{ 'transfer.request.failed'|trans }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="start" class=" control-label">Statut retrait</label>
+                        <div id="sandbox-container">
+                            <select id="status-withdraw" class="form-control">
+                                <option value="-1" >Select withdraw status</option>
+                                <option value="5" >{{ 'withdraw.request.requested'|trans }}</option>
+                                <option value="6" >{{ 'withdraw.request.success'|trans }}</option>
+                                <option value="-7" >{{ 'withdraw.request.failed'|trans }}</option>
+                                <option value="-8" >{{ 'withdraw.request.cancel'|trans }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  text-right">
+                        <a  id="filter-action" href="#" class="btn btn-default btn-lg ">Filtrer</a>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-center">
+            <table class="table table-striped table-hover "  id="table_transferts">
+                <thead>
+                    <tr>
+                        <th>Mirakl ID</th>
+                        <th>HiPay ID</th>
+                        <th>Id ordre de paiement</th>
+                        <th>Montant</th>
+                        <th>Statut transfert</th>
+                        <th>Statut retrait</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 {% endblock %}

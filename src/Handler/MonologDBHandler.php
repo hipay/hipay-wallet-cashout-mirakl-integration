@@ -42,8 +42,8 @@ class MonologDBHandler extends AbstractProcessingHandler
             $logEntry->setExtra($record['extra']);
             $logEntry->setContext($record['context']);
 
-            if (isset($record['context']["shopId"])) {
-                $logEntry->setMiraklId($record['context']["shopId"]);
+            if (isset($record['context']["miraklId"])) {
+                $logEntry->setMiraklId($record['context']["miraklId"]);
             }
 
             if (isset($record['context']["action"])) {

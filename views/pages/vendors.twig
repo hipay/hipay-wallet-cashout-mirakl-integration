@@ -4,6 +4,52 @@
     <div class="starter-template">
         <h1>Vendors management</h1>
     </div>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Filtre(s)</div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="col-md-2">
+                        <label for="start" class=" control-label">Etat</label>
+                        <div id="sandbox-container">
+                            <select id="status-filter" class="form-control">
+                                <option value="-1" >Select State</option>
+                                <option value="1" >Success</option>
+                                <option value="3" >Warning</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="start" class=" control-label">Status compte wallet</label>
+                        <div id="sandbox-container">
+                            <select id="wallet-status-filter" class="form-control">
+                                <option value="-1" >Select Wallet account state</option>
+                                <option value="1" >Created</option>
+                                <option value="2" >Not created</option>
+                                <option value="3" >Identified</option>
+                                <option value="4" >Not identified</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="start" class="control-label">Période du</label>
+                        <div id="sandbox-container">
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="text" class="input-sm form-control" id="start" name="start" />
+                                <span class="input-group-addon">au</span>
+                                <input type="text" class="input-sm form-control" id="end" name="end" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a  id="filter-action" href="#" class="btn btn-default btn-lg ">Filtrer</a>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <p class="text-center">
@@ -31,7 +77,7 @@
                     <h4 class="modal-title">Modal title</h4>
                 </div>
                 <div class="modal-body">
-                    
+
                     <p class="popup-vendor-document">
                         <img class="loader-document" src="{{ asset('img/loading.gif') }}" />
                     </p>
@@ -43,10 +89,13 @@
         </div>
     </div>
     <script type="text/javascript">
-        
-        
+
+        $('#sandbox-container .input-daterange').datepicker({
+            format: 'dd/mm/yyyy'
+        });
+
         function popup_vendor_detail(id) {
-            $.get("documents-ajax", {id: id} ,function (data){
+            $.get("documents-ajax", {id: id}, function (data) {
                 $(".popup-vendor-document").html(data);
             });
             $(".modal").show();

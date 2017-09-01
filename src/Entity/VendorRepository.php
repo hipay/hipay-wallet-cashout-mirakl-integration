@@ -119,7 +119,7 @@ class VendorRepository extends AbstractTableRepository implements VendorManagerI
         return 'COUNT(a.miraklId)';
     }
 
-    protected function prepareAjaxRequest($queryBuilder, $search)
+    protected function prepareAjaxRequest($queryBuilder, $search, $custom)
     {
 
         if (!empty($search)) {

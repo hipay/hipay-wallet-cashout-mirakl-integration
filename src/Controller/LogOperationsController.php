@@ -39,19 +39,16 @@ class LogOperationsController extends AbstractTableController
         switch($status){
             case Status::WITHDRAW_FAILED :
                 return $this->translator->trans('withdraw.request.failed');
-                break;
             case Status::WITHDRAW_CANCELED :
                 return $this->translator->trans('withdraw.request.canceled');
-                break;
             case Status::WITHDRAW_REQUESTED :
                 return $this->translator->trans('withdraw.request.requested');
-                break;
             case Status::TRANSFER_FAILED :
                 return $this->translator->trans('transfer.request.failed');
-                break;
             case Status::TRANSFER_SUCCESS :
                 return $this->translator->trans('transfer.request.success');
-                break;
+            case Status::WITHDRAW_SUCCESS :
+                return $this->translator->trans('withdraw.request.success');
         }
     }
 

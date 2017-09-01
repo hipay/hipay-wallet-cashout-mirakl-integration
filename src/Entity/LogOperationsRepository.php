@@ -1,4 +1,5 @@
 <?php
+
 namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use Doctrine\ORM\EntityRepository;
@@ -14,8 +15,9 @@ use HiPay\Wallet\Mirakl\Notification\Model\LogOperationsManagerInterface;
  * @copyright 2016 HiPay
  * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
  */
-class LogOperationsRepository extends EntityRepository implements LogOperationsManagerInterface
+class LogOperationsRepository extends AbstractTableRepository implements LogOperationsManagerInterface
 {
+
     /**
      * @param $miraklId
      * @param $hipayId
@@ -54,7 +56,7 @@ class LogOperationsRepository extends EntityRepository implements LogOperationsM
      * @return void
      */
     public function update(
-        LogOperationsInterface $logOperations
+    LogOperationsInterface $logOperations
     )
     {
         return;
@@ -105,70 +107,50 @@ class LogOperationsRepository extends EntityRepository implements LogOperationsM
      *
      * @return OperationInterface|null
      */
-    public function findByMiraklIdAndPaymentVoucherNumber(
-        $miraklId,
-        $paymentVoucherNumber
-    )
+    public function findByMiraklIdAndPaymentVoucherNumber($miraklId, $paymentVoucherNumber)
     {
         return $this->findOneBy(
-            array(
-                'miraklId' => $miraklId,
-                'paymentVoucher' => $paymentVoucherNumber
-            )
+                array(
+                    'miraklId' => $miraklId,
+                    'paymentVoucher' => $paymentVoucherNumber
+                )
         );
     }
 
-    public function findAjax($first, $limit, $sortedColumn, $dir, $search)
+    protected function getSelectString()
     {
-        $queryBuilder = $this->_em->createQueryBuilder();
-        $queryBuilder->select('a.miraklId, a.hipayId, a.amount, a.statusTransferts, a.statusWithDrawal, a.message, a.balance, a.dateCreated, a.paymentVoucher');
-        $this->prepateAjaxRequest($queryBuilder, $search);
-
-        $queryBuilder->setFirstResult($first)
-            ->setMaxResults($limit)
-            ->orderBy('a.'.$sortedColumn, $dir)
-        ;
-
-        $query = $queryBuilder->getQuery();
-
-        $results = $query->getResult();
-
-        return $results;
+        return 'a.miraklId, a.hipayId, a.amount, a.statusTransferts, a.statusWithDrawal, a.message, a.balance, a.dateCreated, a.paymentVoucher';
     }
 
-    public function countAll()
+    protected function getCountString()
     {
-
-        $count = $this->createQueryBuilder('post')
-                ->select('COUNT(post)')
-                ->getQuery()->getSingleScalarResult();
-
-        return intval($count);
+        return 'COUNT(a.id)';
     }
 
-    public function countFiltered($search)
+    protected function prepareAjaxRequest($queryBuilder, $search, $custom)
     {
-        $queryBuilder = $this->_em->createQueryBuilder();
-        $queryBuilder->select('COUNT(a.miraklId)');
-        $this->prepateAjaxRequest($queryBuilder, $search);
-
-        $result = $queryBuilder->getQuery()->getSingleScalarResult();
-
-        return intval($result);
-    }
-
-    private function prepateAjaxRequest(&$queryBuilder, $search)
-    {
-        $queryBuilder->from($this->_entityName, 'a');
 
         if (!empty($search)) {
             $queryBuilder->where(
                     $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('a.miraklId', '?1'),
-                        $queryBuilder->expr()->like('a.hipayId', '?1')
+                        $queryBuilder->expr()->like('a.miraklId', '?1'), $queryBuilder->expr()->like('a.hipayId', '?1')
                     )
                 )
                 ->setParameter(1, '%'.$search.'%');
         }
+
+        if (isset($custom["status-transfer"]) && $custom["status-transfer"] != -1) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('a.statusTransferts', $custom["status-transfer"])
+            );
+        }
+        if (isset($custom["status-withdraw"]) && $custom["status-withdraw"] != -1) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('a.statusWithDrawal', $custom["status-withdraw"])
+            );
+        }
+
+
+        return $queryBuilder;
     }
 }

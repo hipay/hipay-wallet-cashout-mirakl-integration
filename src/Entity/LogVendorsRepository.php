@@ -14,6 +14,7 @@ namespace HiPay\Wallet\Mirakl\Integration\Entity;
 use Doctrine\ORM\EntityRepository;
 use HiPay\Wallet\Mirakl\Notification\Model\LogVendorsManagerInterface;
 use HiPay\Wallet\Mirakl\Notification\Model\LogVendorsInterface;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * Class LogVendorsRepository
@@ -105,29 +106,62 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
         return true;
     }
 
-    protected function getSelectString(){
+    protected function getSelectString()
+    {
         return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.nbDoc, a.date';
     }
 
-    protected function getCountString(){
+    protected function getCountString()
+    {
         return 'COUNT(a.miraklId)';
     }
 
-    protected function prepareAjaxRequest($queryBuilder, $search)
+    protected function prepareAjaxRequest($queryBuilder, $search, $custom)
     {
-        
         if (!empty($search)) {
-            $queryBuilder->where(
+            $queryBuilder->andWhere(
                     $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('a.miraklId', '?1'),
-                        $queryBuilder->expr()->like('a.login', '?1'),
-                        $queryBuilder->expr()->like('a.hipayId','?1')
+                        $queryBuilder->expr()->like('a.miraklId', '?1'), $queryBuilder->expr()->like('a.login', '?1'),
+                                                                                                     $queryBuilder->expr()->like('a.hipayId',
+                                                                                                                                 '?1')
                     )
                 )
                 ->setParameter(1, '%'.$search.'%');
         }
 
+        if (isset($custom["status"]) && $custom["status"] != -1) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('a.status', $custom["status"])
+            );
+        }
+        if (isset($custom["wallet-status"]) && $custom["wallet-status"] != -1) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('a.statusWalletAccount', $custom["wallet-status"])
+            );
+        }
+
+        if (isset($custom["date-start"]) && !empty($custom["date-start"])) {
+
+            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-start"].' 00:00:00');
+            if ($dateStart) {
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->gte('a.date', ':start')
+                    )
+                    ->setParameter('start', $dateStart, Type::DATETIME);
+            }
+        }
+
+        if (isset($custom["date-end"]) && !empty($custom["date-end"])) {
+
+            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-end"].' 23:59:59');
+            if ($dateStart) {
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->lte('a.date', ':last')
+                    )
+                    ->setParameter('last', $dateStart, Type::DATETIME);
+            }
+        }
+
         return $queryBuilder;
     }
-    
 }

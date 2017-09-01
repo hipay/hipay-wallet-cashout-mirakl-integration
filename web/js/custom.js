@@ -24,18 +24,29 @@
     });
 
     $(document).ready(function () {
-        $('#table_vendor').DataTable({
+        var vendorTable = $('#table_vendor').DataTable({
             "language": {
                 url: ''
             },
             "order": [[5, "desc"]],
             "processing": true,
             "serverSide": true,
-            "ajax": "log-vendors-ajax",
+            "ajax": {
+                "url": "log-vendors-ajax",
+                "data":
+                        function (d) {
+                            return $.extend({}, d, {
+                                "status": $("#status-filter").val(),
+                                "wallet-status": $("#wallet-status-filter").val(),
+                                "date-start": $("#start").val(),
+                                "date-end": $("#end").val()
+                            });
+                        }
+            },
             "createdRow": function (row, data, index) {
                 if (data.statusWalletAccount.status == 2 || data.statusWalletAccount.status == 4) {
                     $('td', row).eq(3).addClass('danger');
-                }else if(data.statusWalletAccount.status == 1 || data.statusWalletAccount.status == 3){
+                } else if (data.statusWalletAccount.status == 1 || data.statusWalletAccount.status == 3) {
                     $('td', row).eq(3).addClass('success');
                 }
                 if (data.status.status == 3 || data.status.status == 4) {
@@ -44,7 +55,7 @@
                     $('td', row).eq(2).addClass('success');
                 }
             },
-            "drawCallback" : function () {
+            "drawCallback": function () {
                 $('.vendor-notice').popover();
             },
             "columns": [
@@ -53,8 +64,8 @@
                 {
                     "data": "status",
                     "render": function (data) {
-                        return data.label+" "+data.button;
-                        
+                        return data.label + " " + data.button;
+
                     }
                 },
                 {
@@ -73,17 +84,27 @@
                 }
             ]
         });
-        $('#table_transferts').DataTable({
+
+        var operationTable = $('#table_transferts').DataTable({
             "language": {
                 url: ''
             },
             "processing": true,
             "serverSide": true,
-            "ajax": "log-operations-ajax",
+            "ajax": {
+                "url": "log-operations-ajax",
+                "data":
+                        function (d) {
+                            return $.extend({}, d, {
+                                "status-transfer": $("#status-transfer").val(),
+                                "status-withdraw": $("#status-withdraw").val()
+                            });
+                        }
+            },
             "createdRow": function (row, data, index) {
                 if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8) {
                     $('td', row).eq(5).addClass('danger');
-                }else{
+                } else {
                     $('td', row).eq(5).addClass('success');
                 }
                 if (data.statusTransferts.status == -9) {
@@ -92,7 +113,7 @@
                     $('td', row).eq(4).addClass('success');
                 }
             },
-            "drawCallback" : function () {
+            "drawCallback": function () {
                 $('.vendor-notice').popover();
             },
             "columns": [
@@ -105,13 +126,13 @@
                 {
                     "data": "statusTransferts",
                     "render": function (data) {
-                        return data.label +" "+data.button;
+                        return data.label + " " + data.button;
                     }
                 },
                 {
                     "data": "statusWithDrawal",
                     "render": function (data) {
-                        return data.label +" "+data.button;
+                        return data.label + " " + data.button;
                     }
                 },
                 {
@@ -119,14 +140,24 @@
                 }
             ]
         });
-        $('#table_logs').DataTable({
+        var logTable = $('#table_logs').DataTable({
             "language": {
                 url: ''
             },
             "order": [[0, "desc"]],
             "processing": true,
             "serverSide": true,
-            "ajax": "log-general-ajax",
+            "ajax": {
+                "url": "log-general-ajax",
+                "data":
+                        function (d) {
+                            return $.extend({}, d, {
+                                "log-level": $("#log-level").val(),
+                                "date-start": $("#start").val(),
+                                "date-end": $("#end").val()
+                            });
+                        }
+            },
             "columns": [
                 {"data": "createdAt"},
                 {"data": "levelName"},
@@ -134,6 +165,12 @@
                 {"data": "miraklId"},
                 {"data": "message"}
             ]
+        });
+
+        $("#filter-action").click(function () {
+            vendorTable.draw();
+            operationTable.draw();
+            logTable.draw();
         });
     });
 })();

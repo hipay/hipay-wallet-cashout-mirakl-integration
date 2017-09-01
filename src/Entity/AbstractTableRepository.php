@@ -7,12 +7,12 @@ use Doctrine\ORM\EntityRepository;
 abstract class AbstractTableRepository extends EntityRepository
 {
 
-    public function findAjax($first, $limit, $sortedColumn, $dir, $search)
+    public function findAjax($first, $limit, $sortedColumn, $dir, $search, $custom)
     {
         $queryBuilder = $this->_em->createQueryBuilder();
         $queryBuilder->select($this->getSelectString())
                      ->from($this->_entityName, 'a');
-        $queryBuilder = $this->prepareAjaxRequest($queryBuilder, $search);
+        $queryBuilder = $this->prepareAjaxRequest($queryBuilder, $search, $custom);
 
         $queryBuilder->setFirstResult($first)
             ->setMaxResults($limit)
@@ -36,19 +36,19 @@ abstract class AbstractTableRepository extends EntityRepository
         return intval($count);
     }
 
-    public function countFiltered($search)
+    public function countFiltered($search, $custom)
     {
         $queryBuilder = $this->_em->createQueryBuilder();
         $queryBuilder->select($this->getCountString())
             ->from($this->_entityName, 'a');
-        $queryBuilder = $this->prepareAjaxRequest($queryBuilder, $search);
+        $queryBuilder = $this->prepareAjaxRequest($queryBuilder, $search, $custom);
 
         $result = $queryBuilder->getQuery()->getSingleScalarResult();
 
         return intval($result);
     }
 
-    abstract protected function prepareAjaxRequest($queryBuilder, $search);
+    abstract protected function prepareAjaxRequest($queryBuilder, $search, $cutsom);
 
     abstract protected function getSelectString();
 

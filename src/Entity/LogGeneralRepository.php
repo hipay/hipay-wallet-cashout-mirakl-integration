@@ -3,6 +3,7 @@
 namespace HiPay\Wallet\Mirakl\Integration\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * LogGeneralRepository
@@ -23,7 +24,7 @@ class LogGeneralRepository extends AbstractTableRepository
         return 'COUNT(a.id)';
     }
 
-    protected function prepareAjaxRequest($queryBuilder, $search)
+    protected function prepareAjaxRequest($queryBuilder, $search, $custom)
     {
 
         if (!empty($search)) {
@@ -33,6 +34,34 @@ class LogGeneralRepository extends AbstractTableRepository
                     )
                 )
                 ->setParameter(1, '%'.$search.'%');
+        }
+
+        if (isset($custom["log-level"]) && $custom["log-level"] != -1) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('a.level', $custom["log-level"])
+            );
+        }
+
+        if (isset($custom["date-start"]) && !empty($custom["date-start"])) {
+
+            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-start"].' 00:00:00');
+            if ($dateStart) {
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->gte('a.createdAt', ':start')
+                    )
+                    ->setParameter('start', $dateStart, Type::DATETIME);
+            }
+        }
+
+        if (isset($custom["date-end"]) && !empty($custom["date-end"])) {
+
+            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-end"].' 23:59:59');
+            if ($dateStart) {
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->lte('a.createdAt', ':last')
+                    )
+                    ->setParameter('last', $dateStart, Type::DATETIME);
+            }
         }
 
         return $queryBuilder;
