@@ -74,7 +74,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="popup_vendor_close();">&times;</button>
-                    <h4 class="modal-title">Modal title</h4>
+                    <h4 class="modal-title">Documents list</h4>
                 </div>
                 <div class="modal-body">
 
@@ -91,12 +91,15 @@
     <script type="text/javascript">
 
         $('#sandbox-container .input-daterange').datepicker({
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+            orientation: 'bottom'
         });
 
         function popup_vendor_detail(id) {
             $.get("documents-ajax", {id: id}, function (data) {
                 $(".popup-vendor-document").html(data);
+                $('.modal .modal-body').css('overflow-y', 'auto');
+                $('.modal .modal-body').css('max-height', $(window).height() * 0.7);
             });
             $(".modal").show();
         }
@@ -104,5 +107,10 @@
             $(".popup-vendor-document").html('<img class="loader-document" src="{{ asset('img/loading.gif') }}" />');
             $(".modal").hide();
         }
+
+        $('.modal').on('show.bs.modal', function () {
+            $('.modal .modal-body').css('overflow-y', 'auto');
+            $('.modal .modal-body').css('max-height', $(window).height() * 0.7);
+        });
     </script>
 {% endblock %}

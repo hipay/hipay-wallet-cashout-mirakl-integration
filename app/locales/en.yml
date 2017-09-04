@@ -2,3 +2,9 @@ your_vendors: Your vendors
 sProcessing: Processing...
 sSearch: "Search:"
 sLengthMenu: Show _MENU_ entries
+transfer.request.success: OK
+transfer.request.failed: KO
+withdraw.request.failed: KO (failed)
+withdraw.request.cancel: KO (cancel)
+withdraw.request.success: OK
+show.message: Show message

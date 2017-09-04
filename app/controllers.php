@@ -13,13 +13,14 @@ use HiPay\Wallet\Mirakl\Integration\Controller\OperationController;
 use HiPay\Wallet\Mirakl\Integration\Controller\LogGeneralController;
 use HiPay\Wallet\Mirakl\Integration\Controller\DocumentController;
 use HiPay\Wallet\Mirakl\Integration\Controller\TranslationController;
+use HiPay\Wallet\Mirakl\Integration\Controller\SettingController;
 use Symfony\Component\Validator\Constraints as Assert;
 
-$app['vendors.repository'] = function() use ($app){
+$app['vendors.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
 };
 
-$app['log.vendors.repository'] = function() use ($app){
+$app['log.vendors.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
 };
 
@@ -27,7 +28,8 @@ $app['log.vendors.controller'] = function() use ($app) {
     return new LogVendorController($app['log.vendors.repository'], $app['serializer'], $app['translator']);
 };
 
-$app->get('/log-vendors-ajax',function() use ($app) {
+$app->get('/log-vendors-ajax',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -39,7 +41,8 @@ $app['vendors.controller'] = function() use ($app) {
     return new VendorController($app['vendors.repository'], $app['serializer'], $app['translator']);
 };
 
-$app->get('/vendors-ajax',function() use ($app) {
+$app->get('/vendors-ajax',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -47,7 +50,8 @@ $app->get('/vendors-ajax',function() use ($app) {
     return $app['vendors.controller']->ajaxAction($app['request']);
 })->bind('vendors-ajax');
 
-$app->get('/',function() use ($app) {
+$app->get('/',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -59,7 +63,8 @@ $app['documents.controller'] = function() use ($app) {
     return new DocumentController($app['api.hipay']);
 };
 
-$app->get('/documents-ajax',function() use ($app) {
+$app->get('/documents-ajax',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -72,7 +77,8 @@ $app['translation.controller'] = function() use ($app) {
     return new TranslationController($app['translator']);
 };
 
-$app->get('/{_locale}/datatable/locale',function() use ($app) {
+$app->get('/{_locale}/datatable/locale',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -91,7 +97,7 @@ $app->get('/transferts',
 })->bind('transferts');
 
 
-$app['log.operations.repository'] = function() use ($app){
+$app['log.operations.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogOperations');
 };
 
@@ -99,7 +105,8 @@ $app['log.operations.controller'] = function() use ($app) {
     return new LogOperationsController($app['log.operations.repository'], $app['serializer'], $app['translator']);
 };
 
-$app->get('/log-operations-ajax',function() use ($app) {
+$app->get('/log-operations-ajax',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -107,7 +114,7 @@ $app->get('/log-operations-ajax',function() use ($app) {
     return $app['log.operations.controller']->ajaxAction($app['request']);
 })->bind('log-operations-ajax');
 
-$app['operations.repository'] = function() use ($app){
+$app['operations.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');
 };
 
@@ -115,7 +122,8 @@ $app['operations.controller'] = function() use ($app) {
     return new OperationController($app['operations.repository'], $app['serializer'], $app['translator']);
 };
 
-$app->get('/operations-ajax',function() use ($app) {
+$app->get('/operations-ajax',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -124,7 +132,7 @@ $app->get('/operations-ajax',function() use ($app) {
 })->bind('operations-ajax');
 
 
-$app['log.general.repository'] = function() use ($app){
+$app['log.general.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogGeneral');
 };
 
@@ -132,7 +140,8 @@ $app['log.general.controller'] = function() use ($app) {
     return new LogGeneralController($app['log.general.repository'], $app['serializer'], $app['translator']);
 };
 
-$app->get('/log-general-ajax',function() use ($app) {
+$app->get('/log-general-ajax',
+          function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
@@ -141,13 +150,12 @@ $app->get('/log-general-ajax',function() use ($app) {
 })->bind('log-general-ajax');
 
 
-$app->get('/logs',
-          function() use ($app) {
+$app->get('/logs', function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
 
-    return $app['twig']->render('pages/logs.twig', array('rows' => $rows));
+    return $app['twig']->render('pages/logs.twig', array());
 })->bind('logs');
 
 $app->get('/logout',
@@ -159,40 +167,25 @@ $app->get('/logout',
 /*
  * settings page
  */
-$app->match('/settings',
-            function(Request $request) use ($app) {
+
+$app['settings.controller'] = function() use ($app) {
+    return new SettingController($app['form.factory'], $app['twig']);
+};
+
+$app->get('/settings', function(Request $request) use ($app) {
 
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
     }
 
-    $sent = false;
-
-    //Could use short array [] but have used long arrays in other parts
-    $default = array(
-        'setting_field' => '',
-    );
-
-    $form = $app['form.factory']->createBuilder('form', $default)
-        ->add('setting_field', 'text',
-              array(
-            'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 3))),
-            'attr' => array('class' => 'form-control', 'placeholder' => 'Settings')
-        ))
-        ->add('send', 'submit', array(
-            'attr' => array('class' => 'btn btn-default')
-        ))
-        ->getForm();
-
-    $form->handleRequest($request);
-
-    if ($form->isValid()) {
-        $data = $form->getData();
-
-        $sent = true;
-    }
-    return $app['twig']->render('pages/settings.twig', array('form' => $form->createView(), 'sent' => $sent));
+    return $app['settings.controller']->indexAction();
 })->bind('settings');
+
+$app->post('/settings', function(Request $request) use ($app) {
+
+    return $app['settings.controller']->reRunAction($request);
+
+})->bind('settings-form');
 
 /*
  * Login page
