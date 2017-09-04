@@ -21,6 +21,9 @@ $app['vendors.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
 };
 
+/*****************
+ * Log vendors Controller
+ ****************/
 $app['log.vendors.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
 };
@@ -38,19 +41,6 @@ $app->get('/log-vendors-ajax',
     return $app['log.vendors.controller']->ajaxAction($app['request']);
 })->bind('log-vendors-ajax');
 
-$app['vendors.controller'] = function() use ($app) {
-    return new VendorController($app['vendors.repository'], $app['serializer'], $app['translator']);
-};
-
-$app->get('/vendors-ajax',
-          function() use ($app) {
-    if (null === $user = $app['session']->get('user')) {
-        return $app->redirect($app["url_generator"]->generate("login"));
-    }
-
-    return $app['vendors.controller']->ajaxAction($app['request']);
-})->bind('vendors-ajax');
-
 $app->get('/',
           function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
@@ -59,6 +49,10 @@ $app->get('/',
 
     return $app['twig']->render('pages/vendors.twig');
 })->bind('vendors');
+
+/*****************
+ * documents Controller
+ ****************/
 
 $app['documents.controller'] = function() use ($app) {
     return new DocumentController($app['api.hipay']);
@@ -73,6 +67,9 @@ $app->get('/documents-ajax',
     return $app['documents.controller']->ajaxAction($app['request'], $app['twig'], $app['vendors.repository']);
 })->bind('documents-ajax');
 
+/*****************
+ * Translation Controller
+ ****************/
 
 $app['translation.controller'] = function() use ($app) {
     return new TranslationController($app['translator']);
@@ -87,6 +84,10 @@ $app->get('/{_locale}/datatable/locale',
     return$app['translation.controller']->datatableAction($app['request']);
 })->bind('datatable-locale');
 
+
+/*****************
+ * Log Operations Controller
+ ****************/
 
 $app->get('/transferts',
           function() use ($app) {
@@ -115,23 +116,9 @@ $app->get('/log-operations-ajax',
     return $app['log.operations.controller']->ajaxAction($app['request']);
 })->bind('log-operations-ajax');
 
-$app['operations.repository'] = function() use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');
-};
-
-$app['operations.controller'] = function() use ($app) {
-    return new OperationController($app['operations.repository'], $app['serializer'], $app['translator']);
-};
-
-$app->get('/operations-ajax',
-          function() use ($app) {
-    if (null === $user = $app['session']->get('user')) {
-        return $app->redirect($app["url_generator"]->generate("login"));
-    }
-
-    return $app['operations.controller']->ajaxAction($app['request']);
-})->bind('operations-ajax');
-
+/*****************
+ * Logs Controller
+ ****************/
 
 $app['log.general.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogGeneral');
@@ -159,6 +146,10 @@ $app->get('/logs', function() use ($app) {
 })->bind('logs');
 
 
+/*****************
+ * Settings Controller
+ ****************/
+
 $app['batch.repository'] = function() use ($app) {
     return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Batch');
 };
@@ -175,17 +166,6 @@ $app->get('/log-batch-ajax',
 
     return $app['batch.controller']->ajaxAction($app['request']);
 })->bind('log-batch-ajax');
-
-
-$app->get('/logout',
-          function() use ($app) {
-    $app['session']->set('user', null);
-    return $app->redirect($app["url_generator"]->generate("login"));
-})->bind('logout');
-
-/*
- * settings page
- */
 
 $app['settings.controller'] = function() use ($app) {
     return new SettingController($app['form.factory'], $app['twig']);
@@ -255,6 +235,12 @@ $app->match('/login',
     }
     return $app['twig']->render('pages/login.twig', array('form' => $form->createView(), 'sent' => $sent));
 })->bind('login');
+
+$app->get('/logout',
+          function() use ($app) {
+    $app['session']->set('user', null);
+    return $app->redirect($app["url_generator"]->generate("login"));
+})->bind('logout');
 
 $app->post('/{anyplace}',
            function (Request $request) use ($app, $notificationHandler) {

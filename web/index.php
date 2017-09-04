@@ -52,13 +52,13 @@ $app->register(new FormServiceProvider());
 
 $app->register(new SerializerServiceProvider());
 
+// set multilanguage support
 $app->register(new TranslationServiceProvider(), array(
     'locale_fallbacks' => array('en'),
 ));
 
 $app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
     $translator->addLoader('yaml', new YamlFileLoader());
-
     $translator->addResource('yaml', __DIR__.'/../app/locales/en.yml', 'en');
     $translator->addResource('yaml', __DIR__.'/../app/locales/fr.yml', 'fr');
 

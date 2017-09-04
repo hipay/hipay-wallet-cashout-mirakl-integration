@@ -6,7 +6,6 @@
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  */
-
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
@@ -49,7 +48,7 @@ $paths = array(
     join(DIRECTORY_SEPARATOR, array(__DIR__, "..", "src", "Entity"))
 );
 
-    const DEFAULT_LOG_PATH = "/var/log/hipay.log";
+const DEFAULT_LOG_PATH = "/var/log/hipay.log";
 
 //Get the parameters
 $parameters = new Accessor(__DIR__."/../config/parameters.yml");
@@ -58,23 +57,11 @@ $debug = $parameters['debug'];
 
 $dbConfiguration = new DbConfiguration($parameters);
 
-// the connection configuration
-//$dbParams = array(
-//    'driver' => $dbConfiguration->getDriver(),
-//    'user' => $dbConfiguration->getUsername(),
-//    'password' => $dbConfiguration->getPassword(),
-//    'dbname' => $dbConfiguration->getDatabaseName(),
-//    'host' => $dbConfiguration->getHost(),
-//    'port' => $dbConfiguration->getPort()
-//);
-
 $eventManager          = new Doctrine\Common\EventManager();
 $timestampableListener = new Gedmo\Timestampable\TimestampableListener();
 $eventManager->addEventSubscriber($timestampableListener);
 
-//$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $debug, null, new ArrayCache(), false);
-//$entityManager = EntityManager::create($dbParams, $annotationMetadataConfiguration, $eventManager);
-
+//Load Doctrine service provider
 $app->register(
     new DoctrineServiceProvider(),
     [
@@ -88,6 +75,7 @@ $app->register(
     ),
     ]
 );
+//Load Doctrine ORM service provider
 $app->register(new DoctrineOrmServiceProvider(),
                [
     'orm.auto_generate_proxies' => $app['debug'],
@@ -136,7 +124,7 @@ $messageTemplate->setContentType("text/html");
 //);
 
 $logger->pushProcessor(new PsrLogMessageProcessor());
-
+// add database handler for Monolog
 $logger->pushHandler(
     new MonologDBHandler($entityManager, $parameters['db.logger.level'])
 );
@@ -169,7 +157,7 @@ $vendorRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integr
 
 $logVendorRepository = $entityManager->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
 
-$apiFactory      = new ApiFactory($miraklConfiguration, $hipayConfiguration);
+$apiFactory = new ApiFactory($miraklConfiguration, $hipayConfiguration);
 
 $app['api.hipay'] = function() use ($apiFactory) {
     return $apiFactory->getHiPay();
@@ -204,8 +192,9 @@ $cashoutInitializer = new CashoutInitializer(
 );
 
 $cashoutProcessor = new CashoutProcessor(
-    $eventDispatcher, $logger, $apiFactory, $operationRepository, $vendorRepository, $operatorAccount, $logOperationsRepository
+    $eventDispatcher, $logger, $apiFactory, $operationRepository, $vendorRepository, $operatorAccount,
+    $logOperationsRepository
 );
 
-$notificationHandler = new NotificationHandler($eventDispatcher, $logger, $operationRepository, $vendorRepository, $logVendorRepository,
-                                               $apiFactory, $logOperationsRepository);
+$notificationHandler = new NotificationHandler($eventDispatcher, $logger, $operationRepository, $vendorRepository,
+                                               $logVendorRepository, $apiFactory, $logOperationsRepository);

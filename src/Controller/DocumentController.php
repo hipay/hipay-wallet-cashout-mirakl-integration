@@ -1,4 +1,13 @@
 <?php
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2017 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
 
 namespace HiPay\Wallet\Mirakl\Integration\Controller;
 
@@ -14,6 +23,13 @@ class DocumentController
         $this->apiHiPay = $apiHiPay;
     }
 
+    /**
+     * Get documents informations from Wallet API
+     * @param Request $request
+     * @param type $twig
+     * @param type $vendorRepository
+     * @return type
+     */
     public function ajaxAction(Request $request, $twig, $vendorRepository)
     {
         $vendor = $vendorRepository->findByMiraklId($request->get('id'));
