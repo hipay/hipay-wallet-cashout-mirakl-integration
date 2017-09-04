@@ -13,6 +13,7 @@ use HiPay\Wallet\Mirakl\Integration\Controller\OperationController;
 use HiPay\Wallet\Mirakl\Integration\Controller\LogGeneralController;
 use HiPay\Wallet\Mirakl\Integration\Controller\DocumentController;
 use HiPay\Wallet\Mirakl\Integration\Controller\TranslationController;
+use HiPay\Wallet\Mirakl\Integration\Controller\BatchController;
 use HiPay\Wallet\Mirakl\Integration\Controller\SettingController;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -149,7 +150,6 @@ $app->get('/log-general-ajax',
     return $app['log.general.controller']->ajaxAction($app['request']);
 })->bind('log-general-ajax');
 
-
 $app->get('/logs', function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));
@@ -157,6 +157,25 @@ $app->get('/logs', function() use ($app) {
 
     return $app['twig']->render('pages/logs.twig', array());
 })->bind('logs');
+
+
+$app['batch.repository'] = function() use ($app) {
+    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Batch');
+};
+
+$app['batch.controller'] = function() use ($app) {
+    return new BatchController($app['batch.repository'], $app['serializer'], $app['translator']);
+};
+
+$app->get('/log-batch-ajax',
+          function() use ($app) {
+    if (null === $user = $app['session']->get('user')) {
+        return $app->redirect($app["url_generator"]->generate("login"));
+    }
+
+    return $app['batch.controller']->ajaxAction($app['request']);
+})->bind('log-batch-ajax');
+
 
 $app->get('/logout',
           function() use ($app) {

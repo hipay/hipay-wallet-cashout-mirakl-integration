@@ -9,8 +9,9 @@ use Doctrine\ORM\Query;
  * Class BatchRepository
  *
  */
-class BatchRepository extends EntityRepository
+class BatchRepository extends AbstractTableRepository
 {
+
     /**
      * @param Batch $batch
      * @return mixed
@@ -21,4 +22,18 @@ class BatchRepository extends EntityRepository
         $this->_em->flush();
     }
 
+    protected function getSelectString()
+    {
+        return 'a.startedAt, a.name, a.endedAt, a.error';
+    }
+
+    protected function getCountString()
+    {
+        return 'COUNT(a.id)';
+    }
+
+    protected function prepareAjaxRequest($queryBuilder, $search, $custom)
+    {
+        return $queryBuilder;
+    }
 }

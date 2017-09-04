@@ -131,9 +131,9 @@ $messageTemplate->setFrom($parameters['mail.from']);
 $messageTemplate->setCharset('utf-8');
 $messageTemplate->setContentType("text/html");
 
-$logger->pushHandler(
-    new HipaySwiftMailerHandler($mailer, $messageTemplate, $parameters['email.logger.alert.level'])
-);
+//$logger->pushHandler(
+//    new HipaySwiftMailerHandler($mailer, $messageTemplate, $parameters['email.logger.alert.level'])
+//);
 
 $logger->pushProcessor(new PsrLogMessageProcessor());
 

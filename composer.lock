@@ -873,12 +873,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library.git",
-                "reference": "758aebea91fdad382b05ee0b36f622d90ea89d29"
+                "reference": "52edd07745f7b84dcdf9cbf70fc6ae63e9296908"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/758aebea91fdad382b05ee0b36f622d90ea89d29",
-                "reference": "758aebea91fdad382b05ee0b36f622d90ea89d29",
+                "url": "https://api.github.com/repos/hipay/hipay-wallet-cashout-mirakl-library/zipball/52edd07745f7b84dcdf9cbf70fc6ae63e9296908",
+                "reference": "52edd07745f7b84dcdf9cbf70fc6ae63e9296908",
                 "shasum": ""
             },
             "require": {
@@ -919,7 +919,7 @@
                 "source": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/tree/feature/WALMRKLINT-50",
                 "issues": "https://github.com/hipay/hipay-wallet-cashout-mirakl-library/issues"
             },
-            "time": "2017-09-01T08:54:35+00:00"
+            "time": "2017-09-04T10:35:46+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",

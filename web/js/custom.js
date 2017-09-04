@@ -167,6 +167,45 @@
             ]
         });
 
+        var batchTable = $('#table_batchs').DataTable({
+            "language": {
+                url: ''
+            },
+            "order": [[0, "desc"]],
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "log-batch-ajax"
+            },
+            "drawCallback": function () {
+                $('.vendor-notice').popover();
+            },
+            "createdRow": function (row, data, index) {
+                if (data.state.state == -1) {
+                    $('td', row).eq(2).addClass('danger');
+                } else if (data.state.state == 1) {
+                    $('td', row).eq(2).addClass('info');
+                } else {
+                    $('td', row).eq(2).addClass('success');
+                }
+            },
+            "columnDefs": [{
+                    "targets": 2,
+                    "orderable": false
+                }],
+            "columns": [
+                {"data": "startedAt"},
+                {"data": "name"},
+                {
+                    "data": "state",
+                    "render"
+                            : function (data) {
+                                return data.label + " " + data.button;
+                            }
+                }
+            ]
+        });
+
         $("#filter-action").click(function () {
             vendorTable.draw();
             operationTable.draw();
