@@ -2,48 +2,48 @@
 
 {% block content %}
     <div class="starter-template">
-        <h1>Vendors management</h1>
+        <h1>{{'vendors.management'|trans}}</h1>
     </div>
 
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading">Filtre(s)</div>
+            <div class="panel-heading">{{'filters'|trans}}</div>
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="col-md-2">
-                        <label for="start" class=" control-label">Etat</label>
+                        <label for="start" class=" control-label">{{'state'|trans}}</label>
                         <div id="sandbox-container">
                             <select id="status-filter" class="form-control">
-                                <option value="-1" >Select State</option>
+                                <option value="-1" >{{'select.state'|trans}}</option>
                                 <option value="1" >Success</option>
                                 <option value="3" >Warning</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <label for="start" class=" control-label">Status compte wallet</label>
+                        <label for="start" class=" control-label">{{'wallet.account.status'|trans}}</label>
                         <div id="sandbox-container">
                             <select id="wallet-status-filter" class="form-control">
-                                <option value="-1" >Select Wallet account state</option>
-                                <option value="1" >Created</option>
-                                <option value="2" >Not created</option>
-                                <option value="3" >Identified</option>
-                                <option value="4" >Not identified</option>
+                                <option value="-1" >{{'select.wallet.account.status'|trans}}</option>
+                                <option value="1" >{{'created'|trans}}</option>
+                                <option value="2" >{{'not.created'|trans}}</option>
+                                <option value="3" >{{'identified'|trans}}</option>
+                                <option value="4" >{{'not.identified'|trans}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <label for="start" class="control-label">Période du</label>
+                        <label for="start" class="control-label">{{'date.range'|trans}}</label>
                         <div id="sandbox-container">
                             <div class="input-daterange input-group" id="datepicker">
                                 <input type="text" class="input-sm form-control" id="start" name="start" />
-                                <span class="input-group-addon">au</span>
+                                <span class="input-group-addon">{{'date.range.to'|trans}}</span>
                                 <input type="text" class="input-sm form-control" id="end" name="end" />
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <a  id="filter-action" href="#" class="btn btn-default btn-lg ">Filtrer</a>&nbsp;&nbsp;
+                        <a  id="filter-action" href="#" class="btn btn-default btn-lg ">{{'filter'|trans}}</a>&nbsp;&nbsp;
                     </div>
                 </form>
             </div>
@@ -58,11 +58,11 @@
                     <tr>
                         <th>Mirakl ID</th>
                         <th>Login</th>
-                        <th>Etat</th>
-                        <th>Statut compte Wallet</th>
+                        <th>{{'state'|trans}}</th>
+                        <th>{{'wallet.account.status'|trans}}</th>
                         <th>HiPay ID</th>
-                        <th>Date</th>
-                        <th>Documents envoyés</th>
+                        <th>{{'date'|trans}}</th>
+                        <th>{{'sent.documents'|trans}}</th>
                     </tr>
                 </thead>
             </table>
@@ -74,7 +74,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="popup_vendor_close();">&times;</button>
-                    <h4 class="modal-title">Documents list</h4>
+                    <h4 class="modal-title">{{'documents.list'|trans}}</h4>
                 </div>
                 <div class="modal-body">
 
@@ -83,7 +83,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="popup_vendor_close();">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="popup_vendor_close();">{{'close'|trans}}</button>
                 </div>
             </div>
         </div>

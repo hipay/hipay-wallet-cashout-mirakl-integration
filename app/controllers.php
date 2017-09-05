@@ -72,10 +72,10 @@ $app->get('/documents-ajax',
  ****************/
 
 $app['translation.controller'] = function() use ($app) {
-    return new TranslationController($app['translator']);
+    return new TranslationController($app['translator'], $app['serializer']);
 };
 
-$app->get('/{_locale}/datatable/locale',
+$app->get('/datatable/locale',
           function() use ($app) {
     if (null === $user = $app['session']->get('user')) {
         return $app->redirect($app["url_generator"]->generate("login"));

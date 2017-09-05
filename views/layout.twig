@@ -44,16 +44,16 @@
                             <a href="{{ path('vendors') }}">{{'your_vendors'|trans}}</a>
                         </li>
                         <li{% if active == 'transferts' %} class="active"{% endif %}>
-                            <a href="{{ path('transferts') }}">Transferts et retraits</a>
+                            <a href="{{ path('transferts') }}">{{'transfer.withdraw'|trans}}</a>
                         </li>
                         <li{% if active == 'logs' %} class="active"{% endif %}>
-                            <a href="{{ path('logs') }}">Logs</a>
+                            <a href="{{ path('logs') }}">{{'logs'|trans}}</a>
                         </li>
                         <li{% if active == 'settings' %} class="active"{% endif %}>
-                            <a href="{{ path('settings') }}">Paramètres</a>
+                            <a href="{{ path('settings') }}">{{'settings'|trans}}</a>
                         </li>
                         <li{% if active == 'logout' %} class="active"{% endif %}>
-                            <a href="{{ path('logout') }}">Déconnexion</a>
+                            <a href="{{ path('logout') }}">{{'log.out'|trans}}</a>
                         </li>
                     </ul>
                 </div><!--/.nav-collapse -->

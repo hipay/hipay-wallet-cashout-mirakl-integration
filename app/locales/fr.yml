@@ -1,0 +1,74 @@
+sProcessing: Traitement en cours...
+sSearch: "Rechercher&nbsp;:"
+sLengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments"
+info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments"
+infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments"
+infoFiltered: "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)"
+infoPostFix: ""
+loadingRecords: "Chargement en cours..."
+zeroRecords: "Aucun &eacute;l&eacute;ment &agrave; afficher"
+emptyTable: "Aucune donnée disponible dans le tableau"
+first: "Premier"
+previous: "Pr&eacute;c&eacute;dent"
+next: "Suivant"
+last: "Dernier"
+sortAscending: ": activer pour trier la colonne par ordre croissant"
+sortDescending: ": activer pour trier la colonne par ordre décroissant"
+your_vendors: Vos vendeurs
+show.message: Afficher message
+settings: Paramètres
+fix.errors: Correction des erreurs
+fix.errors.description: 'Cliquez sur le bouton "Relancer" si vous avez une erreur d''exécution pour l''une ou plusieurs des action suivantes:'
+success: "Succès !"
+success.description: Relance terminée
+batch.list: Liste des batchs
+date: Date
+action: Action
+state: Etat
+technical.informations: Inforamtions techniques
+mirakl.connector.version: Version du connecteur mirakl
+mirakl.library.version: Version de la librairie du connecteur version
+logs: Logs
+filters: Filtre(s)
+information.type: "Type d'information"
+select.information.type: "Sélectionner un type d'information"
+date.range: Période du 
+date.range.to: to
+filter: Filtrer
+message: Message
+sign.in: Connexion
+welcome.dashboard: "Bienvenue sur le Dashboard du connecteur HiPay - Mirakl"
+welcome.dashboard.description: "Cette interface à pour but de:"
+welcome.dashboard.description.li1: "Vous informez sur le statut de vos vendeurs, transferts et les retraits bancaires"
+welcome.dashboard.description.li2: Vous donnez la main pour relancer une action qui a précédemment échouée
+welcome.dashboard.description.li3: Centraliser toutes les informations relatives à l'intéraction entre HiPay et Mirakl
+login.credentials.description: "Nous vous invitons à renseigner ci-dessous vos identifiants opérateurs Webservices:"
+vendors.management: Gestion des vendeurs
+select.state: Selectionner un statut
+wallet.account.status: Statut compte wallet
+select.wallet.account.status: Selectionner un statut de compte wallet
+created: Créé
+not.created: Pas créé
+identified: Identifié
+not.identified: Pas identifié
+sent.documents: Documents envoyés
+documents.list: Liste des documents
+close: Fermer
+transfer.withdraw.management: Gestion des transferts et retraits
+transfer.status: Statut de transfert
+select.transfer.status: Selectionner un statut de transfert
+withdraw.status: Statut de retrait
+select.withdraw.status: Selectionner un statut de retrait
+transfer.request.success: OK
+transfer.request.failed: KO
+withdraw.request.failed: KO (échec)
+withdraw.request.cancel: KO (annulé)
+withdraw.request.success: OK
+payment.order.id: "Id d'ordre de paiement"
+amount: Montant
+balance: Balance
+transfer.withdraw: Transfert & retrait
+log.out: Déconnexion
+vendor: Vendeur
+document.type: Type de document
+decline.reason: Motif de refus

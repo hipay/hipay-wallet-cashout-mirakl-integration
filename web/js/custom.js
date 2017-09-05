@@ -26,7 +26,7 @@
     $(document).ready(function () {
         var vendorTable = $('#table_vendor').DataTable({
             "language": {
-                url: ''
+                url: 'datatable/locale'
             },
             "order": [[5, "desc"]],
             "processing": true,

@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="starter-template">
-        <h1>Settings</h1>
+        <h1>{{ 'settings'|trans }}</h1>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
@@ -11,9 +11,9 @@
                 <div class="panel-body">
                     {{ form_start(form) }}
                     <div class="col-lg-12">
-                        <h2>Correction des erreurs</h2>
+                        <h2>{{'fix.errors'|trans}}</h2>
                         <p>
-                            Cliquez sur le bouton "Relancer" si vous avez une erreur d'exécution pour l'une ou plusieurs des action suivantes:
+                            {{ 'fix.errors.description'|trans }}
                         </p>
                     </div>
                     <div class="col-lg-12">
@@ -28,28 +28,40 @@
                     </div>
                     <div class="col-lg-12">
                         <p>
-                        <div class="alert alert-dismissible alert-danger" style="display:none;">
-                            <strong>Error</strong> - Nous avons détecté un problème technique, si le problème persiste veuillez contacter le support HiPay support.mkp@hipay.com.
-                        </div>
                         {% if success is defined  and success == true %}
                             <div class="alert alert-dismissible alert-success">
-                                <strong>Succès !</strong> Relance terminée.
+                                <strong>{{'success'|trans}}</strong> {{'success.description'|trans}}.
                             </div>
                         {%endif%}
                         </p>
                     </div>
                     {{ form_end(form) }}
 
-                    <h4>Listes des batchs</h4>
+                    <h4>{{'batch.list'|trans}}</h4>
                     <table class="table table-striped table-hover " id="table_batchs">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Action</th>
-                                <th>Etat</th>
+                                <th>{{'date'|trans}}</th>
+                                <th>{{'action'|trans}}</th>
+                                <th>{{'state'|trans}}</th>
                             </tr>
                         </thead>
                     </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="panel panel-default ">
+                <div class="panel-body">
+                    <div class="col-lg-12">
+                        <h2>{{'technical.informations'|trans}}</h2>
+                        <p>{{'mirakl.connector.version'|trans}} {{version['integration']}}</p>
+                        <p>{{'mirakl.library.version'|trans}} {{version['library']}}</p>
+                    </div>
                 </div>
             </div>
         </div>

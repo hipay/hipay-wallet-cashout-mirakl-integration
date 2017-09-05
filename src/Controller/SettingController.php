@@ -28,7 +28,9 @@ class SettingController
     {
         $form = $this->generateForm();
 
-        return $this->twig->render('pages/settings.twig', array('form' => $form->createView()));
+        $versions = $this->getVersions();
+
+        return $this->twig->render('pages/settings.twig', array('form' => $form->createView(), 'version' => $versions));
     }
 
     public function reRunAction(Request $request)
@@ -41,13 +43,42 @@ class SettingController
 
         if ($form->isValid()) {
             $success = true;
-            $data = $form->getData();
+            $data    = $form->getData();
             foreach ($data["batch"] as $command) {
                 shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
             }
         }
 
         return $this->twig->render('pages/settings.twig', array('form' => $form->createView(), 'success' => $success));
+    }
+
+    private function getVersions()
+    {
+
+        $integration = $this->getComposerFile(dirname(__FILE__).'/../../composer.json');
+
+        $library = $this->getComposerFile(dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json');
+
+        return array(
+            "integration" => $integration['version'],
+            "library" => $library['version']
+        );
+    }
+
+    private function getComposerFile($path){
+
+        $composer = array();
+
+        if (file_exists($path)) {
+            $contents = file_get_contents($path);
+            $contents = utf8_encode($contents);
+
+            $composer = json_decode($contents, true);
+        }else{
+            $composer["version"] = "N/A";
+        }
+
+        return $composer;
     }
 
     private function generateForm()

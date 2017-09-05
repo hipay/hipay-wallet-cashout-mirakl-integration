@@ -29,6 +29,9 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
+    'twig.options'    => array(
+        'cache' => __DIR__ . '/../var/cache',
+    ),
 ));
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
@@ -65,7 +68,7 @@ $app['translator'] = $app->share($app->extend('translator', function($translator
     return $translator;
 }));
 
-
+$app['translator']->setLocale($parameters['dashboard.locale']);
 $app->before(function (Request $request) use ($app) {
     $app['twig']->addGlobal('active', $request->get("_route"));
 });
