@@ -22,7 +22,7 @@
     "dflydev/doctrine-orm-service-provider": "^1.0.7",
     "symfony/console": "^2.6",
     "symfony/yaml": "^2.6",
-    "hipay/hipay-wallet-cashout-mirakl-library" : "dev-feature/WALMRKLINT-50",
+    "hipay/hipay-wallet-cashout-mirakl-library" : "^2.6",
     "incenteev/composer-parameter-handler": "^2.0",
     "gedmo/doctrine-extensions" : "^2.4",
     "swiftmailer/swiftmailer": "^5.0",
