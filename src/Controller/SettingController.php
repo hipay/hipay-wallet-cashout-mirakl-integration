@@ -40,6 +40,8 @@ class SettingController
     {
         $form = $this->generateForm();
 
+        $versions = $this->getVersions();
+
         $form->handleRequest($request);
 
         $success = false;
@@ -52,7 +54,7 @@ class SettingController
             }
         }
 
-        return $this->twig->render('pages/settings.twig', array('form' => $form->createView(), 'success' => $success));
+        return $this->twig->render('pages/settings.twig', array('form' => $form->createView(), 'success' => $success, 'version' => $versions));
     }
 
     private function getVersions()
