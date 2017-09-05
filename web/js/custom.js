@@ -86,8 +86,8 @@
         });
 
         var operationTable = $('#table_transferts').DataTable({
-            "language": {
-                url: ''
+           "language": {
+                url: 'datatable/locale'
             },
             "processing": true,
             "serverSide": true,
@@ -143,7 +143,7 @@
         });
         var logTable = $('#table_logs').DataTable({
             "language": {
-                url: ''
+                url: 'datatable/locale'
             },
             "order": [[0, "desc"]],
             "processing": true,
@@ -170,7 +170,7 @@
 
         var batchTable = $('#table_batchs').DataTable({
             "language": {
-                url: ''
+                url: 'datatable/locale'
             },
             "order": [[0, "desc"]],
             "processing": true,
