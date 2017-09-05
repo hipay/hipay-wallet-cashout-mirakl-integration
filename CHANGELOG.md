@@ -1,4 +1,4 @@
-# Version 2.4.1
+# Version 2.5.0
 - Add a dashboard to display vendors, operations and general logs
 - Add a screen to the dashboard to run batch from UI
 - Set up vendors, operations and general logs entities
