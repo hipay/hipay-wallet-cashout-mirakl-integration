@@ -107,7 +107,7 @@ class SettingController
             ->add('send', 'submit',
                   array(
                 'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
-                'label' => 'Relancer'
+                'label' => $this->translator->trans('rerun')
             ))
             ->getForm();
 

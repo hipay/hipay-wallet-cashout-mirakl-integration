@@ -79,7 +79,7 @@
                 {
                     "data": "document",
                     "render": function (data) {
-                        return ' <a href="#" onclick="popup_vendor_detail(' + data.miraklId + ');"> Voir le detail</a>'
+                        return data.button;
                     }
                 }
             ]

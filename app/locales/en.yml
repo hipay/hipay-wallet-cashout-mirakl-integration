@@ -73,3 +73,5 @@ vendor: Vendor
 document.type: Document type
 decline.reason: Decline reason
 wallet.account.creation: Wallet account creation
+rerun: Rerun
+show.details: Show details

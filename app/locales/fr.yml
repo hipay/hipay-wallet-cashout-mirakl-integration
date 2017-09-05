@@ -25,7 +25,7 @@ batch.list: Liste des batchs
 date: Date
 action: Action
 state: Etat
-technical.informations: Inforamtions techniques
+technical.informations: Informations techniques
 mirakl.connector.version: "Version du connecteur mirakl:"
 mirakl.library.version: "Version de la librairie du connecteur version:"
 logs: Logs
@@ -73,3 +73,5 @@ vendor: Vendeur
 document.type: Type de document
 decline.reason: Motif de refus
 wallet.account.creation: Création de compte wallet
+rerun: Relancer
+show.details: Voir le détail

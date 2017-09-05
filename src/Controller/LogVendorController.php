@@ -39,7 +39,8 @@ class LogVendorController extends AbstractTableController
             );
             $data[$key]['document']            = array(
                 "nb" => $logRow['nbDoc'],
-                "miraklId" => $logRow['miraklId']
+                "miraklId" => $logRow['miraklId'],
+                "button" => ' <a href="#" onclick="popup_vendor_detail(' . $logRow['miraklId'] . ');"> '.$this->translator->trans("show.details").'</a>'
             );
             $data[$key]['status']              = array(
                 "status" => $logRow['status'],
