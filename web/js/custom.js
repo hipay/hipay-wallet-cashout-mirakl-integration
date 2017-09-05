@@ -91,6 +91,7 @@
             },
             "processing": true,
             "serverSide": true,
+            "order": [[2, "desc"]],
             "ajax": {
                 "url": "log-operations-ajax",
                 "data":
