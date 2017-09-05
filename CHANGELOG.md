@@ -1,4 +1,9 @@
 # Version 2.4.1
+- Add a dashboard to display vendors, operations and general logs
+- Add a screen to the dashboard to run batch from UI
+- Set up vendors, operations and general logs entities
+
+# Version 2.4.1
 - Fix signature with callback_salt
 - Fix array address informations
 - Fix HTML format send by email
