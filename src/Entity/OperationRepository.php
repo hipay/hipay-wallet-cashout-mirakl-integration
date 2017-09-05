@@ -10,7 +10,7 @@ use HiPay\Wallet\Mirakl\Cashout\Model\Operation\OperationInterface;
 use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
 use Mustache_Engine;
 
-class OperationRepository extends EntityRepository implements ManagerInterface
+class OperationRepository extends AbstractTableRepository implements ManagerInterface
 {
     protected $privateLabelTemplate = "private {{miraklId}} – {{hipayId}} - {{cycleDate}}";
 
@@ -249,5 +249,29 @@ class OperationRepository extends EntityRepository implements ManagerInterface
                 'paymentVoucher' => $paymentVoucherNumber
             )
         );
+    }
+
+    protected function getSelectString(){
+        return 'a.miraklId, a.hipayId, a.paymentVoucher, a.amount';
+    }
+
+    protected function getCountString(){
+        return 'COUNT(a.miraklId)';
+    }
+
+    protected function prepareAjaxRequest($queryBuilder, $search, $custom)
+    {
+
+        if (!empty($search)) {
+            $queryBuilder->where(
+                    $queryBuilder->expr()->orX(
+                        $queryBuilder->expr()->like('a.miraklId', '?1'),
+                        $queryBuilder->expr()->like('a.hipayId','?1')
+                    )
+                )
+                ->setParameter(1, '%'.$search.'%');
+        }
+
+        return $queryBuilder;
     }
 }

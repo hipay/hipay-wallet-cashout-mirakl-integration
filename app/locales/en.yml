@@ -1,0 +1,77 @@
+your_vendors: Your vendors
+sProcessing: Processing...
+sSearch: "Search:"
+sLengthMenu: Show _MENU_ entries
+info: "Showing _START_ to _END_ of _TOTAL_ entries"
+infoEmpty: "Showing 0 to 0 of 0 entries"
+infoFiltered: "(filtered from _MAX_ total entries)"
+infoPostFix: ""
+loadingRecords: "Processing..."
+zeroRecords: "No matching records found"
+emptyTable: "Aucune donnée disponible dans le tableau"
+first: "First"
+previous: "Previous"
+next: "Next"
+last: "Last"
+sortAscending: ": activer pour trier la colonne par ordre croissant"
+sortDescending: ": activer pour trier la colonne par ordre décroissant"
+show.message: Show message
+settings: Settings
+fix.errors : Fix errors
+fix.errors.description: 'Click on "Rerun" button if you have execution errors for any of the following actions:'
+success: "Success !"
+success.description: Rerun done
+batch.list: Batchs list
+date: Date
+action: Action
+state: State
+technical.informations: Technical informations
+mirakl.connector.version: "Mirakl connector version:"
+mirakl.library.version: "Mirakl connector library version:"
+logs: Logs
+filters: Filter(s)
+information.type: Information type
+select.information.type: Select information type
+date.range: Date range from
+date.range.to: to
+filter: Filter
+message: Message
+sign.in: Sign in
+welcome.dashboard: "Welcome on the HiPay - Mirakl connector Dashboard"
+welcome.dashboard.description: "This interface aim to:"
+welcome.dashboard.description.li1: Inform you of your vendors status, transfers and withdraw
+welcome.dashboard.description.li2: Give you the capacity to rerun a previously failed action
+welcome.dashboard.description.li3: Centralize all informations relating to ineractions between HiPay and Mirakl
+login.credentials.description: "You can fill you Webservices operators credentials:"
+vendors.management: Vendors management
+select.state: Select status
+wallet.account.status: Wallet account status
+select.wallet.account.status: Select Wallet account status
+created: Created
+not.created: Not created
+identified: Identified
+not.identified: Not identified
+sent.documents: Documents sent
+documents.list: Documents list
+close: Close
+transfer.withdraw.management: Transfer & Withdrawal management
+transfer.status: Transfer status
+select.transfer.status: Select transfer status
+withdraw.status: Withdraw status
+select.withdraw.status: Select withdraw status
+transfer.request.success: OK
+transfer.request.failed: KO
+withdraw.request.failed: KO (failed)
+withdraw.request.cancel: KO (cancel)
+withdraw.request.success: OK
+payment.order.id: Payment order Id
+amount: Amount
+balance: Balance
+transfer.withdraw: Transfer & Withdraw
+log.out: Log out
+vendor: Vendor
+document.type: Document type
+decline.reason: Decline reason
+wallet.account.creation: Wallet account creation
+rerun: Rerun
+show.details: Show details

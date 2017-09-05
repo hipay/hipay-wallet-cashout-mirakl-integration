@@ -1,4 +1,5 @@
 <?php
+
 namespace HiPay\Wallet\Mirakl\Integration\Command\Cashout;
 
 use Exception;
@@ -7,6 +8,8 @@ use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use HiPay\Wallet\Mirakl\Integration\Entity\Batch;
+use HiPay\Wallet\Mirakl\Integration\Entity\BatchRepository;
 
 /**
  * File ProcessCommand.php
@@ -19,14 +22,13 @@ class ProcessCommand extends AbstractCommand
     /** @var  CashoutProcessor */
     protected $processor;
 
-    public function __construct(
-        LoggerInterface $logger,
-        CashoutProcessor $processor
-    )
+    protected $batchManager;
+
+    public function __construct(LoggerInterface $logger, BatchRepository $batchManager, CashoutProcessor $processor)
     {
         parent::__construct($logger);
-        $this->processor = $processor;
-
+        $this->processor    = $processor;
+        $this->batchManager = $batchManager;
     }
 
     protected function configure()
@@ -37,9 +39,19 @@ class ProcessCommand extends AbstractCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $batch = new Batch($this->getName());
+        $this->batchManager->save($batch);
+
         try {
             $this->processor->process();
+            
+            $batch->setEndedAt(new \DateTime());
+            $this->batchManager->save($batch);
         } catch (Exception $e) {
+
+            $batch->setError($e->getMessage());
+            $this->batchManager->save($batch);
+
             $this->logger->critical($e->getMessage());
         }
     }

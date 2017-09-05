@@ -71,3 +71,5 @@ parameters:
   # ALERT = 550;
   # EMERGENCY = 600;
   email.logger.alert.level: 300
+  db.logger.level: 300
+  dashboard.locale: fr

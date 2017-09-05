@@ -1,0 +1,42 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <div class="starter-template">
+        <h1>{{'sign.in'|trans}}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <p class="lead">
+                {{'welcome.dashboard'|trans}}
+            </p>
+            <p>{{'welcome.dashboard.description'|trans}}</p>
+            <p>
+            <ul>
+                <li>{{'welcome.dashboard.description.li1'|trans}}</li>
+                <li>{{'welcome.dashboard.description.li2'|trans}}</li>
+                <li>{{'welcome.dashboard.description.li3'|trans}}</li>
+            </ul>
+            </p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <p>{{'login.credentials.description'|trans}}</p>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="panel panel-default ">
+                <div class="panel-body">
+                    {{ form(form, {'action': path('login'), 'method': 'POST'}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}

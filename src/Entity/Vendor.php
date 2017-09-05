@@ -31,7 +31,7 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @var int
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      * @Assert\NotBlank
      * @Assert\Type(type="integer")
      * @Assert\GreaterThan(value=0)
@@ -41,7 +41,7 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank
      * @Assert\Type(type="string")
      * @Assert\Email
@@ -51,7 +51,7 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @var int The HiPay Wallet account ID
      *
-     * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      * @Assert\NotBlank
      * @Assert\Type(type="integer")
      * @Assert\GreaterThan(value=0)
@@ -61,7 +61,7 @@ class Vendor implements VendorInterface, Timestampable
     /**
      * @var int The HiPay account user space ID
      *
-     * @ORM\Column(type="integer", unique=true, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      * @Assert\Type(type="integer")
      * @Assert\GreaterThan(value=0)
      */
