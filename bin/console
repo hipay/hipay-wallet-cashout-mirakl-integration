@@ -6,7 +6,7 @@
  * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
  * @copyright 2015 Smile
  */
-require_once __DIR__ . '/../app/bootstrap.php';
+require_once __DIR__ . '/../web/index.php';
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner as ORMConsoleRunner;
 use HiPay\Wallet\Mirakl\Integration\Command\Vendor\ProcessCommand as VendorProcessCommand;
@@ -27,9 +27,12 @@ $console->setDispatcher($eventDispatcher);
 
 ORMConsoleRunner::addCommands($console);
 
+$batchManager = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Batch');
+
 $vendorProcessCommand = new VendorProcessCommand(
     $logger,
     $vendorProcessor,
+    $batchManager,
     $parameters['default.tmp.path']
 );
 
@@ -46,6 +49,7 @@ $cashoutGenerateCommand = new CashoutGenerateCommand(
 
 $cashoutProcessCommand = new CashoutProcessCommand(
     $logger,
+    $batchManager,
     $cashoutProcessor
 );
 

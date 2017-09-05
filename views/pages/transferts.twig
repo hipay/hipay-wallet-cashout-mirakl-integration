@@ -1,0 +1,61 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <div class="starter-template">
+        <h1>{{'transfer.withdraw.management'|trans}}</h1>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{'filters'|trans}}</div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="col-md-3">
+                        <label for="start" class=" control-label">{{'transfer.status'|trans}}</label>
+                        <div id="sandbox-container">
+                            <select id="status-transfer" class="form-control">
+                                <option value="-1" >{{'select.transfer.status'|trans}}</option>
+                                <option value="3" >{{ 'transfer.request.success'|trans }}</option>
+                                <option value="-9" >{{ 'transfer.request.failed'|trans }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="start" class=" control-label">{{'withdraw.status'|trans}}</label>
+                        <div id="sandbox-container">
+                            <select id="status-withdraw" class="form-control">
+                                <option value="-1" >{{'select.withdraw.status'|trans}}</option>
+                                <option value="5" >{{ 'withdraw.request.requested'|trans }}</option>
+                                <option value="6" >{{ 'withdraw.request.success'|trans }}</option>
+                                <option value="-7" >{{ 'withdraw.request.failed'|trans }}</option>
+                                <option value="-8" >{{ 'withdraw.request.cancel'|trans }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  text-right">
+                        <a  id="filter-action" href="#" class="btn btn-default btn-lg ">{{'filter'|trans}}</a>&nbsp;&nbsp;
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-center">
+            <table class="table table-striped table-hover "  id="table_transferts">
+                <thead>
+                    <tr>
+                        <th>Mirakl ID</th>
+                        <th>HiPay ID</th>
+                        <th>{{'payment.order.id'|trans}}</th>
+                        <th>{{'amount'|trans}}</th>
+                        <th>{{'transfer.status'|trans}}</th>
+                        <th>{{'withdraw.status'|trans}}</th>
+                        <th>{{'balance'|trans}}</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+{% endblock %}
