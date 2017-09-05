@@ -26,8 +26,8 @@ date: Date
 action: Action
 state: Etat
 technical.informations: Inforamtions techniques
-mirakl.connector.version: Version du connecteur mirakl
-mirakl.library.version: Version de la librairie du connecteur version
+mirakl.connector.version: "Version du connecteur mirakl:"
+mirakl.library.version: "Version de la librairie du connecteur version:"
 logs: Logs
 filters: Filtre(s)
 information.type: "Type d'information"
@@ -72,3 +72,4 @@ log.out: Déconnexion
 vendor: Vendeur
 document.type: Type de document
 decline.reason: Motif de refus
+wallet.account.creation: Création de compte wallet

@@ -2,6 +2,19 @@ your_vendors: Your vendors
 sProcessing: Processing...
 sSearch: "Search:"
 sLengthMenu: Show _MENU_ entries
+info: "Showing _START_ to _END_ of _TOTAL_ entries"
+infoEmpty: "Showing 0 to 0 of 0 entries"
+infoFiltered: "(filtered from _MAX_ total entries)"
+infoPostFix: ""
+loadingRecords: "Processing..."
+zeroRecords: "No matching records found"
+emptyTable: "Aucune donnée disponible dans le tableau"
+first: "First"
+previous: "Previous"
+next: "Next"
+last: "Last"
+sortAscending: ": activer pour trier la colonne par ordre croissant"
+sortDescending: ": activer pour trier la colonne par ordre décroissant"
 show.message: Show message
 settings: Settings
 fix.errors : Fix errors
@@ -13,8 +26,8 @@ date: Date
 action: Action
 state: State
 technical.informations: Technical informations
-mirakl.connector.version: Mirakl connector version
-mirakl.library.version: Mirakl connector library version
+mirakl.connector.version: "Mirakl connector version:"
+mirakl.library.version: "Mirakl connector library version:"
 logs: Logs
 filters: Filter(s)
 information.type: Information type
@@ -59,3 +72,4 @@ log.out: Log out
 vendor: Vendor
 document.type: Document type
 decline.reason: Decline reason
+wallet.account.creation: Wallet account creation

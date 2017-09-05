@@ -168,7 +168,7 @@ $app->get('/log-batch-ajax',
 })->bind('log-batch-ajax');
 
 $app['settings.controller'] = function() use ($app) {
-    return new SettingController($app['form.factory'], $app['twig']);
+    return new SettingController($app['form.factory'], $app['twig'], $app['translator']);
 };
 
 $app->get('/settings', function(Request $request) use ($app) {

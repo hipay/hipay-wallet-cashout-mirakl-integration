@@ -17,11 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 class SettingController
 {
     protected $formBuilder;
+    protected $twig;
+    protected $translator;
 
-    public function __construct($formBuilder, $twig)
+    public function __construct($formBuilder, $twig, $translator)
     {
         $this->formBuilder = $formBuilder;
         $this->twig        = $twig;
+        $this->translator        = $translator;
     }
 
     public function indexAction()
@@ -92,7 +95,10 @@ class SettingController
         $form = $this->formBuilder->createBuilder('form', $default)
             ->add('batch', 'choice',
                   array(
-                'choices' => array('vendor:process' => 'Création de compte Wallet', 'cashout:process' => 'Transfert et retrait'),
+                'choices' => array(
+                    'vendor:process' => $this->translator->trans('wallet.account.creation'),
+                    'cashout:process' => $this->translator->trans('transfer.withdraw')
+                    ),
                 'attr' => array('class' => 'form-control'),
                 'multiple' => true,
                 'label' => ''
