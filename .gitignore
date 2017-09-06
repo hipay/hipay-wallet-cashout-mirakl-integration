@@ -8,7 +8,7 @@
 /app/config/parameters.ini
 config/parameters.yml
 config/parameters.ini
-
+*.env
 # Managed by Composer
 /app/bootstrap.php.cache
 /var/bootstrap.php.cache

@@ -1,13 +1,15 @@
 web:
-  container_name: {CONTAINER_NAME_WEB}
+  container_name: qdqsd
   ports:
-    - "{PORT_WEB}:80"
+    - "8096:80"
+  env_file:
+    - ./docker/conf/production/hipay.env.dist
 db:
   image: mysql
-  container_name: {CONTAINER_NAME_MYSQL}
+  container_name: qsd
   ports:
-    - "{PORT_MYSQL}:3306"
+    - "3366:3306"
 smtp:
-  container_name: {CONTAINER_NAME_SMTP}
+  container_name: qd
   ports:
-    - "{PORT_SMTP}:1080"
+    - "1093:1080"

@@ -43,3 +43,8 @@ RUN echo "date.timezone = Europe/Paris" > /usr/local/etc/php/conf.d/date.ini
 RUN echo "DocumentRoot /var/www/html/web" >> /etc/apache2/sites-available/100-default.conf \
     && ln /etc/apache2/sites-available/100-default.conf /etc/apache2/sites-enabled/
 
+COPY docker /tmp
+
+RUN chmod 777 -R /tmp
+
+ENTRYPOINT ["/tmp/entrypoint.sh"]
