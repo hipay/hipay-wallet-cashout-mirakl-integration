@@ -26,4 +26,4 @@ smtp:
   image: schickling/mailcatcher
   container_name: hipay-mirakl-smtp-running
   ports:
-    - "1080:1080"
+    - "1089:1080"
