@@ -4,8 +4,6 @@ web:
     - db
     - smtp
   container_name: hipay-mirakl-running
-  volumes:
-    - .:/var/www/html
   ports:
     - "8080:80"
   environment:
@@ -22,7 +20,6 @@ db:
     MYSQL_USER: dev
     MYSQL_PASSWORD: 123456
     MYSQL_DATABASE: app
-
 smtp:
   image: schickling/mailcatcher
   container_name: hipay-mirakl-smtp-running

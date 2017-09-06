@@ -7,4 +7,6 @@ NC='\033[0m'
 
 /tmp/scripts/setup.sh
 
+chmod 777 -Rf /var/www/html/var
+
 exec apache2-foreground

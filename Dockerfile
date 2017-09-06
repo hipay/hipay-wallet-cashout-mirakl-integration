@@ -44,6 +44,13 @@ RUN echo "DocumentRoot /var/www/html/web" >> /etc/apache2/sites-available/100-de
     && ln /etc/apache2/sites-available/100-default.conf /etc/apache2/sites-enabled/
 
 COPY docker /tmp
+COPY web /var/www/html
+COPY views /var/www/html
+COPY var /var/www/html
+COPY src /var/www/html
+COPY config /var/www/html
+COPY app /var/www/html
+COPY bin /var/www/html
 
 RUN chmod 777 -R /tmp
 
