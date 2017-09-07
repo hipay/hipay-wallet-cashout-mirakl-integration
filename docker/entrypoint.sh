@@ -3,7 +3,6 @@
 COLOR_SUCCESS='\033[0;32m'
 NC='\033[0m'
 
-ls
 /var/www/html/docker/scripts/ci.sh
 
 /var/www/html/docker/scripts/setup.sh
