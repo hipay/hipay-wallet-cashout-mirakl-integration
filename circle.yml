@@ -6,8 +6,8 @@ machine:
 test:
   pre:
     - sudo apt-get install sshpass
-    - docker-compose build
-    - docker-compose up -d
+    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
     - sudo chmod -R 766 ./docker/config
     - ./docker/scripts/ci.sh
     - sudo lxc-attach -n "$(docker inspect --format '{{.Id}}' hipay-mirakl-running)" -- bash -c "cd /var/www/html && sleep 15 && docker/scripts/setup.sh"
