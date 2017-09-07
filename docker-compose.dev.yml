@@ -1,4 +1,8 @@
 web:
   container_name: hipay-mirakl-running
+  environment:
+    XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
+  env_file:
+    - ./docker/conf/development/hipay.env.dist
   volumes:
     - .:/var/www/html
