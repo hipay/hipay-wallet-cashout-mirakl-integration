@@ -6,6 +6,7 @@ machine:
 test:
   pre:
     - sudo apt-get install sshpass
+    - sudo chmod u+x ./docker/entrypoint.sh
     - docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
     - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
     - sudo chmod -R 766 ./docker/config
