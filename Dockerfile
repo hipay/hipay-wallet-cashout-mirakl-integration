@@ -55,4 +55,4 @@ COPY bin /var/www/html
 
 RUN chmod 777 -R /tmp
 
-ENTRYPOINT ["/tmp/entrypoint.sh"]
+ENTRYPOINT ["/docker/entrypoint.sh"]
