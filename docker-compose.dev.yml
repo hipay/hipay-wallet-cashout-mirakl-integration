@@ -1,3 +1,4 @@
 web:
+  container_name: hipay-mirakl-running
   volumes:
     - .:/var/www/html
