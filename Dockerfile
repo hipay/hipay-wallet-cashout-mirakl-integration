@@ -52,6 +52,6 @@ COPY config /var/www/html
 COPY app /var/www/html
 COPY bin /var/www/html
 
-RUN chmod 777 -R /tmp
+RUN chmod 777 -R /var/www/html/docker/
 
 ENTRYPOINT ["/var/www/html/docker/entrypoint.sh"]
