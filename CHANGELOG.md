@@ -1,3 +1,7 @@
+# Version 2.5.1
+- Add continuous deployement
+- Fix cashout process bug
+
 # Version 2.5.0
 - Add a dashboard to display vendors, operations and general logs
 - Add a screen to the dashboard to run batch from UI
