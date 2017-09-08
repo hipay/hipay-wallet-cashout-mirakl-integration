@@ -4,13 +4,8 @@ web:
     - db
     - smtp
   container_name: hipay-mirakl-running
-  volumes:
-    - .:/var/www/html
   ports:
     - "8080:80"
-  environment:
-    XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
-
 db:
   image: mysql
   container_name: hipay-mirakl-db-running
@@ -21,9 +16,8 @@ db:
     MYSQL_USER: dev
     MYSQL_PASSWORD: 123456
     MYSQL_DATABASE: app
-
 smtp:
   image: schickling/mailcatcher
   container_name: hipay-mirakl-smtp-running
   ports:
-    - "1080:1080"
+    - "1089:1080"

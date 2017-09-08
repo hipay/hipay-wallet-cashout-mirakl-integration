@@ -3,14 +3,21 @@ machine:
     - docker
   php:
       version: 5.6.14
-
 test:
   pre:
-    - docker-compose build
-    - docker-compose up -d
+    - sudo apt-get install sshpass
+    - sudo chmod u+x ./docker/entrypoint.sh
+    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+    - docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
     - sudo chmod -R 766 ./docker/config
     - ./docker/scripts/ci.sh
     - sudo lxc-attach -n "$(docker inspect --format '{{.Id}}' hipay-mirakl-running)" -- bash -c "cd /var/www/html && sleep 15 && docker/scripts/setup.sh"
 
   override:
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
+deployment:
+  prod:
+    branch: /.*?/
+    tag: /.*?/
+    commands:
+      - sh ./bin/deployment/deploy_project.sh
