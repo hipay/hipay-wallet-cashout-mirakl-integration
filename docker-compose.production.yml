@@ -1,17 +1,17 @@
 web:
-  container_name: sdf
+  container_name: {CONTAINER_NAME_WEB}
   ports:
-    - "8099:80"
+    - "{PORT_WEB}:80"
   env_file:
     - ./docker/conf/production/hipay.env.dist
   labels:
     - "com.hipay.github={label}"
     - "com.hipay.circleci={circleci}"
 db:
-  container_name: ss
+  container_name: {CONTAINER_NAME_MYSQL}
   ports:
-    - "3309:3306"
+    - "{PORT_MYSQL}:3306"
 smtp:
-  container_name: bbb
+  container_name: {CONTAINER_NAME_SMTP}
   ports:
-    - "1099:1080"
+    - "{PORT_SMTP}:1080"
