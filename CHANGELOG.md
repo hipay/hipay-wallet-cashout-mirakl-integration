@@ -1,3 +1,6 @@
+# Version 2.5.2
+- Fix HipPay library install bug
+
 # Version 2.5.1
 - Add continuous deployement
 - Fix cashout process bug
