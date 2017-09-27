@@ -24,10 +24,8 @@ test:
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
     - sudo chmod -R 766 ./docker/config
-    - ./docker/scripts/ci.sh
     - sleep 100
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml logs
-    - sudo lxc-attach -n "$(docker inspect --format '{{.Id}}' hipay-mirakl-running)" -- bash -c "cd /var/www/html && sleep 15 && docker/scripts/setup.sh"
 
   override:
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
