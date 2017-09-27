@@ -6,7 +6,6 @@ machine:
 test:
   pre:
     - sudo apt-get install sshpass
-    - sudo mv composer.dist.json composer.json
     - sudo chmod u+x ./docker/entrypoint.sh
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL/" ./docker/conf/stage/hipay.env.dist
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
@@ -31,6 +30,9 @@ test:
 
   override:
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
+dependencies:
+  override:
+    - echo "override to not run composer install"    
 deployment:
   prod:
     branch: /.*?/
