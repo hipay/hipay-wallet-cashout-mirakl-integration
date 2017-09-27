@@ -2,6 +2,8 @@ web:
   container_name: hipay-mirakl-running
   env_file:
     - ./docker/conf/stage/hipay.env.dist
+  volumes:
+    - .:/var/www/html  
   ports:
     - "8080:80"
 db:
