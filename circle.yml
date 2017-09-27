@@ -26,6 +26,7 @@ test:
     - sudo chmod -R 766 ./docker/config
     
   override:
+    - sleep 100
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
 dependencies:
   override:
