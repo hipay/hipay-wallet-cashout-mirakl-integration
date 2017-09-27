@@ -3,11 +3,16 @@ web:
   environment:
     XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
   env_file:
-    - ./docker/conf/development/hipay.env.dist
+    - ./docker/conf/development/hipay.env
   volumes:
     - .:/var/www/html
   ports:
     - "8080:80"
+db:
+  image: mysql
+  container_name: hipay-mirakl-db-running
+  ports:
+    - "2563:3306"
 smtp:
   container_name: hipay-mirakl-smtp-running
   ports:

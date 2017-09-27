@@ -3,6 +3,8 @@
 # Install composer
 curl -sS https://getcomposer.org/installer | php -- --filename=composer -- --install-dir=/usr/local/bin
 
+composer config -g github-oauth.github.com ${GITHUB_TOKEN}
+
 # Get environment parameters file
 cp docker/config/parameters.yml config/parameters.yml
 
