@@ -3,7 +3,7 @@
 # Install composer
 curl -sS https://getcomposer.org/installer | php -- --filename=composer -- --install-dir=/usr/local/bin
 
-if [ $GITHUB_TOKEN != "" ];then
+if [ "$GITHUB_TOKEN" != "" ];then
     composer config -g github-oauth.github.com ${GITHUB_TOKEN}
 fi
 
