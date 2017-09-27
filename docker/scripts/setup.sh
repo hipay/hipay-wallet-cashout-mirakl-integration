@@ -8,7 +8,7 @@ if [ $GITHUB_TOKEN != "" ];then
 fi
 
 # Get environment parameters file
-cp docker/config/parameters.yml config/parameters.yml
+\cp -fR docker/config/parameters.yml config/parameters.yml
 
 # Install packages
 composer install --no-interaction
