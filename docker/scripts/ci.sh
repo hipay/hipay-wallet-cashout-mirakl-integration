@@ -11,9 +11,10 @@ echo "
     hipay.wsPassword: ${MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD}
     hipay.baseSoapUrl: ${MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL}
     hipay.baseRestUrl: ${MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL}
+    hipay.transfer.withdraw.rest: true
     hipay.entity: ${MIRAKL_CONNECTOR_HIPAY_ENTITY}
     hipay.merchantGroupId: ${MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID}
-
+    
     account.technical.email: ${MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL}
     account.technical.hipayId: ${MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID}
     account.operator.email: ${MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL}
