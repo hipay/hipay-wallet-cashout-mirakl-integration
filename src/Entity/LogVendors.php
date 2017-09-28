@@ -100,7 +100,7 @@ class LogVendors implements LogVendorsInterface
      * @param int $miraklId
      * @param int $hipayId
      */
-    public function __construct($miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc)
+    public function __construct($miraklId = null, $hipayId = null, $login = null, $statusWalletAccount = null, $status = null, $message = null, $nbDoc = 0)
     {
         $this->miraklId = $miraklId;
         $this->hipayId = $hipayId;

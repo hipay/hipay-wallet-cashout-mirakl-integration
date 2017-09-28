@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/hpstorm,symfony,composer
 
 #!! ERROR: hpstorm is undefined. Use list command to see defined gitignore types !!#
@@ -15,6 +14,10 @@ config/parameters.ini
 !bin/console
 !bin/symfony_requirements
 /vendor/
+
+*.env
+docker/config/parameters.yml
+composer.lock
 
 # Assets and user uploads
 /web/bundles/

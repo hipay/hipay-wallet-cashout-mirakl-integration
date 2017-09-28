@@ -15,6 +15,7 @@ use HiPay\Wallet\Mirakl\Integration\Command\Cashout\GenerateCommand as CashoutGe
 use HiPay\Wallet\Mirakl\Integration\Command\Vendor\RecordCommand;
 use HiPay\Wallet\Mirakl\Integration\Command\Wallet\BankInfosCommand;
 use HiPay\Wallet\Mirakl\Integration\Command\Wallet\ListCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Log\LogVendorsRecoverCommand;
 use Symfony\Component\Console\Application;
 
 $console = new Application("Hipay Mirakl Connector Console");
@@ -28,6 +29,8 @@ $console->setDispatcher($eventDispatcher);
 ORMConsoleRunner::addCommands($console);
 
 $batchManager = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Batch');
+$vendorManager = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
+$logVendorsManager = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
 
 $vendorProcessCommand = new VendorProcessCommand(
     $logger,
@@ -69,13 +72,16 @@ $bankInfoCommand = new BankInfosCommand(
     $technicalAccount
 );
 
+$logVendorsRecoverCommand = new LogVendorsRecoverCommand($logger, $vendorProcessor, $batchManager, $vendorManager, $logVendorsManager);
+
 $commands = array(
     $vendorProcessCommand,
     $vendorRecordCommand,
     $cashoutProcessCommand,
     $cashoutGenerateCommand,
     $listCommand,
-    $bankInfoCommand
+    $bankInfoCommand,
+    $logVendorsRecoverCommand
 );
 
 $console->addCommands($commands);
