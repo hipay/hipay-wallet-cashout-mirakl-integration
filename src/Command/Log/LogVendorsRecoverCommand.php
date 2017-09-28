@@ -26,6 +26,7 @@ class LogVendorsRecoverCommand extends AbstractCommand
     protected $batchManager;
     protected $vendorManager;
     protected $logVendorsManager;
+    protected $processor;
 
     public function __construct(LoggerInterface $logger, VendorProcessor $processor, BatchRepository $batchManager,
                                 VendorRepository $vendorManager, LogVendorsRepository $logVendorsManager)
@@ -33,6 +34,7 @@ class LogVendorsRecoverCommand extends AbstractCommand
         $this->batchManager      = $batchManager;
         $this->vendorManager     = $vendorManager;
         $this->logVendorsManager = $logVendorsManager;
+        $this->processor         = $processor;
 
         parent::__construct($logger);
     }
@@ -69,20 +71,28 @@ class LogVendorsRecoverCommand extends AbstractCommand
         $logs = array();
 
         foreach ($vendors as $vendor) {
-            if (!$this->logVendorsManager->findByMiraklId($vendor->getMiraklId())) {
-                $log = new LogVendors();
-                $log->setMiraklId($vendor->getMiraklId());
-                $log->setHipayId($vendor->getHipayId());
-                $log->setStatus(LogVendorsInterface::SUCCESS);
-                if ($vendor->getHipayIdentified()) {
-                    $log->setStatusWalletAccount(LogVendorsInterface::WALLET_IDENTIFIED);
-                } else {
-                    $log->setStatusWalletAccount(LogVendorsInterface::WALLET_NOT_IDENTIFIED);
-                }
-                $log->setDate(DateTime::createFromFormat('Y-m-d', '2017-09-04'));  // set default date to dashboard release
-                $logs[] = $log;
+            try {
+                if (!$this->logVendorsManager->findByMiraklId($vendor->getMiraklId())) {
 
-                $this->logger->info("create log from vendor ".$vendor->getMiraklId()." (Mirakl Id)");
+                    $login = $this->processor->getLogin($vendor->getMiraklId());
+
+                    $log = new LogVendors();
+                    $log->setMiraklId($vendor->getMiraklId());
+                    $log->setHipayId($vendor->getHipayId());
+                    $log->setLogin($login);
+                    $log->setStatus(LogVendorsInterface::SUCCESS);
+                    if ($vendor->getHipayIdentified()) {
+                        $log->setStatusWalletAccount(LogVendorsInterface::WALLET_IDENTIFIED);
+                    } else {
+                        $log->setStatusWalletAccount(LogVendorsInterface::WALLET_NOT_IDENTIFIED);
+                    }
+                    $log->setDate(DateTime::createFromFormat('Y-m-d', '2017-09-04'));  // set default date to dashboard release
+                    $logs[] = $log;
+
+                    $this->logger->info("create log from vendor ".$vendor->getMiraklId()." (Mirakl Id)");
+                }
+            } catch (Exception $e) {
+                $this->logger->warning($e->getMessage(), array('miraklId' => $vendor->getMiraklId(), "action" => "Logs vendors recover"));
             }
         }
 
