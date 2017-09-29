@@ -105,12 +105,12 @@
             "createdRow": function (row, data, index) {
                 if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8) {
                     $('td', row).eq(5).addClass('danger');
-                } else {
+                } else if(data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5) {
                     $('td', row).eq(5).addClass('success');
                 }
                 if (data.statusTransferts.status == -9) {
                     $('td', row).eq(4).addClass('danger');
-                } else {
+                } else if (data.statusTransferts.status == 3) {
                     $('td', row).eq(4).addClass('success');
                 }
             },

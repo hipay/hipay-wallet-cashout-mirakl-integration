@@ -58,6 +58,8 @@ class LogOperationsController extends AbstractTableController
                 return $this->translator->trans('transfer.request.success');
             case Status::WITHDRAW_SUCCESS :
                 return $this->translator->trans('withdraw.request.success');
+            default:
+                return "";
         }
     }
 
@@ -71,6 +73,8 @@ class LogOperationsController extends AbstractTableController
             case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_CANCELED:
                 return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="'.$this->translator->trans($logRow["message"]).'" data-original-title="" title="" >'.$this->translator->trans("show.message").'</button>';
+            default:
+                return "";
         }
     }
 }
