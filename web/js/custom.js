@@ -23,195 +23,219 @@
         $('.alert-success').show();
     });
 
+
+
     $(document).ready(function () {
-        var vendorTable = $('#table_vendor').DataTable({
-            "language": {
-                url: 'datatable/locale'
-            },
-            "order": [[5, "desc"]],
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "log-vendors-ajax",
-                "data":
-                        function (d) {
-                            return $.extend({}, d, {
-                                "status": $("#status-filter").val(),
-                                "wallet-status": $("#wallet-status-filter").val(),
-                                "date-start": $("#start").val(),
-                                "date-end": $("#end").val()
-                            });
-                        }
-            },
-            "createdRow": function (row, data, index) {
-                if (data.statusWalletAccount.status == 2 || data.statusWalletAccount.status == 4) {
-                    $('td', row).eq(3).addClass('danger');
-                } else if (data.statusWalletAccount.status == 1 || data.statusWalletAccount.status == 3) {
-                    $('td', row).eq(3).addClass('success');
-                }
-                if (data.status.status == 3 || data.status.status == 4) {
-                    $('td', row).eq(2).addClass('danger');
-                } else if (data.status.status == 1 || data.status.status == 3) {
-                    $('td', row).eq(2).addClass('success');
-                }
-            },
-            "drawCallback": function () {
-                $('.vendor-notice').popover();
-            },
-            "columns": [
-                {"data": "miraklId"},
-                {"data": "login"},
-                {
-                    "data": "status",
-                    "render": function (data) {
-                        return data.label + " " + data.button;
-
-                    }
+        if ($('#table_vendor').length) {
+            var vendorTable = $('#table_vendor').DataTable({
+                "language": {
+                    url: 'datatable/locale'
                 },
-                {
-                    "data": "statusWalletAccount",
-                    "render": function (data) {
-                        return data.label;
-                    }
-                },
-                {"data": "hipayId"},
-                {"data": "date"},
-                {
-                    "data": "document",
-                    "render": function (data) {
-                        return data.button;
-                    }
-                }
-            ]
-        });
-
-        var operationTable = $('#table_transferts').DataTable({
-           "language": {
-                url: 'datatable/locale'
-            },
-            "processing": true,
-            "serverSide": true,
-            "order": [[2, "desc"]],
-            "ajax": {
-                "url": "log-operations-ajax",
-                "data":
-                        function (d) {
-                            return $.extend({}, d, {
-                                "status-transfer": $("#status-transfer").val(),
-                                "status-withdraw": $("#status-withdraw").val()
-                            });
-                        }
-            },
-            "createdRow": function (row, data, index) {
-                if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8) {
-                    $('td', row).eq(5).addClass('danger');
-                } else if(data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5) {
-                    $('td', row).eq(5).addClass('success');
-                }
-                if (data.statusTransferts.status == -9) {
-                    $('td', row).eq(4).addClass('danger');
-                } else if (data.statusTransferts.status == 3) {
-                    $('td', row).eq(4).addClass('success');
-                }
-            },
-            "drawCallback": function () {
-                $('.vendor-notice').popover();
-            },
-            "columns": [
-                {"data": "miraklId"},
-                {"data": "hipayId"},
-                {
-                    "data": "paymentVoucher",
-                },
-                {"data": "amount"},
-                {
-                    "data": "statusTransferts",
-                    "render": function (data) {
-                        return data.label + " " + data.button;
-                    }
-                },
-                {
-                    "data": "statusWithDrawal",
-                    "render": function (data) {
-                        return data.label + " " + data.button;
-                    }
-                },
-                {
-                    "data": "balance",
-                }
-            ]
-        });
-        var logTable = $('#table_logs').DataTable({
-            "language": {
-                url: 'datatable/locale'
-            },
-            "order": [[0, "desc"]],
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "log-general-ajax",
-                "data":
-                        function (d) {
-                            return $.extend({}, d, {
-                                "log-level": $("#log-level").val(),
-                                "date-start": $("#start").val(),
-                                "date-end": $("#end").val()
-                            });
-                        }
-            },
-            "columns": [
-                {"data": "createdAt"},
-                {"data": "levelName"},
-                {"data": "action"},
-                {"data": "miraklId"},
-                {"data": "message"}
-            ]
-        });
-
-        var batchTable = $('#table_batchs').DataTable({
-            "language": {
-                url: 'datatable/locale'
-            },
-            "order": [[0, "desc"]],
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": "log-batch-ajax"
-            },
-            "drawCallback": function () {
-                $('.vendor-notice').popover();
-            },
-            "createdRow": function (row, data, index) {
-                if (data.state.state == -1) {
-                    $('td', row).eq(2).addClass('danger');
-                } else if (data.state.state == 1) {
-                    $('td', row).eq(2).addClass('info');
-                } else {
-                    $('td', row).eq(2).addClass('success');
-                }
-            },
-            "columnDefs": [{
-                    "targets": 2,
-                    "orderable": false
-                }],
-            "columns": [
-                {"data": "startedAt"},
-                {"data": "name"},
-                {
-                    "data": "state",
-                    "render"
-                            : function (data) {
-                                return data.label + " " + data.button;
+                "order": [[5, "desc"]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "log-vendors-ajax",
+                    "data":
+                            function (d) {
+                                return $.extend({}, d, {
+                                    "status": $("#status-filter").val(),
+                                    "wallet-status": $("#wallet-status-filter").val(),
+                                    "date-start": $("#start").val(),
+                                    "date-end": $("#end").val()
+                                });
                             }
-                }
-            ]
-        });
+                },
+                "createdRow": function (row, data, index) {
+                    if (data.statusWalletAccount.status == 2 || data.statusWalletAccount.status == 4) {
+                        $('td', row).eq(3).addClass('danger');
+                    } else if (data.statusWalletAccount.status == 1 || data.statusWalletAccount.status == 3) {
+                        $('td', row).eq(3).addClass('success');
+                    }
+                    if (data.status.status == 3 || data.status.status == 4) {
+                        $('td', row).eq(2).addClass('danger');
+                    } else if (data.status.status == 1 || data.status.status == 3) {
+                        $('td', row).eq(2).addClass('success');
+                    }
+                },
+                "drawCallback": function () {
+                    $('.vendor-notice').popover();
+                },
+                "columns": [
+                    {"data": "miraklId"},
+                    {"data": "login"},
+                    {
+                        "data": "status",
+                        "render": function (data) {
+                            return data.label + " " + data.button;
 
-        $("#filter-action").click(function () {
-            vendorTable.draw();
-            operationTable.draw();
-            logTable.draw();
-        });
+                        }
+                    },
+                    {
+                        "data": "statusWalletAccount",
+                        "render": function (data) {
+                            return data.label;
+                        }
+                    },
+                    {"data": "hipayId"},
+                    {"data": "date"},
+                    {
+                        "data": "document",
+                        "render": function (data) {
+                            return data.button;
+                        }
+                    }
+                ]
+            });
+
+            $("#filter-action").click(function () {
+                vendorTable.draw();
+            });
+        }
+        if ($('#table_transferts').length) {
+
+            var operationTable = $('#table_transferts').DataTable({
+                "language": {
+                    url: 'datatable/locale'
+                },
+                "processing": true,
+                "serverSide": true,
+                "order": [[2, "desc"]],
+                "ajax": {
+                    "url": "log-operations-ajax",
+                    "data":
+                            function (d) {
+                                return $.extend({}, d, {
+                                    "status-transfer": $("#status-transfer").val(),
+                                    "status-withdraw": $("#status-withdraw").val()
+                                });
+                            }
+                },
+                "createdRow": function (row, data, index) {
+                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8) {
+                        $('td', row).eq(5).addClass('danger');
+                    } else if (data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5) {
+                        $('td', row).eq(5).addClass('success');
+                    }
+                    if (data.statusTransferts.status == -9) {
+                        $('td', row).eq(4).addClass('danger');
+                    } else if (data.statusTransferts.status == 3) {
+                        $('td', row).eq(4).addClass('success');
+                    }
+                },
+                "drawCallback": function () {
+                    $('.vendor-notice').popover();
+                },
+                "columns": [
+                    {"data": "miraklId"},
+                    {"data": "hipayId"},
+                    {
+                        "data": "paymentVoucher",
+                    },
+                    {"data": "amount"},
+                    {
+                        "data": "statusTransferts",
+                        "render": function (data) {
+                            return data.label + " " + data.button;
+                        }
+                    },
+                    {
+                        "data": "statusWithDrawal",
+                        "render": function (data) {
+                            return data.label + " " + data.button;
+                        }
+                    },
+                    {
+                        "data": "balance",
+                    }
+                ]
+            });
+
+            $("#filter-action").click(function () {
+                operationTable.draw();
+            });
+        }
+
+        if ($('#table_logs').length) {
+            var logTable = $('#table_logs').DataTable({
+                "language": {
+                    url: 'datatable/locale'
+                },
+                "order": [[0, "desc"]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "log-general-ajax",
+                    "data":
+                            function (d) {
+                                return $.extend({}, d, {
+                                    "log-level": $("#log-level").val(),
+                                    "date-start": $("#start").val(),
+                                    "date-end": $("#end").val()
+                                });
+                            }
+                },
+                "columns": [
+                    {"data": "createdAt"},
+                    {"data": "levelName"},
+                    {"data": "action"},
+                    {"data": "miraklId"},
+                    {"data": "message"}
+                ]
+            });
+
+            $("#filter-action").click(function () {
+                logTable.draw();
+            });
+
+        }
+
+        if ($('#table_batchs').length) {
+
+            var batchTable = $('#table_batchs').DataTable({
+                "language": {
+                    url: 'datatable/locale'
+                },
+                "order": [[0, "desc"]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "log-batch-ajax"
+                },
+                "drawCallback": function () {
+                    $('.vendor-notice').popover();
+                },
+                "createdRow": function (row, data, index) {
+                    if (data.state.state == -1) {
+                        $('td', row).eq(2).addClass('danger');
+                    } else if (data.state.state == 1) {
+                        $('td', row).eq(2).addClass('info');
+                    } else {
+                        $('td', row).eq(2).addClass('success');
+                    }
+                },
+                "columnDefs": [{
+                        "targets": 2,
+                        "orderable": false
+                    }],
+                "columns": [
+                    {"data": "startedAt"},
+                    {"data": "name"},
+                    {
+                        "data": "state",
+                        "render"
+                                : function (data) {
+                                    return data.label + " " + data.button;
+                                }
+                    }
+                ]
+            });
+
+            setInterval(function () {
+                batchTable.draw();
+            }, 20000);
+
+        }
     });
 })();
 
