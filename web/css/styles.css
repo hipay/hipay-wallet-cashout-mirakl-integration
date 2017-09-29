@@ -9,3 +9,7 @@ body {
     margin : auto;
     display: block;
 }
+
+#filter select{
+    font-size: 13px;
+}

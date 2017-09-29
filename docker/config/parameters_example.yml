@@ -19,4 +19,5 @@ parameters:
     mail.username:
     mail.password:
 
-
+    hipay.locale: 'fr_FR'
+    hipay.timezone: 'Europe/Paris'
