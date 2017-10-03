@@ -23,6 +23,24 @@ use Doctrine\DBAL\Types\Type;
 class LogGeneralRepository extends AbstractTableRepository
 {
 
+    /**
+     * get logs for csv export filtered by datatables filters
+     * @param type $custom
+     * @return type
+     */
+    public function findFilteredForExport($custom)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder->select($this->getSelectString())
+                     ->from($this->_entityName, 'a');
+        $queryBuilder = $this->prepareAjaxRequest($queryBuilder, "", $custom);
+
+        $query = $queryBuilder->getQuery();
+
+        $results = $query->getResult();
+        return $results;
+    }
+
     protected function getSelectString()
     {
         return 'a.createdAt, a.levelName, a.action, a.miraklId, a.message';
