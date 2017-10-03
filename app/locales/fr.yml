@@ -61,6 +61,7 @@ withdraw.status: Statut de retrait
 select.withdraw.status: Selectionner un statut de retrait
 transfer.request.success: OK
 transfer.request.failed: KO
+withdraw.request.requested: OK (demandé)
 withdraw.request.failed: KO (échec)
 withdraw.request.cancel: KO (annulé)
 withdraw.request.success: OK
@@ -75,3 +76,4 @@ decline.reason: Motif de refus
 wallet.account.creation: Création de compte wallet
 rerun: Relancer
 show.details: Voir le détail
+export.csv: Export CSV

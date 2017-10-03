@@ -147,6 +147,18 @@ $app->get('/logs', function() use ($app) {
 
 
 /*****************
+ * CSV export Controller
+ ****************/
+
+$app->get('/logs.csv', function() use ($app) {
+    if (null === $user = $app['session']->get('user')) {
+        return $app->redirect($app["url_generator"]->generate("login"));
+    }
+
+    return $app['log.general.controller']->exportCSVAction($app['request']);
+})->bind('logs.csv');
+
+/*****************
  * Settings Controller
  ****************/
 
