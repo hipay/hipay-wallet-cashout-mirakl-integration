@@ -17,16 +17,9 @@ use HiPay\Wallet\Mirakl\Integration\Controller\BatchController;
 use HiPay\Wallet\Mirakl\Integration\Controller\SettingController;
 use Symfony\Component\Validator\Constraints as Assert;
 
-$app['vendors.repository'] = function() use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
-};
-
 /*****************
  * Log vendors Controller
  ****************/
-$app['log.vendors.repository'] = function() use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
-};
 
 $app['log.vendors.controller'] = function() use ($app) {
     return new LogVendorController($app['log.vendors.repository'], $app['serializer'], $app['translator']);
@@ -98,10 +91,6 @@ $app->get('/transferts',
     return $app['twig']->render('pages/transferts.twig', array());
 })->bind('transferts');
 
-
-$app['log.operations.repository'] = function() use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogOperations');
-};
 
 $app['log.operations.controller'] = function() use ($app) {
     return new LogOperationsController($app['log.operations.repository'], $app['serializer'], $app['translator']);
@@ -255,12 +244,12 @@ $app->get('/logout',
 })->bind('logout');
 
 $app->post('/{anyplace}',
-           function (Request $request) use ($app, $notificationHandler) {
-    $notificationHandler->handleHipayNotification(rawurldecode($request->request->get('xml')));
+           function (Request $request) use ($app) {
+    $app['api.notification.handler']->handleHipayNotification(rawurldecode($request->request->get('xml')));
     return new Response(null, 204);
 })->assert("anyplace", ".*");
 
-$app->error(function (Exception $e) use ($app, $notificationHandler) {
-    $notificationHandler->handleException($e);
+$app->error(function (Exception $e) use ($app) {
+    $app['api.notification.handler']->handleException($e);
     return new Response($e->getMessage());
 });
