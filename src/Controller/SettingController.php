@@ -99,7 +99,8 @@ class SettingController
                   array(
                 'choices' => array(
                     'vendor:process' => $this->translator->trans('wallet.account.creation'),
-                    'cashout:process' => $this->translator->trans('transfer.withdraw')
+                    'cashout:generate' => $this->translator->trans('transfer'),
+                    'cashout:process' => $this->translator->trans('withdraw')
                     ),
                 'attr' => array('class' => 'form-control'),
                 'multiple' => true,
