@@ -11,6 +11,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use HiPay\Wallet\Mirakl\Integration\Entity\Batch;
+use HiPay\Wallet\Mirakl\Integration\Entity\BatchRepository;
 
 /**
  * File ProcessCommand.php
@@ -47,6 +49,8 @@ class GenerateCommand extends AbstractCommand
     /** @var string */
     protected $transactionFilterRegex;
 
+    protected $batchManager;
+
     /**
      * GenerateCommand constructor.
      * @param LoggerInterface $logger
@@ -66,7 +70,8 @@ class GenerateCommand extends AbstractCommand
         $cycleMinute,
         $cycleIntervalBefore,
         $cycleIntervalAfter,
-        $transactionFilterRegex
+        $transactionFilterRegex,
+        BatchRepository $batchManager
     )
     {
 
@@ -77,7 +82,8 @@ class GenerateCommand extends AbstractCommand
         $this->cycleIntervalBefore = $cycleIntervalBefore;
         $this->cycleIntervalAfter = $cycleIntervalAfter;
         $this->transactionFilterRegex = $transactionFilterRegex;
-
+        $this->batchManager = $batchManager;
+        
         parent::__construct($logger);
     }
 
@@ -123,6 +129,9 @@ class GenerateCommand extends AbstractCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $batch = new Batch($this->getName());
+        $this->batchManager->save($batch);
+
         $cronDate = new DateTime($input->getOption(self::CRON_DATE));
         $cronDate->setTime($this->cycleHour, $this->cycleMinute);
 
@@ -151,7 +160,12 @@ class GenerateCommand extends AbstractCommand
         );
         try {
             $this->processor->process($cycleStartDate, $cycleEndDate, $cycleDate, $transactionFilterRegex);
+            $batch->setEndedAt(new \DateTime());
+            $this->batchManager->save($batch);
         } catch (Exception $e) {
+            $batch->setError($e->getMessage());
+            $this->batchManager->save($batch);
+
             $this->logger->critical($e->getMessage());
         }
     }

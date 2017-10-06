@@ -69,6 +69,8 @@ payment.order.id: Payment order Id
 amount: Amount
 balance: Balance
 transfer.withdraw: Transfer & Withdraw
+transfer: Transfer
+withdraw: Withdraw
 log.out: Log out
 vendor: Vendor
 document.type: Document type
