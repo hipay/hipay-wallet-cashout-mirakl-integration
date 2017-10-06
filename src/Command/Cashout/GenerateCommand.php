@@ -82,7 +82,8 @@ class GenerateCommand extends AbstractCommand
         $this->cycleIntervalBefore = $cycleIntervalBefore;
         $this->cycleIntervalAfter = $cycleIntervalAfter;
         $this->transactionFilterRegex = $transactionFilterRegex;
-
+        $this->batchManager = $batchManager;
+        
         parent::__construct($logger);
     }
 
