@@ -9,4 +9,8 @@ NC='\033[0m'
 
 chmod 777 -Rf /var/www/html/var
 
+touch /var/log/hipay.log
+
+chmod 777 /var/log/hipay.log
+
 exec apache2-foreground
