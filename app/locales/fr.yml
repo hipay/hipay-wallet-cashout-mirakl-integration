@@ -69,6 +69,8 @@ payment.order.id: "Id d'ordre de paiement"
 amount: Montant
 balance: Balance
 transfer.withdraw: Transfert & retrait
+transfer: Transfert
+withdraw: Retrait
 log.out: Déconnexion
 vendor: Vendeur
 document.type: Type de document
