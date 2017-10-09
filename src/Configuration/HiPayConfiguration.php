@@ -79,4 +79,12 @@ class HiPayConfiguration extends AbstractConfiguration implements ConfigurationI
     {
         return $this->parameters['hipay.timezone'];
     }
+
+    /**
+     * Returns the timezone used in the webservice calls
+     */
+    public function getRestTransferAndWithdraw()
+    {
+        return $this->parameters['hipay.transfer.withdraw.rest'];
+    }
 }
