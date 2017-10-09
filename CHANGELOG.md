@@ -1,3 +1,10 @@
+# Version 2.6.0
+- Add new command to recover logs from past vendors
+- Add parameters to call REST api instead of soap
+- Add csv export for logs
+- Dashboard bug fixes
+- Add new cron rerun in parameters screen
+
 # Version 2.5.2
 - Fix HipPay library install bug
 
