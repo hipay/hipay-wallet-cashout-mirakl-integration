@@ -15,27 +15,29 @@ class MonologServiceProvider implements ServiceProviderInterface
 
     public function register(Application $app)
     {
-        $app['monolog.log.file'] = function () {
-            return $app['log.file.path'] ? : self::DEFAULT_LOG_PATH;
+        $app['monolog.log.file'] = function () use ($app) {
+            return $app['log.file.path'] ?: self::DEFAULT_LOG_PATH;
         };
 
-        $app['monolog'] = $app->share(function ($app) {
-            $logger = new Logger("hipay");
+        $app['monolog'] = $app->share(
+            function ($app) {
+                $logger = new Logger("hipay");
 
-            $logger->pushHandler(new StreamHandler($app['monolog.log.file']));
+                $logger->pushHandler(new StreamHandler($app['monolog.log.file']));
 
-            $logger->pushProcessor(new PsrLogMessageProcessor());
-            // add database handler for Monolog
-            $logger->pushHandler(
-                new MonologDBHandler($app["orm.em"], $app['db.logger.level'])
-            );
-            
-            return $logger;
-        });
+                $logger->pushProcessor(new PsrLogMessageProcessor());
+                // add database handler for Monolog
+                $logger->pushHandler(
+                    new MonologDBHandler($app["orm.em"], $app['db.logger.level'])
+                );
+
+                return $logger;
+            }
+        );
     }
 
     public function boot(Application $app)
     {
-        
+
     }
 }

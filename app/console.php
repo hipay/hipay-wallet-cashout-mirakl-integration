@@ -6,57 +6,24 @@
  * @copyright 2015 Smile
  */
 
-
 use Doctrine\ORM\Tools\Console\ConsoleRunner as ORMConsoleRunner;
-use HiPay\Wallet\Mirakl\Integration\Command\Vendor\ProcessCommand as VendorProcessCommand;
-use HiPay\Wallet\Mirakl\Integration\Command\Cashout\ProcessCommand as CashoutProcessCommand;
-use HiPay\Wallet\Mirakl\Integration\Command\Cashout\GenerateCommand as CashoutGenerateCommand;
-use HiPay\Wallet\Mirakl\Integration\Command\Vendor\RecordCommand;
-use HiPay\Wallet\Mirakl\Integration\Command\Wallet\BankInfosCommand;
-use HiPay\Wallet\Mirakl\Integration\Command\Wallet\ListCommand;
-use HiPay\Wallet\Mirakl\Integration\Command\Log\LogVendorsRecoverCommand;
 use Symfony\Component\Console\Application;
-use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
-use HiPay\Wallet\Mirakl\Cashout\Initializer as CashoutInitializer;
-use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
-use HiPay\Wallet\Mirakl\Integration\Entity\Vendor;
-use HiPay\Wallet\Mirakl\Integration\Model\TransactionValidator;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\VendorProcessorServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\CashoutInitializerServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\CashoutProcessorServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorProcessServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutGenerateServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutProcessServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorRecordServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorListServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\BankInfoServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\LogVendorsRecoverServiceProvider;
 
+$app = require_once __DIR__ . '/../app/bootstrap.php';
 
-$app = require_once __DIR__.'/../app/bootstrap.php';
-
-$documentRepository = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Document');
-
-$vendorRepository = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
-
-$logVendorRepository = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
-
-$vendorProcessor = new VendorProcessor(
-    $app['hipay.event.dispatcher'], $app['monolog'], $app['api.hipay.factory'], $app['vendors.repository'], $documentRepository, $app['log.vendors.repository']
-);
-
-$logOperationsRepository = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogOperations');
-
-$operatorAccount = new Vendor(
-    $parameters['account.operator.email'], null, $parameters['account.operator.hipayId']
-);
-
-$technicalAccount = new Vendor(
-    $parameters['account.technical.email'], null, $parameters['account.technical.hipayId']
-);
-
-$transactionValidator = new TransactionValidator();
-
-$cashoutInitializer = new CashoutInitializer(
-    $app['hipay.event.dispatcher'], $app['monolog'], $app['api.hipay.factory'], $operatorAccount, $technicalAccount, $transactionValidator,
-    $app['operations.repository'], $app['log.operations.repository'], $app['vendors.repository']
-);
-
-$cashoutProcessor = new CashoutProcessor(
-    $app['hipay.event.dispatcher'], $app['monolog'], $app['api.hipay.factory'], $app['operations.repository'], $app['vendors.repository'], $operatorAccount,
-    $app['log.operations.repository']
-);
-
+/* * ***************
+ * Console initialization
+ * ************** */
 
 $helperSet = ORMConsoleRunner::createHelperSet($app["orm.em"]);
 
@@ -70,60 +37,42 @@ $console->setDispatcher($app['hipay.event.dispatcher']);
 
 ORMConsoleRunner::addCommands($console);
 
-$batchManager = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Batch');
-$vendorManager = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
-$logVendorsManager = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
+/* * ***************
+ * Processor initialization
+ * ************** */
 
-$vendorProcessCommand = new VendorProcessCommand(
-    $app['monolog'],
-    $vendorProcessor,
-    $batchManager,
-    $parameters['default.tmp.path']
-);
+$app->register(new VendorProcessorServiceProvider(), array());
 
-$cashoutGenerateCommand = new CashoutGenerateCommand(
-    $app['monolog'],
-    $cashoutInitializer,
-    $parameters['cycle.days'],
-    $parameters['cycle.hour'],
-    $parameters['cycle.minute'],
-    $parameters['cycle.interval.before'],
-    $parameters['cycle.interval.after'],
-    $parameters['cashout.transactionFilterRegex']
-);
+$app->register(new CashoutInitializerServiceProvider(), array());
 
-$cashoutProcessCommand = new CashoutProcessCommand(
-    $app['monolog'],
-    $batchManager,
-    $cashoutProcessor
-);
+$app->register(new CashoutProcessorServiceProvider(), array());
 
-$vendorRecordCommand = new RecordCommand($app['monolog'], $vendorProcessor);
+/* * ***************
+ * Command initialization
+ * ************** */
 
-$listCommand = new ListCommand(
-    $app['monolog'],
-    $vendorProcessor,
-    $parameters['hipay.merchantGroupId']
-);
+$app->register(new VendorProcessServiceProvider(), array());
 
-$bankInfoCommand = new BankInfosCommand(
-    $app['monolog'],
-    $vendorProcessor,
-    $vendorRepository,
-    $operatorAccount,
-    $technicalAccount
-);
+$app->register(new CashoutGenerateServiceProvider(), array());
 
-$logVendorsRecoverCommand = new LogVendorsRecoverCommand($app['monolog'], $vendorProcessor, $batchManager, $vendorManager, $logVendorsManager);
+$app->register(new CashoutProcessServiceProvider(), array());
+
+$app->register(new VendorRecordServiceProvider(), array());
+
+$app->register(new VendorListServiceProvider(), array());
+
+$app->register(new BankInfoServiceProvider(), array());
+
+$app->register(new LogVendorsRecoverServiceProvider(), array());
 
 $commands = array(
-    $vendorProcessCommand,
-    $vendorRecordCommand,
-    $cashoutProcessCommand,
-    $cashoutGenerateCommand,
-    $listCommand,
-    $bankInfoCommand,
-    $logVendorsRecoverCommand
+    $app['command.vendor.process'],
+    $app['command.vendor.record'],
+    $app['command.cashout.process'],
+    $app['command.cashout.generate'],
+    $app['command.vendor.list'],
+    $app['command.bank.info'],
+    $app['command.log.vendors.recover']
 );
 
 $console->addCommands($commands);
