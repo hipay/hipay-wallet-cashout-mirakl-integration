@@ -1,4 +1,13 @@
 <?php
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,28 +26,22 @@ use HiPay\Wallet\Mirakl\Integration\Controller\LoginController;
  ****************/
 
 $app['log.vendors.controller'] = function () use ($app) {
-    return new LogVendorController($app['log.vendors.repository'], $app['serializer'], $app['translator']);
+    return new LogVendorController(
+        $app['log.vendors.repository'], $app['serializer'], $app['translator'], $app['twig']
+    );
 };
 
 $app->get(
-    '/log-vendors-ajax',
+    '/dashboard/log-vendors-ajax',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
         return $app['log.vendors.controller']->ajaxAction($app['request']);
     }
 )->bind('log-vendors-ajax');
 
 $app->get(
-    '/',
+    '/dashboard/',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
-        return $app['twig']->render('pages/vendors.twig');
+        return $app['log.vendors.controller']->indexAction();
     }
 )->bind('vendors');
 
@@ -51,12 +54,8 @@ $app['documents.controller'] = function () use ($app) {
 };
 
 $app->get(
-    '/documents-ajax',
+    '/dashboard/documents-ajax',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
         return $app['documents.controller']->ajaxAction($app['request'], $app['twig'], $app['vendors.repository']);
     }
 )->bind('documents-ajax');
@@ -70,12 +69,8 @@ $app['translation.controller'] = function () use ($app) {
 };
 
 $app->get(
-    '/datatable/locale',
+    '/dashboard/datatable/locale',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
         return $app['translation.controller']->datatableAction($app['request']);
     }
 )->bind('datatable-locale');
@@ -85,29 +80,25 @@ $app->get(
  * Log Operations Controller
  ****************/
 
-$app->get(
-    '/transferts',
-    function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
-        return $app['twig']->render('pages/transferts.twig', array());
-    }
-)->bind('transferts');
-
-
 $app['log.operations.controller'] = function () use ($app) {
-    return new LogOperationsController($app['log.operations.repository'], $app['serializer'], $app['translator']);
+    return new LogOperationsController(
+        $app['log.operations.repository'],
+        $app['serializer'],
+        $app['translator'],
+        $app['twig']
+    );
 };
 
 $app->get(
-    '/log-operations-ajax',
+    '/dashboard/transferts',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
+        return $app['log.operations.controller']->indexAction();;
+    }
+)->bind('transferts');
 
+$app->get(
+    '/dashboard/log-operations-ajax',
+    function () use ($app) {
         return $app['log.operations.controller']->ajaxAction($app['request']);
     }
 )->bind('log-operations-ajax');
@@ -116,33 +107,23 @@ $app->get(
  * Logs Controller
  ****************/
 
-$app['log.general.repository'] = function () use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogGeneral');
-};
-
 $app['log.general.controller'] = function () use ($app) {
-    return new LogGeneralController($app['log.general.repository'], $app['serializer'], $app['translator']);
+    return new LogGeneralController(
+        $app['log.general.repository'], $app['serializer'], $app['translator'], $app['twig']
+    );
 };
 
 $app->get(
-    '/log-general-ajax',
+    '/dashboard/log-general-ajax',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
         return $app['log.general.controller']->ajaxAction($app['request']);
     }
 )->bind('log-general-ajax');
 
 $app->get(
-    '/logs',
+    '/dashboard/logs',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
-        return $app['twig']->render('pages/logs.twig', array());
+        return $app['log.general.controller']->indexAction();
     }
 )->bind('logs');
 
@@ -152,12 +133,8 @@ $app->get(
  ****************/
 
 $app->get(
-    '/logs.csv',
+    '/dashboard/logs.csv',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
         return $app['log.general.controller']->exportCSVAction($app['request']);
     }
 )->bind('logs.csv');
@@ -166,21 +143,13 @@ $app->get(
  * Settings Controller
  ****************/
 
-$app['batch.repository'] = function () use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Batch');
-};
-
 $app['batch.controller'] = function () use ($app) {
     return new BatchController($app['batch.repository'], $app['serializer'], $app['translator']);
 };
 
 $app->get(
-    '/log-batch-ajax',
+    '/dashboard/log-batch-ajax',
     function () use ($app) {
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
-
         return $app['batch.controller']->ajaxAction($app['request']);
     }
 )->bind('log-batch-ajax');
@@ -190,24 +159,16 @@ $app['settings.controller'] = function () use ($app) {
 };
 
 $app->get(
-    '/settings',
+    '/dashboard/settings',
     function (Request $request) use ($app) {
-
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
 
         return $app['settings.controller']->indexAction();
     }
 )->bind('settings');
 
 $app->post(
-    '/settings',
+    '/dashboard/settings',
     function (Request $request) use ($app) {
-
-        if (null === $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("login"));
-        }
 
         return $app['settings.controller']->reRunAction($request);
 
@@ -219,29 +180,35 @@ $app->post(
  */
 
 $app['login.controller'] = function () use ($app) {
-    return new LoginController($app['form.factory'], $app['hipay.parameters'], $app['twig'], $app['url_generator'], $app['session']);
+    return new LoginController(
+        $app['form.factory'],
+        $app['hipay.parameters'],
+        $app['twig'],
+        $app['url_generator'],
+        $app['session'],
+        $app['security.last_error']
+    );
 };
 
-$app->match('/login',function (Request $request) use ($app) {
-        if (null !== $user = $app['session']->get('user')) {
-            return $app->redirect($app["url_generator"]->generate("vendors"));
-        }
-
+$app->match(
+    '/dashboard/login',
+    function (Request $request) use ($app) {
         return $app['login.controller']->indexAction($request);
-}
-)->bind('login');
-
-$app->get('/logout',
-    function () use ($app) {
-        return $app['login.controller']->logOutAction();
     }
-)->bind('logout');
+)->bind('login');
 
 $app->post(
     '/{anyplace}',
     function (Request $request) use ($app) {
         $app['api.notification.handler']->handleHipayNotification(rawurldecode($request->request->get('xml')));
         return new Response(null, 204);
+    }
+)->assert("anyplace", ".*");
+
+$app->get(
+    '/{anyplace}',
+    function (Request $request) use ($app) {
+        return $app->redirect($app["url_generator"]->generate("vendors"));
     }
 )->assert("anyplace", ".*");
 

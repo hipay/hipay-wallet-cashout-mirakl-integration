@@ -1,17 +1,18 @@
 <?php
 /**
- * Initialize objects
+ * 2017 HiPay
  *
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
  */
+
 $loader = require_once __DIR__ . '/../vendor/autoload.php';
 
 use Silex\Provider\FormServiceProvider;
-use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\SerializerServiceProvider;
-use Silex\Provider\TranslationServiceProvider;
-use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use HiPay\Wallet\Mirakl\Integration\Configuration\DbConfiguration;
 use Silex\Provider\DoctrineServiceProvider;
@@ -22,6 +23,10 @@ use HiPay\Wallet\Mirakl\Integration\ServiceProvider\ApiNotificationHandlerServic
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\ApiHipayServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\HipayEventDispatcherServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\HipayParametersServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\SecurityServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\TwigServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\TranslationServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\RepositoriesServiceProvider;
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
@@ -92,58 +97,22 @@ $app->register(
 
 $app->register(new HipayEventDispatcherServiceProvider(), array('debug' => $app['hipay.parameters']['debug']));
 
+
 /* * ***************
  * Repository initialization
  * ************** */
 
-$app['vendors.repository'] = function () use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Vendor');
-};
-
-$app['document.repository'] = function () use ($app) {
-    return $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Document');
-};
-
-$app['batch.repository'] = function () use ($app) {
-    return $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Batch');
-};
-
-$app['operations.repository'] = function () use ($app) {
-    $operationRepository = $app["orm.em"]->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\Operation');
-    $operationRepository->setPublicLabelTemplate($app['hipay.parameters']['label.public']);
-    $operationRepository->setPrivateLabelTemplate($app['hipay.parameters']['label.private']);
-    $operationRepository->setWithdrawLabelTemplate($app['hipay.parameters']['label.withdraw']);
-
-    return $operationRepository;
-};
-
-$app['log.vendors.repository'] = function () use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogVendors');
-};
-
-$app['log.operations.repository'] = function () use ($app) {
-    return $app['orm.em']->getRepository('HiPay\\Wallet\\Mirakl\\Integration\\Entity\\LogOperations');
-};
+$app->register(new RepositoriesServiceProvider());
 
 /* * ***************
  * API initialization
  * ************** */
 
-$app->register(
-    new ApiFactoryServiceProvider(),
-    array(
-        'parameters' => $app['hipay.parameters']
-    )
-);
+$app->register(new ApiFactoryServiceProvider());
 
 $app->register(new ApiHipayServiceProvider(), array());
 
-$app->register(
-    new ApiNotificationHandlerServiceProvider(),
-    array(
-        'parameters' => $app['hipay.parameters']
-    )
-);
+$app->register(new ApiNotificationHandlerServiceProvider());
 
 /* * ***************
  * Silex base initialization
@@ -161,68 +130,32 @@ $app->register(new FormServiceProvider());
 
 $app->register(new SerializerServiceProvider());
 
+
 /* * ***************
  * Multilanguage initialization
  * ************** */
 
-$app->register(
-    new TranslationServiceProvider(),
-    array(
-        'locale_fallbacks' => array('en'),
-    )
-);
-
-$app['translator'] = $app->share(
-    $app->extend(
-        'translator',
-        function ($translator, $app) {
-            $translator->addLoader('yaml', new YamlFileLoader());
-            $translator->addResource('yaml', __DIR__ . '/../app/locales/en.yml', 'en');
-            $translator->addResource('yaml', __DIR__ . '/../app/locales/fr.yml', 'fr');
-
-            return $translator;
-        }
-    )
-);
-
-$app['translator']->setLocale($app['hipay.parameters']['dashboard.locale']);
+$app->register(new TranslationServiceProvider());
 
 /* * ***************
  * Twig initialization
  * ************** */
 
 $app->register(
-    new Silex\Provider\TwigServiceProvider(),
+    new TwigServiceProvider(),
     array(
-        'twig.path' => __DIR__ . '/../views',
-        'twig.options' => array(
-            'cache' => __DIR__ . '/../var/cache',
-        ),
+        'twig.path' => __DIR__.'/../views',
+         'twig.options' => array(
+                'cache' => __DIR__.'/../var/cache'
+            )
     )
 );
 
-$app['twig'] = $app->share(
-    $app->extend(
-        'twig',
-        function ($twig, $app) {
-            $twig->addFunction(
-                new \Twig_SimpleFunction(
-                    'asset', function ($asset) use ($app) {
-                    return sprintf('%s/%s', trim($app['request']->getBasePath()), ltrim($asset, '/'));
-                }
-                )
-            );
-            return $twig;
-        }
-    )
-);
+/* * ***************
+ * Security initialization
+ * ************** */
 
-$app->before(
-    function (Request $request) use ($app) {
-        $app['twig']->addGlobal('active', $request->get("_route"));
-    }
-);
-
+$app->register(new SecurityServiceProvider(), array());
 
 /* * ***************
  * Cache initialization

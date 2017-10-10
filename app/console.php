@@ -1,9 +1,12 @@
 <?php
 /**
- * Console entry point
+ * 2017 HiPay
  *
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
  */
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner as ORMConsoleRunner;
@@ -41,29 +44,29 @@ ORMConsoleRunner::addCommands($console);
  * Processor initialization
  * ************** */
 
-$app->register(new VendorProcessorServiceProvider(), array());
+$app->register(new VendorProcessorServiceProvider());
 
-$app->register(new CashoutInitializerServiceProvider(), array());
+$app->register(new CashoutInitializerServiceProvider());
 
-$app->register(new CashoutProcessorServiceProvider(), array());
+$app->register(new CashoutProcessorServiceProvider());
 
 /* * ***************
  * Command initialization
  * ************** */
 
-$app->register(new VendorProcessServiceProvider(), array());
+$app->register(new VendorProcessServiceProvider());
 
-$app->register(new CashoutGenerateServiceProvider(), array());
+$app->register(new CashoutGenerateServiceProvider());
 
-$app->register(new CashoutProcessServiceProvider(), array());
+$app->register(new CashoutProcessServiceProvider());
 
-$app->register(new VendorRecordServiceProvider(), array());
+$app->register(new VendorRecordServiceProvider());
 
-$app->register(new VendorListServiceProvider(), array());
+$app->register(new VendorListServiceProvider());
 
-$app->register(new BankInfoServiceProvider(), array());
+$app->register(new BankInfoServiceProvider());
 
-$app->register(new LogVendorsRecoverServiceProvider(), array());
+$app->register(new LogVendorsRecoverServiceProvider());
 
 $commands = array(
     $app['command.vendor.process'],

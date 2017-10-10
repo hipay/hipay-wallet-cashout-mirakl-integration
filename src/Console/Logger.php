@@ -1,4 +1,5 @@
 <?php
+
 namespace HiPay\Wallet\Mirakl\Integration\Console;
 
 use Psr\Log\LoggerInterface;
@@ -18,6 +19,7 @@ class Logger implements LoggerInterface
     protected $outputStyle;
 
     protected $title = false;
+
     /**
      * ConsoleLogger constructor.
      * @param SymfonyStyle $outputStyle

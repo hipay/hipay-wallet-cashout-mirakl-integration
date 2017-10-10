@@ -1,4 +1,13 @@
 <?php
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
 
 namespace HiPay\Wallet\Mirakl\Integration\ServiceProvider;
 
@@ -15,8 +24,8 @@ class ApiFactoryServiceProvider implements ServiceProviderInterface
     {
         $app['api.hipay.factory'] = $app->share(
             function ($app) {
-                $miraklConfiguration = new MiraklConfiguration($app['parameters']);
-                $hipayConfiguration = new HiPayConfiguration($app['parameters']);
+                $miraklConfiguration = new MiraklConfiguration($app['hipay.parameters']);
+                $hipayConfiguration = new HiPayConfiguration($app['hipay.parameters']);
 
                 $apiFactory = new ApiFactory($miraklConfiguration, $hipayConfiguration);
 

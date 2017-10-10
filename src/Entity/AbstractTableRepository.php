@@ -34,9 +34,8 @@ abstract class AbstractTableRepository extends EntityRepository
         $queryBuilder = $this->prepareAjaxRequest($queryBuilder, $search, $custom);
 
         $queryBuilder->setFirstResult($first)
-            ->setMaxResults($limit)
-            ->orderBy('a.'.$sortedColumn, $dir)
-        ;
+                     ->setMaxResults($limit)
+                     ->orderBy('a.' . $sortedColumn, $dir);
 
         $query = $queryBuilder->getQuery();
 
@@ -52,9 +51,9 @@ abstract class AbstractTableRepository extends EntityRepository
     public function countAll()
     {
         $query = $this->_em->createQueryBuilder()
-            ->select($this->getCountString())
-            ->from($this->_entityName, 'a')
-            ->getQuery();
+                           ->select($this->getCountString())
+                           ->from($this->_entityName, 'a')
+                           ->getQuery();
         $count = $query->getSingleScalarResult();
         return intval($count);
     }
@@ -69,7 +68,7 @@ abstract class AbstractTableRepository extends EntityRepository
     {
         $queryBuilder = $this->_em->createQueryBuilder();
         $queryBuilder->select($this->getCountString())
-            ->from($this->_entityName, 'a');
+                     ->from($this->_entityName, 'a');
         $queryBuilder = $this->prepareAjaxRequest($queryBuilder, $search, $custom);
 
         $result = $queryBuilder->getQuery()->getSingleScalarResult();
@@ -88,7 +87,7 @@ abstract class AbstractTableRepository extends EntityRepository
     abstract protected function getSelectString();
 
     /**
-     * get COUNT 
+     * get COUNT
      */
     abstract protected function getCountString();
 }

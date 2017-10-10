@@ -1,4 +1,13 @@
 <?php
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
 
 namespace HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command;
 
@@ -14,11 +23,11 @@ class LogVendorsRecoverServiceProvider implements ServiceProviderInterface
         $app['command.log.vendors.recover'] = $app->share(
             function ($app) {
 
-            return new LogVendorsRecoverCommand(
-                $app['monolog'], $app['vendor.processor'], $app['batch.repository'], $app['vendors.repository'],
-                $app['log.vendors.repository']
-            );
-        }
+                return new LogVendorsRecoverCommand(
+                    $app['monolog'], $app['vendor.processor'], $app['batch.repository'], $app['vendors.repository'],
+                    $app['log.vendors.repository']
+                );
+            }
         );
     }
 

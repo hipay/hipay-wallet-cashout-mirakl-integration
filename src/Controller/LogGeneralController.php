@@ -20,9 +20,18 @@ use Silex\Translator;
 class LogGeneralController extends AbstractTableController
 {
 
-    public function __construct(LogGeneralRepository $repo, Serializer $serializer, Translator $translator)
+    public function __construct(
+        LogGeneralRepository $repo,
+        Serializer $serializer,
+        Translator $translator,
+        \Twig_Environment $twig
+    ) {
+        parent::__construct($repo, $serializer, $translator, $twig);
+    }
+
+    public function indexAction()
     {
-        parent::__construct($repo, $serializer, $translator);
+        return $this->twig->render('pages/logs.twig', array());
     }
 
     /**
@@ -37,11 +46,11 @@ class LogGeneralController extends AbstractTableController
 
         $logs = $this->repo->findFilteredForExport($params);
 
-        $rows   = array();
+        $rows = array();
         $rows[] = "Date,Level,Action,Mirakl ID,Message";
         foreach ($logs as $log) {
             $data = array($log['createdAt']->format('Y-m-d H:i:s'), $log['levelName'], $log['action'], $log['miraklId'],
-                '"'.$log['message'].'"');
+                '"' . $log['message'] . '"');
 
             $rows[] = implode(',', $data);
         }

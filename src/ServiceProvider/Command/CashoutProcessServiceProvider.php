@@ -1,4 +1,13 @@
 <?php
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
 
 namespace HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command;
 
@@ -15,10 +24,10 @@ class CashoutProcessServiceProvider implements ServiceProviderInterface
         $app['command.cashout.process'] = $app->share(
             function ($app) {
 
-            return new CashoutProcessCommand(
-                $app['monolog'], $app['batch.repository'], $app['cashout.processor']
-            );
-        }
+                return new CashoutProcessCommand(
+                    $app['monolog'], $app['batch.repository'], $app['cashout.processor']
+                );
+            }
         );
     }
 

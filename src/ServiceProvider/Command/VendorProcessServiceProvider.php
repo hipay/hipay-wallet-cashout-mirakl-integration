@@ -1,4 +1,13 @@
 <?php
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2016 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
 
 namespace HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command;
 
@@ -14,11 +23,11 @@ class VendorProcessServiceProvider implements ServiceProviderInterface
         $app['command.vendor.process'] = $app->share(
             function ($app) {
 
-            return new VendorProcessCommand(
-                $app['monolog'], $app['vendor.processor'], $app['batch.repository'],
-                $app['hipay.parameters']['default.tmp.path']
-            );
-        }
+                return new VendorProcessCommand(
+                    $app['monolog'], $app['vendor.processor'], $app['batch.repository'],
+                    $app['hipay.parameters']['default.tmp.path']
+                );
+            }
         );
     }
 
