@@ -1,4 +1,5 @@
 <?php
+
 namespace HiPay\Wallet\Mirakl\Integration\Parameter;
 
 use ArrayAccess;

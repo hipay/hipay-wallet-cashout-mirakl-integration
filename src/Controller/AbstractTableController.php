@@ -22,12 +22,18 @@ abstract class AbstractTableController
     protected $repo;
     protected $serializer;
     protected $translator;
+    protected $twig;
 
-    public function __construct(EntityRepository $repo, Serializer $serializer, Translator $translator)
-    {
-        $this->repo       = $repo;
+    public function __construct(
+        EntityRepository $repo,
+        Serializer $serializer,
+        Translator $translator,
+        \Twig_Environment $twig
+    ) {
+        $this->repo = $repo;
         $this->serializer = $serializer;
         $this->translator = $translator;
+        $this->twig = $twig;
     }
 
     /**
@@ -40,11 +46,11 @@ abstract class AbstractTableController
         $first = $request->get('start');
         $limit = $request->get('length');
 
-        $order        = $request->get('order');
-        $columns      = $request->get('columns');
-        $order        = end($order);
+        $order = $request->get('order');
+        $columns = $request->get('columns');
+        $order = end($order);
         $sortedColumn = $columns[$order["column"]]["data"];
-        $search       = $request->get('search');
+        $search = $request->get('search');
 
         $params = $request->query->all();
 
@@ -52,7 +58,7 @@ abstract class AbstractTableController
         $data = $this->prepareAjaxData($data);
 
         $returnArray = array(
-            'draw' => (int) $request->get('draw'),
+            'draw' => (int)$request->get('draw'),
             'recordsTotal' => $this->repo->countAll(),
             'recordsFiltered' => $this->repo->countFiltered($search["value"], $params),
             'data' => $data

@@ -233,7 +233,7 @@
 
             setInterval(function () {
                 batchTable.draw();
-            }, 20000);
+            }, 5000);
 
         }
     });

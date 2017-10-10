@@ -23,7 +23,7 @@ class VendorController extends AbstractTableController
 
     public function __construct(VendorRepository $repo, Serializer $serializer, Translator $translator)
     {
-        $this->repo       = $repo;
+        $this->repo = $repo;
         $this->serializer = $serializer;
         $this->translator = $translator;
     }

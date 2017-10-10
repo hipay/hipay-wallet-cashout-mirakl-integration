@@ -20,11 +20,11 @@ class SettingController
     protected $twig;
     protected $translator;
 
-    public function __construct($formBuilder, $twig, $translator)
+    public function __construct($formBuilder, \Twig_Environment $twig, $translator)
     {
         $this->formBuilder = $formBuilder;
-        $this->twig        = $twig;
-        $this->translator        = $translator;
+        $this->twig = $twig;
+        $this->translator = $translator;
     }
 
     public function indexAction()
@@ -48,21 +48,26 @@ class SettingController
 
         if ($form->isValid()) {
             $success = true;
-            $data    = $form->getData();
+            $data = $form->getData();
             foreach ($data["batch"] as $command) {
                 shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
             }
         }
 
-        return $this->twig->render('pages/settings.twig', array('form' => $form->createView(), 'success' => $success, 'version' => $versions));
+        return $this->twig->render(
+            'pages/settings.twig',
+            array('form' => $form->createView(), 'success' => $success, 'version' => $versions)
+        );
     }
 
     private function getVersions()
     {
 
-        $integration = $this->getComposerFile(dirname(__FILE__).'/../../composer.json');
+        $integration = $this->getComposerFile(dirname(__FILE__) . '/../../composer.json');
 
-        $library = $this->getComposerFile(dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json');
+        $library = $this->getComposerFile(
+            dirname(__FILE__) . '/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
+        );
 
         return array(
             "integration" => $integration['version'],
@@ -70,7 +75,8 @@ class SettingController
         );
     }
 
-    private function getComposerFile($path){
+    private function getComposerFile($path)
+    {
 
         $composer = array();
 
@@ -79,7 +85,7 @@ class SettingController
             $contents = utf8_encode($contents);
 
             $composer = json_decode($contents, true);
-        }else{
+        } else {
             $composer["version"] = "N/A";
         }
 
@@ -95,24 +101,29 @@ class SettingController
         );
 
         $form = $this->formBuilder->createBuilder('form', $default)
-            ->add('batch', 'choice',
-                  array(
-                'choices' => array(
-                    'vendor:process' => $this->translator->trans('wallet.account.creation'),
-                    'cashout:generate' => $this->translator->trans('transfer'),
-                    'cashout:process' => $this->translator->trans('withdraw')
-                    ),
-                'attr' => array('class' => 'form-control'),
-                'multiple' => true,
-                'label' => ''
-                )
-            )
-            ->add('send', 'submit',
-                  array(
-                'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
-                'label' => $this->translator->trans('rerun')
-            ))
-            ->getForm();
+                                  ->add(
+                                      'batch',
+                                      'choice',
+                                      array(
+                                          'choices' => array(
+                                              'vendor:process' => $this->translator->trans('wallet.account.creation'),
+                                              'cashout:generate' => $this->translator->trans('transfer'),
+                                              'cashout:process' => $this->translator->trans('withdraw')
+                                          ),
+                                          'attr' => array('class' => 'form-control'),
+                                          'multiple' => true,
+                                          'label' => ''
+                                      )
+                                  )
+                                  ->add(
+                                      'send',
+                                      'submit',
+                                      array(
+                                          'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
+                                          'label' => $this->translator->trans('rerun')
+                                      )
+                                  )
+                                  ->getForm();
 
         return $form;
     }

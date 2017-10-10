@@ -41,7 +41,8 @@
     "symfony/doctrine-bridge": "~2.8.27",
     "mustache/mustache": "~2.12.0",
     "erusev/parsedown":"~1.6.3",
-    "symfony/serializer": "2.8.26"
+    "symfony/serializer": "~2.8.26",
+    "symfony/security": "~2.8.26"
   },
   "scripts": {
     "post-install-cmd": [
