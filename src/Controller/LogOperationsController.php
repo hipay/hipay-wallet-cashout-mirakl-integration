@@ -19,9 +19,18 @@ use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
 class LogOperationsController extends AbstractTableController
 {
 
-    public function __construct(LogOperationsRepository $repo, Serializer $serializer, Translator $translator)
+    public function __construct(
+        LogOperationsRepository $repo,
+        Serializer $serializer,
+        Translator $translator,
+        \Twig_Environment $twig
+    ) {
+        parent::__construct($repo, $serializer, $translator, $twig);
+    }
+
+    public function indexAction()
     {
-        parent::__construct($repo, $serializer, $translator);
+        return $this->twig->render('pages/transferts.twig', array());
     }
 
     protected function prepareAjaxData($data)
@@ -44,8 +53,9 @@ class LogOperationsController extends AbstractTableController
         return $data;
     }
 
-    private function getStatusLabel($status){
-        switch($status){
+    private function getStatusLabel($status)
+    {
+        switch ($status) {
             case Status::WITHDRAW_FAILED :
                 return $this->translator->trans('withdraw.request.failed');
             case Status::WITHDRAW_CANCELED :
@@ -72,7 +82,11 @@ class LogOperationsController extends AbstractTableController
             case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_CANCELED:
-                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="'.$this->translator->trans($logRow["message"]).'" data-original-title="" title="" >'.$this->translator->trans("show.message").'</button>';
+                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
+                    $this->translator->trans($logRow["message"]) .
+                    '" data-original-title="" title="" >' .
+                    $this->translator->trans("show.message") .
+                    '</button>';
             default:
                 return "";
         }

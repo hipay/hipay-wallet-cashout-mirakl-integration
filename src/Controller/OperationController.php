@@ -27,8 +27,8 @@ class OperationController extends AbstractTableController
     {
         foreach ($data as $key => $logRow) {
             $data[$key]['CreatedDate'] = "";
-            $data[$key]['balance']     = "";
-            $data[$key]['balance']     = "";
+            $data[$key]['balance'] = "";
+            $data[$key]['balance'] = "";
         }
 
         return $data;

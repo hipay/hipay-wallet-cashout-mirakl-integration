@@ -18,31 +18,39 @@ use Silex\Translator;
 
 class LogVendorController extends AbstractTableController
 {
-    protected $repo;
-    protected $serializer;
-    protected $translator;
 
-    public function __construct(LogVendorsRepository $repo, Serializer $serializer, Translator $translator)
+    public function __construct(
+        LogVendorsRepository $repo,
+        Serializer $serializer,
+        Translator $translator,
+        \Twig_Environment $twig
+    ) {
+        parent::__construct($repo, $serializer, $translator, $twig);
+    }
+
+    public function indexAction()
     {
-        $this->repo       = $repo;
-        $this->serializer = $serializer;
-        $this->translator = $translator;
+        return $this->twig->render('pages/vendors.twig', array());
     }
 
     protected function prepareAjaxData($data)
     {
         foreach ($data as $key => $logRow) {
-            $data[$key]['date']                = $logRow['date']->format('Y-m-d H:i:s');
+            $data[$key]['date'] = $logRow['date']->format('Y-m-d H:i:s');
             $data[$key]['statusWalletAccount'] = array(
                 "status" => $logRow['statusWalletAccount'],
                 "label" => $this->getStatusWalletAccountString($logRow['statusWalletAccount'])
             );
-            $data[$key]['document']            = array(
+            $data[$key]['document'] = array(
                 "nb" => $logRow['nbDoc'],
                 "miraklId" => $logRow['miraklId'],
-                "button" => ' <a href="#" onclick="popup_vendor_detail(' . $logRow['miraklId'] . ');"> '.$this->translator->trans("show.details").'</a>'
+                "button" => ' <a href="#" onclick="popup_vendor_detail(' .
+                    $logRow['miraklId'] .
+                    ');"> ' .
+                    $this->translator->trans("show.details") .
+                    '</a>'
             );
-            $data[$key]['status']              = array(
+            $data[$key]['status'] = array(
                 "status" => $logRow['status'],
                 "label" => $this->getStatusString($logRow['status']),
                 "button" => $this->getStatusMessage($logRow)
@@ -59,9 +67,17 @@ class LogVendorController extends AbstractTableController
             case LogVendorsInterface::INFO:
                 return "";
             case LogVendorsInterface::WARNING:
-                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="'.$this->translator->trans($logRow["message"]).'" data-original-title="" title="" >'.$this->translator->trans("show.message").'</button>';
+                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
+                    $this->translator->trans($logRow["message"]) .
+                    '" data-original-title="" title="" >' .
+                    $this->translator->trans("show.message") .
+                    '</button>';
             case LogVendorsInterface::CRITICAL:
-                return '<button type="button" class="btn btn-danger btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="'.$this->translator->trans($logRow["message"]).'" data-original-title="" title="" aria-describedby="popover846313">'.$this->translator->trans("show.message").'</button>';
+                return '<button type="button" class="btn btn-danger btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
+                    $this->translator->trans($logRow["message"]) .
+                    '" data-original-title="" title="" aria-describedby="popover846313">' .
+                    $this->translator->trans("show.message") .
+                    '</button>';
             case LogVendorsInterface::CRITICAL:
         }
     }

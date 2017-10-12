@@ -19,8 +19,8 @@ class HipaySwiftMailerHandler extends SwiftMailerHandler
     /**
      * Creates instance of Swift_Message to be sent
      *
-     * @param  string         $content formatted email body to be sent
-     * @param  array          $records Log records that formed the content
+     * @param  string $content formatted email body to be sent
+     * @param  array $records Log records that formed the content
      * @return \Swift_Message
      */
     protected function buildMessage($content, array $records)
@@ -28,9 +28,9 @@ class HipaySwiftMailerHandler extends SwiftMailerHandler
         $message = parent::buildMessage($content, $records);
 
         $Parsedown = new \Parsedown();
-        $content = str_replace("_*","\r",$content);
+        $content = str_replace("_*", "\r", $content);
 
-        $html = $Parsedown->text(str_replace(str_repeat(" ",18),"\r",$content));
+        $html = $Parsedown->text(str_replace(str_repeat(" ", 18), "\r", $content));
 
         $message->setBody($html);
 
