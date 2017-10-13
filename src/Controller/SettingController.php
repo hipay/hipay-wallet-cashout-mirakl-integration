@@ -125,7 +125,6 @@ class SettingController
 
         putenv('COMPOSER_HOME='.__DIR__.'/../../vendor/bin/composer');
 
-        system('composer config --global github-oauth.github.com 3cbe5444bdcbbf6e0c3fe1d000fdf49f9174abd5', $status);
         system('composer create-project hipay/hipay-wallet-cashout-mirakl-integration '.__DIR__.'/../../update 2>&1', $status);
 
         system('chmod 755 -R '.__DIR__, $status);
