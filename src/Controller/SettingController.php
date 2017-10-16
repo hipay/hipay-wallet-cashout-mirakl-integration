@@ -113,46 +113,9 @@ class SettingController
     public function updateIntegrationAjaxAction()
     {
 
-        echo '<div class="alert alert-dismissible alert-info">Backup data </div>';
+        $return = include __DIR__.'/../../update.php';
+        return $return;
 
-        system('rm -R '.__DIR__.'/../../update/ ', $status);
-        system('rm  '.__DIR__.'/../../backup.tar.gz ', $status);
-        system('tar czvf  '.__DIR__.'/../../backup.tar.gz '.__DIR__.'/../../ ', $status);
-
-        # MysqlDump
-
-        echo '<div class="alert alert-dismissible alert-info">updating app, this may take a while </div>';
-
-        putenv('COMPOSER_HOME='.__DIR__.'/../../vendor/bin/composer');
-
-        system('composer create-project hipay/hipay-wallet-cashout-mirakl-integration '.__DIR__.'/../../update 2>&1', $status);
-
-        system('chmod 755 -R '.__DIR__, $status);
-
-        $oldParameters    = Yaml::parse(file_get_contents(__DIR__.'/../../config/parameters.yml'));
-        $updateParameters = Yaml::parse(file_get_contents(__DIR__.'/../../update/config/parameters.yml'));
-
-        $newParameters = array_replace_recursive($updateParameters, $oldParameters);
-
-        echo '<div class="alert alert-dismissible alert-info">updating parameters.yml  </div>';
-
-        print_r($newParameters);
-
-        $newParametersYaml = Yaml::dump($newParameters);
-
-        file_put_contents(__DIR__.'/../../update/config/parameters.yml', $newParametersYaml);
-
-        echo '<div class="alert alert-dismissible alert-info">Copying new files</div>';
-
-        //system('rsync -av --delete-after --exclude backup.tar.gz '.__DIR__.'/update/ '.__DIR__.'/', $status);
-
-        //system('rm -R update/ ', $status);
-
-        echo '<div class="alert alert-dismissible alert-info">updating database  </div>';
-
-        system('cd .. && php bin/console orm:schema-tool:update --force');
-
-        return '<div class="alert alert-dismissible alert-success">Success</div>';
     }
 
     public function updateLibraryAjaxAction()
