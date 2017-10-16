@@ -21,6 +21,7 @@ use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorRecordServiceP
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorListServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\BankInfoServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\LogVendorsRecoverServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\UpdateApplicationServiceProvider;
 
 $app = require_once __DIR__ . '/../app/bootstrap.php';
 
@@ -68,6 +69,8 @@ $app->register(new BankInfoServiceProvider());
 
 $app->register(new LogVendorsRecoverServiceProvider());
 
+$app->register(new UpdateApplicationServiceProvider());
+
 $commands = array(
     $app['command.vendor.process'],
     $app['command.vendor.record'],
@@ -75,7 +78,8 @@ $commands = array(
     $app['command.cashout.generate'],
     $app['command.vendor.list'],
     $app['command.bank.info'],
-    $app['command.log.vendors.recover']
+    $app['command.log.vendors.recover'],
+    $app['command.update.application']
 );
 
 $console->addCommands($commands);
