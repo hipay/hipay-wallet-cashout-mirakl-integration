@@ -79,3 +79,12 @@ wallet.account.creation: Création de compte wallet
 rerun: Relancer
 show.details: Voir le détail
 export.csv: Export CSV
+app.update: MàJ de l'application
+sufficient.right: Vous n'avez pas les droits suffisants sur les fichiers et dossiers de l'application. La mise à jour ne peut pas être effectuées
+commands.execute: Pour donner les droits suffisants, vous pouvez lancer les commandes suivantes
+everything.up.to.date: L'application est à jour
+update.available: Mise à jour disponible
+update.app.latest: Mettez à jour votre application à la derniere version disponible
+update.all.app: Mettre à jour
+update.library.patch: "Mettez à jour la librarie de l'application library (MàJ de sécurité)"
+dbms.not.mysql: Votre SGBD n'est pas MySQL, il n'y aura pas de sauvegarde de la BDD. Merci de sauvegarder votre BDD avant de mettre à jour l'application.
