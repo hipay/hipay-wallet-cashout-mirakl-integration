@@ -25,6 +25,14 @@ class SettingController
     protected $parameters;
     protected $urlGenerator;
 
+    /**
+     *
+     * @param type $formBuilder
+     * @param \Twig_Environment $twig
+     * @param type $translator
+     * @param type $parameters
+     * @param type $urlGenerator
+     */
     public function __construct($formBuilder, \Twig_Environment $twig, $translator, $parameters, $urlGenerator)
     {
         $this->formBuilder = $formBuilder;
@@ -34,6 +42,10 @@ class SettingController
         $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * Display Settings page
+     * @return type
+     */
     public function indexAction()
     {
         $form = $this->generateForm();
@@ -65,6 +77,11 @@ class SettingController
         );
     }
 
+    /**
+     * Handle batch Form 
+     * @param Request $request
+     * @return type
+     */
     public function reRunAction(Request $request)
     {
         $form = $this->generateForm();
@@ -108,11 +125,20 @@ class SettingController
         );
     }
 
+    /**
+     * Display update page
+     * @param type $choice
+     * @return type
+     */
     public function updateAction($choice)
     {
         return $this->twig->render('pages/update.twig', array('choice' => $choice));
     }
 
+    /**
+     * Run Application update process
+     * @return string|RedirectResponse
+     */
     public function updateIntegrationAjaxAction()
     {
 
@@ -129,6 +155,10 @@ class SettingController
 
     }
 
+    /**
+     * Run Library update process
+     * @return string|RedirectResponse
+     */
     public function updateLibraryAjaxAction()
     {
 
@@ -145,6 +175,10 @@ class SettingController
         return new RedirectResponse($this->urlGenerator->generate("settings"), 302);
     }
 
+    /**
+     * Return Library and Application versions
+     * @return type
+     */
     private function getVersions()
     {
 
@@ -160,6 +194,11 @@ class SettingController
         );
     }
 
+    /**
+     *
+     * @param type $path
+     * @return string
+     */
     private function getComposerFile($path)
     {
 
@@ -177,6 +216,10 @@ class SettingController
         return $composer;
     }
 
+    /**
+     *
+     * @return type
+     */
     private function generateForm()
     {
 
@@ -211,6 +254,11 @@ class SettingController
         return $form;
     }
 
+    /**
+     * Checks if folder is writable recursively
+     * @param type $dir
+     * @return boolean
+     */
     private function is_writable_r($dir)
     {
         if (is_dir($dir)) {
@@ -232,6 +280,12 @@ class SettingController
         }
     }
 
+    /**
+     * Check if update available for package
+     * @param type $url
+     * @param type $composerPath
+     * @return boolean
+     */
     private function updateAvailable($url, $composerPath)
     {
         $client = new Client('https://api.github.com');
