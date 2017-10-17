@@ -13,6 +13,7 @@ namespace HiPay\Wallet\Mirakl\Integration\Controller;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Guzzle\Http\Client;
 use Symfony\Component\Yaml\Yaml;
 
@@ -22,13 +23,15 @@ class SettingController
     protected $twig;
     protected $translator;
     protected $parameters;
+    protected $urlGenerator;
 
-    public function __construct($formBuilder, \Twig_Environment $twig, $translator, $parameters)
+    public function __construct($formBuilder, \Twig_Environment $twig, $translator, $parameters, $urlGenerator)
     {
         $this->formBuilder = $formBuilder;
         $this->twig        = $twig;
         $this->translator  = $translator;
         $this->parameters  = $parameters;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function indexAction()
@@ -113,9 +116,16 @@ class SettingController
     public function updateIntegrationAjaxAction()
     {
 
-        system('cd '.__DIR__.'/../.. && php bin/console app:update 2>&1', $status);
+        try{
+            system('cd '.__DIR__.'/../.. && php bin/console app:update 2>&1', $status);
 
-        return '<div class="alert alert-dismissible alert-success">Success</div>';
+        } catch (Exception $ex) {
+            return '<div class="alert alert-dismissible alert-danger">Error</div>';
+        }
+
+        echo '<div class="alert alert-dismissible alert-success">Success</div>';
+
+        return new RedirectResponse($this->urlGenerator->generate("settings"), 302);
 
     }
 
@@ -124,10 +134,15 @@ class SettingController
 
         echo '<div class="alert alert-dismissible alert-info">updating library, this may take a while </div>';
 
-        putenv('COMPOSER_HOME='.__DIR__.'/../../vendor/bin/composer');
-        system('cd '.__DIR__.'/../.. && composer update hipay/hipay-wallet-cashout-mirakl-library 2>&1', $status);
+        try{
+            putenv('COMPOSER_HOME='.__DIR__.'/../../vendor/bin/composer');
+            system('cd '.__DIR__.'/../.. && composer update hipay/hipay-wallet-cashout-mirakl-library 2>&1', $status);
+        } catch (Exception $ex) {
+            return '<div class="alert alert-dismissible alert-danger">Error</div>';
+        }
+        echo '<div class="alert alert-dismissible alert-success">Success</div>';
 
-        return '<div class="alert alert-dismissible alert-success">Success</div>';
+        return new RedirectResponse($this->urlGenerator->generate("settings"), 302);
     }
 
     private function getVersions()

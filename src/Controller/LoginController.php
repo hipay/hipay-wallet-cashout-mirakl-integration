@@ -12,31 +12,21 @@
 namespace HiPay\Wallet\Mirakl\Integration\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use HiPay\Wallet\Mirakl\Integration\Parameter\Accessor;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class LoginController
 {
     protected $formBuilder;
-    protected $parameters;
     protected $twig;
-    protected $urlGenerator;
-    protected $sessionManager;
     protected $securityLastError;
 
     public function __construct(
         $formBuilder,
-        Accessor $parameters,
         $twig,
-        $urlGenerator,
-        $sessionManager,
         $securityLastError
     ) {
         $this->formBuilder = $formBuilder;
-        $this->parameters = $parameters;
         $this->twig = $twig;
-        $this->urlGenerator = $urlGenerator;
-        $this->sessionManager = $sessionManager;
         $this->securityLastError = $securityLastError;
     }
 
