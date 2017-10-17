@@ -113,8 +113,9 @@ class SettingController
     public function updateIntegrationAjaxAction()
     {
 
-        $return = include __DIR__.'/../../update.php';
-        return $return;
+        system('cd '.__DIR__.'/../.. && php bin/console app:update 2>&1', $status);
+
+        return '<div class="alert alert-dismissible alert-success">Success</div>';
 
     }
 
@@ -124,7 +125,7 @@ class SettingController
         echo '<div class="alert alert-dismissible alert-info">updating library, this may take a while </div>';
 
         putenv('COMPOSER_HOME='.__DIR__.'/../../vendor/bin/composer');
-        system('cd .. && composer update hipay/hipay-wallet-cashout-mirakl-library 2>&1', $status);
+        system('cd '.__DIR__.'/../.. && composer update hipay/hipay-wallet-cashout-mirakl-library 2>&1', $status);
 
         return '<div class="alert alert-dismissible alert-success">Success</div>';
     }
