@@ -36,7 +36,9 @@ class UpdateCommand extends Command
 
         # MysqlDump
 
-        system('mysqldump -u '.$this->parameters['db.username'].' -p'.$this->parameters['db.password'].' -h '.$this->parameters['db.host'].' '.$this->parameters['db.name'].' > '.__DIR__.'/../../../backup-'.time().'.sql ', $status);
+        $backupName = 'backup-'.time().'.sql';
+
+        system('mysqldump -u '.$this->parameters['db.username'].' -p'.$this->parameters['db.password'].' -h '.$this->parameters['db.host'].' '.$this->parameters['db.name'].' > '.__DIR__.'/../../../'.$backupName.' ', $status);
 
         echo '<div class="alert alert-dismissible alert-info">updating app, this may take a while </div>';
 
@@ -61,7 +63,7 @@ class UpdateCommand extends Command
 
         echo '<div class="alert alert-dismissible alert-info">Copying new files</div>';
 
-        system('rsync -av  '.__DIR__.'/../../../update/ '.__DIR__.'/../../../', $status);
+        system('rsync -av --delete-after --exclude="backup.tar.gz" --exclude="'.$backupName.'" '.__DIR__.'/../../../update/ '.__DIR__.'/../../../', $status);
         system('rm -R update/ ', $status);
 
         echo '<div class="alert alert-dismissible alert-info">updating database  </div>';
