@@ -155,7 +155,7 @@ $app->get(
 )->bind('log-batch-ajax');
 
 $app['settings.controller'] = function () use ($app) {
-    return new SettingController($app['form.factory'], $app['twig'], $app['translator']);
+    return new SettingController($app['form.factory'], $app['twig'], $app['translator'], $app['hipay.parameters'], $app['url_generator']);
 };
 
 $app->get(
@@ -175,17 +175,49 @@ $app->post(
     }
 )->bind('settings-form');
 
-/*
- * Login page
- */
+/*****************
+ * Settings Controller
+ ****************/
+$app->post(
+    '/dashboard/update-integration',
+    function (Request $request) use ($app) {
+
+        return $app['settings.controller']->updateAction('integration');
+    }
+)->bind('update-integration');
+
+$app->post(
+    '/dashboard/update-library',
+    function (Request $request) use ($app) {
+
+        return $app['settings.controller']->updateAction('library');
+    }
+)->bind('update-library');
+
+$app->post(
+    '/dashboard/update-integration-process',
+    function (Request $request) use ($app) {
+
+        return $app['settings.controller']->updateIntegrationAjaxAction();
+    }
+)->bind('update-integration-ajax');
+
+$app->post(
+    '/dashboard/update-library-process',
+    function (Request $request) use ($app) {
+
+        return $app['settings.controller']->updateLibraryAjaxAction();
+    }
+)->bind('update-library-ajax');
+
+/*****************
+ * Login Controller
+ ****************/
 
 $app['login.controller'] = function () use ($app) {
     return new LoginController(
         $app['form.factory'],
-        $app['hipay.parameters'],
         $app['twig'],
-        $app['url_generator'],
-        $app['session'],
         $app['security.last_error']
     );
 };
