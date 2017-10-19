@@ -13,19 +13,18 @@ namespace HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command;
 
 use Silex\ServiceProviderInterface;
 use Silex\Application;
-use HiPay\Wallet\Mirakl\Integration\Command\Cashout\GenerateCommand as CashoutGenerateCommand;
-use HiPay\Wallet\Mirakl\Integration\Command\Cashout\ProcessCommand as CashoutProcessCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Cashout\WithdrawCommand as WithdrawCommand;
 
-class CashoutProcessServiceProvider implements ServiceProviderInterface
+class CashoutWithdrawServiceProvider implements ServiceProviderInterface
 {
 
     public function register(Application $app)
     {
-        $app['command.cashout.process'] = $app->share(
+        $app['command.cashout.withdraw'] = $app->share(
             function ($app) {
 
-                return new CashoutProcessCommand(
-                    $app['monolog'], $app['batch.repository'], $app['cashout.processor']
+                return new WithdrawCommand(
+                    $app['monolog'], $app['batch.repository'], $app['cashout.withdraw.processor']
                 );
             }
         );
