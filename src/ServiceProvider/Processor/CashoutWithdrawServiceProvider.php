@@ -13,17 +13,16 @@ namespace HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor;
 
 use Silex\ServiceProviderInterface;
 use Silex\Application;
-use HiPay\Wallet\Mirakl\Cashout\Initializer as CashoutInitializer;
 use HiPay\Wallet\Mirakl\Integration\Entity\Vendor;
 use HiPay\Wallet\Mirakl\Integration\Model\TransactionValidator;
-use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
+use HiPay\Wallet\Mirakl\Cashout\Withdraw as WithdrawProcessor;
 
-class CashoutProcessorServiceProvider implements ServiceProviderInterface
+class CashoutWithdrawServiceProvider implements ServiceProviderInterface
 {
 
     public function register(Application $app)
     {
-        $app['cashout.processor'] = $app->share(
+        $app['cashout.withdraw.processor'] = $app->share(
             function ($app) {
 
                 $operatorAccount = new Vendor(
@@ -33,7 +32,7 @@ class CashoutProcessorServiceProvider implements ServiceProviderInterface
 
                 $transactionValidator = new TransactionValidator();
 
-                return new CashoutProcessor(
+                return new WithdrawProcessor(
                     $app['hipay.event.dispatcher'], $app['monolog'], $app['api.hipay.factory'],
                     $app['operations.repository'], $app['vendors.repository'], $operatorAccount,
                     $app['log.operations.repository']
