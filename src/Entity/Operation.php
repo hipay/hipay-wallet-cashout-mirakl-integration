@@ -115,11 +115,11 @@ class Operation implements OperationInterface
     protected $createdAt;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(type="integer", unique=false, nullable=true)
+     * @ORM\Column(type="string", unique=false, nullable=true)
      */
-    protected $adjustmentId;
+    protected $adjustmentIds;
 
     /**
      * @return float
@@ -336,18 +336,18 @@ class Operation implements OperationInterface
      *
      * @return int
      */
-    function getAdjustmentId()
+    function getAdjustmentIds()
     {
-        return $this->adjustmentId;
+        return $this->adjustmentIds;
     }
 
     /**
      *
-     * @param int $adjustmentId
+     * @param string $adjustmentId
      */
-    function setAdjustmentId($adjustmentId)
+    function setAdjustmentIds($adjustmentIds)
     {
-        $this->adjustmentId = $adjustmentId;
+        $this->adjustmentIds = $adjustmentIds;
     }
 
 
