@@ -100,7 +100,7 @@
                 },
                 "processing": true,
                 "serverSide": true,
-                "order": [[2, "desc"]],
+                "order": [[8, "desc"]],
                 "ajax": {
                     "url": "log-operations-ajax",
                     "data":
@@ -112,15 +112,15 @@
                             }
                 },
                 "createdRow": function (row, data, index) {
-                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8) {
-                        $('td', row).eq(5).addClass('danger');
-                    } else if (data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5) {
-                        $('td', row).eq(5).addClass('success');
+                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8 || data.statusWithDrawal.status == -11) {
+                        $('td', row).eq(6).addClass('danger');
+                    } else if (data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5 || data.statusWithDrawal.status == 2) {
+                        $('td', row).eq(6).addClass('success');
                     }
-                    if (data.statusTransferts.status == -9) {
-                        $('td', row).eq(4).addClass('danger');
-                    } else if (data.statusTransferts.status == 3) {
-                        $('td', row).eq(4).addClass('success');
+                    if (data.statusTransferts.status == -9  || data.statusTransferts.status == -10 ) {
+                        $('td', row).eq(5).addClass('danger');
+                    } else if (data.statusTransferts.status == 3 || data.statusTransferts.status == 2) {
+                        $('td', row).eq(5).addClass('success');
                     }
                 },
                 "drawCallback": function () {
@@ -133,6 +133,7 @@
                         "data": "paymentVoucher",
                     },
                     {"data": "amount"},
+                    {"data": "originAmount"},
                     {
                         "data": "statusTransferts",
                         "render": function (data) {
@@ -147,6 +148,9 @@
                     },
                     {
                         "data": "balance",
+                    },
+                    {
+                        "data": "dateCreated",
                     }
                 ]
             });

@@ -11,11 +11,9 @@
 
 namespace HiPay\Wallet\Mirakl\Integration\Controller;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Guzzle\Http\Client;
-use Symfony\Component\Yaml\Yaml;
 
 class SettingController
 {
@@ -234,8 +232,9 @@ class SettingController
                 array(
                 'choices' => array(
                     'vendor:process' => $this->translator->trans('wallet.account.creation'),
-                    'cashout:generate' => $this->translator->trans('transfer'),
-                    'cashout:process' => $this->translator->trans('withdraw')
+                    'cashout:generate' => $this->translator->trans('generate.operation'),
+                    'cashout:transfer' => $this->translator->trans('transfer'),
+                    'cashout:withdraw' => $this->translator->trans('withdraw')
                 ),
                 'attr' => array('class' => 'form-control'),
                 'multiple' => true,

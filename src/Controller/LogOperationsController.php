@@ -48,6 +48,12 @@ class LogOperationsController extends AbstractTableController
                 "label" => $this->getStatusLabel($logRow['statusWithDrawal']),
                 "button" => $this->getStatusMessage($logRow['statusWithDrawal'], $logRow)
             );
+
+            if($logRow['dateCreated'] !== null){
+                $data[$key]['dateCreated'] = $logRow['dateCreated']->format('Y-m-d H:i:s');
+            }else{
+                $data[$key]['dateCreated'] = "";
+            }
         }
 
         return $data;
@@ -58,16 +64,22 @@ class LogOperationsController extends AbstractTableController
         switch ($status) {
             case Status::WITHDRAW_FAILED :
                 return $this->translator->trans('withdraw.request.failed');
+            case Status::WITHDRAW_NEGATIVE :
+                return $this->translator->trans('withdraw.request.negative');
             case Status::WITHDRAW_CANCELED :
                 return $this->translator->trans('withdraw.request.canceled');
             case Status::WITHDRAW_REQUESTED :
                 return $this->translator->trans('withdraw.request.requested');
             case Status::TRANSFER_FAILED :
                 return $this->translator->trans('transfer.request.failed');
+            case Status::TRANSFER_NEGATIVE :
+                return $this->translator->trans('transfer.request.negative');
             case Status::TRANSFER_SUCCESS :
                 return $this->translator->trans('transfer.request.success');
             case Status::WITHDRAW_SUCCESS :
                 return $this->translator->trans('withdraw.request.success');
+            case Status::ADJUSTED_OPERATIONS :
+                return $this->translator->trans('adjusted.operations');
             default:
                 return "";
         }
@@ -79,6 +91,7 @@ class LogOperationsController extends AbstractTableController
             case Status::TRANSFER_SUCCESS:
             case Status::WITHDRAW_REQUESTED:
                 return "";
+            case Status::TRANSFER_FAILED:
             case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_CANCELED:
