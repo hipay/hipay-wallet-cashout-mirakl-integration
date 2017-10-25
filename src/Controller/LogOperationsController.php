@@ -48,6 +48,12 @@ class LogOperationsController extends AbstractTableController
                 "label" => $this->getStatusLabel($logRow['statusWithDrawal']),
                 "button" => $this->getStatusMessage($logRow['statusWithDrawal'], $logRow)
             );
+
+            if($logRow['dateCreated'] !== null){
+                $data[$key]['dateCreated'] = $logRow['dateCreated']->format('Y-m-d H:i:s');
+            }else{
+                $data[$key]['dateCreated'] = "";
+            }
         }
 
         return $data;

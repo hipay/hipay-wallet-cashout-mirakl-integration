@@ -92,3 +92,4 @@ update.all.app: Mettre à jour
 update.library.patch: "Mettez à jour la librarie de l'application library (MàJ de sécurité)"
 dbms.not.mysql: Votre SGBD n'est pas MySQL, il n'y aura pas de sauvegarde de la BDD. Merci de sauvegarder votre BDD avant de mettre à jour l'application.
 generate.operation: Générer les opérations
+amount.origin: "Montant d'origine"

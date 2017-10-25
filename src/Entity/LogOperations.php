@@ -74,6 +74,13 @@ class LogOperations implements LogOperationsInterface
     protected $amount;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(type="float", unique=false, nullable=true)
+     */
+    protected $originAmount;
+
+    /**
      * @var int
      * @ORM\Column(type="integer", unique=false, nullable=true)
      */
@@ -104,13 +111,15 @@ class LogOperations implements LogOperationsInterface
      * @param int $miraklId
      * @param int $hipayId
      */
-    public function __construct($miraklId, $hipayId, $paymentVoucher, $amount, $balance)
+    public function __construct($miraklId, $hipayId, $paymentVoucher, $amount, $originAmount, $balance)
     {
         $this->miraklId = $miraklId;
         $this->hipayId = $hipayId;
         $this->paymentVoucher = $paymentVoucher;
         $this->amount = $amount;
+        $this->originAmount = $originAmount;
         $this->balance = $balance;
+        $this->dateCreated = new DateTime();
     }
 
     /**
@@ -224,4 +233,61 @@ class LogOperations implements LogOperationsInterface
     {
         $this->balance = $balance;
     }
+
+    /**
+     *
+     * @param type $paymentVoucher
+     */
+    function setPaymentVoucher($paymentVoucher)
+    {
+        $this->paymentVoucher = $paymentVoucher;
+    }
+
+    /**
+     *
+     * @param DateTime $dateCreated
+     */
+    function setDateCreated(DateTime $dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+    }
+    
+    /**
+     *
+     * @return type
+     */
+    function getPaymentVoucher()
+    {
+        return $this->paymentVoucher;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    function getAmountOrigin()
+    {
+        return $this->amountOrigin;
+    }
+
+    /**
+     *
+     * @param type $amountOrigin
+     */
+    function setAmountOrigin($amountOrigin)
+    {
+        $this->amountOrigin = $amountOrigin;
+    }
+
+
+
 }

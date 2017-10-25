@@ -94,3 +94,4 @@ dbms.not.mysql: Your dbms is not MySQL, no database backup will be done. Please 
 update: Update
 updating.process.will.start: Updating process will start in few seconds
 generate.operation: Generate operations
+amount.origin: Origin amount
