@@ -65,6 +65,9 @@ withdraw.request.requested: OK (requested)
 withdraw.request.failed: KO (failed)
 withdraw.request.cancel: KO (cancel)
 withdraw.request.success: OK
+withdraw.request.negative: KO (Insufficient funds)
+transfer.request.negative: KO (Insufficient funds)
+adjusted.operations: OK (Adjusted)
 payment.order.id: Payment order Id
 amount: Amount
 balance: Balance

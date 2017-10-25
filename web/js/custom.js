@@ -112,14 +112,14 @@
                             }
                 },
                 "createdRow": function (row, data, index) {
-                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8) {
+                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8 || data.statusWithDrawal.status == -11) {
                         $('td', row).eq(5).addClass('danger');
-                    } else if (data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5) {
+                    } else if (data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5 || data.statusWithDrawal.status == 2) {
                         $('td', row).eq(5).addClass('success');
                     }
-                    if (data.statusTransferts.status == -9) {
+                    if (data.statusTransferts.status == -9  || data.statusTransferts.status == -10 ) {
                         $('td', row).eq(4).addClass('danger');
-                    } else if (data.statusTransferts.status == 3) {
+                    } else if (data.statusTransferts.status == 3 || data.statusTransferts.status == 2) {
                         $('td', row).eq(4).addClass('success');
                     }
                 },
