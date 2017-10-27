@@ -48,6 +48,25 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     }
 
 
+    public function findNegativeOperations($hipayId){
+
+        $status = new Status(Status::ADJUSTED_OPERATIONS);
+
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder->select('a')
+                     ->from($this->_entityName, 'a')
+                     ->where($queryBuilder->expr()->lte('a.amount', 0))
+                     ->andWhere($queryBuilder->expr()->eq('a.hipayId', $hipayId))
+                     ->andWhere($queryBuilder->expr()->neq('a.status', $status->getValue()))
+            ;
+
+        $query = $queryBuilder->getQuery();
+
+        $results = $query->getResult();
+
+        return $results;
+    }
+
 
     /**
      * Finds operations

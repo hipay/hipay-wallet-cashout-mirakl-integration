@@ -1,9 +1,9 @@
 body {
-  padding-top: 50px;
+    padding-top: 50px;
 }
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
+    padding: 40px 15px;
+    text-align: center;
 }
 .loader-document{
     margin : auto;
@@ -12,4 +12,12 @@ body {
 
 #filter select{
     font-size: 13px;
+}
+
+#update-stream{
+    white-space: pre-wrap;
+    overflow: scroll;
+    max-height: 300px;
+    background-color: black;
+    color: white;
 }

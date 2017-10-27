@@ -65,6 +65,9 @@ withdraw.request.requested: OK (requested)
 withdraw.request.failed: KO (failed)
 withdraw.request.cancel: KO (cancel)
 withdraw.request.success: OK
+withdraw.request.negative: KO (Insufficient funds)
+transfer.request.negative: KO (Insufficient funds)
+adjusted.operations: OK (Adjusted)
 payment.order.id: Payment order Id
 amount: Amount
 balance: Balance
@@ -79,3 +82,16 @@ wallet.account.creation: Wallet account creation
 rerun: Rerun
 show.details: Show details
 export.csv: Export to CSV
+app.update: Update application
+sufficient.right: You have insufficient right on the application files and folders. Update can't be done
+commands.execute: To give sufficient right you can perform the following commands
+everything.up.to.date: Everything is up to date
+update.available: Update available
+update.app.latest: Update your application to the latest version
+update.all.app: Update
+update.library.patch: Update application library to the latest security patch
+dbms.not.mysql: Your dbms is not MySQL, no database backup will be done. Please backup our database on your own before updating
+update: Update
+updating.process.will.start: Updating process will start in few seconds
+generate.operation: Generate operations
+amount.origin: Origin amount

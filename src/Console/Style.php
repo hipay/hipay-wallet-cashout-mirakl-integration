@@ -1,4 +1,5 @@
 <?php
+
 namespace HiPay\Wallet\Mirakl\Integration\Console;
 
 use Symfony\Component\Console\Helper\Helper;
@@ -33,10 +34,15 @@ class Style extends SymfonyStyle
      */
     public function subSection($message)
     {
-        $this->writeln(array(
-            sprintf('<comment>%s</comment>', $message),
-            sprintf('<comment>%s</comment>', str_repeat('.', Helper::strlenWithoutDecoration($this->getFormatter(), $message))),
-        ));
+        $this->writeln(
+            array(
+                sprintf('<comment>%s</comment>', $message),
+                sprintf(
+                    '<comment>%s</comment>',
+                    str_repeat('.', Helper::strlenWithoutDecoration($this->getFormatter(), $message))
+                ),
+            )
+        );
         $this->newLine();
     }
 }

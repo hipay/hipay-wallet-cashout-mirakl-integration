@@ -3,7 +3,7 @@
 namespace HiPay\Wallet\Mirakl\Integration\Command\Cashout;
 
 use Exception;
-use HiPay\Wallet\Mirakl\Cashout\Processor as CashoutProcessor;
+use HiPay\Wallet\Mirakl\Cashout\Transfer as TransferProcessor;
 use HiPay\Wallet\Mirakl\Integration\Command\AbstractCommand;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,20 +11,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 use HiPay\Wallet\Mirakl\Integration\Entity\Batch;
 use HiPay\Wallet\Mirakl\Integration\Entity\BatchRepository;
 
-/**
- * File ProcessCommand.php
- *
- * @author    Ivanis Kouamé <ivanis.kouame@smile.fr>
- * @copyright 2015 Smile
- */
-class ProcessCommand extends AbstractCommand
+
+class TransferCommand extends AbstractCommand
 {
-    /** @var  CashoutProcessor */
-    protected $processor;
+
+    protected $transferProcessor;
 
     protected $batchManager;
 
-    public function __construct(LoggerInterface $logger, BatchRepository $batchManager, CashoutProcessor $processor)
+    public function __construct(LoggerInterface $logger, BatchRepository $batchManager, TransferProcessor $processor)
     {
         parent::__construct($logger);
         $this->processor    = $processor;
@@ -33,8 +28,8 @@ class ProcessCommand extends AbstractCommand
 
     protected function configure()
     {
-        $this->setName('cashout:process')
-            ->setDescription('Process the cashout operations');
+        $this->setName('cashout:transfer')
+             ->setDescription('Process the cashout transfer');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
