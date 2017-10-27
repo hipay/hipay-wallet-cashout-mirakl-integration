@@ -41,15 +41,25 @@ class LogVendorController extends AbstractTableController
                 "status" => $logRow['statusWalletAccount'],
                 "label" => $this->getStatusWalletAccountString($logRow['statusWalletAccount'])
             );
-            $data[$key]['document'] = array(
-                "nb" => $logRow['nbDoc'],
-                "miraklId" => $logRow['miraklId'],
-                "button" => ' <a href="#" onclick="popup_vendor_detail(' .
-                    $logRow['miraklId'] .
-                    ');"> ' .
-                    $this->translator->trans("show.details") .
-                    '</a>'
-            );
+
+            if($data[$key]['hipayId'] == -1 || $data[$key]['hipayId'] == null){
+                $data[$key]['document'] = array(
+                    "nb" => $logRow['nbDoc'],
+                    "miraklId" => $logRow['miraklId'],
+                    "button" => ''
+                );
+            }else{
+                $data[$key]['document'] = array(
+                    "nb" => $logRow['nbDoc'],
+                    "miraklId" => $logRow['miraklId'],
+                    "button" => ' <a href="#" onclick="popup_vendor_detail(' .
+                        $logRow['miraklId'] .
+                        ');"> ' .
+                        $this->translator->trans("show.details") .
+                        '</a>'
+                );
+            }
+
             $data[$key]['status'] = array(
                 "status" => $logRow['status'],
                 "label" => $this->getStatusString($logRow['status']),
@@ -73,7 +83,7 @@ class LogVendorController extends AbstractTableController
                     $this->translator->trans("show.message") .
                     '</button>';
             case LogVendorsInterface::CRITICAL:
-                return '<button type="button" class="btn btn-danger btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
+                return '<button type="button" class="btn btn-danger btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
                     $this->translator->trans($logRow["message"]) .
                     '" data-original-title="" title="" aria-describedby="popover846313">' .
                     $this->translator->trans("show.message") .
