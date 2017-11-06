@@ -33,7 +33,8 @@
         <div class="col-md-6">
             <div class="panel panel-default ">
                 <div class="panel-body">
-                    {{ form(form, {'action': path('login'), 'method': 'POST'}) }}
+                    {{ error }}
+                    {{ form(form, {'action': path('dashboard_login_check'), 'method': 'POST'}) }}
                 </div>
             </div>
         </div>

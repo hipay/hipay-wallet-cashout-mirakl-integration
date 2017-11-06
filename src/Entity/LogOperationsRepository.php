@@ -38,9 +38,9 @@ class LogOperationsRepository extends AbstractTableRepository implements LogOper
      *
      * @return LogOperationsInterface
      */
-    public function create($miraklId, $hipayId, $paymentVoucher, $amount, $balance)
+    public function create($miraklId, $hipayId, $paymentVoucher, $amount, $originAmount, $balance)
     {
-        $logOperations = new LogOperations($miraklId, $hipayId, $paymentVoucher, $amount, $balance);
+        $logOperations = new LogOperations($miraklId, $hipayId, $paymentVoucher, $amount, $originAmount, $balance);
         return $logOperations;
     }
 
@@ -128,7 +128,7 @@ class LogOperationsRepository extends AbstractTableRepository implements LogOper
 
     protected function getSelectString()
     {
-        return 'a.miraklId, a.hipayId, a.amount, a.statusTransferts, a.statusWithDrawal, a.message, a.balance, a.dateCreated, a.paymentVoucher';
+        return 'a.miraklId, a.hipayId, a.amount, a.originAmount, a.statusTransferts, a.statusWithDrawal, a.message, a.balance, a.dateCreated, a.paymentVoucher';
     }
 
     protected function getCountString()

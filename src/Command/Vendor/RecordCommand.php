@@ -20,7 +20,7 @@ class RecordCommand extends AbstractCommand
     const MIRAKLID = 'miraklId';
 
     /** @var  Processor */
-    protected $processor;
+    protected $vendorProcessor;
 
     /**
      * RecordCommand constructor.
@@ -44,7 +44,7 @@ class RecordCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $this->processor->recordVendor($input->getArgument(self::EMAIL), $input->getArgument(self::MIRAKLID));
+            $this->vendorProcessor->recordVendor($input->getArgument(self::EMAIL), $input->getArgument(self::MIRAKLID));
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage());
         }

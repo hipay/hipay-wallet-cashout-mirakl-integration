@@ -7,6 +7,10 @@ NC='\033[0m'
 
 /var/www/html/docker/scripts/setup.sh
 
+chown www-data:www-data -Rf /var/www/html/
+
+chmod 755 -Rf /var/www/html/
+
 chmod 777 -Rf /var/www/html/var
 
 touch /var/log/hipay.log

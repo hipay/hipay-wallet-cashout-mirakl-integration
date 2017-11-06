@@ -1,0 +1,52 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <div class="starter-template">
+        <h1>{{ 'update'|trans }}</h1>
+    </div>
+    <div class="row">
+        <div id="update-stream" class="well bs-component col-lg-10 col-lg-offset-1">
+            <div class="alert alert-dismissible alert-info">{{ 'updating.process.will.start'|trans }}</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        
+        {% if choice == 'integration' %}
+            var url = '{{ path('update-integration-ajax') }}';
+        {% else %}
+            var url = '{{ path('update-library-ajax') }}';
+        {% endif %}
+        
+        var last_response_len = false;
+         console.log('Request Sent');
+        $.ajax(url, {
+            method: 'POST',
+            xhrFields: {
+                onprogress: function (e)
+                {
+                    var this_response, response = e.currentTarget.response;
+                    if (last_response_len === false)
+                    {
+                        this_response = response;
+                        last_response_len = response.length;
+                    } else
+                    {
+                        this_response = response.substring(last_response_len);
+                        last_response_len = response.length;
+                    }
+                    $('#update-stream').html($('#update-stream').html()+this_response);
+                    $('#update-stream').animate({ scrollTop: $('#update-stream').prop("scrollHeight") - $('#update-stream').height() }, 10);
+                }
+            }
+        })
+                .done(function (data)
+                {
+                    console.log('Complete response = ' + data);
+                })
+                .fail(function (data)
+                {
+                    console.log('Error: ', data);
+                });
+        console.log('Request Sent');
+    </script>
+{% endblock %}

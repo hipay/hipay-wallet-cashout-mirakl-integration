@@ -102,6 +102,26 @@ class Operation implements OperationInterface
     protected $withdrawnAmount;
 
     /**
+     * @var float
+     * @ORM\Column(type="float", unique=false, nullable=true)
+     */
+    protected $originAmount;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime", unique=false, nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=false, nullable=true)
+     */
+    protected $adjustmentIds;
+
+    /**
      * @return float
      */
     public function getWithdrawnAmount()
@@ -275,4 +295,60 @@ class Operation implements OperationInterface
     {
         $this->withdrawnAmount = $amount;
     }
+
+    /**
+     *
+     * @return float
+     */
+    function getOriginAmount()
+    {
+        return $this->originAmount;
+    }
+
+    /**
+     *
+     * @param float $originAmount
+     */
+    function setOriginAmount($originAmount)
+    {
+        $this->originAmount = $originAmount;
+    }
+    
+    /**
+     *
+     * @return Datetime
+     */
+    function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * 
+     * @param DateTime $createdAt
+     */
+    function setCreatedAt(DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     *
+     * @return int
+     */
+    function getAdjustmentIds()
+    {
+        return $this->adjustmentIds;
+    }
+
+    /**
+     *
+     * @param string $adjustmentId
+     */
+    function setAdjustmentIds($adjustmentIds)
+    {
+        $this->adjustmentIds = $adjustmentIds;
+    }
+
+
 }
