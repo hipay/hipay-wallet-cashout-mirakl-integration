@@ -1,3 +1,9 @@
+# Version 3.0.0
+- Switch from TL01 Mirakl API to IV01
+- Add negative operations adjustment process
+- Add application update from GUI
+- Code refactoring
+
 # Version 2.6.0
 - Add new command to recover logs from past vendors
 - Add parameters to call REST api instead of soap
