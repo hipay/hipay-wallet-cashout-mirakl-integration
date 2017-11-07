@@ -18,7 +18,7 @@
                     {{document.status_label}}
                 </td>
                 <td>
-                    -
+                    {%if document.message is defined %} {{document.message}} {%else%} - {%endif%}
                 </td>
             </tr>
         {%endfor%}
