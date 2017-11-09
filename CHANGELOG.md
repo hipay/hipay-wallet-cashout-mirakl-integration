@@ -1,3 +1,6 @@
+# Version 3.0.1
+- Fix refused message not displayed (KYC status)
+
 # Version 3.0.0
 - Switch from TL01 Mirakl API to IV01
 - Add negative operations adjustment process
