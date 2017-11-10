@@ -14,6 +14,7 @@ namespace HiPay\Wallet\Mirakl\Integration\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Guzzle\Http\Client;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 class SettingController
 {
@@ -52,15 +53,24 @@ class SettingController
 
         $isWritable = $this->is_writable_r(__DIR__.'/../../');
 
-        $updateLibrary = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
-            dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
-        );
+        $githubRateLimit = false;
 
-        $updateIntegration = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
-            dirname(__FILE__).'/../../composer.json'
-        );
+        try{
+            $updateLibrary = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
+                dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
+            );
+
+            $updateIntegration = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
+                dirname(__FILE__).'/../../composer.json'
+            );
+
+        }catch(ClientErrorResponseException $e){
+            $updateLibrary = false;
+            $updateIntegration = false;
+            $githubRateLimit = true;
+        }
 
         return $this->twig->render(
                 'pages/settings.twig',
@@ -70,6 +80,7 @@ class SettingController
                 'isWritable' => $isWritable,
                 'updateLibrary' => $updateLibrary,
                 'updateIntegration' => $updateIntegration,
+                'githubRateLimit' => $githubRateLimit,
                 'dbms' => $this->parameters['db.driver']
                 )
         );
@@ -88,17 +99,25 @@ class SettingController
 
         $isWritable = $this->is_writable_r(__DIR__.'/../../');
 
+        $githubRateLimit = false;
+
         $form->handleRequest($request);
+        
+        try{
+            $updateLibrary = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
+                dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
+            );
 
-        $updateLibrary = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
-            dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
-        );
-
-        $updateIntegration = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
-            dirname(__FILE__).'/../../composer.json'
-        );
+            $updateIntegration = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
+                dirname(__FILE__).'/../../composer.json'
+            );
+        }catch(ClientErrorResponseException $e){
+            $updateLibrary = false;
+            $updateIntegration = false;
+            $githubRateLimit = true;
+        }
 
         $success = false;
 
@@ -118,6 +137,7 @@ class SettingController
                 'version' => $versions,
                 'isWritable' => $isWritable,
                 'updateLibrary' => $updateLibrary,
+                'githubRateLimit' => $githubRateLimit,
                 'updateIntegration' => $updateIntegration
                 )
         );
@@ -292,6 +312,7 @@ class SettingController
         $request = $client->get($url);
 
         $response = $request->send();
+
 
         $latestVersion = $response->json();
 
