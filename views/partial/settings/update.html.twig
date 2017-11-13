@@ -6,12 +6,12 @@
                 <h2>{{'app.update'|trans}}</h2>
                 {% if not githubTokenIsSet %}
                     <div class="alert alert-danger">
-                        <p>{{'github.token.not.set'|trans}}</p>
+                        <p>{{'github.token.not.set'|trans}} <a href="https://developer.hipay.com/doc/hipay-marketplace-cashout-mirakl-integration/#update-prerequisites">{{'hipay.doc'|trans}}</a></p>
                         <p></p>
                     </div>
                 {% elseif githubRateLimit %}
                     <div class="alert alert-danger">
-                        <p>{{'github.rate.limit'|trans}}</p>
+                        <p>{{'github.rate.limit'|trans}} <a href="https://developer.hipay.com/doc/hipay-marketplace-cashout-mirakl-integration/#update-prerequisites">{{'hipay.doc'|trans}}</a></p>
                         <p></p>
                     </div>
                 {%elseif isWritable %}

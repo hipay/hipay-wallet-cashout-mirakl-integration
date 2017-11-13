@@ -49,7 +49,7 @@ class SettingController
     public function indexAction()
     {
         $reRunForm = $this->generateReRunForm();
-        
+
         $settingsForm = $this->generateSettingsForm();
 
         $versions = $this->getVersions();
@@ -94,7 +94,7 @@ class SettingController
     }
 
     /**
-     * Handle batch Form 
+     * Handle batch Form
      * @param Request $request
      * @return type
      */
@@ -109,22 +109,6 @@ class SettingController
         $settingsForm->handleRequest($request);
 
         $githubRateLimit = false;
-
-        try{
-            $updateLibrary = $this->updateAvailable(
-                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
-                dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
-            );
-
-            $updateIntegration = $this->updateAvailable(
-                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
-                dirname(__FILE__).'/../../composer.json'
-            );
-        }catch(ClientErrorResponseException $e){
-            $updateLibrary = false;
-            $updateIntegration = false;
-            $githubRateLimit = true;
-        }
 
         $success = false;
 
@@ -142,6 +126,22 @@ class SettingController
 
             $this->parameters->offsetSet('github.token', $data['token']);
             $this->parameters->saveAll();
+        }
+
+        try{
+            $updateLibrary = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
+                dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
+            );
+
+            $updateIntegration = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
+                dirname(__FILE__).'/../../composer.json'
+            );
+        }catch(ClientErrorResponseException $e){
+            $updateLibrary = false;
+            $updateIntegration = false;
+            $githubRateLimit = true;
         }
 
         $versions = $this->getVersions();
