@@ -48,48 +48,12 @@ class SettingController
      */
     public function indexAction()
     {
-        $reRunForm = $this->generateReRunForm();
 
-        $settingsForm = $this->generateSettingsForm();
-
-        $versions = $this->getVersions();
-
-        $isWritable = $this->is_writable_r(__DIR__.'/../../');
-
-        $githubRateLimit = false;
-
-        $githubTokenIsSet = ( $this->parameters->offsetExists('github.token') && !empty($this->parameters->offsetGet('github.token')) );
-
-        try{
-            $updateLibrary = $this->updateAvailable(
-                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
-                dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
-            );
-
-            $updateIntegration = $this->updateAvailable(
-                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
-                dirname(__FILE__).'/../../composer.json'
-            );
-
-        }catch(ClientErrorResponseException $e){
-            $updateLibrary = false;
-            $updateIntegration = false;
-            $githubRateLimit = true;
-        }
+        $params = $this->getDefaultSettingsParams();
 
         return $this->twig->render(
                 'pages/settings.twig',
-                array(
-                'reRunForm' => $reRunForm->createView(),
-                'settingsForm' => $settingsForm->createView(),
-                'version' => $versions,
-                'isWritable' => $isWritable,
-                'updateLibrary' => $updateLibrary,
-                'updateIntegration' => $updateIntegration,
-                'githubRateLimit' => $githubRateLimit,
-                'githubTokenIsSet' => $githubTokenIsSet,
-                'dbms' => $this->parameters['db.driver']
-                )
+                $params
         );
     }
 
@@ -108,12 +72,10 @@ class SettingController
 
         $settingsForm->handleRequest($request);
 
-        $githubRateLimit = false;
-
         $success = false;
 
         if ($reRunForm->isValid()) {
-            $success = true;
+            $successRerun = true;
             $data    = $reRunForm->getData();
             foreach ($data["batch"] as $command) {
                 shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
@@ -121,48 +83,21 @@ class SettingController
         }
 
         if ($settingsForm->isValid()) {
-            $success = true;
+            $successSettings = true;
             $data    = $settingsForm->getData();
 
             $this->parameters->offsetSet('github.token', $data['token']);
             $this->parameters->saveAll();
         }
 
-        try{
-            $updateLibrary = $this->updateAvailable(
-                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
-                dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
-            );
+        $params = $this->getDefaultSettingsParams();
+        $params['successReRun'] = $successRerun;
+        $params['successSettings'] = $successSettings;
 
-            $updateIntegration = $this->updateAvailable(
-                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
-                dirname(__FILE__).'/../../composer.json'
-            );
-        }catch(ClientErrorResponseException $e){
-            $updateLibrary = false;
-            $updateIntegration = false;
-            $githubRateLimit = true;
-        }
-
-        $versions = $this->getVersions();
-
-        $isWritable = $this->is_writable_r(__DIR__.'/../../');
-
-        $githubTokenIsSet = ( $this->parameters->offsetExists('github.token') && !empty($this->parameters->offsetGet('github.token')) );
 
         return $this->twig->render(
                 'pages/settings.twig',
-                array(
-                'reRunForm' => $reRunForm->createView(),
-                'settingsForm' => $settingsForm->createView(),
-                'success' => $success,
-                'version' => $versions,
-                'isWritable' => $isWritable,
-                'updateLibrary' => $updateLibrary,
-                'githubRateLimit' => $githubRateLimit,
-                'githubTokenIsSet' => $githubTokenIsSet,
-                'updateIntegration' => $updateIntegration
-                )
+                $params
         );
     }
 
@@ -214,6 +149,51 @@ class SettingController
         echo '<div class="alert alert-dismissible alert-success">Success</div>';
 
         return new RedirectResponse($this->urlGenerator->generate("settings"), 302);
+    }
+
+    /**
+     * set default twig variables for settings page
+     * @return Array
+     */
+    private function getDefaultSettingsParams(){
+        $reRunForm = $this->generateReRunForm();
+
+        $settingsForm = $this->generateSettingsForm();
+
+        $versions = $this->getVersions();
+
+        $isWritable = $this->is_writable_r(__DIR__.'/../../');
+
+        $githubRateLimit = false;
+
+        $githubTokenIsSet = ( $this->parameters->offsetExists('github.token') && !empty($this->parameters->offsetGet('github.token')) );
+
+        try{
+            $updateLibrary = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
+                dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
+            );
+
+            $updateIntegration = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
+                dirname(__FILE__).'/../../composer.json'
+            );
+
+        }catch(ClientErrorResponseException $e){
+            $updateLibrary = false;
+            $updateIntegration = false;
+            $githubRateLimit = true;
+        }
+         return array(
+                'reRunForm' => $reRunForm->createView(),
+                'settingsForm' => $settingsForm->createView(),
+                'version' => $versions,
+                'isWritable' => $isWritable,
+                'updateLibrary' => $updateLibrary,
+                'githubRateLimit' => $githubRateLimit,
+                'githubTokenIsSet' => $githubTokenIsSet,
+                'updateIntegration' => $updateIntegration
+                );
     }
 
     /**

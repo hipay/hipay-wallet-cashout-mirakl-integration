@@ -20,9 +20,9 @@
             </div>
             <div class="col-lg-12">
                 <p>
-                    {% if success is defined  and success == true %}
+                    {% if successSettings is defined  and successSettings == true %}
                     <div class="alert alert-dismissible alert-success">
-                        <strong>{{'success'|trans}}</strong> {{'success.description'|trans}}.
+                        <strong>{{'success'|trans}}</strong> {{'success.settings.description'|trans}}.
                     </div>
                 {%endif%}
                 </p>

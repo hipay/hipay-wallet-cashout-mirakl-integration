@@ -98,3 +98,4 @@ github.rate.limit: "Vous avez atteint la limite de requête à l'API Github. Mer
 hipay.doc: documentation HiPay 
 github.token.not.set: Vous devez renseigner un token Github pour accéder à la fonctionnalité de mise à jour. Pour créer un token github voir la 
 save: Sauvegarder
+success.settings.description: Informations sauvegardées
