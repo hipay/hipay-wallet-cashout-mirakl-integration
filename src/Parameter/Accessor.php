@@ -14,6 +14,8 @@ class Accessor implements ArrayAccess
      */
     protected $parameters;
 
+    protected $parametersFilePath;
+
     /**
      * ParameterAccessor constructor.
      * @param $parametersFilePath
@@ -23,6 +25,7 @@ class Accessor implements ArrayAccess
         $yaml = file_get_contents($parametersFilePath);
         $this->parameters = Yaml::parse($yaml);
         $this->parameters = reset($this->parameters);
+        $this->parametersFilePath = $parametersFilePath;
     }
 
     /**
@@ -85,5 +88,14 @@ class Accessor implements ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->parameters[$offset]);
+    }
+
+    public function saveAll(){
+
+        $newParameters = array('parameters' => $this->parameters);
+
+        $newParametersYaml = Yaml::dump($newParameters);
+
+        file_put_contents($this->parametersFilePath, $newParametersYaml);
     }
 }
