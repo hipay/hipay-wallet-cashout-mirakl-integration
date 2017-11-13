@@ -24,14 +24,15 @@ class SettingController
     protected $parameters;
     protected $urlGenerator;
 
-    /**
-     *
-     * @param type $formBuilder
-     * @param \Twig_Environment $twig
-     * @param type $translator
-     * @param type $parameters
-     * @param type $urlGenerator
-     */
+   /**
+    *
+    * @param type $formBuilder
+    * @param \Twig_Environment $twig
+    * @param type $translator
+    * @param type $parameters
+    * @param type $urlGenerator
+    * @param type $parameters
+    */
     public function __construct($formBuilder, \Twig_Environment $twig, $translator, $parameters, $urlGenerator)
     {
         $this->formBuilder = $formBuilder;
@@ -47,13 +48,17 @@ class SettingController
      */
     public function indexAction()
     {
-        $form = $this->generateForm();
+        $reRunForm = $this->generateReRunForm();
+        
+        $settingsForm = $this->generateSettingsForm();
 
         $versions = $this->getVersions();
 
         $isWritable = $this->is_writable_r(__DIR__.'/../../');
 
         $githubRateLimit = false;
+
+        $githubTokenIsSet = ( $this->parameters->offsetExists('github.token') && !empty($this->parameters->offsetGet('github.token')) );
 
         try{
             $updateLibrary = $this->updateAvailable(
@@ -75,12 +80,14 @@ class SettingController
         return $this->twig->render(
                 'pages/settings.twig',
                 array(
-                'form' => $form->createView(),
+                'reRunForm' => $reRunForm->createView(),
+                'settingsForm' => $settingsForm->createView(),
                 'version' => $versions,
                 'isWritable' => $isWritable,
                 'updateLibrary' => $updateLibrary,
                 'updateIntegration' => $updateIntegration,
                 'githubRateLimit' => $githubRateLimit,
+                'githubTokenIsSet' => $githubTokenIsSet,
                 'dbms' => $this->parameters['db.driver']
                 )
         );
@@ -93,16 +100,16 @@ class SettingController
      */
     public function reRunAction(Request $request)
     {
-        $form = $this->generateForm();
+        $reRunForm = $this->generateReRunForm();
 
-        $versions = $this->getVersions();
+        $settingsForm = $this->generateSettingsForm();
 
-        $isWritable = $this->is_writable_r(__DIR__.'/../../');
+        $reRunForm->handleRequest($request);
+
+        $settingsForm->handleRequest($request);
 
         $githubRateLimit = false;
 
-        $form->handleRequest($request);
-        
         try{
             $updateLibrary = $this->updateAvailable(
                 '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
@@ -121,23 +128,39 @@ class SettingController
 
         $success = false;
 
-        if ($form->isValid()) {
+        if ($reRunForm->isValid()) {
             $success = true;
-            $data    = $form->getData();
+            $data    = $reRunForm->getData();
             foreach ($data["batch"] as $command) {
                 shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
             }
         }
 
+        if ($settingsForm->isValid()) {
+            $success = true;
+            $data    = $settingsForm->getData();
+
+            $this->parameters->offsetSet('github.token', $data['token']);
+            $this->parameters->saveAll();
+        }
+
+        $versions = $this->getVersions();
+
+        $isWritable = $this->is_writable_r(__DIR__.'/../../');
+
+        $githubTokenIsSet = ( $this->parameters->offsetExists('github.token') && !empty($this->parameters->offsetGet('github.token')) );
+
         return $this->twig->render(
                 'pages/settings.twig',
                 array(
-                'form' => $form->createView(),
+                'reRunForm' => $reRunForm->createView(),
+                'settingsForm' => $settingsForm->createView(),
                 'success' => $success,
                 'version' => $versions,
                 'isWritable' => $isWritable,
                 'updateLibrary' => $updateLibrary,
                 'githubRateLimit' => $githubRateLimit,
+                'githubTokenIsSet' => $githubTokenIsSet,
                 'updateIntegration' => $updateIntegration
                 )
         );
@@ -238,7 +261,7 @@ class SettingController
      *
      * @return type
      */
-    private function generateForm()
+    private function generateReRunForm()
     {
 
         $default = array(
@@ -266,6 +289,40 @@ class SettingController
                 array(
                 'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
                 'label' => $this->translator->trans('rerun')
+                )
+            )
+            ->getForm();
+
+        return $form;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    private function generateSettingsForm()
+    {
+
+        $default = array(
+            'token' => $this->parameters->offsetGet('github.token'),
+            'send' => false
+        );
+
+        $form = $this->formBuilder->createBuilder('form', $default)
+            ->add(
+                'token',
+                'text',
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Github token'
+                )
+            )
+            ->add(
+                'send',
+                'submit',
+                array(
+                    'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
+                    'label' => $this->translator->trans('save')
                 )
             )
             ->getForm();
@@ -309,7 +366,7 @@ class SettingController
     {
         $client = new Client('https://api.github.com');
 
-        $request = $client->get($url);
+        $request = $client->get($url.'?access_token='.$this->parameters->offsetGet('github.token'));
 
         $response = $request->send();
 
