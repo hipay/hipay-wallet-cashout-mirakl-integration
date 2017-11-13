@@ -63,7 +63,7 @@ class UpdateCommand extends Command
 
         putenv('COMPOSER_HOME='.__DIR__.'/../../../vendor/bin/composer');
 
-        system('composer config -g github-oauth.github.com'.$this->parameters['github.token']);
+        system('composer config -g github-oauth.github.com '.$this->parameters['github.token']);
 
         system('yes | composer create-project hipay/hipay-wallet-cashout-mirakl-integration '.__DIR__.'/../../../update 2>&1',$status);
 
