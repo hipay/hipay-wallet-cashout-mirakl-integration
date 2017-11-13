@@ -31,7 +31,6 @@ class SettingController
     * @param type $translator
     * @param type $parameters
     * @param type $urlGenerator
-    * @param type $parameters
     */
     public function __construct($formBuilder, \Twig_Environment $twig, $translator, $parameters, $urlGenerator)
     {
