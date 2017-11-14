@@ -1,4 +1,6 @@
-if [ $CI_PULL_REQUESTS != "" ];then
+if [ -z "$CI_PULL_REQUESTS" ];then
+   echo "Not a pull request"
+elif [ $CI_PULL_REQUESTS != "" ];then
     echo $CI_PULL_REQUESTS
     echo $CI_PULL_REQUEST
     echo $CIRCLE_PR_NUMBER

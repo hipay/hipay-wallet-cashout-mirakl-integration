@@ -25,7 +25,7 @@ test:
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
     - sudo chmod -R 766 ./docker/config
   post:
-    - sh ./bin/deployment/sonar.sh
+    - sh ./bin/deployment/sonar.sh > /dev/null
   override:
     - sleep 100
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
