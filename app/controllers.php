@@ -153,7 +153,7 @@ $app->get('/dashboard/log-batch-ajax',
 )->bind('log-batch-ajax');
 
 $app['settings.controller'] = function () use ($app) {
-    return new SettingController($app['form.factory'], $app['twig'], $app['translator'], $app['hipay.parameters'], $app['url_generator'], $app['hipay.parameters']);
+    return new SettingController($app['form.factory'], $app['twig'], $app['translator'], $app['hipay.parameters'], $app['url_generator']);
 };
 
 $app->get(

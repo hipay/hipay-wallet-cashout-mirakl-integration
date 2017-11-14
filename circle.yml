@@ -24,13 +24,15 @@ test:
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
     - sudo chmod -R 766 ./docker/config
-    
+  post:
+    - sh ./bin/deployment/sonar.sh
   override:
     - sleep 100
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
 dependencies:
   override:
     - echo "override to not run composer install"    
+    - sh ./bin/deployment/setup_sonar.sh
 deployment:
   prod:
     branch: /.*?/
