@@ -1,5 +1,5 @@
 if [ -z "$CI_PULL_REQUESTS" ];then
-   echo "Not a pull request"
+    echo "Not a pull request"
 elif [ $CI_PULL_REQUESTS != "" ];then
     echo $CI_PULL_REQUESTS
     echo $CI_PULL_REQUEST
