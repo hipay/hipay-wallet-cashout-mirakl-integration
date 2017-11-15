@@ -266,7 +266,7 @@ class SettingController
             ->add(
                 'send', 'submit',
                 array(
-                'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
+                'attr' => array('class' => 'btn btn-default btn-lg btn-block btn-hipay'),
                 'label' => $this->translator->trans('rerun')
                 )
             )
@@ -300,7 +300,7 @@ class SettingController
                 'send',
                 'submit',
                 array(
-                    'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
+                    'attr' => array('class' => 'btn btn-default btn-lg btn-block btn-hipay'),
                     'label' => $this->translator->trans('save')
                 )
             )
