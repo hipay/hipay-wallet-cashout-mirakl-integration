@@ -73,7 +73,7 @@ class LoginController
                                       'send',
                                       'submit',
                                       array(
-                                          'attr' => array('class' => 'btn btn-default')
+                                          'attr' => array('class' => 'btn btn-default btn-lg btn-block btn-hipay')
                                       )
                                   )
                                   ->getForm();
