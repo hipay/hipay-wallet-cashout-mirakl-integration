@@ -7,6 +7,7 @@ web:
   labels:
     - "com.hipay.github={label}"
     - "com.hipay.circleci={circleci}"
+    - "com.hipay.sonar={sonar}"
 db:
   container_name: {CONTAINER_NAME_MYSQL}
   ports:
