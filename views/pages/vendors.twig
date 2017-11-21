@@ -69,7 +69,7 @@
             </p>
         </div>
     </div>
-    <div class="modal" style="display:none;">
+    <div class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -101,11 +101,11 @@
                 $('.modal .modal-body').css('overflow-y', 'auto');
                 $('.modal .modal-body').css('max-height', $(window).height() * 0.7);
             });
-            $(".modal").show();
+            $(".modal").modal('toggle');
         }
         function popup_vendor_close() {
             $(".popup-vendor-document").html('<img class="loader-document" src="{{ asset('img/loading.gif') }}" />');
-            $(".modal").hide();
+            $(".modal").modal('toggle');
         }
 
         $('.modal').on('show.bs.modal', function () {
