@@ -93,7 +93,6 @@ class LogOperationsController extends AbstractTableController
                 return "";
             case Status::TRANSFER_FAILED:
             case Status::WITHDRAW_FAILED:
-            case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_CANCELED:
                 return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
                     $this->translator->trans($logRow["message"]) .

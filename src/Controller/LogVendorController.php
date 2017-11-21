@@ -88,7 +88,6 @@ class LogVendorController extends AbstractTableController
                     '" data-original-title="" title="" aria-describedby="popover846313">' .
                     $this->translator->trans("show.message") .
                     '</button>';
-            case LogVendorsInterface::CRITICAL:
         }
     }
 
