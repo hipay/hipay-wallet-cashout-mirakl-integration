@@ -31,8 +31,8 @@ jobs:
         - run: sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY/" ./docker/conf/stage/hipay.env.dist
         - run: sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY/" ./docker/conf/stage/hipay.env.dist
         - run: sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL\}/$MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL/" ./docker/conf/stage/hipay.env.dist
-        - run: sudo docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
-        - run: sudo docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
+        - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
+        - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
         - run: sudo chmod -R 766 ./docker/config
         - run: sleep 100
         - run: curl --retry 10 --retry-delay 5 -v http://localhost:8080
