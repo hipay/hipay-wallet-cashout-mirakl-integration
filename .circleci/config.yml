@@ -1,0 +1,72 @@
+version: 2
+jobs:
+    build:
+      docker:
+        - image: circleci/php:5.6.30
+      working_directory: ~/mirakl
+      steps:
+        - checkout
+        - run:
+            name: Update dependencies
+            command: sudo apt-get update
+        - run: sudo chmod u+x ./docker/entrypoint.sh
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL\}/$MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_ENTITY\}/$MIRAKL_CONNECTOR_HIPAY_ENTITY/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID\}/$MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_WS_LOGIN\}/$MIRAKL_CONNECTOR_HIPAY_WS_LOGIN/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD\}/$MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_BASE_URL\}/$MIRAKL_CONNECTOR_MIRAKL_BASE_URL/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_FRONT_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_FRONT_KEY/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY/" ./docker/conf/stage/hipay.env.dist
+        - run: sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL\}/$MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL/" ./docker/conf/stage/hipay.env.dist
+        - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
+        - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
+        - run: sudo chmod -R 766 ./docker/config
+        - run: sleep 100
+        - run: curl --retry 10 --retry-delay 5 -v http://localhost:8080
+    sonar:
+      docker:
+        - image: circleci/php:5.6.30
+      working_directory: ~/mirakl
+      steps:
+        - checkout
+        - run:
+            name: Update dependencies
+            command: sudo apt-get update
+        - run:
+            name: Install Wget
+            command: sudo apt install -y wget
+        - run:
+            name: Setup Sonar
+            command: sh ./bin/deployment/setup_sonar.sh
+        - run:
+            name: Run sonar analysis
+            command: sh ./bin/deployment/sonar.sh > /dev/null
+    deploy:
+        - checkout
+        - run:
+            name: Update dependencies
+            command: sudo apt-get update
+        - run:
+            name: Install Wget
+            command: sudo apt install -y wget
+        - run:
+            name: Install sshpass
+            command: sudo apt install -y sshpass
+        - run: sh ./bin/deployment/deploy_project.sh
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - sonar
+      - deploy:
+          requires:
+            - build
+            - sonar
