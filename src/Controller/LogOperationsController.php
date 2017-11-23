@@ -49,9 +49,9 @@ class LogOperationsController extends AbstractTableController
                 "button" => $this->getStatusMessage($logRow['statusWithDrawal'], $logRow)
             );
 
-            if($logRow['dateCreated'] !== null){
+            if ($logRow['dateCreated'] !== null) {
                 $data[$key]['dateCreated'] = $logRow['dateCreated']->format('Y-m-d H:i:s');
-            }else{
+            } else {
                 $data[$key]['dateCreated'] = "";
             }
         }
@@ -93,9 +93,9 @@ class LogOperationsController extends AbstractTableController
                 return "";
             case Status::TRANSFER_FAILED:
             case Status::WITHDRAW_FAILED:
-            case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_CANCELED:
-                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
+                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body"'.
+                    ' data-toggle="popover" data-placement="bottom" data-content="' .
                     $this->translator->trans($logRow["message"]) .
                     '" data-original-title="" title="" >' .
                     $this->translator->trans("show.message") .
