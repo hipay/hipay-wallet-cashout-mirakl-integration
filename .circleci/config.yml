@@ -34,8 +34,7 @@ jobs:
         - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
         - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
         - run: sudo chmod -R 766 ./docker/config
-        - run: sleep 100
-        - run: curl -L --retry 20 --retry-delay 10 http://localhost:8080/web/index.php
+        - run: docker run --network container:hipay-mirakl-running appropriate/curl -L --retry 10 --retry-delay 10 --retry-connrefused http://localhost:8080/web/index.php
     sonar:
       docker:
         - image: circleci/php:5.6.30
