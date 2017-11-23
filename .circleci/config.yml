@@ -34,7 +34,7 @@ jobs:
         - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
         - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
         - run: sudo chmod -R 766 ./docker/config
-        - run: docker run --network container:hipay-mirakl-running appropriate/curl --retry 100 --retry-delay 10 --retry-connrefused http://localhost:8080/contacts/test
+        - run: docker run --network container:hipay-mirakl-running appropriate/curl --retry 20 --retry-delay 10 --retry-connrefused http://localhost:8080
         - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml logs
     sonar:
       docker:
