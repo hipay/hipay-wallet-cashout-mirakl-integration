@@ -65,9 +65,8 @@ class LogOperationsRepository extends AbstractTableRepository implements LogOper
      * @return void
      */
     public function update(
-    LogOperationsInterface $logOperations
-    )
-    {
+        LogOperationsInterface $logOperations
+    ) {
         return;
     }
 
@@ -119,10 +118,10 @@ class LogOperationsRepository extends AbstractTableRepository implements LogOper
     public function findByMiraklIdAndPaymentVoucherNumber($miraklId, $paymentVoucherNumber)
     {
         return $this->findOneBy(
-                array(
-                    'miraklId' => $miraklId,
-                    'paymentVoucher' => $paymentVoucherNumber
-                )
+            array(
+                'miraklId' => $miraklId,
+                'paymentVoucher' => $paymentVoucherNumber
+            )
         );
     }
 
@@ -141,11 +140,12 @@ class LogOperationsRepository extends AbstractTableRepository implements LogOper
 
         if (!empty($search)) {
             $queryBuilder->where(
-                    $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('a.miraklId', '?1'), $queryBuilder->expr()->like('a.hipayId', '?1')
-                    )
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->like('a.miraklId', '?1'),
+                    $queryBuilder->expr()->like('a.hipayId', '?1')
                 )
-                ->setParameter(1, '%'.$search.'%');
+            )
+                ->setParameter(1, '%' . $search . '%');
         }
 
         if (isset($custom["status-transfer"]) && $custom["status-transfer"] != -1) {

@@ -43,7 +43,8 @@ class BatchController extends AbstractTableController
                 $data[$key]['state'] = array(
                     'state' => 2,
                     'label' => $this->translator->trans('Terminé'),
-                    'button' => '<button type="button" class="btn btn-success btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
+                    'button' => '<button type="button" class="btn btn-success btn-xs vendor-notice"' .
+                        ' data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
                         $logRow["endedAt"]->format('Y-m-d H:i:s') .
                         '" data-original-title="" title="" ><i class="glyphicon glyphicon-question-sign" ></i></button>',
                 );
@@ -51,7 +52,8 @@ class BatchController extends AbstractTableController
                 $data[$key]['state'] = array(
                     'state' => -1,
                     'label' => $this->translator->trans('Erreur'),
-                    'button' => '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body" data-toggle="popover" data-placement="bottom" data-content="' .
+                    'button' => '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body"' .
+                        ' data-toggle="popover" data-placement="bottom" data-content="' .
                         htmlspecialchars($logRow["error"]) .
                         '" data-original-title="" title="" ><i class="glyphicon glyphicon-question-sign" ></i></button>',
                 );

@@ -48,17 +48,17 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     }
 
 
-    public function findNegativeOperations($hipayId){
+    public function findNegativeOperations($hipayId)
+    {
 
         $status = new Status(Status::ADJUSTED_OPERATIONS);
 
         $queryBuilder = $this->_em->createQueryBuilder();
         $queryBuilder->select('a')
-                     ->from($this->_entityName, 'a')
-                     ->where($queryBuilder->expr()->lte('a.amount', 0))
-                     ->andWhere($queryBuilder->expr()->eq('a.hipayId', $hipayId))
-                     ->andWhere($queryBuilder->expr()->neq('a.status', $status->getValue()))
-            ;
+            ->from($this->_entityName, 'a')
+            ->where($queryBuilder->expr()->lte('a.amount', 0))
+            ->andWhere($queryBuilder->expr()->eq('a.hipayId', $hipayId))
+            ->andWhere($queryBuilder->expr()->neq('a.status', $status->getValue()));
 
         $query = $queryBuilder->getQuery();
 
@@ -79,8 +79,7 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     public function findByStatusAndBeforeUpdatedAt(
         Status $status,
         DateTime $date
-    )
-    {
+    ) {
         $criteria = new Criteria();
         $exprBuilder = new ExpressionBuilder();
         $criteria->where($exprBuilder->eq('status', $status->getValue()));
@@ -133,8 +132,7 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     public function findByMiraklIdAndCycleDate(
         $miraklId,
         DateTime $date
-    )
-    {
+    ) {
         return $this->findOneBy(array("miraklId" => $miraklId, 'cycleDate' => $date));
     }
 
@@ -230,10 +228,11 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     public function setWithdrawLabelTemplate($withdrawLabelTemplate)
     {
         $this->withdrawLabelTemplate = $withdrawLabelTemplate ?
-            $withdrawLabelTemplate : $this->withdrawLabelTemplate ;
+            $withdrawLabelTemplate : $this->withdrawLabelTemplate;
     }
 
-    protected function getData(OperationInterface $operation) {
+    protected function getData(OperationInterface $operation)
+    {
         return array(
             'miraklId' => $operation->getMiraklId(),
             'amount' => round($operation->getAmount(), 2),
@@ -260,8 +259,7 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     public function findByMiraklIdAndPaymentVoucherNumber(
         $miraklId,
         $paymentVoucherNumber
-    )
-    {
+    ) {
         return $this->findBy(
             array(
                 'miraklId' => $miraklId,
@@ -270,11 +268,13 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
         );
     }
 
-    protected function getSelectString(){
+    protected function getSelectString()
+    {
         return 'a.miraklId, a.hipayId, a.paymentVoucher, a.amount';
     }
 
-    protected function getCountString(){
+    protected function getCountString()
+    {
         return 'COUNT(a.miraklId)';
     }
 
@@ -283,12 +283,12 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
 
         if (!empty($search)) {
             $queryBuilder->where(
-                    $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('a.miraklId', '?1'),
-                        $queryBuilder->expr()->like('a.hipayId','?1')
-                    )
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->like('a.miraklId', '?1'),
+                    $queryBuilder->expr()->like('a.hipayId', '?1')
                 )
-                ->setParameter(1, '%'.$search.'%');
+            )
+                ->setParameter(1, '%' . $search . '%');
         }
 
         return $queryBuilder;

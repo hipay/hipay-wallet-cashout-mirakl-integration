@@ -27,7 +27,10 @@ use HiPay\Wallet\Mirakl\Integration\Controller\LoginController;
 
 $app['log.vendors.controller'] = function () use ($app) {
     return new LogVendorController(
-        $app['log.vendors.repository'], $app['serializer'], $app['translator'], $app['twig']
+        $app['log.vendors.repository'],
+        $app['serializer'],
+        $app['translator'],
+        $app['twig']
     );
 };
 
@@ -132,7 +135,8 @@ $app->get(
  * CSV export Controller
  ****************/
 
-$app->get('/dashboard/logs.csv',
+$app->get(
+    '/dashboard/logs.csv',
     function () use ($app) {
         return $app['log.general.controller']->exportCSVAction($app['request']);
     }
@@ -146,14 +150,21 @@ $app['batch.controller'] = function () use ($app) {
     return new BatchController($app['batch.repository'], $app['serializer'], $app['translator']);
 };
 
-$app->get('/dashboard/log-batch-ajax',
+$app->get(
+    '/dashboard/log-batch-ajax',
     function () use ($app) {
         return $app['batch.controller']->ajaxAction($app['request']);
     }
 )->bind('log-batch-ajax');
 
 $app['settings.controller'] = function () use ($app) {
-    return new SettingController($app['form.factory'], $app['twig'], $app['translator'], $app['hipay.parameters'], $app['url_generator']);
+    return new SettingController(
+        $app['form.factory'],
+        $app['twig'],
+        $app['translator'],
+        $app['hipay.parameters'],
+        $app['url_generator']
+    );
 };
 
 $app->get(
@@ -164,7 +175,8 @@ $app->get(
     }
 )->bind('settings');
 
-$app->post('/dashboard/settings',
+$app->post(
+    '/dashboard/settings',
     function (Request $request) use ($app) {
 
         return $app['settings.controller']->reRunAction($request);
