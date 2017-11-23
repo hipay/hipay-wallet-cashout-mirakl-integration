@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ -z "$CIRCLE_PULL_REQUEST" ];then
     echo "Not a pull request"
 elif [ $CI_PULL_REQUESTS != "" ];then
