@@ -3,6 +3,12 @@
 #=============================================================================
 #  Use this script build hipay images and run Hipay containers
 #==============================================================================
+
+header="bin/tests/"
+pathPreFile=${header}000*/*.js
+pathLibHipay=${header}000*/*/*/*.js
+pathDir=${header}0*
+
 if [ "$1" = '' ] || [ "$1" = '--help' ];then
     printf "\n                                                                                  "
     printf "\n ================================================================================ "
@@ -57,4 +63,29 @@ fi
 
 if [ "$1" = 'logs' ];then
      docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs -f
+fi
+
+if [ "$1" = 'udpate-lib' ]; then
+   cd bin/tests/000_lib
+   bower install hipay-casperjs-lib#develop --allow-root
+fi
+
+if [ "$1" = 'test' ]; then
+
+   rm -rf bin/tests/errors/*
+   printf "Errors from previous tests cleared !\n\n"
+
+   if [ "$(ls -A ~/.local/share/Ofi\ Labs/PhantomJS/)" ]; then
+       rm -rf ~/.local/share/Ofi\ Labs/PhantomJS/*
+       printf "Cache cleared !\n\n"
+   else
+       printf "Pas de cache à effacer !\n\n"
+   fi
+
+   cd bin/tests/000_lib
+   cd ../../../;
+
+   BASE_URL="http://localhost:8080/web/index.php/dashboard"
+
+   casperjs test $pathPreFile ${pathDir}/[0-1]*/[0-9][0-9][0-9][0-9]-*.js --url=$BASE_URL --ignore-ssl-errors=true --ssl-protocol=any
 fi

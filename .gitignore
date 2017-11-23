@@ -101,3 +101,7 @@ crashlytics-build.properties
 fabric.properties
 
 /nbproject
+
+bin/tests/000_lib/bower_components
+gulpfile.ts
+node_modules/
