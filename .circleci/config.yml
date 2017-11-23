@@ -34,7 +34,6 @@ jobs:
         - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
         - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
         - run: sudo chmod -R 766 ./docker/config
-        - run: docker-compose -f docker-compose.yml -f docker-compose.stage.yml logs -f
         - run: sleep 200
         - run: curl --retry 10 --retry-delay 5 -v http://localhost:8080
     sonar:
