@@ -3,7 +3,7 @@ machine:
     - docker
   php:
       version: 5.6.14
-test:
+dependencies:
   pre:
     - sudo apt-get install sshpass
     - sudo chmod u+x ./docker/entrypoint.sh
@@ -30,16 +30,20 @@ test:
     - mkdir $CIRCLE_ARTIFACTS/casper_report
     - mkdir $CIRCLE_ARTIFACTS/screenshots
     - sudo chmod -R 766 ./docker/config
-  post:
-    - sh ./bin/deployment/sonar.sh > /dev/null
+
+  override:
+    - echo "override to not run composer install"
+    - sh ./bin/deployment/setup_sonar.sh
+test:
   override:
     - sleep 100
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
     - sh bin/tests/casper_run_circle.sh
-dependencies:
-  override:
-    - echo "override to not run composer install"    
-    - sh ./bin/deployment/setup_sonar.sh
+    - sh ./bin/docker/report-test.sh
+  post:
+    - sh ./bin/deployment/sonar.sh > /dev/null
+    - cp bin/tests/report*.html $CIRCLE_ARTIFACTS/casper_report/
+
 deployment:
   prod:
     branch: /.*?/
