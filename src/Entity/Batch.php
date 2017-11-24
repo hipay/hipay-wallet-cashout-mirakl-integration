@@ -26,6 +26,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Batch
 {
+
+    const const2 = "bar";
+
     /**
      * @var int
      *
