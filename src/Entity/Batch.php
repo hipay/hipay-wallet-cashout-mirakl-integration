@@ -28,6 +28,7 @@ class Batch
 {
 
     const const2 = "bar";
+    const const3= "foo";
 
     /**
      * @var int
