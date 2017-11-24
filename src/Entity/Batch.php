@@ -95,6 +95,10 @@ class Batch
         $this->error = $error;
     }
 
+    function test(){
+        return "test";
+    }
+
     /**
      * @ORM\PrePersist
      */
