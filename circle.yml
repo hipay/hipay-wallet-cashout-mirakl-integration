@@ -35,8 +35,7 @@ test:
   override:
     - sleep 100
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
-    - case $CIRCLE_NODE_INDEX in 0) sh bin/tests/casper_run_circle.sh  0 ;; 1) sh bin/tests/casper_run_circle.sh 1 ;; esac:
-            parallel: true
+    - sh bin/tests/casper_run_circle.sh
 dependencies:
   override:
     - echo "override to not run composer install"    
