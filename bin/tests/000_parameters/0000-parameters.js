@@ -3,7 +3,7 @@ var fs = require('fs'),
     x = require('casper').selectXPath,
     defaultViewPortSizes = {width: 1920, height: 1080},
     baseURL = casper.cli.get('url'),
-    headerModule = "../../Modules/",
+    headerModule = "../../modules/",
     authentification = require(headerModule + 'step-authentification');
 
 casper.test.begin('Parameters', function(test) {

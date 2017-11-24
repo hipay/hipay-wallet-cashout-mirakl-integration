@@ -1,6 +1,6 @@
 exports.proceed = function proceed(test) {
     /* Connection to prestashop admin panel */
-    casper.thenOpen(baseURL , function() {
+    casper.thenOpen(baseURL+'/login' , function() {
         this.echo("Connecting to Prestashop admin panel...", "INFO");
 
         this.waitForSelector("#login", function success() {

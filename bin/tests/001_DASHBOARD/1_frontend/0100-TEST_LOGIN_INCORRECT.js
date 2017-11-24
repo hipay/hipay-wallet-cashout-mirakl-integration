@@ -1,5 +1,8 @@
-casper.test.begin('Test filling valid credentials and log ', function (test) {
+casper.test.begin('Test filling invalid credentials and log ', function (test) {
     phantom.clearCookies();
+
+    var user = 'test',
+        password = 'test';
 
     casper.start(baseURL)
         .then(function () {
@@ -7,15 +10,15 @@ casper.test.begin('Test filling valid credentials and log ', function (test) {
 
             this.waitForSelector("#login", function success() {
                 this.fillSelectors('form#login', {
-                    'input[name="_username"]': '98a3983a428dfd65f9fc0c914184e4c3',
-                    'input[name="_password"]': 'ad1f38a4b13bed5f716c9d5c51bc8c92'
+                    'input[name="_username"]': user,
+                    'input[name="_password"]': password
                 }, false);
                 this.click('#send');
-                this.waitForUrl(/dashboard\/$/, function success() {
-                    test.info("Connected");
-                    test.assertUrlMatch(/dashboard\/$/, "Connected !");
+                this.waitForUrl(/dashboard\/login$/, function success() {
+                    test.info("Not Connected");
+                    test.assertUrlMatch(/dashboard\/login$$/, "Not Connected !");
                 }, function fail() {
-                    test.assertUrlMatch(/dashboard\/login$/, "Incorrect credentials !");
+                    test.assertUrlMatch(/dashboard\/$/, "Incorrect credentials but logged anyway!");
                 }, 3000);
             }, function fail() {
                 this.waitForUrl(/dashboard\/$/, function success() {
