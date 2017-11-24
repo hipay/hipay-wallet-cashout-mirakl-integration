@@ -7,8 +7,8 @@ casper.test.begin('Test filling valid credentials and log ', function (test) {
 
             this.waitForSelector("#login", function success() {
                 this.fillSelectors('form#login', {
-                    'input[name="_username"]': '98a3983a428dfd65f9fc0c914184e4c3',
-                    'input[name="_password"]': 'ad1f38a4b13bed5f716c9d5c51bc8c92'
+                    'input[name="_username"]': admin_login,
+                    'input[name="_password"]': admin_passwd
                 }, false);
                 this.click('#send');
                 this.waitForUrl(/dashboard\/$/, function success() {
