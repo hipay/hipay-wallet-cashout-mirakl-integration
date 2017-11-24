@@ -99,3 +99,4 @@ hipay.doc: documentation HiPay
 github.token.not.set: Vous devez renseigner un token Github pour accéder à la fonctionnalité de mise à jour. Pour créer un token github voir la 
 save: Sauvegarder
 success.settings.description: Informations sauvegardées
+invalid.amount: OK

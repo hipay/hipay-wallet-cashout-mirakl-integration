@@ -80,6 +80,8 @@ class LogOperationsController extends AbstractTableController
                 return $this->translator->trans('withdraw.request.success');
             case Status::ADJUSTED_OPERATIONS :
                 return $this->translator->trans('adjusted.operations');
+            case Status::INVALID_AMOUNT :
+                return $this->translator->trans('invalid.amount');
             default:
                 return "";
         }
@@ -91,6 +93,7 @@ class LogOperationsController extends AbstractTableController
             case Status::TRANSFER_SUCCESS:
             case Status::WITHDRAW_REQUESTED:
                 return "";
+            case Status::INVALID_AMOUNT:
             case Status::TRANSFER_FAILED:
             case Status::WITHDRAW_FAILED:
             case Status::WITHDRAW_CANCELED:
