@@ -11,6 +11,7 @@ dependencies:
     - npm install -g junit-viewer
     - npm install -g bower
     - npm install -g phantomjs@2.1.1
+    - npm install -g junit-viewer
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL/" ./docker/conf/stage/hipay.env.dist
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL/" ./docker/conf/stage/hipay.env.dist
@@ -39,7 +40,7 @@ test:
     - sleep 100
     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
     - sh bin/tests/casper_run_circle.sh
-    - sh ./bin/docker/report-test.sh
+    - sh ./bin/tests/report-test.sh
   post:
     - sh ./bin/deployment/sonar.sh > /dev/null
     - cp bin/tests/report*.html $CIRCLE_ARTIFACTS/casper_report/
