@@ -238,7 +238,7 @@ class LogOperations implements LogOperationsInterface
      *
      * @param type $paymentVoucher
      */
-    function setPaymentVoucher($paymentVoucher)
+    public function setPaymentVoucher($paymentVoucher)
     {
         $this->paymentVoucher = $paymentVoucher;
     }
@@ -247,16 +247,16 @@ class LogOperations implements LogOperationsInterface
      *
      * @param DateTime $dateCreated
      */
-    function setDateCreated(DateTime $dateCreated)
+    public function setDateCreated(DateTime $dateCreated)
     {
         $this->dateCreated = $dateCreated;
     }
-    
+
     /**
      *
      * @return type
      */
-    function getPaymentVoucher()
+    public function getPaymentVoucher()
     {
         return $this->paymentVoucher;
     }
@@ -265,7 +265,7 @@ class LogOperations implements LogOperationsInterface
      *
      * @return type
      */
-    function getDateCreated()
+    public function getDateCreated()
     {
         return $this->dateCreated;
     }
@@ -274,7 +274,7 @@ class LogOperations implements LogOperationsInterface
      *
      * @return type
      */
-    function getAmountOrigin()
+    public function getAmountOrigin()
     {
         return $this->amountOrigin;
     }
@@ -283,11 +283,9 @@ class LogOperations implements LogOperationsInterface
      *
      * @param type $amountOrigin
      */
-    function setAmountOrigin($amountOrigin)
+    public function setAmountOrigin($amountOrigin)
     {
         $this->amountOrigin = $amountOrigin;
     }
-
-
-
+    
 }

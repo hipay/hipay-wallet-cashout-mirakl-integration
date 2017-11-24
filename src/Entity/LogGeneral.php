@@ -92,82 +92,82 @@ class LogGeneral
         $this->extra     = $extra;
     }
 
-    function getMiraklId()
+    public function getMiraklId()
     {
         return $this->miraklId;
     }
 
-    function getAction()
+    public function getAction()
     {
         return $this->action;
     }
 
-    function getMessage()
+    public function getMessage()
     {
         return $this->message;
     }
 
-    function getContext()
+    public function getContext()
     {
         return $this->context;
     }
 
-    function getLevel()
+    public function getLevel()
     {
         return $this->level;
     }
 
-    function getLevelName()
+    public function getLevelName()
     {
         return $this->levelName;
     }
 
-    function getExtra()
+    public function getExtra()
     {
         return $this->extra;
     }
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    function getCreatedAt()
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    function setMiraklId($miraklId)
+    public function setMiraklId($miraklId)
     {
         $this->miraklId = $miraklId;
     }
 
-    function setAction($action)
+    public function setAction($action)
     {
         $this->action = $action;
     }
 
-    function setMessage($message)
+    public function setMessage($message)
     {
         $this->message = $message;
     }
 
-    function setContext($context)
+    public function setContext($context)
     {
         $this->context = $context;
     }
 
-    function setLevel($level)
+    public function setLevel($level)
     {
         $this->level = $level;
     }
 
-    function setLevelName($levelName)
+    public function setLevelName($levelName)
     {
         $this->levelName = $levelName;
     }
 
-    function setExtra($extra)
+    public function setExtra($extra)
     {
         $this->extra = $extra;
     }

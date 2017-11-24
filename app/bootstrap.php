@@ -92,7 +92,10 @@ $app->register(
 
 $app->register(
     new MonologServiceProvider(),
-    array('log.file.path' => $app['hipay.parameters']['log.file.path'], 'db.logger.level' => $app['hipay.parameters']['db.logger.level'])
+    array(
+        'log.file.path' => $app['hipay.parameters']['log.file.path'],
+        'db.logger.level' => $app['hipay.parameters']['db.logger.level']
+    )
 );
 
 $app->register(new HipayEventDispatcherServiceProvider(), array('debug' => $app['hipay.parameters']['debug']));
@@ -144,10 +147,10 @@ $app->register(new TranslationServiceProvider());
 $app->register(
     new TwigServiceProvider(),
     array(
-        'twig.path' => __DIR__.'/../views',
-         'twig.options' => array(
-                'cache' => __DIR__.'/../var/cache'
-            )
+        'twig.path' => __DIR__ . '/../views',
+        'twig.options' => array(
+            'cache' => __DIR__ . '/../var/cache'
+        )
     )
 );
 
