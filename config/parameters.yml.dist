@@ -74,3 +74,4 @@ parameters:
   email.logger.alert.level: 300
   db.logger.level: 300
   dashboard.locale: fr
+  github.token: ~

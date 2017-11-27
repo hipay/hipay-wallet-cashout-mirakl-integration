@@ -14,6 +14,7 @@ namespace HiPay\Wallet\Mirakl\Integration\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Guzzle\Http\Client;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 class SettingController
 {
@@ -34,9 +35,9 @@ class SettingController
     public function __construct($formBuilder, \Twig_Environment $twig, $translator, $parameters, $urlGenerator)
     {
         $this->formBuilder = $formBuilder;
-        $this->twig        = $twig;
-        $this->translator  = $translator;
-        $this->parameters  = $parameters;
+        $this->twig = $twig;
+        $this->translator = $translator;
+        $this->parameters = $parameters;
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -46,80 +47,56 @@ class SettingController
      */
     public function indexAction()
     {
-        $form = $this->generateForm();
 
-        $versions = $this->getVersions();
-
-        $isWritable = $this->is_writable_r(__DIR__.'/../../');
-
-        $updateLibrary = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
-            dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
-        );
-
-        $updateIntegration = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
-            dirname(__FILE__).'/../../composer.json'
-        );
+        $params = $this->getDefaultSettingsParams();
 
         return $this->twig->render(
-                'pages/settings.twig',
-                array(
-                'form' => $form->createView(),
-                'version' => $versions,
-                'isWritable' => $isWritable,
-                'updateLibrary' => $updateLibrary,
-                'updateIntegration' => $updateIntegration,
-                'dbms' => $this->parameters['db.driver']
-                )
+            'pages/settings.twig',
+            $params
         );
     }
 
     /**
-     * Handle batch Form 
+     * Handle batch Form
      * @param Request $request
      * @return type
      */
     public function reRunAction(Request $request)
     {
-        $form = $this->generateForm();
+        $reRunForm = $this->generateReRunForm();
 
-        $versions = $this->getVersions();
+        $settingsForm = $this->generateSettingsForm();
 
-        $isWritable = $this->is_writable_r(__DIR__.'/../../');
+        $reRunForm->handleRequest($request);
 
-        $form->handleRequest($request);
-
-        $updateLibrary = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
-            dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
-        );
-
-        $updateIntegration = $this->updateAvailable(
-            '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
-            dirname(__FILE__).'/../../composer.json'
-        );
+        $settingsForm->handleRequest($request);
 
         $success = false;
 
-        if ($form->isValid()) {
-            $success = true;
-            $data    = $form->getData();
+        if ($reRunForm->isValid()) {
+            $successRerun = true;
+            $data = $reRunForm->getData();
             foreach ($data["batch"] as $command) {
                 shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
             }
         }
 
+        if ($settingsForm->isValid()) {
+            $successSettings = true;
+            $data = $settingsForm->getData();
+
+            $this->parameters->offsetSet('github.token', $data['token']);
+            $this->parameters->saveAll();
+        }
+
+        $params = $this->getDefaultSettingsParams();
+        $params['successReRun'] = $successRerun;
+        $params['successSettings'] = $successSettings;
+
+
         return $this->twig->render(
-                'pages/settings.twig',
-                array(
-                'form' => $form->createView(),
-                'success' => $success,
-                'version' => $versions,
-                'isWritable' => $isWritable,
-                'updateLibrary' => $updateLibrary,
-                'updateIntegration' => $updateIntegration
-                )
+            'pages/settings.twig',
+            $params
         );
     }
 
@@ -140,8 +117,8 @@ class SettingController
     public function updateIntegrationAjaxAction()
     {
 
-        try{
-            system('cd '.__DIR__.'/../.. && php bin/console app:update 2>&1', $status);
+        try {
+            system('cd ' . __DIR__ . '/../.. && php bin/console app:update 2>&1', $status);
 
         } catch (Exception $ex) {
             return '<div class="alert alert-dismissible alert-danger">Error</div>';
@@ -162,9 +139,12 @@ class SettingController
 
         echo '<div class="alert alert-dismissible alert-info">updating library, this may take a while </div>';
 
-        try{
-            putenv('COMPOSER_HOME='.__DIR__.'/../../vendor/bin/composer');
-            system('cd '.__DIR__.'/../.. && composer update hipay/hipay-wallet-cashout-mirakl-library 2>&1', $status);
+        try {
+            putenv('COMPOSER_HOME=' . __DIR__ . '/../../vendor/bin/composer');
+            system(
+                'cd ' . __DIR__ . '/../.. && composer update hipay/hipay-wallet-cashout-mirakl-library 2>&1',
+                $status
+            );
         } catch (Exception $ex) {
             return '<div class="alert alert-dismissible alert-danger">Error</div>';
         }
@@ -174,16 +154,64 @@ class SettingController
     }
 
     /**
+     * set default twig variables for settings page
+     * @return Array
+     */
+    private function getDefaultSettingsParams()
+    {
+        $reRunForm = $this->generateReRunForm();
+
+        $settingsForm = $this->generateSettingsForm();
+
+        $versions = $this->getVersions();
+
+        $isWritable = $this->is_writable_r(__DIR__ . '/../../');
+
+        $githubRateLimit = false;
+
+        $githubTokenIsSet = ($this->parameters->offsetExists('github.token') && !empty($this->parameters->offsetGet(
+                'github.token'
+            )));
+
+        try {
+            $updateLibrary = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-library/releases/latest',
+                dirname(__FILE__) . '/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
+            );
+
+            $updateIntegration = $this->updateAvailable(
+                '/repos/hipay/hipay-wallet-cashout-mirakl-integration/releases/latest',
+                dirname(__FILE__) . '/../../composer.json'
+            );
+
+        } catch (ClientErrorResponseException $e) {
+            $updateLibrary = false;
+            $updateIntegration = false;
+            $githubRateLimit = true;
+        }
+        return array(
+            'reRunForm' => $reRunForm->createView(),
+            'settingsForm' => $settingsForm->createView(),
+            'version' => $versions,
+            'isWritable' => $isWritable,
+            'updateLibrary' => $updateLibrary,
+            'githubRateLimit' => $githubRateLimit,
+            'githubTokenIsSet' => $githubTokenIsSet,
+            'updateIntegration' => $updateIntegration
+        );
+    }
+
+    /**
      * Return Library and Application versions
      * @return type
      */
     private function getVersions()
     {
 
-        $integration = $this->getComposerFile(dirname(__FILE__).'/../../composer.json');
+        $integration = $this->getComposerFile(dirname(__FILE__) . '/../../composer.json');
 
         $library = $this->getComposerFile(
-            dirname(__FILE__).'/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
+            dirname(__FILE__) . '/../../vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json'
         );
 
         return array(
@@ -218,7 +246,7 @@ class SettingController
      *
      * @return type
      */
-    private function generateForm()
+    private function generateReRunForm()
     {
 
         $default = array(
@@ -228,24 +256,60 @@ class SettingController
 
         $form = $this->formBuilder->createBuilder('form', $default)
             ->add(
-                'batch', 'choice',
+                'batch',
+                'choice',
                 array(
-                'choices' => array(
-                    'vendor:process' => $this->translator->trans('wallet.account.creation'),
-                    'cashout:generate' => $this->translator->trans('generate.operation'),
-                    'cashout:transfer' => $this->translator->trans('transfer'),
-                    'cashout:withdraw' => $this->translator->trans('withdraw')
-                ),
-                'attr' => array('class' => 'form-control'),
-                'multiple' => true,
-                'label' => ''
+                    'choices' => array(
+                        'vendor:process' => $this->translator->trans('wallet.account.creation'),
+                        'cashout:generate' => $this->translator->trans('generate.operation'),
+                        'cashout:transfer' => $this->translator->trans('transfer'),
+                        'cashout:withdraw' => $this->translator->trans('withdraw')
+                    ),
+                    'attr' => array('class' => 'form-control'),
+                    'multiple' => true,
+                    'label' => ''
                 )
             )
             ->add(
-                'send', 'submit',
+                'send',
+                'submit',
                 array(
-                'attr' => array('class' => 'btn btn-default btn-lg btn-block'),
-                'label' => $this->translator->trans('rerun')
+                    'attr' => array('class' => 'btn btn-default btn-lg btn-block btn-hipay'),
+                    'label' => $this->translator->trans('rerun')
+                )
+            )
+            ->getForm();
+
+        return $form;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    private function generateSettingsForm()
+    {
+
+        $default = array(
+            'token' => $this->parameters->offsetGet('github.token'),
+            'send' => false
+        );
+
+        $form = $this->formBuilder->createBuilder('form', $default)
+            ->add(
+                'token',
+                'text',
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Github token'
+                )
+            )
+            ->add(
+                'send',
+                'submit',
+                array(
+                    'attr' => array('class' => 'btn btn-default btn-lg btn-block btn-hipay'),
+                    'label' => $this->translator->trans('save')
                 )
             )
             ->getForm();
@@ -265,13 +329,13 @@ class SettingController
                 $objects = scandir($dir);
                 foreach ($objects as $object) {
                     if ($object != "." && $object != "..") {
-                        if (!$this->is_writable_r($dir."/".$object)) {
+                        if (!$this->is_writable_r($dir . "/" . $object)) {
                             return false;
                         } else continue;
                     }
                 }
                 return true;
-            }else {
+            } else {
                 return false;
             }
         } else if (file_exists($dir)) {
@@ -289,9 +353,10 @@ class SettingController
     {
         $client = new Client('https://api.github.com');
 
-        $request = $client->get($url);
+        $request = $client->get($url . '?access_token=' . $this->parameters->offsetGet('github.token'));
 
         $response = $request->send();
+
 
         $latestVersion = $response->json();
 

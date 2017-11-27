@@ -60,37 +60,37 @@ class Batch
         $this->name = $name;
     }
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    function getName()
+    public function getName()
     {
         return $this->name;
     }
 
-    function getStartedAt()
+    public function getStartedAt()
     {
         return $this->startedAt;
     }
 
-    function getEndedAt()
+    public function getEndedAt()
     {
         return $this->endedAt;
     }
 
-    function getError()
+    public function getError()
     {
         return $this->error;
     }
 
-    function setEndedAt($endedAt)
+    public function setEndedAt($endedAt)
     {
         $this->endedAt = $endedAt;
     }
 
-    function setError($error)
+    public function setError($error)
     {
         $this->error = $error;
     }
@@ -101,6 +101,6 @@ class Batch
     public function onPrePersist()
     {
         $this->startedAt = new \DateTime();
-        $this->error     = null;
+        $this->error = null;
     }
 }

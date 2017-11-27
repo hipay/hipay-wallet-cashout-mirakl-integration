@@ -28,13 +28,17 @@ class LogVendorsRecoverCommand extends AbstractCommand
     protected $logVendorsManager;
     protected $processor;
 
-    public function __construct(LoggerInterface $logger, VendorProcessor $processor, BatchRepository $batchManager,
-                                VendorRepository $vendorManager, LogVendorsRepository $logVendorsManager)
-    {
-        $this->batchManager      = $batchManager;
-        $this->vendorManager     = $vendorManager;
+    public function __construct(
+        LoggerInterface $logger,
+        VendorProcessor $processor,
+        BatchRepository $batchManager,
+        VendorRepository $vendorManager,
+        LogVendorsRepository $logVendorsManager
+    ) {
+        $this->batchManager = $batchManager;
+        $this->vendorManager = $vendorManager;
         $this->logVendorsManager = $logVendorsManager;
-        $this->processor         = $processor;
+        $this->processor = $processor;
 
         parent::__construct($logger);
     }
@@ -86,13 +90,18 @@ class LogVendorsRecoverCommand extends AbstractCommand
                     } else {
                         $log->setStatusWalletAccount(LogVendorsInterface::WALLET_NOT_IDENTIFIED);
                     }
-                    $log->setDate(DateTime::createFromFormat('Y-m-d', '2017-09-04'));  // set default date to dashboard release
+                    $log->setDate(
+                        DateTime::createFromFormat('Y-m-d', '2017-09-04')
+                    );  // set default date to dashboard release
                     $logs[] = $log;
 
-                    $this->logger->info("create log from vendor ".$vendor->getMiraklId()." (Mirakl Id)");
+                    $this->logger->info("create log from vendor " . $vendor->getMiraklId() . " (Mirakl Id)");
                 }
             } catch (Exception $e) {
-                $this->logger->warning($e->getMessage(), array('miraklId' => $vendor->getMiraklId(), "action" => "Logs vendors recover"));
+                $this->logger->warning(
+                    $e->getMessage(),
+                    array('miraklId' => $vendor->getMiraklId(), "action" => "Logs vendors recover")
+                );
             }
         }
 

@@ -208,31 +208,29 @@ class LogVendors implements LogVendorsInterface
         $this->date = $date;
     }
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    function getLogin()
+    public function getLogin()
     {
         return $this->login;
     }
 
-    function getStatusWalletAccount()
+    public function getStatusWalletAccount()
     {
         return $this->statusWalletAccount;
     }
 
-    function setLogin($login)
+    public function setLogin($login)
     {
         $this->login = $login;
     }
 
-    function setStatusWalletAccount($statusWalletAccount)
+    public function setStatusWalletAccount($statusWalletAccount)
     {
         $this->statusWalletAccount = $statusWalletAccount;
     }
-
-
 
 }

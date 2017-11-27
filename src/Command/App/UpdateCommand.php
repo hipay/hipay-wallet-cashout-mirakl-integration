@@ -15,7 +15,8 @@ class UpdateCommand extends Command
      *
      * @param type $parameters
      */
-    public function __construct($parameters){
+    public function __construct($parameters)
+    {
 
         parent::__construct();
 
@@ -41,36 +42,47 @@ class UpdateCommand extends Command
     {
 
         echo '<div class="alert alert-dismissible alert-info">Backup data </div>';
-        
+
         // Erase old backup
 
-        system('rm -R '.__DIR__.'/../../../update/ ', $status);
-        system('rm  '.__DIR__.'/../../../backup.tar.gz ', $status);
+        system('rm -R ' . __DIR__ . '/../../../update/ ', $status);
+        system('rm  ' . __DIR__ . '/../../../backup.tar.gz ', $status);
 
         // Backup Application files
 
-        system('tar czvf  '.__DIR__.'/../../../backup.tar.gz '.__DIR__.'/../../../ ', $status);
+        system('tar czvf  ' . __DIR__ . '/../../../backup.tar.gz ' . __DIR__ . '/../../../ ', $status);
 
         // Backup database data and schema
 
-        $backupName = 'backup-'.time().'.sql';
+        $backupName = 'backup-' . time() . '.sql';
 
-        system('mysqldump -u '.$this->parameters['db.username'].' -p'.$this->parameters['db.password'].' -h '.$this->parameters['db.host'].' '.$this->parameters['db.name'].' > '.__DIR__.'/../../../'.$backupName.' ', $status);
+        system(
+            'mysqldump -u ' . $this->parameters['db.username'] . ' -p' . $this->parameters['db.password'] . ' -h ' .
+            $this->parameters['db.host'] . ' ' .
+            $this->parameters['db.name'] . ' > ' . __DIR__ . '/../../../' . $backupName . ' ',
+            $status
+        );
 
         echo '<div class="alert alert-dismissible alert-info">updating app, this may take a while </div>';
 
         // Create hipay-wallet-cashout-mirakl-integration in update folder
 
-        putenv('COMPOSER_HOME='.__DIR__.'/../../../vendor/bin/composer');
+        putenv('COMPOSER_HOME=' . __DIR__ . '/../../../vendor/bin/composer');
 
-        system('yes | composer create-project hipay/hipay-wallet-cashout-mirakl-integration '.__DIR__.'/../../../update 2>&1',$status);
+        system('composer config -g github-oauth.github.com ' . $this->parameters['github.token']);
 
-        system('chmod 755 -R '.__DIR__.'/../../../', $status);
+        system(
+            'yes | composer create-project hipay/hipay-wallet-cashout-mirakl-integration '
+            . __DIR__ . '/../../../update 2>&1',
+            $status
+        );
+
+        system('chmod 755 -R ' . __DIR__ . '/../../../', $status);
 
         // Update parameters.yml with new field
 
-        $oldParameters    = Yaml::parse(file_get_contents(__DIR__.'/../../../config/parameters.yml'));
-        $updateParameters = Yaml::parse(file_get_contents(__DIR__.'/../../../update/config/parameters.yml'));
+        $oldParameters = Yaml::parse(file_get_contents(__DIR__ . '/../../../config/parameters.yml'));
+        $updateParameters = Yaml::parse(file_get_contents(__DIR__ . '/../../../update/config/parameters.yml'));
 
         $newParameters = array_replace_recursive($updateParameters, $oldParameters);
 
@@ -80,15 +92,19 @@ class UpdateCommand extends Command
 
         $newParametersYaml = Yaml::dump($newParameters);
 
-        file_put_contents(__DIR__.'/../../../update/config/parameters.yml', $newParametersYaml);
+        file_put_contents(__DIR__ . '/../../../update/config/parameters.yml', $newParametersYaml);
 
         echo '<div class="alert alert-dismissible alert-info">Copying new files</div>';
 
-        system('rsync -av --delete-after --exclude="backup.tar.gz" --exclude="'.$backupName.'" '.__DIR__.'/../../../update/ '.__DIR__.'/../../../', $status);
+        system(
+            'rsync -av --delete-after --exclude="backup.tar.gz" --exclude="' .
+            $backupName . '" ' . __DIR__ . '/../../../update/ ' . __DIR__ . '/../../../',
+            $status
+        );
         system('rm -R update/ ', $status);
 
         echo '<div class="alert alert-dismissible alert-info">updating database  </div>';
 
-        system('cd '.__DIR__.'/../../../ && php bin/console orm:schema-tool:update --force');
+        system('cd ' . __DIR__ . '/../../../ && php bin/console orm:schema-tool:update --force');
     }
 }

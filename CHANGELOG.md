@@ -1,3 +1,7 @@
+# Version 3.1.0
+- Minor graphical UI changes
+- Add "github token" in settings
+
 # Version 3.0.1
 - Fix refused message not displayed (KYC status)
 

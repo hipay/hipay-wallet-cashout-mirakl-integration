@@ -30,19 +30,25 @@ $dbConfiguration = new DbConfiguration($parameters);
 
 // the connection configuration
 $dbParams = array(
-    'driver'   => $dbConfiguration->getDriver(),
-    'user'     => $dbConfiguration->getUsername(),
+    'driver' => $dbConfiguration->getDriver(),
+    'user' => $dbConfiguration->getUsername(),
     'password' => $dbConfiguration->getPassword(),
-    'dbname'   => $dbConfiguration->getDatabaseName(),
-    'host'     => $dbConfiguration->getHost(),
-    'port'     => $dbConfiguration->getPort()
+    'dbname' => $dbConfiguration->getDatabaseName(),
+    'host' => $dbConfiguration->getHost(),
+    'port' => $dbConfiguration->getPort()
 );
 
 $eventManager = new Doctrine\Common\EventManager();
 $timestampableListener = new Gedmo\Timestampable\TimestampableListener();
 $eventManager->addEventSubscriber($timestampableListener);
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration($paths, $debug, null, new ArrayCache(), false);
+$annotationMetadataConfiguration = Setup::createAnnotationMetadataConfiguration(
+    $paths,
+    $debug,
+    null,
+    new ArrayCache(),
+    false
+);
 $entityManager = EntityManager::create($dbParams, $annotationMetadataConfiguration, $eventManager);
 
 return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet($entityManager);

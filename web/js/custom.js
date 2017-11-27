@@ -83,7 +83,8 @@
                         "data": "document",
                         "render": function (data) {
                             return data.button;
-                        }
+                        },
+                        "sortable": false
                     }
                 ]
             });

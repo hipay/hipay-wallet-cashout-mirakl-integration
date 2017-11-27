@@ -1,5 +1,5 @@
 sProcessing: Traitement en cours...
-sSearch: "Rechercher&nbsp;:"
+sSearch: Rechercher
 sLengthMenu: "Afficher _MENU_ &eacute;l&eacute;ments"
 info: "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments"
 infoEmpty: "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments"
@@ -90,6 +90,12 @@ update.available: Mise à jour disponible
 update.app.latest: Mettez à jour votre application à la derniere version disponible
 update.all.app: Mettre à jour
 update.library.patch: "Mettez à jour la librarie de l'application library (MàJ de sécurité)"
+update.library: Mettre à jour
 dbms.not.mysql: Votre SGBD n'est pas MySQL, il n'y aura pas de sauvegarde de la BDD. Merci de sauvegarder votre BDD avant de mettre à jour l'application.
 generate.operation: Générer les opérations
 amount.origin: "Montant d'origine"
+github.rate.limit: "Vous avez atteint la limite de requête à l'API Github. Merci de renseigner un token Github. Pour créer un token github voir la"
+hipay.doc: documentation HiPay 
+github.token.not.set: Vous devez renseigner un token Github pour accéder à la fonctionnalité de mise à jour. Pour créer un token github voir la 
+save: Sauvegarder
+success.settings.description: Informations sauvegardées

@@ -300,7 +300,7 @@ class Operation implements OperationInterface
      *
      * @return float
      */
-    function getOriginAmount()
+    public function getOriginAmount()
     {
         return $this->originAmount;
     }
@@ -309,7 +309,7 @@ class Operation implements OperationInterface
      *
      * @param float $originAmount
      */
-    function setOriginAmount($originAmount)
+    public function setOriginAmount($originAmount)
     {
         $this->originAmount = $originAmount;
     }
@@ -318,7 +318,7 @@ class Operation implements OperationInterface
      *
      * @return Datetime
      */
-    function getCreatedAt()
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -327,7 +327,7 @@ class Operation implements OperationInterface
      * 
      * @param DateTime $createdAt
      */
-    function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -336,7 +336,7 @@ class Operation implements OperationInterface
      *
      * @return int
      */
-    function getAdjustmentIds()
+    public function getAdjustmentIds()
     {
         return $this->adjustmentIds;
     }
@@ -345,10 +345,9 @@ class Operation implements OperationInterface
      *
      * @param string $adjustmentId
      */
-    function setAdjustmentIds($adjustmentIds)
+    public function setAdjustmentIds($adjustmentIds)
     {
         $this->adjustmentIds = $adjustmentIds;
     }
-
 
 }

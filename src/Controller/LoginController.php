@@ -51,32 +51,35 @@ class LoginController
         );
 
         $form = $this->formBuilder->createNamedBuilder(null, 'form', $default)
-                                  ->add(
-                                      '_username',
-                                      'text',
-                                      array(
-                                          'constraints' => array(new Assert\NotBlank(), new Assert\Length(
-                                              array('min' => 3)
-                                          )),
-                                          'attr' => array('class' => 'form-control', 'placeholder' => 'Your API Login')
-                                      )
-                                  )
-                                  ->add(
-                                      '_password',
-                                      'password',
-                                      array(
-                                          'constraints' => new Assert\NotBlank(),
-                                          'attr' => array('class' => 'form-control', 'placeholder' => 'You API Password')
-                                      )
-                                  )
-                                  ->add(
-                                      'send',
-                                      'submit',
-                                      array(
-                                          'attr' => array('class' => 'btn btn-default')
-                                      )
-                                  )
-                                  ->getForm();
+            ->add(
+                '_username',
+                'text',
+                array(
+                    'constraints' => array(
+                        new Assert\NotBlank(),
+                        new Assert\Length(
+                            array('min' => 3)
+                        )
+                    ),
+                    'attr' => array('class' => 'form-control', 'placeholder' => 'Your API Login')
+                )
+            )
+            ->add(
+                '_password',
+                'password',
+                array(
+                    'constraints' => new Assert\NotBlank(),
+                    'attr' => array('class' => 'form-control', 'placeholder' => 'You API Password')
+                )
+            )
+            ->add(
+                'send',
+                'submit',
+                array(
+                    'attr' => array('class' => 'btn btn-default btn-lg btn-block btn-hipay')
+                )
+            )
+            ->getForm();
         return $form;
     }
 }

@@ -1,6 +1,6 @@
 your_vendors: Your vendors
 sProcessing: Processing...
-sSearch: "Search:"
+sSearch: Search
 sLengthMenu: Show _MENU_ entries
 info: "Showing _START_ to _END_ of _TOTAL_ entries"
 infoEmpty: "Showing 0 to 0 of 0 entries"
@@ -95,3 +95,8 @@ update: Update
 updating.process.will.start: Updating process will start in few seconds
 generate.operation: Generate operations
 amount.origin: Origin amount
+github.rate.limit: "You have reached the github API limit. Please fill your github token. To create a github token see the"
+hipay.doc: HiPay documentation
+github.token.not.set: You must filled a github token to access to the self-update feature. To create a github token see the
+save: Save
+success.settings.description: Informations saved

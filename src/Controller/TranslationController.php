@@ -32,7 +32,8 @@ class TranslationController
     {
         $i18n = array(
             "sProcessing" => $this->translator->trans("sProcessing"),
-            "sSearch" => $this->translator->trans("sSearch"),
+            "sSearch" => '<i class="glyphicon glyphicon-search"></i>',
+            "sSearchPlaceholder" => $this->translator->trans("sSearch"),
             "sLengthMenu" => $this->translator->trans("sLengthMenu"),
             "info" => $this->translator->trans("info"),
             "infoEmpty" => $this->translator->trans("infoEmpty"),
