@@ -197,7 +197,8 @@ class SettingController
             'updateLibrary' => $updateLibrary,
             'githubRateLimit' => $githubRateLimit,
             'githubTokenIsSet' => $githubTokenIsSet,
-            'updateIntegration' => $updateIntegration
+            'updateIntegration' => $updateIntegration,
+            'dbms' => $this->parameters['db.driver']
         );
     }
 
