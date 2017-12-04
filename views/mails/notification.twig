@@ -1,0 +1,156 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+        body {
+            background-color: #F8F9FB;
+        }
+
+        h2 {
+            line-height: 1.1;
+            color: #444444;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .starter-template {
+            text-align: center;
+            font-family: inherit;
+            font-weight: 400;
+            line-height: 1.1;
+            color: #444444;
+        }
+
+        .col-lg-6 {
+            width: 50%;
+            float: left;
+        }
+
+        .header {
+            line-height: 1.1;
+            color: #212121;
+            text-align: center;
+            font-family: inherit;
+            background-color: #00ADE9;
+            padding: 5px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .label {
+            background-color: #e7e7e7;
+        }
+
+        .row {
+            width: 100%;
+        }
+
+        .center-div {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .col-row {
+            display: flex;
+        }
+
+        .debug{
+            background-color:#2196f3
+        }
+
+        .notice{
+            background-color:#2196f3
+        }
+
+        .info{
+            background-color:#e1bee7;
+        }
+
+        .warning{
+            background-color:#ffe0b2;
+        }
+
+        .error{
+            background-color:#ffe0b2;
+        }
+
+        .critical{
+            background-color:#f9bdbb;
+        }
+
+        .alert{
+            background-color:#f9bdbb;
+        }
+
+        .emergency{
+            background-color:#f9bdbb;
+        }
+
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            .center-div {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1 class="starter-template">{{ 'Notification from HiPay wallet cashout Mirakl integration'|trans }}</h1>
+<div class="row" >
+    <div class="center-div">
+        <div class="header">
+            <p>Log information</p>
+        </div>
+        <div class="col-row">
+            <div class="col-lg-6 text-center label">
+                <p>Date </p>
+            </div>
+            <div class="col-lg-6 text-center ">
+                <p>{{ data.datetime|date("m/d/Y") }}</p>
+            </div>
+        </div>
+
+        <div class="col-row">
+            <div class="col-lg-6 text-center label">
+                <p>Log level </p>
+            </div>
+            <div class="col-lg-6 text-center {{ data.level_name|lower }}">
+                <p>{{ data.level_name }}</p>
+            </div>
+        </div>
+
+        <div class="col-row">
+            <div class="col-lg-6 text-center label">
+                <p>Message </p>
+            </div>
+            <div class="col-lg-6 text-center">
+                <p>{{ data.message }}</p>
+            </div>
+        </div>
+
+        {% if data.context.action  is defined %}
+            <div class="col-row">
+                <div class="col-lg-6 text-center label">
+                    <p>Action </p>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <p>{{ data.context.action }}</p>
+                </div>
+            </div>
+        {% endif %}
+        {% if data.context.action  is defined %}
+            <div class="col-row">
+                <div class="col-lg-6 text-center label">
+                    <p>Mirakl ID </p>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <p>{{ data.context.miraklId }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

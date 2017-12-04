@@ -30,6 +30,7 @@ class LogVendorController extends AbstractTableController
 
     public function indexAction()
     {
+        
         return $this->twig->render('pages/vendors.twig', array());
     }
 
