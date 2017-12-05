@@ -86,6 +86,7 @@ class SettingController
             $data = $settingsForm->getData();
 
             $this->parameters->offsetSet('github.token', $data['token']);
+            $this->parameters->offsetSet('email.logger.alert.level', $data['email_log_level']);
             $this->parameters->saveAll();
         }
 
@@ -293,6 +294,7 @@ class SettingController
 
         $default = array(
             'token' => $this->parameters->offsetGet('github.token'),
+            'email_log_level' => $this->parameters->offsetGet('email.logger.alert.level'),
             'send' => false
         );
 
@@ -302,7 +304,27 @@ class SettingController
                 'text',
                 array(
                     'attr' => array('class' => 'form-control'),
-                    'label' => 'Github token'
+                    'label' => 'Github token',
+                    'required'   => false
+                )
+            )
+            ->add(
+                'email_log_level',
+                'choice',
+                array(
+                    'choices' => array(
+                        100 => $this->translator->trans('Debug'),
+                        200 => $this->translator->trans('Info'),
+                        250 => $this->translator->trans('Notice'),
+                        300 => $this->translator->trans('Warning'),
+                        400 => $this->translator->trans('Error'),
+                        500 => $this->translator->trans('Critical'),
+                        550 => $this->translator->trans('Alert'),
+                        600 => $this->translator->trans('Emergency'),
+                        9999 => $this->translator->trans('none')
+                    ),
+                    'attr' => array('class' => 'form-control'),
+                    'label' => $this->translator->trans('email.log.level')
                 )
             )
             ->add(

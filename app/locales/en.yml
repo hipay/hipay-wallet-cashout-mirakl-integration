@@ -100,3 +100,6 @@ hipay.doc: HiPay documentation
 github.token.not.set: You must filled a github token to access to the self-update feature. To create a github token see the
 save: Save
 success.settings.description: Informations saved
+github.token: Github token
+email.log.level: Minimal log level alert
+none: None

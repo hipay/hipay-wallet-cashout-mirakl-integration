@@ -4,16 +4,22 @@
         <div class="panel-body">
             {{ form_start(settingsForm) }}
             <div class="col-lg-12">
-                <h2>{{'settings'|trans}}</h2>
+                <h2>{{ 'settings'|trans }}</h2>
             </div>
             <div class="col-lg-12">
                 <p>
-                    <label>Github Token : </label>
+                    <label>{{ 'github.token'|trans }} : </label>
                     {{ form_widget(settingsForm.token) }}
                 </p>
             </div>
             <div class="col-lg-12">
-                
+                <p>
+                    <label>{{ 'email.log.level'|trans }} : </label>
+                    {{ form_widget(settingsForm.email_log_level) }}
+                </p>
+            </div>
+            <div class="col-lg-12">
+
                 <p>
                     {{ form_widget(settingsForm.send) }}
                 </p>
@@ -21,10 +27,10 @@
             <div class="col-lg-12">
                 <p>
                     {% if successSettings is defined  and successSettings == true %}
-                    <div class="alert alert-dismissible alert-success">
-                        <strong>{{'success'|trans}}</strong> {{'success.settings.description'|trans}}.
-                    </div>
-                {%endif%}
+                <div class="alert alert-dismissible alert-success">
+                    <strong>{{ 'success'|trans }}</strong> {{ 'success.settings.description'|trans }}.
+                </div>
+                {% endif %}
                 </p>
             </div>
             {{ form_end(settingsForm) }}
