@@ -77,7 +77,22 @@ class SettingController
             $successRerun = true;
             $data = $reRunForm->getData();
             foreach ($data["batch"] as $command) {
-                shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
+
+                $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
+
+                if ($command == "vendor:process" && $date) {
+                    // vendor:process 
+                    shell_exec("php ../bin/console $command {$date->format('Y-m-d')} >/dev/null 2>&1 &");
+                } elseif ($command == "cashout:generate" && $date) {
+                    $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
+                    $dateInterval = $date->diff(new \DateTime());
+                    shell_exec(
+                        "php ../bin/console $command {$date->format('Y-m-d')}" .
+                        " -a=\"{$dateInterval->format('%a days')}\" -b=\"0 days\" >/dev/null 2>&1 &"
+                    );
+                } else {
+                    shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
+                }
             }
         }
 
@@ -273,6 +288,13 @@ class SettingController
                 )
             )
             ->add(
+                'date',
+                'text',
+                array(
+                    'attr' => array('class' => 'form-control')
+                )
+            )
+            ->add(
                 'send',
                 'submit',
                 array(
@@ -305,7 +327,7 @@ class SettingController
                 array(
                     'attr' => array('class' => 'form-control'),
                     'label' => 'Github token',
-                    'required'   => false
+                    'required' => false
                 )
             )
             ->add(
