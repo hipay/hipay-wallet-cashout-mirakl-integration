@@ -100,3 +100,11 @@ github.token.not.set: Vous devez renseigner un token Github pour accéder à la 
 save: Sauvegarder
 success.settings.description: Informations sauvegardées
 invalid.amount: OK
+github.token: Token Github
+email.log.level: "Niveau d'alerte minimal par mail"
+none: Aucun
+date.batch: Relancer les batchs depuis la date selectionée
+date.batch.notice: Vous pourvez spécifier une date depuis laquelle les vendeurs ou les transactions seront récupérés de Mirakl
+date.batch.notice.empty: Si vous laissez le champ vide, le comportement par défaut sera
+date.batch.notice.vendor: Pour la création des comptes wallet, le batch recupéra tous les vendeurs depuis Mirakl
+date.batch.notice.cashout: Pour la génération des opérations, le batch récupéra les transactions de Mirakl avec les arguments spécifiés dans votre parameters.yml

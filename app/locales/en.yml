@@ -101,3 +101,11 @@ github.token.not.set: You must filled a github token to access to the self-updat
 save: Save
 success.settings.description: Informations saved
 invalid.amount: OK
+github.token: Github token
+email.log.level: Minimal log level alert
+none: None
+date.batch: Rerun batch(s) from selected date
+date.batch.notice: You can specify a date from wich vendors or transactions will be retrieve from Mirakl
+date.batch.notice.empty: If you let it empty, the default behaviour will be
+date.batch.notice.vendor: For wallet account generation, the batch will retrieve all vendors from Mirakl
+date.batch.notice.cashout: For operation generation, the batch will retrieve transactions with arguments from you parameters.yml
