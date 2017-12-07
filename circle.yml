@@ -3,10 +3,15 @@ machine:
     - docker
   php:
       version: 5.6.14
-test:
+dependencies:
   pre:
     - sudo apt-get install sshpass
     - sudo chmod u+x ./docker/entrypoint.sh
+    - npm install -g casperjs@1.1.3
+    - npm install -g junit-viewer
+    - npm install -g bower
+    - npm install -g phantomjs@2.1.1
+    - npm install -g junit-viewer
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL/" ./docker/conf/stage/hipay.env.dist
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL/" ./docker/conf/stage/hipay.env.dist
@@ -23,19 +28,24 @@ test:
     - sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL\}/$MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL/" ./docker/conf/stage/hipay.env.dist
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml build
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
+    - mkdir $CIRCLE_ARTIFACTS/casper_report
+    - mkdir $CIRCLE_ARTIFACTS/screenshots
     - sudo chmod -R 766 ./docker/config
+  override:
+      - echo "override to not run composer install"
+      - sh ./bin/deployment/setup_sonar.sh
+test:
   post:
-    - sh ./bin/deployment/sonar.sh > /dev/null
+      - cp bin/tests/report*.html $CIRCLE_ARTIFACTS/casper_report/
+#      - sh ./bin/deployment/sonar.sh > /dev/null
   override:
-    - sleep 100
-    - curl --retry 10 --retry-delay 5 -v http://localhost:8080
-dependencies:
-  override:
-    - echo "override to not run composer install"    
-    - sh ./bin/deployment/setup_sonar.sh
-deployment:
-  prod:
-    branch: /.*?/
-    tag: /.*?/
-    commands:
-      - sh ./bin/deployment/deploy_project.sh
+     - sleep 100
+     - curl --retry 10 --retry-delay 5 -v http://localhost:8080
+     - sh bin/tests/casper_run_circle.sh
+     - sh ./bin/tests/report-test.sh
+#deployment:
+#  prod:
+#    branch: /.*?/
+#    tag: /.*?/
+#    commands:
+#      - sh ./bin/deployment/deploy_project.sh

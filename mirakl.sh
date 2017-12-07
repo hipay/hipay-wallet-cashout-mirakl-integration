@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+header="bin/tests/"
+pathPreFile=${header}000*/*.js
+pathDir=${header}0*
+
 #=============================================================================
 #  Use this script build hipay images and run Hipay containers
 #==============================================================================
@@ -57,4 +61,21 @@ fi
 
 if [ "$1" = 'logs' ];then
      docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs -f
+fi
+
+if [ "$1" = 'test' ]; then
+
+   rm -rf bin/tests/errors/*
+   printf "Errors from previous tests cleared !\n\n"
+
+   if [ "$(ls -A ~/.local/share/Ofi\ Labs/PhantomJS/)" ]; then
+       rm -rf ~/.local/share/Ofi\ Labs/PhantomJS/*
+       printf "Cache cleared !\n\n"
+   else
+       printf "Pas de cache à effacer !\n\n"
+   fi
+
+   BASE_URL="http://localhost:8080/web/index.php/dashboard"
+
+   casperjs test $pathPreFile ${pathDir}/[0-9]*/[0-9][0-9][0-9][0-9]-*.js --url=$BASE_URL --ignore-ssl-errors=true --ssl-protocol=any --login-backend=$2 --pass-backend=$3
 fi
