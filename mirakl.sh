@@ -75,7 +75,7 @@ if [ "$1" = 'test' ]; then
        printf "Pas de cache à effacer !\n\n"
    fi
 
-   BASE_URL="http://localhost:8080/web/index.php/dashboard"
+   BASE_URL="http://localhost:8080/web/index.php"
 
    casperjs test $pathPreFile ${pathDir}/[0-9]*/[0-9][0-9][0-9][0-9]-*.js --url=$BASE_URL --ignore-ssl-errors=true --ssl-protocol=any --login-backend=$2 --pass-backend=$3
 fi

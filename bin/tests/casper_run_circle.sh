@@ -1,10 +1,5 @@
 #!/bin/bash
 
-BASE_URL=$BASE_URL
-if [ "$PORT_WEB" != "80" ];then
-    BASE_URL=$BASE_URL:$PORT_WEB
-fi
-
 header="bin/tests/"
 pathPreFile=${header}000*/*.js
 pathDir=${header}0*
