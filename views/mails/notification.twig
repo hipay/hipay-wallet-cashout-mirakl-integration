@@ -31,16 +31,11 @@
             color: #212121;
             text-align: center;
             font-family: inherit;
-            background-color: #00ADE9;
             padding: 5px;
         }
 
         .text-center {
             text-align: center;
-        }
-
-        .label {
-            background-color: #e7e7e7;
         }
 
         .row {
@@ -104,7 +99,7 @@
             <p>Log information</p>
         </div>
         <div class="col-row">
-            <div class="col-lg-6 text-center label">
+            <div class="col-lg-6 text-center ">
                 <p>Date </p>
             </div>
             <div class="col-lg-6 text-center ">
@@ -113,7 +108,7 @@
         </div>
 
         <div class="col-row">
-            <div class="col-lg-6 text-center label">
+            <div class="col-lg-6 text-center ">
                 <p>Log level </p>
             </div>
             <div class="col-lg-6 text-center {{ data.level_name|lower }}">
@@ -122,7 +117,7 @@
         </div>
 
         <div class="col-row">
-            <div class="col-lg-6 text-center label">
+            <div class="col-lg-6 text-center ">
                 <p>Message </p>
             </div>
             <div class="col-lg-6 text-center">
@@ -132,7 +127,7 @@
 
         {% if data.context.action  is defined %}
             <div class="col-row">
-                <div class="col-lg-6 text-center label">
+                <div class="col-lg-6 text-center ">
                     <p>Action </p>
                 </div>
                 <div class="col-lg-6 text-center">
@@ -142,7 +137,7 @@
         {% endif %}
         {% if data.context.action  is defined %}
             <div class="col-row">
-                <div class="col-lg-6 text-center label">
+                <div class="col-lg-6 text-center ">
                     <p>Mirakl ID </p>
                 </div>
                 <div class="col-lg-6 text-center">
