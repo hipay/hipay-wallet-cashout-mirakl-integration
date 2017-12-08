@@ -122,6 +122,9 @@
                         $('td', row).eq(5).addClass('danger');
                     } else if (data.statusTransferts.status == 3 || data.statusTransferts.status == 2) {
                         $('td', row).eq(5).addClass('success');
+                    }else if (data.statusTransferts.status == -1) {
+                        $('td', row).eq(5).addClass('info');
+                        $('td', row).eq(6).addClass('info');
                     }
                 },
                 "drawCallback": function () {
