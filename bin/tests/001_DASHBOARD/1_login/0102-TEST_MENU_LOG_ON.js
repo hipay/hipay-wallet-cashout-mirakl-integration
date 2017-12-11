@@ -10,7 +10,7 @@ casper.test.begin('Test menu navigation, logged in', function (test) {
             this.waitForUrl(/dashboard\/$/, function success() {
                 test.assertUrlMatch(/dashboard\/$/, "Vendors page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/$/, "Wrong page when clicking on Vendors page !");
             }, 3000);
         })
         .then(function () {
@@ -18,7 +18,7 @@ casper.test.begin('Test menu navigation, logged in', function (test) {
             this.waitForUrl(/dashboard\/transferts$/, function success() {
                 test.assertUrlMatch(/dashboard\/transferts$/, "Transfers & withdraw page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/transferts$/, "Wrong page when clicking on Transfers & withdraw page !");
             }, 3000);
         })
         .then(function () {
@@ -26,7 +26,7 @@ casper.test.begin('Test menu navigation, logged in', function (test) {
             this.waitForUrl(/dashboard\/logs$/, function success() {
                 test.assertUrlMatch(/dashboard\/logs$/, "Logs page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/logs$/, "Wrong page when clicking on Logs page !");
             }, 3000);
         })
         .then(function () {
@@ -34,7 +34,7 @@ casper.test.begin('Test menu navigation, logged in', function (test) {
             this.waitForUrl(/dashboard\/settings$/, function success() {
                 test.assertUrlMatch(/dashboard\/settings$/, "Settings page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/settings$/, "Wrong page when clicking on Settings page !");
             }, 3000);
         })
         .run(function () {

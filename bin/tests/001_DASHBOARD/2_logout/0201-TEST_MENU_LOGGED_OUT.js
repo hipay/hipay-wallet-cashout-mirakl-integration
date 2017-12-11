@@ -7,7 +7,7 @@ casper.test.begin('Test menu navigation, logged out', function (test) {
             this.waitForUrl(/dashboard\/login$/, function success() {
                 test.assertUrlMatch(/dashboard\/login$/, "Redirect to login page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/login$/, "Error : Should be redirect to login page. !");
             }, 3000);
         })
         .then(function () {
@@ -15,7 +15,7 @@ casper.test.begin('Test menu navigation, logged out', function (test) {
             this.waitForUrl(/dashboard\/login$/, function success() {
                 test.assertUrlMatch(/dashboard\/login$/, "Redirect to login page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/login$/, "Error : Should be redirect to login page. !");
             }, 3000);
         })
         .then(function () {
@@ -23,7 +23,7 @@ casper.test.begin('Test menu navigation, logged out', function (test) {
             this.waitForUrl(/dashboard\/login$/, function success() {
                 test.assertUrlMatch(/dashboard\/login$/, "Redirect to login page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/login$/, "Error : Should be redirect to login page. !");
             }, 3000);
         })
         .then(function () {
@@ -31,7 +31,7 @@ casper.test.begin('Test menu navigation, logged out', function (test) {
             this.waitForUrl(/dashboard\/login$/, function success() {
                 test.assertUrlMatch(/dashboard\/login$/, "Redirect to login page !");
             }, function fail() {
-                test.fail("Wrong page");
+                test.assertUrlMatch(/dashboard\/login$/, "Error : Should be redirect to login page. !");
             }, 3000);
         })
         .run(function () {

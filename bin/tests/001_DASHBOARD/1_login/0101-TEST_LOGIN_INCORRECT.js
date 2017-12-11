@@ -14,11 +14,11 @@ casper.test.begin('Test filling invalid credentials and log ', function (test) {
                     'input[name="_password"]': password
                 }, false);
                 this.click('#send');
-                this.waitForUrl(/dashboard\/login$/, function success() {
-                    test.info("Not Connected");
-                    test.assertUrlMatch(/dashboard\/login$/, "Not Connected !");
+                this.waitForUrl(/dashboard\/$/, function success() {
+                    test.assertUrlMatch(/dashboard\/login$/, "Incorrect credentials but logged anyway!");
                 }, function fail() {
-                    test.fail("Incorrect credentials but logged anyway!");
+                    test.info("Success : Not Connected !");
+                    test.assertUrlMatch(/dashboard\/login$/, "Not Connected with wrong credentials !");
                 }, 3000);
             }, function fail() {
                 this.waitForUrl(/dashboard\/$/, function success() {

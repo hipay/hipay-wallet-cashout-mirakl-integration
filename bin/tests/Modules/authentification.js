@@ -12,7 +12,8 @@ exports.proceed = function proceed(test, user, password) {
                 test.info("Connected");
                 test.assertUrlMatch(/dashboard\/$/, "Connected !");
             }, function fail() {
-                test.fail("Incorrect credentials !");
+                //test.fail("Incorrect credentials !");
+                test.assertUrlMatch(/dashboard\/$/, "Incorrect credentials !");
             }, 3000);
         }, function fail() {
             this.waitForUrl(/dashboard\/$/, function success() {

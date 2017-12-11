@@ -11,7 +11,7 @@ casper.test.begin('Test logging out after log in ', function (test) {
                 test.info("Logged out");
                 test.assertUrlMatch(/dashboard\/login$/, "Logged out !");
             }, function fail(){
-                test.fail("Not logged out");
+                test.assertUrlMatch(/dashboard\/login$/, "Not logged out !");
             }, 3000);
         })
         .run(function () {
