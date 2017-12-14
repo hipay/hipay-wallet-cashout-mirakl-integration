@@ -16,6 +16,22 @@ use Monolog\Handler\SwiftMailerHandler;
 
 class HipaySwiftMailerHandler extends SwiftMailerHandler
 {
+
+    protected $twig;
+
+    /**
+     * HipaySwiftMailerHandler constructor.
+     * @param \Swift_Mailer $twig
+     * @param \Swift_Mailer $mailer
+     * @param int $message
+     * @param bool $level
+     */
+    public function __construct($twig, \Swift_Mailer $mailer, $message, $level = Logger::ERROR)
+    {
+        parent::__construct($mailer, $message, $level);
+        $this->twig = $twig;
+    }
+
     /**
      * Creates instance of Swift_Message to be sent
      *
@@ -27,12 +43,9 @@ class HipaySwiftMailerHandler extends SwiftMailerHandler
     {
         $message = parent::buildMessage($content, $records);
 
-        $Parsedown = new \Parsedown();
-        $content = str_replace("_*", "\r", $content);
-
-        $html = $Parsedown->text(str_replace(str_repeat(" ", 18), "\r", $content));
-
-        $message->setBody($html);
+        $body = $this->twig->render('mails/notification.twig', array("data" => $records[0]));
+        $message->setSubject($message->getSubject(). " ". $records[0]['level_name']);
+        $message->setBody($body);
 
         return $message;
     }

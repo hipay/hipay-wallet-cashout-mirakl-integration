@@ -17,6 +17,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use HiPay\Wallet\Mirakl\Integration\Handler\MonologDBHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
+use HiPay\Wallet\Mirakl\Integration\Handler\HipaySwiftMailerHandler;
 
 class MonologServiceProvider implements ServiceProviderInterface
 {
@@ -40,6 +41,17 @@ class MonologServiceProvider implements ServiceProviderInterface
                     new MonologDBHandler($app["orm.em"], $app['db.logger.level'])
                 );
 
+                $messageTemplate = $this->initSwiftMailer($app);
+
+                $logger->pushHandler(
+                    new HipaySwiftMailerHandler(
+                        $app['twig'],
+                        $app['swift.mailer'],
+                        $messageTemplate,
+                        $app['hipay.parameters']['email.logger.alert.level']
+                    )
+                );
+
                 return $logger;
             }
         );
@@ -48,5 +60,18 @@ class MonologServiceProvider implements ServiceProviderInterface
     public function boot(Application $app)
     {
 
+    }
+
+    private function initSwiftMailer(Application $app)
+    {
+
+        $messageTemplate = new \Swift_Message();
+        $messageTemplate->setSubject($app['hipay.parameters']['mail.subject']);
+        $messageTemplate->setTo($app['hipay.parameters']['mail.to']);
+        $messageTemplate->setFrom($app['hipay.parameters']['mail.from']);
+        $messageTemplate->setCharset('utf-8');
+        $messageTemplate->setContentType("text/html");
+
+        return $messageTemplate;
     }
 }
