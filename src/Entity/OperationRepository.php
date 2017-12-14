@@ -48,6 +48,26 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     }
 
 
+    public function findVendorOperationsByPaymentVoucherId(OperationInterface $operation){
+
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder->select('a')
+            ->from($this->_entityName, 'a')
+            ->where($queryBuilder->expr()->eq('a.paymentVoucher', $operation->getPaymentVoucher()))
+            ->andWhere($queryBuilder->expr()->isNotNull('a.miraklId'));
+
+        $query = $queryBuilder->getQuery();
+
+        $results = $query->getSingleResult();
+
+        return $results;
+
+    }
+
+    /**
+     * @param $hipayId
+     * @return array
+     */
     public function findNegativeOperations($hipayId)
     {
 

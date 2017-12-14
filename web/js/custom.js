@@ -37,14 +37,14 @@
                 "ajax": {
                     "url": "log-vendors-ajax",
                     "data":
-                            function (d) {
-                                return $.extend({}, d, {
-                                    "status": $("#status-filter").val(),
-                                    "wallet-status": $("#wallet-status-filter").val(),
-                                    "date-start": $("#start").val(),
-                                    "date-end": $("#end").val()
-                                });
-                            }
+                        function (d) {
+                            return $.extend({}, d, {
+                                "status": $("#status-filter").val(),
+                                "wallet-status": $("#wallet-status-filter").val(),
+                                "date-start": $("#start").val(),
+                                "date-end": $("#end").val()
+                            });
+                        }
                 },
                 "createdRow": function (row, data, index) {
                     if (data.statusWalletAccount.status == 2 || data.statusWalletAccount.status == 4) {
@@ -56,6 +56,12 @@
                         $('td', row).eq(2).addClass('danger');
                     } else if (data.status.status == 1 || data.status.status == 3) {
                         $('td', row).eq(2).addClass('success');
+                    }
+
+                    if (data.enabled.enabled == false ) {
+                        $('td', row).eq(4).addClass('danger');
+                    } else {
+                        $('td', row).eq(4).addClass('success');
                     }
                 },
                 "drawCallback": function () {
@@ -75,6 +81,13 @@
                         "data": "statusWalletAccount",
                         "render": function (data) {
                             return data.label;
+                        }
+                    },
+                    {
+                        "data": "enabled",
+                        "render": function (data) {
+                            return data.label;
+
                         }
                     },
                     {"data": "hipayId"},
@@ -105,20 +118,20 @@
                 "ajax": {
                     "url": "log-operations-ajax",
                     "data":
-                            function (d) {
-                                return $.extend({}, d, {
-                                    "status-transfer": $("#status-transfer").val(),
-                                    "status-withdraw": $("#status-withdraw").val()
-                                });
-                            }
+                        function (d) {
+                            return $.extend({}, d, {
+                                "status-transfer": $("#status-transfer").val(),
+                                "status-withdraw": $("#status-withdraw").val()
+                            });
+                        }
                 },
                 "createdRow": function (row, data, index) {
-                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8 || data.statusWithDrawal.status == -11) {
+                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8 || data.statusWithDrawal.status == -11 || data.statusWithDrawal.status == -6) {
                         $('td', row).eq(6).addClass('danger');
                     } else if (data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5 || data.statusWithDrawal.status == 2) {
                         $('td', row).eq(6).addClass('success');
                     }
-                    if (data.statusTransferts.status == -9  || data.statusTransferts.status == -10 ) {
+                    if (data.statusTransferts.status == -9  || data.statusTransferts.status == -10 || data.statusTransferts.status == -5) {
                         $('td', row).eq(5).addClass('danger');
                     } else if (data.statusTransferts.status == 3 || data.statusTransferts.status == 2) {
                         $('td', row).eq(5).addClass('success');
@@ -172,13 +185,13 @@
                 "ajax": {
                     "url": "log-general-ajax",
                     "data":
-                            function (d) {
-                                return $.extend({}, d, {
-                                    "log-level": $("#log-level").val(),
-                                    "date-start": $("#start").val(),
-                                    "date-end": $("#end").val()
-                                });
-                            }
+                        function (d) {
+                            return $.extend({}, d, {
+                                "log-level": $("#log-level").val(),
+                                "date-start": $("#start").val(),
+                                "date-end": $("#end").val()
+                            });
+                        }
                 },
                 "columns": [
                     {"data": "createdAt"},
@@ -220,18 +233,18 @@
                     }
                 },
                 "columnDefs": [{
-                        "targets": 2,
-                        "orderable": false
-                    }],
+                    "targets": 2,
+                    "orderable": false
+                }],
                 "columns": [
                     {"data": "startedAt"},
                     {"data": "name"},
                     {
                         "data": "state",
                         "render"
-                                : function (data) {
-                                    return data.label + " " + data.button;
-                                }
+                            : function (data) {
+                            return data.label + " " + data.button;
+                        }
                     }
                 ]
             });
@@ -243,5 +256,4 @@
         }
     });
 })();
-
 

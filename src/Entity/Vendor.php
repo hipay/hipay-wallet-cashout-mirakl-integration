@@ -90,6 +90,13 @@ class Vendor implements VendorInterface, Timestampable
     protected $callbackSalt;
 
     /**
+     * @var Vendor enabled or not
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $enabled;
+
+    /**
      * Vendor constructor.
      * @param int $miraklId
      * @param string $email
@@ -212,6 +219,22 @@ class Vendor implements VendorInterface, Timestampable
     public function setCallbackSalt($callbackSalt)
     {
         $this->callbackSalt = $callbackSalt;
+    }
+
+    /**
+     * @return Vendor
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param Vendor $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 
 }
