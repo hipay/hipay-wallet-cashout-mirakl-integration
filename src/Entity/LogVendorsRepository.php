@@ -108,7 +108,7 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
 
     protected function getSelectString()
     {
-        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.nbDoc, a.date';
+        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.enabled, a.nbDoc, a.date';
     }
 
     protected function getCountString()
