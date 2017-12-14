@@ -57,6 +57,12 @@
                     } else if (data.status.status == 1 || data.status.status == 3) {
                         $('td', row).eq(2).addClass('success');
                     }
+
+                    if (data.enabled.enabled == false ) {
+                        $('td', row).eq(4).addClass('danger');
+                    } else {
+                        $('td', row).eq(4).addClass('success');
+                    }
                 },
                 "drawCallback": function () {
                     $('.vendor-notice').popover();
@@ -75,6 +81,13 @@
                         "data": "statusWalletAccount",
                         "render": function (data) {
                             return data.label;
+                        }
+                    },
+                    {
+                        "data": "enabled",
+                        "render": function (data) {
+                            return data.label;
+
                         }
                     },
                     {"data": "hipayId"},
@@ -113,12 +126,12 @@
                             }
                 },
                 "createdRow": function (row, data, index) {
-                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8 || data.statusWithDrawal.status == -11) {
+                    if (data.statusWithDrawal.status == -7 || data.statusWithDrawal.status == -8 || data.statusWithDrawal.status == -11 || data.statusWithDrawal.status == -6) {
                         $('td', row).eq(6).addClass('danger');
                     } else if (data.statusWithDrawal.status == 6 || data.statusWithDrawal.status == 5 || data.statusWithDrawal.status == 2) {
                         $('td', row).eq(6).addClass('success');
                     }
-                    if (data.statusTransferts.status == -9  || data.statusTransferts.status == -10 ) {
+                    if (data.statusTransferts.status == -9  || data.statusTransferts.status == -10 || data.statusTransferts.status == -5) {
                         $('td', row).eq(5).addClass('danger');
                     } else if (data.statusTransferts.status == 3 || data.statusTransferts.status == 2) {
                         $('td', row).eq(5).addClass('success');

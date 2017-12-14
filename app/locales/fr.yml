@@ -67,6 +67,8 @@ withdraw.request.cancel: KO (annulé)
 withdraw.request.success: OK
 withdraw.request.negative: KO (Fonds insuffisants)
 transfer.request.negative: KO (Fonds insuffisants)
+transfer.vendor.disabled: KO (Vendeur désactivé)
+withdraw.vendor.disabled: KO (Vendeur désactivé)
 adjusted.operations: OK (Rattrapage)
 payment.order.id: "Id d'ordre de paiement"
 amount: Montant
@@ -99,3 +101,5 @@ hipay.doc: documentation HiPay
 github.token.not.set: Vous devez renseigner un token Github pour accéder à la fonctionnalité de mise à jour. Pour créer un token github voir la 
 save: Sauvegarder
 success.settings.description: Informations sauvegardées
+enabled: Activé
+disabled: Désactivé

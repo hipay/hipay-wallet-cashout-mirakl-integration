@@ -65,9 +65,22 @@ class LogVendorController extends AbstractTableController
                 "label" => $this->getStatusString($logRow['status']),
                 "button" => $this->getStatusMessage($logRow)
             );
+
+            $data[$key]['enabled'] = array(
+                "enabled" => $logRow['enabled'],
+                "label" => $this->getEnableLabel($logRow['enabled'])
+            );
         }
 
         return $data;
+    }
+
+    private function getEnableLabel($enable){
+        if($enable){
+            return $this->translator->trans("enabled");
+        }else{
+            return $this->translator->trans("disabled");
+        }
     }
 
     private function getStatusMessage($logRow)
