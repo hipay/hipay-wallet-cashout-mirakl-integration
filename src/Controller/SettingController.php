@@ -77,7 +77,22 @@ class SettingController
             $successRerun = true;
             $data = $reRunForm->getData();
             foreach ($data["batch"] as $command) {
-                shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
+
+                $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
+
+                if ($command == "vendor:process" && $date) {
+                    // vendor:process 
+                    shell_exec("php ../bin/console $command {$date->format('Y-m-d')} >/dev/null 2>&1 &");
+                } elseif ($command == "cashout:generate" && $date) {
+                    $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
+                    $dateInterval = $date->diff(new \DateTime());
+                    shell_exec(
+                        "php ../bin/console $command {$date->format('Y-m-d')}" .
+                        " -a=\"{$dateInterval->format('%a days')}\" -b=\"0 days\" >/dev/null 2>&1 &"
+                    );
+                } else {
+                    shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
+                }
             }
         }
 
@@ -86,6 +101,7 @@ class SettingController
             $data = $settingsForm->getData();
 
             $this->parameters->offsetSet('github.token', $data['token']);
+            $this->parameters->offsetSet('email.logger.alert.level', $data['email_log_level']);
             $this->parameters->saveAll();
         }
 
@@ -197,7 +213,8 @@ class SettingController
             'updateLibrary' => $updateLibrary,
             'githubRateLimit' => $githubRateLimit,
             'githubTokenIsSet' => $githubTokenIsSet,
-            'updateIntegration' => $updateIntegration
+            'updateIntegration' => $updateIntegration,
+            'dbms' => $this->parameters['db.driver']
         );
     }
 
@@ -271,6 +288,13 @@ class SettingController
                 )
             )
             ->add(
+                'date',
+                'text',
+                array(
+                    'attr' => array('class' => 'form-control')
+                )
+            )
+            ->add(
                 'send',
                 'submit',
                 array(
@@ -292,6 +316,7 @@ class SettingController
 
         $default = array(
             'token' => $this->parameters->offsetGet('github.token'),
+            'email_log_level' => $this->parameters->offsetGet('email.logger.alert.level'),
             'send' => false
         );
 
@@ -301,7 +326,27 @@ class SettingController
                 'text',
                 array(
                     'attr' => array('class' => 'form-control'),
-                    'label' => 'Github token'
+                    'label' => 'Github token',
+                    'required' => false
+                )
+            )
+            ->add(
+                'email_log_level',
+                'choice',
+                array(
+                    'choices' => array(
+                        100 => $this->translator->trans('Debug'),
+                        200 => $this->translator->trans('Info'),
+                        250 => $this->translator->trans('Notice'),
+                        300 => $this->translator->trans('Warning'),
+                        400 => $this->translator->trans('Error'),
+                        500 => $this->translator->trans('Critical'),
+                        550 => $this->translator->trans('Alert'),
+                        600 => $this->translator->trans('Emergency'),
+                        9999 => $this->translator->trans('none')
+                    ),
+                    'attr' => array('class' => 'form-control'),
+                    'label' => $this->translator->trans('email.log.level')
                 )
             )
             ->add(
