@@ -117,6 +117,7 @@ class LogVendors implements LogVendorsInterface
         $this->message = $message;
         $this->nbDoc = $nbDoc;
         $this->date = new \DateTime();
+        $this->enabled = true;
     }
 
     /**
