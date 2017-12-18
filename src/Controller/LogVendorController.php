@@ -75,11 +75,12 @@ class LogVendorController extends AbstractTableController
         return $data;
     }
 
-    private function getEnableLabel($enable){
-        if($enable){
-            return $this->translator->trans("enabled");
-        }else{
+    private function getEnableLabel($enable)
+    {
+        if (!is_null($enable) && !$enable) {
             return $this->translator->trans("disabled");
+        } else {
+            return $this->translator->trans("enabled");
         }
     }
 
@@ -90,14 +91,14 @@ class LogVendorController extends AbstractTableController
             case LogVendorsInterface::INFO:
                 return "";
             case LogVendorsInterface::WARNING:
-                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body"'.
+                return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body"' .
                 ' data-toggle="popover" data-placement="bottom" data-content="' .
                 $this->translator->trans($logRow["message"]) .
                 '" data-original-title="" title="" >' .
                 $this->translator->trans("show.message") .
                 '</button>';
             case LogVendorsInterface::CRITICAL:
-                return '<button type="button" class="btn btn-danger btn-xs vendor-notice" data-container="body"'.
+                return '<button type="button" class="btn btn-danger btn-xs vendor-notice" data-container="body"' .
                 ' data-toggle="popover" data-placement="bottom" data-content="' .
                 $this->translator->trans($logRow["message"]) .
                 '" data-original-title="" title="" aria-describedby="popover846313">' .

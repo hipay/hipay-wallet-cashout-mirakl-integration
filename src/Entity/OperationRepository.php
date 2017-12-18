@@ -48,7 +48,8 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
     }
 
 
-    public function findVendorOperationsByPaymentVoucherId(OperationInterface $operation){
+    public function findVendorOperationsByPaymentVoucherId(OperationInterface $operation)
+    {
 
         $queryBuilder = $this->_em->createQueryBuilder();
         $queryBuilder->select('a')
