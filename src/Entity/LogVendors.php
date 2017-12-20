@@ -96,6 +96,13 @@ class LogVendors implements LogVendorsInterface
     protected $date;
 
     /**
+     * @var Vendor enabled or not
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $enabled;
+
+    /**
      * Vendor constructor.
      * @param int $miraklId
      * @param int $hipayId
@@ -110,6 +117,7 @@ class LogVendors implements LogVendorsInterface
         $this->message = $message;
         $this->nbDoc = $nbDoc;
         $this->date = new \DateTime();
+        $this->enabled = true;
     }
 
     /**
@@ -231,6 +239,22 @@ class LogVendors implements LogVendorsInterface
     public function setStatusWalletAccount($statusWalletAccount)
     {
         $this->statusWalletAccount = $statusWalletAccount;
+    }
+
+    /**
+     * @return Boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param Boolean $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
     }
 
 }

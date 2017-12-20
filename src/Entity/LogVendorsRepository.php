@@ -34,7 +34,7 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
      * @return LogVendorsInterface
      */
     public function create(
-    $miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc
+        $miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc
     )
     {
         $logVendor = new LogVendors($miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc);
@@ -63,7 +63,7 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
      * @return void
      */
     public function update(
-    LogVendorsInterface $vendor, array $logData
+        LogVendorsInterface $vendor, array $logData
     )
     {
         return;
@@ -108,7 +108,7 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
 
     protected function getSelectString()
     {
-        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.nbDoc, a.date';
+        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.enabled, a.nbDoc, a.date';
     }
 
     protected function getCountString()
@@ -120,12 +120,12 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
     {
         if (!empty($search)) {
             $queryBuilder->andWhere(
-                    $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('a.miraklId', '?1'), $queryBuilder->expr()->like('a.login', '?1'),
-                                                                                                     $queryBuilder->expr()->like('a.hipayId',
-                                                                                                                                 '?1')
-                    )
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->like('a.miraklId', '?1'), $queryBuilder->expr()->like('a.login', '?1'),
+                    $queryBuilder->expr()->like('a.hipayId',
+                                                '?1')
                 )
+            )
                 ->setParameter(1, '%'.$search.'%');
         }
 
@@ -145,8 +145,8 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
             $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-start"].' 00:00:00');
             if ($dateStart) {
                 $queryBuilder->andWhere(
-                        $queryBuilder->expr()->gte('a.date', ':start')
-                    )
+                    $queryBuilder->expr()->gte('a.date', ':start')
+                )
                     ->setParameter('start', $dateStart, Type::DATETIME);
             }
         }
@@ -156,8 +156,8 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
             $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-end"].' 23:59:59');
             if ($dateStart) {
                 $queryBuilder->andWhere(
-                        $queryBuilder->expr()->lte('a.date', ':last')
-                    )
+                    $queryBuilder->expr()->lte('a.date', ':last')
+                )
                     ->setParameter('last', $dateStart, Type::DATETIME);
             }
         }

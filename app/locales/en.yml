@@ -67,6 +67,8 @@ withdraw.request.cancel: KO (cancel)
 withdraw.request.success: OK
 withdraw.request.negative: KO (Insufficient funds)
 transfer.request.negative: KO (Insufficient funds)
+transfer.vendor.disabled: KO (Vendor disabled)
+withdraw.vendor.disabled: KO (Vendor disabled)
 adjusted.operations: OK (Adjusted)
 payment.order.id: Payment order Id
 amount: Amount
@@ -100,6 +102,8 @@ hipay.doc: HiPay documentation
 github.token.not.set: You must filled a github token to access to the self-update feature. To create a github token see the
 save: Save
 success.settings.description: Informations saved
+enabled: Enabled
+disabled: Disabled
 invalid.amount: OK
 github.token: Github token
 email.log.level: Minimal log level alert
