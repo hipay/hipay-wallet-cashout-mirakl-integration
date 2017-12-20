@@ -34,7 +34,7 @@
             <div class="panel panel-default ">
                 <div class="panel-body">
                     {{ error }}
-                    {{ form_start(form, {'action': path('dashboard_login_check'), 'method': 'POST'}) }}
+                    {{ form_start(form, {'action': path('dashboard_login_check'), 'method': 'POST', 'name': 'login', 'attr': {'id': 'login'}}) }}
                         <div class="col-lg-12">
                 <p>
                     {{ form_widget(form._username) }}

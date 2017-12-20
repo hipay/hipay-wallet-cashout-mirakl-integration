@@ -43,19 +43,19 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li{% if active == 'vendors' %} class="active"{% endif %}>
-                            <a href="{{ path('vendors') }}">{{'your_vendors'|trans}}</a>
+                            <a id="vendors" href="{{ path('vendors') }}">{{'your_vendors'|trans}}</a>
                         </li>
                         <li{% if active == 'transferts' %} class="active"{% endif %}>
-                            <a href="{{ path('transferts') }}">{{'transfer.withdraw'|trans}}</a>
+                            <a id="transfer" href="{{ path('transferts') }}">{{'transfer.withdraw'|trans}}</a>
                         </li>
                         <li{% if active == 'logs' %} class="active"{% endif %}>
-                            <a href="{{ path('logs') }}">{{'logs'|trans}}</a>
+                            <a id="logs" href="{{ path('logs') }}">{{'logs'|trans}}</a>
                         </li>
                         <li{% if active == 'settings' %} class="active"{% endif %}>
-                            <a href="{{ path('settings') }}">{{'settings'|trans}}</a>
+                            <a id="settings" href="{{ path('settings') }}">{{'settings'|trans}}</a>
                         </li>
-                        <li{% if active == 'logout' %} class="active"{% endif %}>
-                            <a href="{{ path('dashboard_logout') }}">{{'log.out'|trans}}</a>
+                        <li  {% if active == 'logout' %} class="active"{% endif %}>
+                            <a id="logout" href="{{ path('dashboard_logout') }}">{{'log.out'|trans}}</a>
                         </li>
 
                     </ul>

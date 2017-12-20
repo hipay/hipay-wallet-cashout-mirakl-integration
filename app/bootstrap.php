@@ -27,6 +27,7 @@ use HiPay\Wallet\Mirakl\Integration\ServiceProvider\SecurityServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\TwigServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\TranslationServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\RepositoriesServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\SwiftServiceProvider;
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
@@ -87,6 +88,60 @@ $app->register(
 );
 
 /* * ***************
+ * Silex base initialization
+ * ************** */
+
+$app->register(new Silex\Provider\SessionServiceProvider());
+
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
+$app->register(new Silex\Provider\ServiceControllerServiceProvider());
+
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+
+$app->register(new FormServiceProvider());
+
+$app->register(new SerializerServiceProvider());
+
+
+/* * ***************
+ * Multilanguage initialization
+ * ************** */
+
+$app->register(new TranslationServiceProvider());
+
+/* * ***************
+ * Security initialization
+ * ************** */
+
+$app->register(new SecurityServiceProvider(), array());
+
+// Boot your application
+$app->boot();
+
+/* * ***************
+ * Twig initialization
+ * ************** */
+
+$app->register(
+    new TwigServiceProvider(),
+    array(
+        'twig.path' => __DIR__ . '/../views',
+        'twig.options' => array(
+            'cache' => __DIR__ . '/../var/cache'
+        )
+    )
+);
+
+/* * ***************
+ * Mailer initialization
+ * ************** */
+
+$app->register(
+    new SwiftServiceProvider()
+);
+
+/* * ***************
  * Logger initialization
  * ************** */
 
@@ -116,49 +171,6 @@ $app->register(new ApiFactoryServiceProvider());
 $app->register(new ApiHipayServiceProvider(), array());
 
 $app->register(new ApiNotificationHandlerServiceProvider());
-
-/* * ***************
- * Silex base initialization
- * ************** */
-
-$app->register(new Silex\Provider\SessionServiceProvider());
-
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-
-$app->register(new Silex\Provider\ServiceControllerServiceProvider());
-
-$app->register(new Silex\Provider\ValidatorServiceProvider());
-
-$app->register(new FormServiceProvider());
-
-$app->register(new SerializerServiceProvider());
-
-
-/* * ***************
- * Multilanguage initialization
- * ************** */
-
-$app->register(new TranslationServiceProvider());
-
-/* * ***************
- * Twig initialization
- * ************** */
-
-$app->register(
-    new TwigServiceProvider(),
-    array(
-        'twig.path' => __DIR__ . '/../views',
-        'twig.options' => array(
-            'cache' => __DIR__ . '/../var/cache'
-        )
-    )
-);
-
-/* * ***************
- * Security initialization
- * ************** */
-
-$app->register(new SecurityServiceProvider(), array());
 
 /* * ***************
  * Cache initialization

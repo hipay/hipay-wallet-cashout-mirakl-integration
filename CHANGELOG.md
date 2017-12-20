@@ -1,3 +1,6 @@
+# Version 3.1.1
+- Handle vendor already database with HIPA_PROCESS = NO
+
 # Version 3.1.0
 - Minor graphical UI changes
 - Add "github token" in settings

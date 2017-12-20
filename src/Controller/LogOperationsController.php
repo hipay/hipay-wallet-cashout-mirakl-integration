@@ -70,16 +70,22 @@ class LogOperationsController extends AbstractTableController
                 return $this->translator->trans('withdraw.request.canceled');
             case Status::WITHDRAW_REQUESTED :
                 return $this->translator->trans('withdraw.request.requested');
+            case Status::WITHDRAW_VENDOR_DISABLED :
+                return $this->translator->trans('withdraw.vendor.disabled');
             case Status::TRANSFER_FAILED :
                 return $this->translator->trans('transfer.request.failed');
             case Status::TRANSFER_NEGATIVE :
                 return $this->translator->trans('transfer.request.negative');
             case Status::TRANSFER_SUCCESS :
                 return $this->translator->trans('transfer.request.success');
+            case Status::TRANSFER_VENDOR_DISABLED :
+                return $this->translator->trans('transfer.vendor.disabled');
             case Status::WITHDRAW_SUCCESS :
                 return $this->translator->trans('withdraw.request.success');
             case Status::ADJUSTED_OPERATIONS :
                 return $this->translator->trans('adjusted.operations');
+            case Status::INVALID_AMOUNT :
+                return $this->translator->trans('invalid.amount');
             default:
                 return "";
         }
@@ -91,15 +97,18 @@ class LogOperationsController extends AbstractTableController
             case Status::TRANSFER_SUCCESS:
             case Status::WITHDRAW_REQUESTED:
                 return "";
+            case Status::INVALID_AMOUNT:
             case Status::TRANSFER_FAILED:
             case Status::WITHDRAW_FAILED:
+            case Status::TRANSFER_VENDOR_DISABLED :
+            case Status::WITHDRAW_VENDOR_DISABLED :
             case Status::WITHDRAW_CANCELED:
                 return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body"'.
-                    ' data-toggle="popover" data-placement="bottom" data-content="' .
-                    $this->translator->trans($logRow["message"]) .
-                    '" data-original-title="" title="" >' .
-                    $this->translator->trans("show.message") .
-                    '</button>';
+                ' data-toggle="popover" data-placement="bottom" data-content="' .
+                $this->translator->trans($logRow["message"]) .
+                '" data-original-title="" title="" >' .
+                $this->translator->trans("show.message") .
+                '</button>';
             default:
                 return "";
         }

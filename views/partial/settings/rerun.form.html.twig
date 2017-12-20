@@ -4,7 +4,7 @@
         <div class="panel-body">
             {{ form_start(reRunForm) }}
             <div class="col-lg-12">
-                <h2>{{'fix.errors'|trans}}</h2>
+                <h2>{{ 'fix.errors'|trans }}</h2>
                 <p>
                     {{ 'fix.errors.description'|trans }}
                 </p>
@@ -19,28 +19,79 @@
                     {{ form_widget(reRunForm.send) }}
                 </p>
             </div>
+
+            <div id="date-modal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">{{ 'fix.errors'|trans }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-dismissible alert-info">
+                                <p>{{ 'date.batch.notice'| trans }}</p>
+                                <p>{{ 'date.batch.notice.empty'| trans }} : </p>
+                                <ul>
+                                    <li>{{ 'date.batch.notice.vendor'| trans }}</li>
+                                    <li>{{ 'date.batch.notice.cashout'| trans }}. <a target="_blank" href="https://developer.hipay.com/doc/hipay-marketplace-cashout-mirakl-integration/#parameters-mirakl-cycles">{{'hipay.doc'|trans}}</a></li>
+                                </ul>
+                            </div>
+                            <label>{{ 'date.batch'|trans }} : </label>
+                            <p>{{ form_widget(reRunForm.date) }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">{{ 'close'|trans }}</button>
+                            <button id="modal_send" type="button" class="btn btn-primary">{{ 'rerun'|trans }}</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
             <div class="col-lg-12">
                 <p>
                     {% if successReRun is defined  and successReRun == true %}
-                    <div class="alert alert-dismissible alert-success">
-                        <strong>{{'success'|trans}}</strong> {{'success.description'|trans}}.
-                    </div>
-                {%endif%}
+                <div class="alert alert-dismissible alert-success">
+                    <strong>{{ 'success'|trans }}</strong> {{ 'success.description'|trans }}.
+                </div>
+                {% endif %}
                 </p>
             </div>
             {{ form_end(reRunForm) }}
 
-            <h4>{{'batch.list'|trans}}</h4>
+            <h4>{{ 'batch.list'|trans }}</h4>
             <table class="table table-striped table-hover " id="table_batchs">
                 <thead>
-                    <tr>
-                        <th>{{'date'|trans}}</th>
-                        <th>{{'action'|trans}}</th>
-                        <th>{{'state'|trans}}</th>
-                    </tr>
+                <tr>
+                    <th>{{ 'date'|trans }}</th>
+                    <th>{{ 'action'|trans }}</th>
+                    <th>{{ 'state'|trans }}</th>
+                </tr>
                 </thead>
             </table>
         </div>
     </div>
 </div>
 <div class="col-md-3"></div>
+<script>
+    $('#form_date').datepicker({
+        format: 'dd/mm/yyyy',
+        orientation: 'up'
+    });
+
+    $('#form_send').click(function (event) {
+        command = $("#form_batch").val();
+        if (command.indexOf("vendor:process") != -1 || command.indexOf("cashout:generate") != -1) {
+            event.preventDefault();
+            $('#date-modal').modal('show');
+        } else {
+            $(this).closest('form').submit();
+        }
+    });
+
+    $('#modal_send').click(function () {
+        $(this).closest('form').submit();
+    });
+
+</script>
