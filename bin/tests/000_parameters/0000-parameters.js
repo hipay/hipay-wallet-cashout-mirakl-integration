@@ -6,6 +6,7 @@ var fs = require('fs'),
     headerModule = "../../Modules/",
     admin_login = casper.cli.get('login-backend'),
     admin_passwd = casper.cli.get('pass-backend'),
+    table = require(headerModule + 'table'),
     authentification = require(headerModule + 'authentification');
 
 casper.test.begin('Parameters', function(test) {

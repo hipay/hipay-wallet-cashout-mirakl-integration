@@ -9,11 +9,11 @@
         <div id="filter" class="panel panel-default">
             <div class="panel-heading">{{'filters'|trans}}</div>
             <div class="panel-body">
-                <form class="form-horizontal">
+                <form id="vendor-filter-form" class="form-horizontal">
                     <div class="col-md-2">
                         <label for="start" class=" control-label">{{'state'|trans}}</label>
                         <div id="sandbox-container">
-                            <select id="status-filter" class="form-control">
+                            <select id="status-filter" name="status" class="form-control">
                                 <option value="-1" >{{'select.state'|trans}}</option>
                                 <option value="1" >Success</option>
                                 <option value="3" >Warning</option>
@@ -23,7 +23,7 @@
                     <div class="col-md-3">
                         <label for="start" class=" control-label">{{'wallet.account.status'|trans}}</label>
                         <div id="sandbox-container">
-                            <select id="wallet-status-filter" class="form-control">
+                            <select id="wallet-status-filter" name="wallet_status" class="form-control">
                                 <option value="-1" >{{'select.wallet.account.status'|trans}}</option>
                                 <option value="1" >{{'created'|trans}}</option>
                                 <option value="2" >{{'not.created'|trans}}</option>
