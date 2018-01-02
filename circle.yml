@@ -41,7 +41,7 @@ test:
   override:
      - sleep 100
      - curl --retry 10 --retry-delay 5 -v http://localhost:8080
-     - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" hipay-mirakl-running)" -- bash -c sh /var/www/html/bin/tests/import_test_data_stage.sh
+     - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" hipay-mirakl-running)" -- bash -c /var/www/html/bin/tests/import_test_data_stage.sh
      #- sh ./bin/tests/import_test_data.sh
      - sh bin/tests/casper_run_circle.sh
      - sh ./bin/tests/report-test.sh
