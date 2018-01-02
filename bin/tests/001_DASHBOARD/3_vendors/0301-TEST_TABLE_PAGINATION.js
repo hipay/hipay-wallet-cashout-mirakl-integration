@@ -13,7 +13,7 @@ casper.test.begin('Test vendor logs table page', function (test) {
             }, 10000);
         })
         .then(function () {
-            table.changePage(test, 'table_vendor', 8, 'third');
+            table.changePage(test, 'table_vendor', 9, 'third');
         })
         .run(function () {
             test.done();

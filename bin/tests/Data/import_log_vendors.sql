@@ -1,3 +1,4 @@
+INSERT INTO `app`.`log_vendors` ( `miraklId`, `hipayId`, `login`, `statusWalletAccount`, `status`, `message`, `nbDoc`, `date`) VALUES ( '2019', '0', 'mirakl_test_0', '1', '1', 'Getting user account infos succeeded', '0', '2017-11-01 10:50:27');
 INSERT INTO `app`.`log_vendors` ( `miraklId`, `hipayId`, `login`, `statusWalletAccount`, `status`, `message`, `nbDoc`, `date`) VALUES ( '1', '1', 'mirakl_test_1', '1', '1', 'Getting user account infos succeeded', '0', '2017-12-04 10:50:27');
 INSERT INTO `app`.`log_vendors` ( `miraklId`, `hipayId`, `login`, `statusWalletAccount`, `status`, `message`, `nbDoc`, `date`) VALUES ( '2', '2', 'mirakl_test_2', '4', '1', 'Getting user account infos succeeded', '0', '2017-12-04 10:50:31');
 INSERT INTO `app`.`log_vendors` ( `miraklId`, `hipayId`, `login`, `statusWalletAccount`, `status`, `message`, `nbDoc`, `date`) VALUES ( '3', '3', 'mirakl_test_3', '4', '1', 'Getting user account infos succeeded', '0', '2017-12-04 10:50:34');

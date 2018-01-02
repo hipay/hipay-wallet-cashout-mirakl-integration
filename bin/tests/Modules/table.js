@@ -84,7 +84,9 @@ exports.checkSearch = function checkSearch(test, tableId, searchText, expectedVa
 
         this.echo("WAIT !", "INFO");
 
-        this.wait(500, function(){this.echo('Was just waiting to fix little search test bug', "INFO")});
+        this.wait(500, function () {
+            this.echo('Was just waiting to fix little search test bug', "INFO")
+        });
 
         this.waitWhileVisible('#' + tableId + '_processing', function success() {
             var value = this.fetchText('#' + tableId + ' > tbody > tr > td:nth-child(' + idColumnCheck + ')');
@@ -103,13 +105,46 @@ exports.checkFilter = function checkFilter(test, tableId, formId, formInputs, ex
         this.fill(formId, formInputs);
 
         this.click("#filter-action");
-        this.capture('test.png');
+
         this.waitWhileVisible('#' + tableId + '_processing', function success() {
             var value = this.fetchText('#' + tableId + ' > tbody > tr');
             test.assertEquals(value, expectedValue, "Filters working ");
         }, function fail() {
             var value = this.fetchText('#' + tableId + ' > tbody > tr');
             test.assertEquals(value, expectedValue, "Filters working ");
+        }, 10000);
+    });
+};
+
+exports.checkDocumentsDetails = function checkDocumentsDetails(test, tableId, miraklId, expectedValue) {
+    casper.then(function () {
+        this.echo("Checking documents details link ... " + miraklId, "INFO");
+
+        this.sendKeys('#' + tableId + '_filter > label > input', miraklId, {reset: true, keepFocus: true});
+
+        this.echo("WAIT !", "INFO");
+
+        this.wait(500, function () {
+            this.echo('Was just waiting to fix little search test bug', "INFO")
+        });
+
+        this.waitWhileVisible('#' + tableId + '_processing', function success() {
+
+            //test.assertEquals(value, miraklId, "Search working ");
+            this.click('#' + tableId + ' > tbody > tr > td:nth-child(8) > a');
+
+            this.waitWhileSelector('#loader-document-page', function success() {
+                var value = this.fetchText('#documents-page .table > tbody > tr').replace(/\s/g, '');
+                test.assertEquals(value, expectedValue, "Documents details link working ");
+            }, function fail() {
+                var value = this.fetchText('#documents-page > tbody > tr').replace(/\s/g, '');
+                this.capture('0305-TEST_TABLE_DOCUMENT_DETAILS.png');
+                test.assertEquals(value, expectedValue, "Documents details link working ");
+            }, 10000);
+
+        }, function fail() {
+            var value = this.fetchText('#' + tableId + ' > tbody > tr > td:nth-child(1)');
+            test.assertEquals(value, miraklId, "Search working ");
         }, 10000);
     });
 };
