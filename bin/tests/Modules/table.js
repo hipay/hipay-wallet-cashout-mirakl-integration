@@ -138,7 +138,6 @@ exports.checkDocumentsDetails = function checkDocumentsDetails(test, tableId, mi
                 test.assertEquals(value, expectedValue, "Documents details link working ");
             }, function fail() {
                 var value = this.fetchText('#documents-page > tbody > tr').replace(/\s/g, '');
-                this.capture('0305-TEST_TABLE_DOCUMENT_DETAILS.png');
                 test.assertEquals(value, expectedValue, "Documents details link working ");
             }, 10000);
 
