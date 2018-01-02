@@ -31,6 +31,7 @@ dependencies:
     - mkdir $CIRCLE_ARTIFACTS/casper_report
     - mkdir $CIRCLE_ARTIFACTS/screenshots
     - sudo chmod -R 766 ./docker/config
+    - sudo chmod -R 777 ./bin/tests/import_test_data_stage.sh
   override:
       - echo "override to not run composer install"
       - sh ./bin/deployment/setup_sonar.sh
