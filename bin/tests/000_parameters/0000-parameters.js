@@ -1,3 +1,17 @@
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2017 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
+
+/**
+ * Parameters initialisation
+ */
+
 var fs = require('fs'),
     utils = require('utils'),
     x = require('casper').selectXPath,
@@ -16,6 +30,7 @@ casper.test.begin('Parameters', function(test) {
     casper.userAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36');
     casper.options.viewportSize = {width: defaultViewPortSizes["width"], height: defaultViewPortSizes["height"]};
 
+    // generate screenshot on test fail
     var img = 0;
     test.on('fail', function() {
         img++;

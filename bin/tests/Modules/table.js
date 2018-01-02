@@ -1,3 +1,24 @@
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2017 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
+
+/**
+ * Datatable functions
+ */
+
+/**
+ * Change page, Datatable pagination
+ * @param test
+ * @param tableId
+ * @param nbRows
+ * @param page
+ */
 exports.changePage = function changePage(test, tableId, nbRows, page) {
     casper.then(function () {
 
@@ -17,6 +38,11 @@ exports.changePage = function changePage(test, tableId, nbRows, page) {
     });
 };
 
+/**
+ * Check if there's 10 rows on first page of the table
+ * @param test
+ * @param tableId
+ */
 exports.checkFirstPage = function checkFirstPage(test, tableId) {
     casper.then(function () {
 
@@ -30,6 +56,12 @@ exports.checkFirstPage = function checkFirstPage(test, tableId) {
     });
 };
 
+/**
+ * Check if there is the correct number of pagination page
+ * @param test
+ * @param page
+ * @param nbPage
+ */
 exports.checkPaginationButton = function checkPaginationButton(test, page, nbPage) {
     casper.then(function () {
         this.echo("Checking pagination button exist ...", "INFO");
@@ -38,6 +70,12 @@ exports.checkPaginationButton = function checkPaginationButton(test, page, nbPag
     });
 };
 
+/**
+ * Check if error buttons exists
+ * @param test
+ * @param tableId
+ * @param buttonClass
+ */
 exports.errorButtonExist = function errorButtonExist(test, tableId, buttonClass) {
     casper.then(function () {
         this.echo("Checking error message button exist ...", "INFO");
@@ -46,6 +84,12 @@ exports.errorButtonExist = function errorButtonExist(test, tableId, buttonClass)
     });
 };
 
+/**
+ * Check if error message exists when we click on error button
+ * @param test
+ * @param tableId
+ * @param buttonClass
+ */
 exports.checkErrorMessage = function checkErrorMessage(test, tableId, buttonClass) {
     casper.then(function () {
         this.echo("Checking error message is displayed ...", "INFO");
@@ -60,6 +104,14 @@ exports.checkErrorMessage = function checkErrorMessage(test, tableId, buttonClas
     });
 };
 
+/**
+ * Check if datatable sorting columns works
+ * @param test
+ * @param tableId
+ * @param column
+ * @param id
+ * @param expectedValue
+ */
 exports.checkSortColumn = function checkSortColumn(test, tableId, column, id, expectedValue) {
     casper.then(function () {
         this.echo("Checking sorting column ... " + column, "INFO");
@@ -76,6 +128,14 @@ exports.checkSortColumn = function checkSortColumn(test, tableId, column, id, ex
     });
 };
 
+/**
+ * Checking datatable search
+ * @param test
+ * @param tableId
+ * @param searchText
+ * @param expectedValue
+ * @param idColumnCheck
+ */
 exports.checkSearch = function checkSearch(test, tableId, searchText, expectedValue, idColumnCheck) {
     casper.then(function () {
         this.echo("Checking search ... " + searchText, "INFO");
@@ -98,6 +158,14 @@ exports.checkSearch = function checkSearch(test, tableId, searchText, expectedVa
     });
 };
 
+/**
+ * Check if filter form works
+ * @param test
+ * @param tableId
+ * @param formId
+ * @param formInputs
+ * @param expectedValue
+ */
 exports.checkFilter = function checkFilter(test, tableId, formId, formInputs, expectedValue) {
     casper.then(function () {
         this.echo("Checking filter ... ", "INFO");
@@ -116,6 +184,13 @@ exports.checkFilter = function checkFilter(test, tableId, formId, formInputs, ex
     });
 };
 
+/**
+ * Check if documents details links loads the right data
+ * @param test
+ * @param tableId
+ * @param miraklId
+ * @param expectedValue
+ */
 exports.checkDocumentsDetails = function checkDocumentsDetails(test, tableId, miraklId, expectedValue) {
     casper.then(function () {
         this.echo("Checking documents details link ... " + miraklId, "INFO");

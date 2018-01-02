@@ -1,3 +1,16 @@
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2017 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
+
+/**
+ * Authentication function
+ */
 exports.proceed = function proceed(test, user, password) {
     /* Connection to admin panel */
     casper.then(function () {
