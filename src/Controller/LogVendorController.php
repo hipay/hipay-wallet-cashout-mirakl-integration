@@ -42,7 +42,7 @@ class LogVendorController extends AbstractTableController
                 "label" => $this->getStatusWalletAccountString($logRow['statusWalletAccount'])
             );
 
-            if ($data[$key]['hipayId'] == -1 || $data[$key]['hipayId'] == null) {
+            if ($data[$key]['hipayId'] === -1 || $data[$key]['hipayId'] === null) {
                 $data[$key]['document'] = array(
                     "nb" => $logRow['nbDoc'],
                     "miraklId" => $logRow['miraklId'],

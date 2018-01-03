@@ -1,0 +1,1 @@
+INSERT INTO `app`.`vendors` ( `miraklId`, `email`, `hipayId`, `hipayUserSpaceId`, `hipayIdentified`, `vatNumber`, `callbackSalt`) VALUES ('2019', 'mirakl_test_0@test.com', '659293', '0', '0', 'NULL', 'test_salt');

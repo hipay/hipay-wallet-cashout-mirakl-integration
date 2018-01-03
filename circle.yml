@@ -7,6 +7,8 @@ dependencies:
   pre:
     - sudo apt-get install sshpass
     - sudo chmod u+x ./docker/entrypoint.sh
+    - sudo chmod 777 ./bin/tests/import_test_data_stage.sh
+    - sudo chmod -R 766 ./docker/config
     - npm install -g casperjs@1.1.3
     - npm install -g junit-viewer
     - npm install -g bower
@@ -30,7 +32,6 @@ dependencies:
     - docker-compose -f docker-compose.yml -f docker-compose.stage.yml up -d
     - mkdir $CIRCLE_ARTIFACTS/casper_report
     - mkdir $CIRCLE_ARTIFACTS/screenshots
-    - sudo chmod -R 766 ./docker/config
   override:
       - echo "override to not run composer install"
       - sh ./bin/deployment/setup_sonar.sh
@@ -41,6 +42,7 @@ test:
   override:
      - sleep 100
      - curl --retry 10 --retry-delay 5 -v http://localhost:8080
+     - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" hipay-mirakl-running)" -- bash -c /var/www/html/bin/tests/import_test_data_stage.sh
      - sh bin/tests/casper_run_circle.sh
      - sh ./bin/tests/report-test.sh
 deployment:

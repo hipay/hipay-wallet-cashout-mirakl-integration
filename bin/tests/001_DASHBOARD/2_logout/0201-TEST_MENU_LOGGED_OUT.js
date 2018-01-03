@@ -1,3 +1,16 @@
+/**
+ * 2017 HiPay
+ *
+ * NOTICE OF LICENSE
+ *
+ * @author    HiPay <support.wallet@hipay.com>
+ * @copyright 2017 HiPay
+ * @license   https://github.com/hipay/hipay-wallet-cashout-mirakl-integration/blob/master/LICENSE.md
+ */
+
+/**
+ * Test menu navigation, logged out
+ */
 casper.test.begin('Test menu navigation, logged out', function (test) {
     phantom.clearCookies();
 
