@@ -63,7 +63,7 @@ transfer.request.success: OK
 transfer.request.failed: KO
 withdraw.request.requested: OK (demandé)
 withdraw.request.failed: KO (échec)
-withdraw.request.cancel: KO (annulé)
+withdraw.request.canceled: KO (annulé)
 withdraw.request.success: OK
 withdraw.request.negative: KO (Fonds insuffisants)
 transfer.request.negative: KO (Fonds insuffisants)
