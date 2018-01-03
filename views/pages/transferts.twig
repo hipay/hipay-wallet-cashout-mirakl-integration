@@ -9,11 +9,11 @@
         <div  id="filter" class="panel panel-default">
             <div class="panel-heading">{{'filters'|trans}}</div>
             <div class="panel-body">
-                <form class="form-horizontal">
+                <form id="operations-filter-form" class="form-horizontal">
                     <div class="col-md-3">
                         <label for="start" class=" control-label">{{'transfer.status'|trans}}</label>
                         <div id="sandbox-container">
-                            <select id="status-transfer" class="form-control">
+                            <select id="status-transfer" class="form-control" name="status-transfer">
                                 <option value="-1" >{{'select.transfer.status'|trans}}</option>
                                 <option value="3" >{{ 'transfer.request.success'|trans }}</option>
                                 <option value="-10" >{{ 'withdraw.request.negative'|trans }}</option>
@@ -25,7 +25,7 @@
                     <div class="col-md-3">
                         <label for="start" class=" control-label">{{'withdraw.status'|trans}}</label>
                         <div id="sandbox-container">
-                            <select id="status-withdraw" class="form-control">
+                            <select id="status-withdraw" class="form-control" name="status-withdraw">
                                 <option value="-1" >{{'select.withdraw.status'|trans}}</option>
                                 <option value="5" >{{ 'withdraw.request.requested'|trans }}</option>
                                 <option value="6" >{{ 'withdraw.request.success'|trans }}</option>
@@ -47,7 +47,7 @@
     <div class="row">
         <div class="col-md-12">
             <p class="text-center">
-            <table class="table table-striped table-hover "  id="table_transferts">
+            <table class="table table-striped table-hover "  id="table_transfers">
                 <thead>
                 <tr>
                     <th>Mirakl ID</th>
