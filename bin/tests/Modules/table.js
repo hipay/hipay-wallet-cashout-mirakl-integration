@@ -222,3 +222,44 @@ exports.checkDocumentsDetails = function checkDocumentsDetails(test, tableId, mi
         }, 10000);
     });
 };
+
+/**
+ * Check if export button works
+ * @param test
+ * @param fileName
+ * @param buttonClass
+ * @param expectedFileContent
+ */
+exports.checkDownloadFile = function checkDownloadFile(test, fileName, buttonClass, expectedFileContent) {
+    casper.then(function () {
+
+        this.echo("Checking download file from export button ...", "INFO");
+
+        var listener = function (resource) {
+            if (resource.stage !== 'end') {
+                return;
+            }
+            if (resource.url.indexOf(fileName) > -1) {
+                test.assertNotEquals(resource.url.indexOf(fileName), -1, "link downloading the correct file");
+                this.download(resource.url, fileName);
+                var data = fs.read(fileName);
+                test.assertEquals(data, expectedFileContent, "file contains correct content");
+            } else {
+                this.download(resource.url, pathErrors + fileName);
+                test.assertNotEquals(resource.url.indexOf(fileName), -1, "link downloading incorrect file");
+            }
+
+
+        };
+
+        this.echo('Adding custom listener on resource.received', "INFO")
+        casper.on('resource.received', listener);
+
+        this.click(buttonClass);
+        // remove custom listener after tests
+        this.wait(500, function () {
+            this.echo('File has been tested, removing listener on resource.received', "INFO")
+            this.removeListener("resource.received", listener);
+        });
+    });
+};
