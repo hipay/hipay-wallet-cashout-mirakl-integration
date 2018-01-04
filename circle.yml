@@ -9,7 +9,7 @@ dependencies:
     - sudo chmod u+x ./docker/entrypoint.sh
     - sudo chmod 777 ./bin/tests/import_test_data_stage.sh
     - sudo chmod -R 766 ./docker/config
-    - npm install -g casperjs@1.1.3
+    - npm install -g casperjs@1.1.4
     - npm install -g junit-viewer
     - npm install -g bower
     - npm install -g phantomjs@2.1.1
