@@ -29,6 +29,25 @@ casper.test.begin('Test batch form in settings page', function (test) {
         })
         .then(function () {
 
+            settings.checkSettingsForm(test, {});
+        })
+        .then(function () {
+
+            var formInputs = {
+                'form[token]' : "test",
+                'form[email_log_level]' : 100
+            };
+
+            settings.checkSettingsForm(test, formInputs);
+        })
+        .then(function () {
+            // empty token
+            var formInputs = {
+                'form[token]' : "",
+                'form[email_log_level]' : 400
+            };
+
+            settings.checkSettingsForm(test, formInputs);
         })
         .run(function () {
             test.done();

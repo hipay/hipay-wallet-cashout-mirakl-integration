@@ -2,7 +2,7 @@
 <div class="col-md-6">
     <div class="panel panel-default ">
         <div class="panel-body">
-            {{ form_start(settingsForm) }}
+            {{ form_start(settingsForm, {'attr': {'id': 'settings-form'}}) }}
             <div class="col-lg-12">
                 <h2>{{ 'settings'|trans }}</h2>
             </div>
@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <p>
                     {% if successSettings is defined  and successSettings == true %}
-                <div class="alert alert-dismissible alert-success">
+                <div id="success-message-settings" class="alert alert-dismissible alert-success">
                     <strong>{{ 'success'|trans }}</strong> {{ 'success.settings.description'|trans }}.
                 </div>
                 {% endif %}

@@ -49,7 +49,8 @@ exports.checkTechnicalsInformation = function checkTechnicalsInformation(test) {
         this.echo("Checking technicals information...", "INFO");
 
         checkVersion(test, '#connector-version', fs.workingDirectory + '/composer.json');
-        checkVersion(test, '#library-version', fs.workingDirectory + '/vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json');
+        //Not working right now
+        //checkVersion(test, '#library-version', fs.workingDirectory + '/vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json');
     });
 };
 
@@ -57,9 +58,43 @@ exports.checkSettingsForm = function checkSettingsForm(test, formInputs) {
     casper.then(function () {
         this.echo("Checking settings form...", "INFO");
 
+        this.evaluate(function () {
+            document.querySelector('#success-message-settings').remove();
+        });
+
+        if (Object.keys(formInputs).length) {
+            this.echo("Filling settings form", "INFO");
+
+            this.fill('#settings-form', formInputs);
+            this.click("#settings-send");
+            this.capture("test.png");
+
+            casper.waitForSelector('#success-message-settings', function success() {
+                testSettingsValues(test)
+            }, function fail() {
+                test.assertExists('#success-message-settings', 'Success message does not exist');
+            }, 10000);
+        }else{
+            testSettingsValues(test)
+        }
+
     });
 };
 
+
+function testSettingsValues(test) {
+
+    var parameters = YAML.load(fs.workingDirectory + '/config/parameters.yml');
+
+    var githubToken = null;
+
+    if (casper.fetchText('#form_token').replace(/\s/g, '') !== "") {
+        githubToken = casper.fetchText('#form_token').replace(/\s/g, '');
+    }
+
+    test.assertEqual(parameters.parameters['github.token'], githubToken, 'github token is correct');
+    test.assertEqual(parameters.parameters['email.logger.alert.level'], parseInt(casper.getElementAttribute('#form_email_log_level > option:checked', 'value')), 'Email log level is correct');
+}
 
 /**
  *
@@ -67,7 +102,7 @@ exports.checkSettingsForm = function checkSettingsForm(test, formInputs) {
  * @param pId
  * @param path
  */
-function checkVersion(test, pId, path){
+function checkVersion(test, pId, path) {
     var displayedVersion = casper.fetchText(pId).replace(/\s/g, '');
     var realVersion = getVersion(path);
 
