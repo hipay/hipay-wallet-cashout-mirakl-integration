@@ -2,7 +2,7 @@
 <div class="col-md-6">
     <div class="panel panel-default ">
         <div class="panel-body">
-            {{ form_start(reRunForm) }}
+            {{ form_start(reRunForm, {'attr': {'id': 'batch-form'}}) }}
             <div class="col-lg-12">
                 <h2>{{ 'fix.errors'|trans }}</h2>
                 <p>
@@ -16,7 +16,7 @@
             </div>
             <div class="col-lg-12">
                 <p>
-                    {{ form_widget(reRunForm.send) }}
+                    {{ form_widget(reRunForm.send, { 'id': 'batch-send'} ) }}
                 </p>
             </div>
 
@@ -34,7 +34,9 @@
                                 <p>{{ 'date.batch.notice.empty'| trans }} : </p>
                                 <ul>
                                     <li>{{ 'date.batch.notice.vendor'| trans }}</li>
-                                    <li>{{ 'date.batch.notice.cashout'| trans }}. <a target="_blank" href="https://developer.hipay.com/doc/hipay-marketplace-cashout-mirakl-integration/#parameters-mirakl-cycles">{{'hipay.doc'|trans}}</a></li>
+                                    <li>{{ 'date.batch.notice.cashout'| trans }}. <a target="_blank"
+                                                                                     href="https://developer.hipay.com/doc/hipay-marketplace-cashout-mirakl-integration/#parameters-mirakl-cycles">{{ 'hipay.doc'|trans }}</a>
+                                    </li>
                                 </ul>
                             </div>
                             <label>{{ 'date.batch'|trans }} : </label>
@@ -51,8 +53,8 @@
 
             <div class="col-lg-12">
                 <p>
-                    {% if successReRun is defined  and successReRun == true %}
-                <div class="alert alert-dismissible alert-success">
+                {% if successReRun is defined  and successReRun == true %}
+                <div id="success-message-batch" class="alert alert-dismissible alert-success">
                     <strong>{{ 'success'|trans }}</strong> {{ 'success.description'|trans }}.
                 </div>
                 {% endif %}
@@ -77,10 +79,11 @@
 <script>
     $('#form_date').datepicker({
         format: 'dd/mm/yyyy',
-        orientation: 'up'
+        orientation: 'up',
+        forceParse: false
     });
 
-    $('#form_send').click(function (event) {
+    $('#batch-send').click(function (event) {
         command = $("#form_batch").val();
         if (command.indexOf("vendor:process") != -1 || command.indexOf("cashout:generate") != -1) {
             event.preventDefault();
