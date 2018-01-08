@@ -49,8 +49,7 @@ exports.checkTechnicalsInformation = function checkTechnicalsInformation(test) {
         this.echo("Checking technicals information...", "INFO");
 
         checkVersion(test, '#connector-version', fs.workingDirectory + '/composer.json');
-        //Not working right now
-        //checkVersion(test, '#library-version', fs.workingDirectory + '/vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json');
+        checkVersion(test, '#library-version', fs.workingDirectory + '/vendor/hipay/hipay-wallet-cashout-mirakl-library/composer.json');
     });
 };
 

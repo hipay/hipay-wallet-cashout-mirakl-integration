@@ -6,6 +6,7 @@ web:
     - "8080:80"
   volumes:
     - ./config:/var/www/html/config
+    - ./vendor:/var/www/html/vendor
 db:
   image: mysql
   container_name: hipay-mirakl-db-running
