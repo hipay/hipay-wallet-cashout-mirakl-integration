@@ -53,6 +53,11 @@ exports.checkTechnicalsInformation = function checkTechnicalsInformation(test) {
     });
 };
 
+/**
+ *
+ * @param test
+ * @param formInputs
+ */
 exports.checkSettingsForm = function checkSettingsForm(test, formInputs) {
     casper.then(function () {
         this.echo("Checking settings form...", "INFO");
@@ -80,7 +85,25 @@ exports.checkSettingsForm = function checkSettingsForm(test, formInputs) {
     });
 };
 
+/**
+ *
+ * @param test
+ * @param formInputs
+ */
+exports.checkUpdateBlock = function checkUpdateBlock(test, text) {
+    casper.then(function () {
+        this.echo("Checking update block...", "INFO");
 
+        var value = casper.fetchText('#update-block').replace(/\s/g, '');
+
+        test.assertEqual(value, text, 'text for update block is correct');
+    });
+};
+
+/**
+ *
+ * @param test
+ */
 function testSettingsValues(test) {
 
     var parameters = YAML.load(fs.workingDirectory + '/config/parameters.yml');
