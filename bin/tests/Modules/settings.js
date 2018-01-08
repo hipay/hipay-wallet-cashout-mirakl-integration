@@ -13,7 +13,7 @@
  */
 
 /**
- *
+ * Fill and check Batch run form
  * @param test
  * @param formInputs
  * @param dateModal
@@ -41,7 +41,7 @@ exports.checkBatchForm = function checkBatchForm(test, formInputs, dateModal, ma
 };
 
 /**
- *
+ * check if technicals information displayed are correct (composer.json)
  * @param test
  */
 exports.checkTechnicalsInformation = function checkTechnicalsInformation(test) {
@@ -54,7 +54,7 @@ exports.checkTechnicalsInformation = function checkTechnicalsInformation(test) {
 };
 
 /**
- *
+ * Fill and check settings form (parameters.yml)
  * @param test
  * @param formInputs
  */
@@ -86,7 +86,7 @@ exports.checkSettingsForm = function checkSettingsForm(test, formInputs) {
 };
 
 /**
- *
+ * Check update block text
  * @param test
  * @param formInputs
  */
@@ -101,7 +101,7 @@ exports.checkUpdateBlock = function checkUpdateBlock(test, text) {
 };
 
 /**
- *
+ * compare form values with parameters.yml
  * @param test
  */
 function testSettingsValues(test) {
@@ -119,7 +119,7 @@ function testSettingsValues(test) {
 }
 
 /**
- *
+ * read composer.json file and compare version
  * @param test
  * @param pId
  * @param path
@@ -134,7 +134,7 @@ function checkVersion(test, pId, path) {
 }
 
 /**
- *
+ * get composer.json file
  * @param path
  * @returns {*}
  */
@@ -147,7 +147,7 @@ function getVersion(path) {
 }
 
 /**
- *
+ * Fill date for batch run form
  * @param test
  * @param casper
  * @param matchPattern
@@ -167,7 +167,7 @@ function fillingDate(test, casper, matchPattern, date) {
 }
 
 /**
- *
+ * check in datatable if the batch we just run is displayed
  * @param test
  * @param casper
  * @param matchPattern
