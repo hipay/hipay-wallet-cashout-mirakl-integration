@@ -46,7 +46,7 @@ casper.test.begin('Test update block in settings page', function (test) {
             };
 
             settings.checkSettingsForm(test, formInputs);
-            settings.checkUpdateBlock(test, 'L\'application est à jour');
+            settings.checkUpdateBlock(test, 'L\'applicationestàjour');
         })
         .run(function () {
             test.done();
