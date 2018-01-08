@@ -4,6 +4,8 @@ web:
     - ./docker/conf/stage/hipay.env.dist
   ports:
     - "8080:80"
+  volumes:
+    - ./config:/var/www/html/config
 db:
   image: mysql
   container_name: hipay-mirakl-db-running

@@ -9,9 +9,9 @@
  */
 
 /**
- * Test batch form in settings page
+ * Test settings form in settings page
  */
-casper.test.begin('Test batch form in settings page', function (test) {
+casper.test.begin('Test settings form in settings page', function (test) {
     phantom.clearCookies();
 
     casper.start(baseURL)
