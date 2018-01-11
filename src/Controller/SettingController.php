@@ -407,7 +407,7 @@ class SettingController
 
         $installedVersion = $this->getComposerFile($composerPath);
 
-        if ($latestVersion['tag_name'] !== $installedVersion['version']) {
+        if (version_compare($installedVersion['version'], $latestVersion['tag_name'], '<')) {
             return true;
         }
 
