@@ -1,3 +1,6 @@
+# Version 3.2.0
+- New - Add functionals tests
+
 # Version 3.1.1
 - Handle vendor already database with HIPA_PROCESS = NO
 
