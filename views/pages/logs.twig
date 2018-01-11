@@ -8,11 +8,11 @@
         <div  id="filter" class="panel panel-default">
             <div class="panel-heading">{{'filters'|trans}}</div>
             <div class="panel-body">
-                <form class="form-horizontal">
+                <form id="logs-filter-form" class="form-horizontal">
                     <div class="col-md-3">
                         <label for="start" class=" control-label">{{'information.type'|trans}}</label>
                         <div id="sandbox-container">
-                            <select id="log-level" class="form-control">
+                            <select id="log-level" class="form-control" name="log-level">
                                 <option value="-1" >{{'select.information.type'|trans}}</option>
                                 <option value="100" >Debug</option>
                                 <option value="200" >Info</option>
@@ -75,7 +75,8 @@
     <script type="text/javascript">
         $('#sandbox-container .input-daterange').datepicker({
             format: 'dd/mm/yyyy',
-            orientation: 'bottom'
+            orientation: 'bottom',
+            forceParse: false
         });
 
 

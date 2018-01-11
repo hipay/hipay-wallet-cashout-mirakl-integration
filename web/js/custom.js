@@ -106,9 +106,9 @@
                 vendorTable.draw();
             });
         }
-        if ($('#table_transferts').length) {
+        if ($('#table_transfers').length) {
 
-            var operationTable = $('#table_transferts').DataTable({
+            var operationTable = $('#table_transfers').DataTable({
                 "language": {
                     url: 'datatable/locale'
                 },
