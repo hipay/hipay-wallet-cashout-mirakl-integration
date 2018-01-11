@@ -14,6 +14,7 @@ dependencies:
     - npm install -g bower
     - npm install -g phantomjs@2.1.1
     - npm install -g junit-viewer
+    - npm install yamljs
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL/" ./docker/conf/stage/hipay.env.dist
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
     - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL/" ./docker/conf/stage/hipay.env.dist

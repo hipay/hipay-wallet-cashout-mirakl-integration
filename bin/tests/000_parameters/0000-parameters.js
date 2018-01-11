@@ -14,15 +14,18 @@
 
 var fs = require('fs'),
     utils = require('utils'),
+    yaml = require('yamljs'),
     x = require('casper').selectXPath,
     defaultViewPortSizes = {width: 1920, height: 1080},
     baseURL = casper.cli.get('url'),
     headerModule = "../../Modules/",
     admin_login = casper.cli.get('login-backend'),
     admin_passwd = casper.cli.get('pass-backend'),
+    github_token = casper.cli.get('github-token'),
     pathHeader = "bin/tests/",
     pathErrors = pathHeader + "errors/",
     table = require(headerModule + 'table'),
+    settings = require(headerModule + 'settings'),
     authentification = require(headerModule + 'authentification');
 
 casper.test.begin('Parameters', function(test) {
