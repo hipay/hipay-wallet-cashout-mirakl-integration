@@ -27,7 +27,7 @@ RUN buildRequirements="libxml2-dev" \
 	&& rm -rf /var/lib/apt/lists/*
 
 #XDebug
-RUN yes | pecl install xdebug \
+RUN yes | pecl install xdebug-2.5.0 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
