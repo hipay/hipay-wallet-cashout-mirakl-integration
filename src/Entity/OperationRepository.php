@@ -262,6 +262,7 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
             'cycleDateTime' => $operation->getCycleDate()->format(
                 'Y-m-d H:i:s'
             ),
+            'paymentVoucher' => $operation->getPaymentVoucher(),
             'cycleTime' => $operation->getCycleDate()->format('H:i:s'),
             'date' => date('Y-m-d'),
             'datetime' => date('Y-m-d H:i:s'),
