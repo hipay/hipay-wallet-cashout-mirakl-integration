@@ -106,6 +106,8 @@ exports.checkUpdateBlock = function checkUpdateBlock(test, text) {
  */
 function testSettingsValues(test) {
 
+    casper.echo(fs.workingDirectory, "INFO");
+
     var parameters = YAML.load(fs.workingDirectory + '/config/parameters.yml');
 
     var githubToken = null;

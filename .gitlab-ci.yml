@@ -1,0 +1,90 @@
+image: hipay/gitlab-ci-base:jessie
+
+variables:
+  BASE_URL: http://mirakl/web/index.php/
+
+stages:
+ - build
+ - analysis
+ - deploy
+ - sync
+
+casperjs-part1:
+  stage: build
+  tags:
+    - mirakl-integration
+  before_script:
+    - chmod -R 766 ./docker/config
+    - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL\}/$MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID\}/$MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL\}/$MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_ENTITY\}/$MIRAKL_CONNECTOR_HIPAY_ENTITY/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID\}/$MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_WS_LOGIN\}/$MIRAKL_CONNECTOR_HIPAY_WS_LOGIN/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD\}/$MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_BASE_URL\}/$MIRAKL_CONNECTOR_MIRAKL_BASE_URL/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_FRONT_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_FRONT_KEY/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY\}/$MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL\}/$MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL/" ./docker/conf/stage/hipay.env.dist
+    - sed -i -e "s/{GITHUB_TOKEN\}/$GITHUB_TOKEN/" ./docker/conf/stage/hipay.env.dist
+    - npm install yamljs
+    - 'export SHARED_PATH="$(dirname ${CI_PROJECT_DIR})/hipay-wallet-cashout-mirakl-integration/config"'
+    - echo ${SHARED_PATH}
+    - ./mirakl.sh init-stage
+    - sleep 250
+    - docker-compose -f docker-compose.yml -f docker-compose.stage.yml logs
+  script:
+    - curl --retry 10 --retry-delay 5 -v http://mirakl/web/index.php/
+    - docker cp hipay-mirakl-running-$CI_JOB_ID:/var/www/html/vendor ./
+    - sh bin/tests/import_test_data.sh
+    - sh bin/tests/casper_run_circle.sh
+  allow_failure: false
+  artifacts:
+      paths:
+      - bin/tests/errors
+      when: always
+  after_script:
+    - docker-compose -f docker-compose.yml -f docker-compose.stage.yml stop
+    - docker-compose -f docker-compose.yml -f docker-compose.stage.yml rm -fv
+
+sonarqube:
+  stage: analysis
+  tags:
+    - mirakl-integration
+  image: ciricihq/gitlab-sonar-scanner
+  variables:
+    SONAR_URL: http://172.17.0.1:19000
+    SONAR_ANALYSIS_MODE: preview
+    SONAR_TOKEN: $SONAR_LOGIN
+  script:
+  - /usr/bin/sonar-scanner-run.sh -X
+
+sonarqube-reports:
+  stage: analysis
+  tags:
+    - mirakl-integration
+  image: ciricihq/gitlab-sonar-scanner
+  variables:
+    SONAR_URL: http://172.17.0.1:19000
+    SONAR_ANALYSIS_MODE: "publish"
+    SONAR_TOKEN: $SONAR_LOGIN
+  script:
+  - unset CI_BUILD_REF && /usr/bin/sonar-scanner-run.sh
+
+deploy:
+ stage: deploy
+ tags:
+  - mirakl-integration
+ script:
+  - docker exec deploy.hipay-pos-platform.com /deploy/deploy_project.sh  $CI_PROJECT_NAME $CI_COMMIT_REF_NAME gitlab
+
+#sync:
+#  stage: sync
+#  script:
+#  - git clone --mirror https://$GITLAB_USER:$GITLAB_PASSWORD@gitlab.hipay.org/pi-ecommerce/hipay-fullservice-sdk-magento2.git
+#  - cd hipay-fullservice-sdk-magento2.git
+#  - git push --mirror https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/hipay/hipay-fullservice-sdk-magento2.git
+#  allow_failure: true

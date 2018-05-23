@@ -1,17 +1,20 @@
-web:
-  build: .
-  links:
-    - db
-    - smtp
-  container_name: hipay-mirakl-running
-db:
-  image: mysql:5.6.23
-  container_name: hipay-mirakl-db-running
-  environment:
-    MYSQL_ROOT_PASSWORD: 123456
-    MYSQL_USER: dev
-    MYSQL_PASSWORD: 123456
-    MYSQL_DATABASE: app
-smtp:
-  image: hipay/mailcatcher:1.0.0
-  container_name: hipay-mirakl-smtp-running
+version: "2.1"
+
+services:
+  mirakl:
+    build: .
+    links:
+      - db
+      - smtp
+    container_name: hipay-mirakl-running
+  db:
+    image: mysql:5.7
+    container_name: hipay-mirakl-db-running
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: app
+  smtp:
+    image: hipay/mailcatcher:1.0.0
+    container_name: hipay-mirakl-smtp-running
