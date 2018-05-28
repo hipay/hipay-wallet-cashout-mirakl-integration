@@ -25,7 +25,7 @@ casper.test.begin('Test vendor logs documents details link', function (test) {
         })
         .then(function () {
             // test if popup displays and if data in table are correct
-            table.checkDocumentsDetails(test, 'table_vendor', '2019', 'IDproofRefusedMissinginformationCompanyregistrationValidated-DistributionofpowerValidated-BankValidated-');
+            table.checkDocumentsDetails(test, 'table_vendor', '2019', 'IdentitycardRefusedMissinginformationsCompanyRegistrationValidated-DistributionofpowerValidated-BankValidated-');
         })
         .run(function () {
             test.done();

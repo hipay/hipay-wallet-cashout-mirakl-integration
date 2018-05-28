@@ -25,12 +25,12 @@ if [ "$1" = '' ] || [ "$1" = '--help' ];then
 fi
 
 if [ "$1" = 'init' ] && [ "$2" = '' ];then
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml  stop
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml rm -fv
+     docker-compose -f docker-compose.dev.yml  stop
+     docker-compose -f docker-compose.dev.yml rm -fv
      rm -Rf composer.lock
      rm -Rf vendor/
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml build --no-cache
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+     docker-compose -f docker-compose.dev.yml build --no-cache
+     docker-compose -f docker-compose.dev.yml up -d
 fi
 
 if [ "$1" = 'init-production' ] && [ "$2" = '' ];then
@@ -48,19 +48,19 @@ if [ "$1" = 'init-stage' ] && [ "$2" = '' ];then
 fi
 
 if [ "$1" = 'restart' ];then
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml  stop
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml  up -d
+     docker-compose -f docker-compose.dev.yml  stop
+     docker-compose -f docker-compose.dev.yml  up -d
 fi
 
 if [ "$1" = 'kill' ];then
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml  stop
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml rm -fv
+     docker-compose -f docker-compose.dev.yml  stop
+     docker-compose -f docker-compose.dev.yml rm -fv
      rm -Rf composer.lock
      rm -Rf vendor/
 fi
 
 if [ "$1" = 'logs' ];then
-     docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs -f
+     docker-compose -f docker-compose.dev.yml logs -f
 fi
 
 if [ "$1" = 'test' ]; then

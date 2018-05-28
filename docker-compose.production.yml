@@ -1,24 +1,30 @@
-web:
-  container_name: {CONTAINER_NAME_WEB}
-  ports:
-    - "{PORT_WEB}:80"
-  env_file:
-    - ./docker/conf/production/hipay.env.dist
-  labels:
-    - "com.hipay.github={label}"
-    - "com.hipay.circleci={circleci}"
-    - "com.hipay.sonar={sonar}"
-db:
-  container_name: {CONTAINER_NAME_MYSQL}
-  ports:
-    - "{PORT_MYSQL}:3306"
-  labels:
-    - "com.hipay.github={label}"
-    - "com.hipay.circleci={circleci}"
-smtp:
-  container_name: {CONTAINER_NAME_SMTP}
-  ports:
-    - "{PORT_SMTP}:80"
-  labels:
-    - "com.hipay.github={label}"
-    - "com.hipay.circleci={circleci}"
+version: "2.1"
+
+services:
+  mirakl:
+    container_name: {CONTAINER_NAME_WEB}
+    ports:
+      - "{PORT_WEB}:80"
+    env_file:
+      - ./docker/conf/production/hipay.env.dist
+    labels:
+      - "com.hipay.github={label}"
+      - "com.hipay.circleci={circleci}"
+      - "com.hipay.sonar={sonar}"
+    mem_limit: 500M
+  db:
+    container_name: {CONTAINER_NAME_MYSQL}
+    ports:
+      - "{PORT_MYSQL}:3306"
+    labels:
+      - "com.hipay.github={label}"
+      - "com.hipay.circleci={circleci}"
+    mem_limit: 500M
+  smtp:
+    container_name: {CONTAINER_NAME_SMTP}
+    ports:
+      - "{PORT_SMTP}:80"
+    labels:
+      - "com.hipay.github={label}"
+      - "com.hipay.circleci={circleci}"
+    mem_limit: 500M

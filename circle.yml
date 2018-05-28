@@ -35,20 +35,7 @@ dependencies:
     - mkdir $CIRCLE_ARTIFACTS/screenshots
   override:
       - echo "override to not run composer install"
-      - sh ./bin/deployment/setup_sonar.sh
 test:
-  post:
-      - cp bin/tests/report*.html $CIRCLE_ARTIFACTS/casper_report/
-      - sh ./bin/deployment/sonar.sh > /dev/null
   override:
      - sleep 100
      - curl --retry 10 --retry-delay 5 -v http://localhost:8080
-     - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" hipay-mirakl-running)" -- bash -c /var/www/html/bin/tests/import_test_data_stage.sh
-     - sh bin/tests/casper_run_circle.sh
-     - sh ./bin/tests/report-test.sh
-deployment:
-  prod:
-    branch: /.*?/
-    tag: /.*?/
-    commands:
-      - sh ./bin/deployment/deploy_project.sh
