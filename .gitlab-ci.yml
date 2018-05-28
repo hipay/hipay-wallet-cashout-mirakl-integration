@@ -81,10 +81,10 @@ deploy:
  script:
   - docker exec deploy.hipay-pos-platform.com /deploy/deploy_project.sh  $CI_PROJECT_NAME $CI_COMMIT_REF_NAME gitlab
 
-#sync:
-#  stage: sync
-#  script:
-#  - git clone --mirror https://$GITLAB_USER:$GITLAB_PASSWORD@gitlab.hipay.org/pi-ecommerce/hipay-fullservice-sdk-magento2.git
-#  - cd hipay-fullservice-sdk-magento2.git
-#  - git push --mirror https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/hipay/hipay-fullservice-sdk-magento2.git
-#  allow_failure: true
+sync:
+  stage: sync
+  script:
+  - git clone --mirror https://$GITLAB_USER:$GITLAB_PASSWORD@gitlab.hipay.org/pi-ecommerce/hipay-wallet-cashout-mirakl-integration.git
+  - cd hipay-wallet-cashout-mirakl-integration.git
+  - git push --mirror https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/hipay/hipay-wallet-cashout-mirakl-integration.git
+  allow_failure: true
