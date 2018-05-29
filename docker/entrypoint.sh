@@ -9,7 +9,7 @@ NC='\033[0m'
 
 chown www-data:www-data -Rf /var/www/html/
 
-chmod 755 -Rf /var/www/html/
+#chmod 755 -Rf /var/www/html/
 
 chmod 777 -Rf /var/www/html/var
 

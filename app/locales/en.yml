@@ -113,3 +113,9 @@ date.batch.notice: You can specify a date from wich vendors or transactions will
 date.batch.notice.empty: If you let it empty, the default behaviour will be
 date.batch.notice.vendor: For wallet account generation, the batch will retrieve all vendors from Mirakl
 date.batch.notice.cashout: For operation generation, the batch will retrieve transactions with arguments from you parameters.yml
+select.country: Select a country
+FRA: France
+ITA: Italy
+USA: United States of America
+select.country.all: All countries
+unknown: Unknown

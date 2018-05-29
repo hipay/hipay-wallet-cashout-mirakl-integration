@@ -9,20 +9,18 @@
         <div id="filter" class="panel panel-default">
             <div class="panel-heading">{{ 'filters'|trans }}</div>
             <div class="panel-body">
-                <form id="vendor-filter-form" class="form-horizontal">
-                    <div class="col-md-2">
-                        <label for="start" class=" control-label">{{ 'state'|trans }}</label>
-                        <div id="sandbox-container">
+                <form id="vendor-filter-form">
+                    <div class="col-md-12">
+                        <div class="form-group col-md-2">
+                            <label for="start" class=" control-label">{{ 'state'|trans }}</label>
                             <select id="status-filter" name="status" class="form-control">
                                 <option value="-1">{{ 'select.state'|trans }}</option>
                                 <option value="1">Success</option>
                                 <option value="3">Warning</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="start" class=" control-label">{{ 'wallet.account.status'|trans }}</label>
-                        <div id="sandbox-container">
+                        <div class="form-group col-md-3">
+                            <label for="start" class=" control-label">{{ 'wallet.account.status'|trans }}</label>
                             <select id="wallet-status-filter" name="wallet_status" class="form-control">
                                 <option value="-1">{{ 'select.wallet.account.status'|trans }}</option>
                                 <option value="1">{{ 'created'|trans }}</option>
@@ -31,19 +29,34 @@
                                 <option value="4">{{ 'not.identified'|trans }}</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="col-md-5">
-                        <label for="start" class="control-label">{{ 'date.range'|trans }}</label>
-                        <div id="sandbox-container">
-                            <div class="input-daterange input-group" id="datepicker">
-                                <input type="text" class="input-sm form-control" id="start" name="start"/>
-                                <span class="input-group-addon">{{ 'date.range.to'|trans }}</span>
-                                <input type="text" class="input-sm form-control" id="end" name="end"/>
+                        <div class="form-group col-md-4">
+                            <label for="start" class="control-label">{{ 'date.range'|trans }}</label>
+                            <div id="sandbox-container">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="text" class="input-sm form-control" id="start" name="start"/>
+                                    <span class="input-group-addon">{{ 'date.range.to'|trans }}</span>
+                                    <input type="text" class="input-sm form-control" id="end" name="end"/>
+                                </div>
                             </div>
                         </div>
+                        <div class="form-group col-md-1">
+                            <label for="country" class="control-label">{{ 'country'|trans }}</label>
+                            <select id="country" name="country" multiple="multiple">
+                                {% for country in countries %}
+                                    <option {% if country["country"] not in defaultFilteredCountries %} selected {% endif %} value="{{ country["country"] }}">
+                                        {% if country["country"] is empty %}
+                                            {{ 'unknown'|trans }}
+                                        {% else %}
+                                            {{ country["country"]|trans }}
+                                        {% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <a id="filter-action" href="#" class="btn btn-default btn-lg btn-hipay">{{ 'filter'|trans }}</a>&nbsp;&nbsp;
+                    <div class="col-md-12">
+                        <a id="filter-action" href="#"
+                           class="btn btn-default btn-lg btn-hipay  pull-right">{{ 'filter'|trans }}</a>&nbsp;&nbsp;
                     </div>
                 </form>
             </div>
@@ -62,6 +75,7 @@
                     <th>{{ 'wallet.account.status'|trans }}</th>
                     <th>{{ 'enabled'|trans }}</th>
                     <th>HiPay ID</th>
+                    <th>{{ 'country'|trans }}</th>
                     <th>{{ 'date'|trans }}</th>
                     <th>{{ 'sent.documents'|trans }}</th>
                 </tr>
@@ -115,6 +129,15 @@
         $('.modal').on('show.bs.modal', function () {
             $('.modal .modal-body').css('overflow-y', 'auto');
             $('.modal .modal-body').css('max-height', $(window).height() * 0.7);
+        });
+
+        $(document).ready(function () {
+            $('#country').multiselect(
+                    {
+                        nonSelectedText: "{{ 'select.country'|trans }}",
+                        allSelectedText: "{{ 'select.country.all'|trans }}"
+                    }
+            );
         });
     </script>
 {% endblock %}
