@@ -279,7 +279,7 @@ class SettingController
                         'cashout:generate' => $this->translator->trans('generate.operation'),
                         'cashout:transfer' => $this->translator->trans('transfer'),
                         'cashout:withdraw' => $this->translator->trans('withdraw'),
-                        'cashout:withdraw' => $this->translator->trans('withdraw'),
+                        'logs:vendors:country' => $this->translator->trans('logs.vendors.country'),
                     ),
                     'attr' => array('class' => 'form-control'),
                     'multiple' => true,

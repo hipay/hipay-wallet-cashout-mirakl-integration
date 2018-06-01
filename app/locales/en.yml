@@ -119,3 +119,4 @@ ITA: Italy
 USA: United States of America
 select.country.all: All countries
 unknown: Unknown
+logs.vendors.country: Recover country for vendors
