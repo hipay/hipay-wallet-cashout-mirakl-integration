@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group col-md-1">
                             <label for="country" class="control-label">{{ 'country'|trans }}</label>
-                            <select id="country" name="country" multiple="multiple">
+                            <select id="country" name="country[]" multiple="multiple">
                                 {% for country in countries %}
                                     <option {% if country["country"] not in defaultFilteredCountries %} selected {% endif %} value="{{ country["country"] }}">
                                         {% if country["country"] is empty %}
