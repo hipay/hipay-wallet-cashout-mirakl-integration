@@ -35,7 +35,13 @@ casper.test.begin('Test batch form in settings page', function (test) {
                 'form[batch][]': 'vendor:process'
             };
             
-            settings.checkBatchForm(test, formInputs, true, /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}vendor:process/, '');
+            settings.checkBatchForm(
+                test,
+                formInputs,
+                true,
+                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}vendor:process/,
+                ''
+            );
         })
         .then(function () {
 
@@ -45,7 +51,13 @@ casper.test.begin('Test batch form in settings page', function (test) {
                 'form[batch][]': 'cashout:generate'
             };
 
-            settings.checkBatchForm(test, formInputs, true, /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:generate/, '');
+            settings.checkBatchForm(
+                test,
+                formInputs,
+                true,
+                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:generate/,
+                ''
+            );
         })
         .then(function () {
 
@@ -55,7 +67,13 @@ casper.test.begin('Test batch form in settings page', function (test) {
                 'form[batch][]': 'vendor:process'
             };
 
-            settings.checkBatchForm(test, formInputs, true, /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}vendor:process/, '01/01/2018');
+            settings.checkBatchForm(
+                test,
+                formInputs,
+                true,
+                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}vendor:process/,
+                '01/01/2018'
+            );
         })
         .then(function () {
 
@@ -65,7 +83,13 @@ casper.test.begin('Test batch form in settings page', function (test) {
                 'form[batch][]': 'cashout:transfer'
             };
 
-            settings.checkBatchForm(test, formInputs, false, /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:transfer/, '');
+            settings.checkBatchForm(
+                test,
+                formInputs,
+                false,
+                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:transfer/,
+                ''
+            );
         })
         .then(function () {
 
@@ -75,7 +99,29 @@ casper.test.begin('Test batch form in settings page', function (test) {
                 'form[batch][]': 'cashout:withdraw'
             };
 
-            settings.checkBatchForm(test, formInputs, false, /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:withdraw/, '');
+            settings.checkBatchForm(
+                test,
+                formInputs,
+                false,
+                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:withdraw/,
+                ''
+            );
+        })
+        .then(function () {
+
+            this.echo("logs:vendors:country batch", "INFO");
+
+            var formInputs = {
+                'form[batch][]': 'logs:vendors:country'
+            };
+
+            settings.checkBatchForm(
+                test,
+                formInputs,
+                false,
+                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}logs:vendors:country/,
+                ''
+            );
         })
         .run(function () {
             test.done();

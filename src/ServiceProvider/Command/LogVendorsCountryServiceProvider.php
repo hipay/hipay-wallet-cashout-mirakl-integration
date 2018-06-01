@@ -13,15 +13,15 @@ namespace HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command;
 
 use Silex\ServiceProviderInterface;
 use Silex\Application;
-use HiPay\Wallet\Mirakl\Integration\Command\Log\LogVendorsRecoverCommand;
+use HiPay\Wallet\Mirakl\Integration\Command\Log\LogVendorsCountryCommand;
 
-class LogVendorsRecoverServiceProvider implements ServiceProviderInterface
+class LogVendorsCountryServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {
-        $app['command.log.vendors.recover'] = $app->share(
+        $app['command.log.vendors.country'] = $app->share(
             function ($app) {
-                return new LogVendorsRecoverCommand(
+                return new LogVendorsCountryCommand(
                     $app['monolog'],
                     $app['vendor.processor'],
                     $app['batch.repository'],

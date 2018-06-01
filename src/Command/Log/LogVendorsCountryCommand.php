@@ -18,10 +18,10 @@ use HiPay\Wallet\Mirakl\Vendor\Processor as VendorProcessor;
 use HiPay\Wallet\Mirakl\Notification\Model\LogVendorsInterface;
 
 /**
- * Class LogVendorsRecoverCommand
+ * Class LogVendorsCountryCommand
  * @package HiPay\Wallet\Mirakl\Integration\Command\Log
  */
-class LogVendorsRecoverCommand extends AbstractCommand
+class LogVendorsCountryCommand extends AbstractCommand
 {
     protected $batchManager;
     protected $vendorManager;
@@ -45,8 +45,8 @@ class LogVendorsRecoverCommand extends AbstractCommand
 
     protected function configure()
     {
-        $this->setName('logs:vendors:recover')
-            ->setDescription('Recover Logs vendors from vendors');
+        $this->setName('logs:vendors:country')
+            ->setDescription('Recover country for vendors from Mirakl');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -75,25 +75,21 @@ class LogVendorsRecoverCommand extends AbstractCommand
 
         foreach ($vendors as $vendor) {
             try {
-                if (!$this->logVendorsManager->findByMiraklId($vendor->getMiraklId())) {
-                    $login = $this->processor->getLogin($vendor->getMiraklId());
+                $log = $this->logVendorsManager->findByMiraklId($vendor->getMiraklId());
+                if ($log && ($log->getCountry() === null || $vendor->getCountry() === null)) {
+                    $miraklData = $this->processor->getVendorByShopId($vendor->getMiraklId());
 
-                    $log = new LogVendors();
-                    $log->setMiraklId($vendor->getMiraklId());
-                    $log->setHipayId($vendor->getHipayId());
-                    $log->setLogin($login);
-                    $log->setStatus(LogVendorsInterface::SUCCESS);
-                    if ($vendor->getHipayIdentified()) {
-                        $log->setStatusWalletAccount(LogVendorsInterface::WALLET_IDENTIFIED);
-                    } else {
-                        $log->setStatusWalletAccount(LogVendorsInterface::WALLET_NOT_IDENTIFIED);
-                    }
-                    $log->setDate(
-                        DateTime::createFromFormat('Y-m-d', '2017-09-04')
-                    );  // set default date to dashboard release
+                    $log->setCountry($miraklData["contact_informations"]["country"]);
+                    $vendor->setCountry($miraklData["contact_informations"]["country"]);
                     $logs[] = $log;
 
-                    $this->logger->info("create log from vendor " . $vendor->getMiraklId() . " (Mirakl Id)");
+                    $this->logger->info(
+                        "Setting Country (".$miraklData["contact_informations"]["country"].")".
+                        " for vendor " . $vendor->getMiraklId() . " (Mirakl Id)"
+                    );
+
+                } else {
+                    $this->logger->info("Country already set for vendor " . $vendor->getMiraklId() . " (Mirakl Id)");
                 }
             } catch (\Exception $e) {
                 $this->logger->warning(
@@ -104,5 +100,6 @@ class LogVendorsRecoverCommand extends AbstractCommand
         }
 
         $this->logVendorsManager->saveAll($logs);
+        $this->vendorManager->saveAll($vendors);
     }
 }
