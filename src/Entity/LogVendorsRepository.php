@@ -26,18 +26,36 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
     /**
      * @param $miraklId
      * @param $hipayId
-     * @param $status,
-     * @param $message,
-     * @param $nbDoc,
-     * @param $date
+     * @param $login
+     * @param $statusWalletAccount
+     * @param $status
+     * @param $message
+     * @param $nbDoc
+     * @param $country
      *
-     * @return LogVendorsInterface
+     * @return LogVendors
      */
     public function create(
-        $miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc
-    )
-    {
-        $logVendor = new LogVendors($miraklId, $hipayId, $login, $statusWalletAccount, $status, $message, $nbDoc);
+        $miraklId,
+        $hipayId,
+        $login,
+        $statusWalletAccount,
+        $status,
+        $message,
+        $nbDoc,
+        $country
+    ) {
+        $logVendor = new LogVendors(
+            $miraklId,
+            $hipayId,
+            $login,
+            $statusWalletAccount,
+            $status,
+            $message,
+            $nbDoc,
+            $country
+        );
+
         return $logVendor;
     }
 
@@ -63,9 +81,9 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
      * @return void
      */
     public function update(
-        LogVendorsInterface $vendor, array $logData
-    )
-    {
+        LogVendorsInterface $vendor,
+        array $logData
+    ) {
         return;
     }
 
@@ -106,9 +124,22 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
         return true;
     }
 
+    /**
+     * @return array
+     */
+    public function getAllCountries()
+    {
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder->select('a.country')
+            ->from($this->_entityName, 'a')
+            ->groupBy('a.country');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     protected function getSelectString()
     {
-        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.enabled, a.nbDoc, a.date';
+        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.enabled, a.nbDoc, a.date, a.country';
     }
 
     protected function getCountString()
@@ -121,12 +152,30 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
         if (!empty($search)) {
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->orX(
-                    $queryBuilder->expr()->like('a.miraklId', '?1'), $queryBuilder->expr()->like('a.login', '?1'),
-                    $queryBuilder->expr()->like('a.hipayId',
-                                                '?1')
+                    $queryBuilder->expr()->like('a.miraklId', '?1'),
+                    $queryBuilder->expr()->like('a.login', '?1'),
+                    $queryBuilder->expr()->like(
+                        'a.hipayId',
+                        '?1'
+                    )
                 )
             )
-                ->setParameter(1, '%'.$search.'%');
+                ->setParameter(1, '%' . $search . '%');
+        }
+
+        if (isset($custom["country"]) && !empty($custom["country"])) {
+            if (!in_array("", $custom["country"])) {
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->in('a.country', $custom["country"])
+                );
+            } else {
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->orX(
+                        $queryBuilder->expr()->in('a.country', $custom["country"]),
+                        $queryBuilder->expr()->isNull('a.country')
+                    )
+                );
+            }
         }
 
         if (isset($custom["status"]) && $custom["status"] != -1) {
@@ -141,8 +190,7 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
         }
 
         if (isset($custom["date-start"]) && !empty($custom["date-start"])) {
-
-            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-start"].' 00:00:00');
+            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-start"] . ' 00:00:00');
             if ($dateStart) {
                 $queryBuilder->andWhere(
                     $queryBuilder->expr()->gte('a.date', ':start')
@@ -152,8 +200,7 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
         }
 
         if (isset($custom["date-end"]) && !empty($custom["date-end"])) {
-
-            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-end"].' 23:59:59');
+            $dateStart = \DateTime::createFromFormat('d/m/Y H:i:s', $custom["date-end"] . ' 23:59:59');
             if ($dateStart) {
                 $queryBuilder->andWhere(
                     $queryBuilder->expr()->lte('a.date', ':last')

@@ -84,9 +84,10 @@
     });
 
     $('#batch-send').click(function (event) {
-        command = $("#form_batch").val();
+        event.preventDefault();
+        var command = $("#form_batch").val();
         if (command.indexOf("vendor:process") != -1 || command.indexOf("cashout:generate") != -1) {
-            event.preventDefault();
+
             $('#date-modal').modal('show');
         } else {
             $(this).closest('form').submit();

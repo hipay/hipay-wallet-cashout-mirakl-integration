@@ -23,7 +23,7 @@
     "symfony/console": "~2.8.27",
     "silex/web-profiler": "~1.0",
     "symfony/yaml": "~2.8.27",
-    "hipay/hipay-wallet-cashout-mirakl-library" : "~2.9.1",
+    "hipay/hipay-wallet-cashout-mirakl-library" : "dev-feature/EC-339",
     "incenteev/composer-parameter-handler": "~2.1.2",
     "gedmo/doctrine-extensions" : "~2.4.30",
     "swiftmailer/swiftmailer": "~5.4.8",

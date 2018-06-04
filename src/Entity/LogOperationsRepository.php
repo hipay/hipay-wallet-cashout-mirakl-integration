@@ -137,7 +137,6 @@ class LogOperationsRepository extends AbstractTableRepository implements LogOper
 
     protected function prepareAjaxRequest($queryBuilder, $search, $custom)
     {
-
         if (!empty($search)) {
             $queryBuilder->where(
                 $queryBuilder->expr()->orX(

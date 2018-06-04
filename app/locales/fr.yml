@@ -112,3 +112,10 @@ date.batch.notice: Vous pourvez spécifier une date depuis laquelle les vendeurs
 date.batch.notice.empty: Si vous laissez le champ vide, le comportement par défaut sera
 date.batch.notice.vendor: Pour la création des comptes wallet, le batch récupérera tous les vendeurs depuis Mirakl
 date.batch.notice.cashout: Pour la génération des opérations, le batch récupérera les transactions de Mirakl avec les arguments spécifiés dans votre parameters.yml
+select.country: Selectionner un pays
+FRA: France
+ITA: Italie
+USA: Etats-unis
+select.country.all: Tout les pays
+unknown: Inconnu
+logs.vendors.country: Récupération des pays des vendeurs

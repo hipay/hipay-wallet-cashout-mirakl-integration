@@ -75,3 +75,4 @@ parameters:
   db.logger.level: 300
   dashboard.locale: fr
   github.token: ~
+  country.filter: ~

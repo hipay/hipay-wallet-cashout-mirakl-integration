@@ -21,6 +21,7 @@ use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorRecordServiceP
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorListServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\BankInfoServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\LogVendorsRecoverServiceProvider;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\LogVendorsCountryServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\UpdateApplicationServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutTransferServiceProvider as TransferCommand;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutWithdrawServiceProvider as WithdrawCommand;
@@ -73,6 +74,8 @@ $app->register(new BankInfoServiceProvider());
 
 $app->register(new LogVendorsRecoverServiceProvider());
 
+$app->register(new LogVendorsCountryServiceProvider());
+
 $app->register(new UpdateApplicationServiceProvider());
 
 $app->register(new TransferCommand());
@@ -86,7 +89,8 @@ $commands = array(
     $app['command.bank.info'],
     $app['command.log.vendors.recover'],
     $app['command.update.application'],
-    $app['command.cashout.transfer']
+    $app['command.cashout.transfer'],
+    $app['command.log.vendors.country']
 );
 
 $console->addCommands($commands);

@@ -97,6 +97,13 @@ class Vendor implements VendorInterface, Timestampable
     protected $enabled;
 
     /**
+     * @var Vendor country
+     *
+     * @ORM\Column(type="string", unique=false, nullable=true)
+     */
+    protected $country;
+
+    /**
      * Vendor constructor.
      * @param int $miraklId
      * @param string $email
@@ -237,4 +244,19 @@ class Vendor implements VendorInterface, Timestampable
         $this->enabled = $enabled;
     }
 
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
 }

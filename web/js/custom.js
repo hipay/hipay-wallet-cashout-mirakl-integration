@@ -42,7 +42,8 @@
                                 "status": $("#status-filter").val(),
                                 "wallet-status": $("#wallet-status-filter").val(),
                                 "date-start": $("#start").val(),
-                                "date-end": $("#end").val()
+                                "date-end": $("#end").val(),
+                                "country": $("#country").val()
                             });
                         }
                 },
@@ -91,6 +92,7 @@
                         }
                     },
                     {"data": "hipayId"},
+                    {"data": "country"},
                     {"data": "date"},
                     {
                         "data": "document",
