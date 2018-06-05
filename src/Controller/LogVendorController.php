@@ -77,9 +77,9 @@ class LogVendorController extends AbstractTableController
                 );
             }
 
-            if(empty($data[$key]['country'])){
+            if (empty($data[$key]['country'])) {
                 $data[$key]['country'] = $this->translator->trans('unknown');
-            }else{
+            } else {
                 $data[$key]['country'] = $this->translator->trans($data[$key]['country']);
             }
 
@@ -92,6 +92,12 @@ class LogVendorController extends AbstractTableController
             $data[$key]['enabled'] = array(
                 "enabled" => $logRow['enabled'],
                 "label" => $this->getEnableLabel($logRow['enabled'])
+            );
+
+            $data[$key]['paymentBlocked'] = array(
+                "paymentBlocked" => $logRow['paymentBlocked'],
+                "label" => ($logRow['paymentBlocked']) ? $this->translator->trans("blocked")
+                    : $this->translator->trans("not.blocked")
             );
         }
 

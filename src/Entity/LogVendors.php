@@ -110,6 +110,13 @@ class LogVendors implements LogVendorsInterface
     protected $country;
 
     /**
+     * @var Vendor payment blocked
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    protected $paymentBlocked;
+
+    /**
      * Vendor constructor.
      * @param int $miraklId
      * @param int $hipayId
@@ -122,7 +129,8 @@ class LogVendors implements LogVendorsInterface
         $status = null,
         $message = null,
         $nbDoc = 0,
-        $country = null
+        $country = null,
+        $paymentBlocked = false
     ) {
         $this->miraklId = $miraklId;
         $this->hipayId = $hipayId;
@@ -134,6 +142,7 @@ class LogVendors implements LogVendorsInterface
         $this->date = new \DateTime();
         $this->enabled = true;
         $this->country = $country;
+        $this->paymentBlocked = $paymentBlocked;
     }
 
     /**
@@ -287,5 +296,21 @@ class LogVendors implements LogVendorsInterface
     public function setCountry($country)
     {
         $this->country = $country;
+    }
+
+    /**
+     * @return Boolean
+     */
+    public function isPaymentBlocked()
+    {
+        return $this->paymentBlocked;
+    }
+
+    /**
+     * @param Boolean $paymentBlocked
+     */
+    public function setPaymentBlocked($paymentBlocked)
+    {
+        $this->paymentBlocked = $paymentBlocked;
     }
 }

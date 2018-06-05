@@ -120,3 +120,7 @@ USA: United States of America
 select.country.all: All countries
 unknown: Unknown
 logs.vendors.country: Recover country for vendors
+withdraw.payment.blocked: KO (payment blocked)
+payment.blocked: Payment blocked
+blocked: Blocked
+not.blocked: Not blocked
