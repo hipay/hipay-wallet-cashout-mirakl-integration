@@ -40,7 +40,19 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-1'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '131323019593.5993.59KO Afficher message 33233.192017-12-08 10:59:52141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO (Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52112302061515  2552017-12-08 10:59:5111112302051414  2552017-12-08 10:59:5010102302041313  2552017-12-08 10:59:4982302031212  2552017-12-08 10:59:48882302021111 KO (Fonds insuffisants) 02017-12-08 10:59:47772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:466623020099OK KO (échec) Afficher message2552017-12-08 10:59:45423019988OK OK 2552017-12-08 10:59:44');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '15152302151616 KO (paiement bloqué) Afficher message2552017-12-08 11:00:00131323019593.5993.59KO' +
+                ' Afficher message 33233.192017-12-08 10:59:52141423019593.5993.59KO (Vendeur désactivé)' +
+                ' Afficher messageKO (Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52112302061515' +
+                '  2552017-12-08 10:59:5111112302051414  2552017-12-08 10:59:5010102302041313' +
+                '  2552017-12-08 10:59:4982302031212  2552017-12-08 10:59:48882302021111 KO (Fonds insuffisants)' +
+                ' 02017-12-08 10:59:47772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:466623020099OK' +
+                ' KO (échec) Afficher message2552017-12-08 10:59:45'
+            );
         })
         .then(function () {
 
@@ -51,7 +63,14 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '5'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '223019655OK OK (demandé) 409.212017-12-08 10:59:41123019512.4112.41OK OK (demandé) 409.212017-12-08 10:59:33');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '223019655OK OK (demandé) 409.212017-12-08 10:59:41123019512.4112.41OK OK' +
+                ' (demandé) 409.212017-12-08 10:59:33'
+            );
         })
         .then(function () {
 
@@ -62,7 +81,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '423019988OK OK 2552017-12-08 10:59:44');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '423019988OK OK 2552017-12-08 10:59:44'
+            );
         })
         .then(function () {
 
@@ -73,7 +98,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-7'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '6623020099OK KO (échec) Afficher message2552017-12-08 10:59:45');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '6623020099OK KO (échec) Afficher message2552017-12-08 10:59:45'
+            );
         })
         .then(function () {
 
@@ -84,7 +115,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-11'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '882302021111 KO (Fonds insuffisants) 02017-12-08 10:59:47');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '882302021111 KO (Fonds insuffisants) 02017-12-08 10:59:47'
+            );
         })
         .then(function () {
 
@@ -95,7 +132,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-8'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:46');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:46'
+            );
         })
         .then(function () {
 
@@ -106,7 +149,31 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO (Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO (Vendeur désactivé) ' +
+                'Afficher message33233.192017-12-08 10:59:52'
+            );
+        })
+        .then(function () {
+
+            this.echo("Status transfer = empty & status withdraw = KO (payment blocked) ", "INFO");
+
+            var formInputs = {
+                'status-transfer': '-1',
+                'status-withdraw': '-12'
+            };
+
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '15152302151616 KO (paiement bloqué) Afficher message2552017-12-08 11:00:00'
+            );
         })
         .then(function () {
 
@@ -117,7 +184,14 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '5'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '223019655OK OK (demandé) 409.212017-12-08 10:59:41123019512.4112.41OK OK (demandé) 409.212017-12-08 10:59:33');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '223019655OK OK (demandé) 409.212017-12-08 10:59:41123019512.4112.41OK' +
+                ' OK (demandé) 409.212017-12-08 10:59:33'
+            );
         })
         .then(function () {
 
@@ -128,7 +202,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '423019988OK OK 2552017-12-08 10:59:44');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '423019988OK OK 2552017-12-08 10:59:44'
+            );
         })
         .then(function () {
 
@@ -139,7 +219,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-7'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '6623020099OK KO (échec) Afficher message2552017-12-08 10:59:45');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '6623020099OK KO (échec) Afficher message2552017-12-08 10:59:45'
+            );
         })
         .then(function () {
 
@@ -150,7 +236,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-11'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -161,7 +253,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-8'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:46');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:46'
+            );
         })
         .then(function () {
 
@@ -172,7 +270,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -183,7 +287,15 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-1'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:466623020099OK KO (échec) Afficher message2552017-12-08 10:59:45423019988OK OK 2552017-12-08 10:59:44223019655OK OK (demandé) 409.212017-12-08 10:59:41123019512.4112.41OK OK (demandé) 409.212017-12-08 10:59:33');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:466623020099OK KO (échec)' +
+                ' Afficher message2552017-12-08 10:59:45423019988OK OK 2552017-12-08 10:59:44223019655OK' +
+                ' OK (demandé) 409.212017-12-08 10:59:41123019512.4112.41OK OK (demandé) 409.212017-12-08 10:59:33'
+            );
         })
         .then(function () {
 
@@ -194,7 +306,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '5'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -205,7 +323,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -216,7 +340,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-7'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -227,7 +357,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-11'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -238,7 +374,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-8'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -249,7 +391,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -260,7 +408,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-1'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '4423019877KO (Fonds insuffisants)  02017-12-08 10:59:43');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '4423019877KO (Fonds insuffisants)  02017-12-08 10:59:43'
+            );
         })
         .then(function () {
 
@@ -271,7 +425,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '5'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -282,7 +442,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -293,7 +459,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-7'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -304,7 +476,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-11'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -315,7 +493,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-8'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -326,7 +510,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -337,7 +527,14 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-1'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '131323019593.5993.59KO Afficher message 33233.192017-12-08 10:59:52222301962727KO Afficher message 5266.602017-12-08 10:59:07');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '131323019593.5993.59KO Afficher message 33233.192017-12-08 10:59:52222301962727KO ' +
+                'Afficher message 5266.602017-12-08 10:59:07'
+            );
         })
         .then(function () {
 
@@ -348,7 +545,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '5'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -359,7 +562,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -370,7 +579,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-7'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -381,7 +596,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-11'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -392,7 +613,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-8'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, 'Aucun élément à afficher');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                'Aucun élément à afficher'
+            );
         })
         .then(function () {
 
@@ -403,7 +630,14 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-6'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO (Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO ' +
+                '(Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52'
+            );
         })
         .then(function () {
 
@@ -414,7 +648,14 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'status-withdraw': '-1'
             };
 
-            table.checkFilter(test, 'table_transfers', 'form#operations-filter-form', formInputs, '141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO (Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52');
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO (Vendeur désactivé)' +
+                ' Afficher message33233.192017-12-08 10:59:52'
+            );
         })
         .run(function () {
             test.done();

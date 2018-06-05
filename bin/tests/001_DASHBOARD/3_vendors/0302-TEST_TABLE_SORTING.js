@@ -64,14 +64,24 @@ casper.test.begin('Test vendor logs table columns sorting', function (test) {
             );
         })
         .then(function () {
-            table.checkSortColumn(test, 'table_vendor', 'HiPay ID', 6, '0123456789');
+            table.checkSortColumn(
+                test,
+                'table_vendor',
+                'Enabled',
+                6,
+                'Non bloquésNon bloquésNon bloquésNon bloquésNon bloquésNon bloquésNon bloqués' +
+                'Non bloquésNon bloquésNon bloqués'
+            );
+        })
+        .then(function () {
+            table.checkSortColumn(test, 'table_vendor', 'HiPay ID', 7, '0123456789');
         })
         .then(function () {
             table.checkSortColumn(
                 test,
                 'table_vendor',
-                'HiPay ID',
-                7,
+                'Country',
+                8,
                 'InconnuInconnuFranceFranceFranceFranceFranceFranceFranceFrance'
             );
         })
@@ -80,7 +90,7 @@ casper.test.begin('Test vendor logs table columns sorting', function (test) {
                 test,
                 'table_vendor',
                 'Date',
-                8,
+                9,
                 '2017-11-01 10:50:272017-12-04 10:50:272017-12-04 10:50:312017-12-04 10:50:342017-12-04' +
                 ' 10:50:372017-12-04 10:50:412017-12-04 10:50:452017-12-04 10:50:472017-12-04 10:50:502017-12-04 10:50:52'
             );

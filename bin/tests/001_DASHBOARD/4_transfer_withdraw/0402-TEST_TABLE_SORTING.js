@@ -38,7 +38,13 @@ casper.test.begin('Test Transfer & withdraw logs table columns sorting', functio
             table.checkSortColumn(test, 'table_transfers', 'HiPay ID', 2, '1122344678');
         })
         .then(function () {
-            table.checkSortColumn(test, 'table_transfers', 'Payment voucher ID', 3, '230195230195230195230196230196230197230198230199230200230201');
+            table.checkSortColumn(
+                test,
+                'table_transfers',
+                'Payment voucher ID',
+                3,
+                '230195230195230195230196230196230197230198230199230200230201'
+            );
         })
         .then(function () {
             table.checkSortColumn(test, 'table_transfers', 'Amount', 4, '5678910111212.4113');
@@ -47,16 +53,37 @@ casper.test.begin('Test Transfer & withdraw logs table columns sorting', functio
             table.checkSortColumn(test, 'table_transfers', 'Origin amount', 5, '5678910111212.4113');
         })
         .then(function () {
-            table.checkSortColumn(test, 'table_transfers', 'Transfer status', 6, 'KO (Fonds insuffisants) KO Afficher messageKO Afficher messageKO (Vendeur désactivé) Afficher message      ');
+            table.checkSortColumn(
+                test,
+                'table_transfers',
+                'Transfer status',
+                6,
+                'KO (Fonds insuffisants) KO Afficher messageKO Afficher messageKO ' +
+                '(Vendeur désactivé) Afficher message      '
+            );
         })
         .then(function () {
-            table.checkSortColumn(test, 'table_transfers', 'Withdraw status', 7, '        KO (Fonds insuffisants) KO (annulé) Afficher message');
+            table.checkSortColumn(
+                test,
+                'table_transfers',
+                'Withdraw status',
+                7,
+                '        KO (paiement bloqué) Afficher messageKO (Fonds insuffisants) '
+            );
         })
         .then(function () {
             table.checkSortColumn(test, 'table_transfers', 'Balance', 8, '00255255255255255255255255');
         })
         .then(function () {
-            table.checkSortColumn(test, 'table_transfers', 'Date', 9, '2017-12-08 10:58:322017-12-08 10:59:072017-12-08 10:59:332017-12-08 10:59:412017-12-08 10:59:422017-12-08 10:59:432017-12-08 10:59:442017-12-08 10:59:452017-12-08 10:59:462017-12-08 10:59:47');
+            table.checkSortColumn(
+                test,
+                'table_transfers',
+                'Date',
+                9,
+                '2017-12-08 10:58:322017-12-08 10:59:072017-12-08 10:59:332017-12-08 10:59:412017-12-08' +
+                ' 10:59:422017-12-08 10:59:432017-12-08 10:59:442017-12-08 10:59:452017-12-08' +
+                ' 10:59:462017-12-08 10:59:47'
+            );
         })
         .run(function () {
             test.done();
