@@ -228,7 +228,7 @@ exports.checkDocumentsDetails = function checkDocumentsDetails(test, tableId, mi
         this.waitWhileVisible('#' + tableId + '_processing', function success() {
 
             //test.assertEquals(value, miraklId, "Search working ");
-            this.click('#' + tableId + ' > tbody > tr > td:nth-child(9) > a');
+            this.click('#' + tableId + ' > tbody > tr > td:nth-child(10) > a');
 
             this.waitWhileSelector('#loader-document-page', function success() {
                 var value = this.fetchText('#documents-page .table > tbody > tr').replace(/\s/g, '');

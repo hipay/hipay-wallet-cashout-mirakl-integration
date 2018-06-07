@@ -29,9 +29,9 @@ casper.test.begin('Test Transfer & withdraw logs table pagination', function (te
         })
         .then(function () {
             this.waitForSelector('#table_transfers > tbody > tr', function success() {
-                table.changePage(test, 'table_transfers', 6, 'second');
+                table.changePage(test, 'table_transfers', 7, 'second');
             }, function fail() {
-                test.assertElementCount('#table_transfers > tbody > tr', 6, 'first page of table not loaded');
+                test.assertElementCount('#table_transfers > tbody > tr', 7, 'first page of table not loaded');
             }, 10000);
         })
         .run(function () {

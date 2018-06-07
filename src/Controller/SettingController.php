@@ -81,7 +81,6 @@ class SettingController
                 $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
 
                 if ($command == "vendor:process" && $date) {
-                    // vendor:process 
                     shell_exec("php ../bin/console $command {$date->format('Y-m-d')} >/dev/null 2>&1 &");
                 } elseif ($command == "cashout:generate" && $date) {
                     $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
@@ -135,7 +134,6 @@ class SettingController
 
         try {
             system('cd ' . __DIR__ . '/../.. && php bin/console app:update 2>&1', $status);
-
         } catch (Exception $ex) {
             return '<div class="alert alert-dismissible alert-danger">Error</div>';
         }

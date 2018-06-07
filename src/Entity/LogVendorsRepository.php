@@ -43,7 +43,8 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
         $status,
         $message,
         $nbDoc,
-        $country
+        $country,
+        $paymentBlocked
     ) {
         $logVendor = new LogVendors(
             $miraklId,
@@ -53,7 +54,8 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
             $status,
             $message,
             $nbDoc,
-            $country
+            $country,
+            $paymentBlocked
         );
 
         return $logVendor;
@@ -75,15 +77,10 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
     /**
      * Insert more data if you want
      *
-     * @param LogVendorsInterface $logVendor
+     * @param LogVendorsInterface $vendor
      * @param array $logData
-     *
-     * @return void
      */
-    public function update(
-        LogVendorsInterface $vendor,
-        array $logData
-    ) {
+    public function update(LogVendorsInterface $vendor, array $logData) {
         return;
     }
 
@@ -116,8 +113,8 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
     }
 
     /**
-     * @param $vendor
-     * @return boolean
+     * @param LogVendorsInterface $logVendors
+     * @return bool
      */
     public function isValid(LogVendorsInterface $logVendors)
     {
@@ -139,7 +136,8 @@ class LogVendorsRepository extends AbstractTableRepository implements LogVendors
 
     protected function getSelectString()
     {
-        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount, a.message, a.enabled, a.nbDoc, a.date, a.country';
+        return 'a.miraklId, a.login, a.hipayId, a.status, a.statusWalletAccount,'.
+        ' a.message, a.enabled, a.nbDoc, a.date, a.country, a.paymentBlocked';
     }
 
     protected function getCountString()

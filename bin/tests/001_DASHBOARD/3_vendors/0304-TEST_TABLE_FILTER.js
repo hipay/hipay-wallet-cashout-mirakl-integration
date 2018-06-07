@@ -37,17 +37,17 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '28mirakl_test_28Critical Afficher messageNot createdActivé28France2017-12-05 16:18:28  ' +
-                'Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37' +
-                '  Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé26France2017-12-05 15:55:47' +
-                '  Voir le détail25mirakl_test_25Critical Afficher messageNot createdActivé25France2017-12-04 15:21:24' +
-                '  Voir le détail24mirakl_test_24Info Not identifiedActivé24France2017-12-04 10:51:30' +
-                '  Voir le détail23mirakl_test_23Success Not identifiedActivé23Etats-unis2017-12-04 10:51:28' +
-                '  Voir le détail22mirakl_test_22Success IdentifiedActivé22Etats-unis2017-12-04 10:51:25' +
-                '  Voir le détail21mirakl_test_21Success Not identifiedActivé21France2017-12-04 10:51:22' +
-                '  Voir le détail20mirakl_test_20Success Not identifiedActivé20France2017-12-04 10:51:19' +
-                '  Voir le détail19mirakl_test_19Success Not identifiedActivé19France2017-12-04 10:51:17' +
-                '  Voir le détail'
+                '28mirakl_test_28Critical Afficher messageNot createdActivéNon bloqués28France2017-12-05 16:18:28' +
+                '  Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués27' +
+                'France2017-12-05 16:16:37  Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé' +
+                'Non bloqués26France2017-12-05 15:55:47  Voir le détail25mirakl_test_25Critical Afficher message' +
+                'Not createdActivéNon bloqués25France2017-12-04 15:21:24  Voir le détail24mirakl_test_24Info' +
+                ' Not identifiedActivéNon bloqués24France2017-12-04 10:51:30  Voir le détail23mirakl_test_23Success' +
+                ' Not identifiedActivéNon bloqués23Etats-unis2017-12-04 10:51:28  Voir le détail22mirakl_test_22Success' +
+                ' IdentifiedActivéNon bloqués22Etats-unis2017-12-04 10:51:25  Voir le détail21mirakl_test_21Success' +
+                ' Not identifiedActivéNon bloqués21France2017-12-04 10:51:22  Voir le détail20mirakl_test_20Success' +
+                ' Not identifiedActivéNon bloqués20France2017-12-04 10:51:19  Voir le détail19mirakl_test_19Success' +
+                ' Not identifiedActivéNon bloqués19France2017-12-04 10:51:17  Voir le détail'
             );
         })
         .then(function () {
@@ -64,8 +64,9 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '1mirakl_test_1Success CreatedActivé1France2017-12-04 10:50:27 ' +
-                ' Voir le détail2019mirakl_test_0Success CreatedActivé0France2017-11-01 10:50:27  Voir le détail'
+                '1mirakl_test_1Success CreatedActivéNon bloqués1France2017-12-04 10:50:27  ' +
+                'Voir le détail2019mirakl_test_0Success CreatedActivéNon bloqués0France2017-11-01 10:50:27' +
+                '  Voir le détail'
             );
         })
         .then(function () {
@@ -99,9 +100,10 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '22mirakl_test_22Success IdentifiedActivé22Etats-unis2017-12-04 10:51:25  ' +
-                'Voir le détail11mirakl_test_11Success IdentifiedActivé11Italie2017-12-04 10:50:57  ' +
-                'Voir le détail7mirakl_test_7Success IdentifiedActivé7France2017-12-04 10:50:47  Voir le détail'
+                '22mirakl_test_22Success IdentifiedActivéNon bloqués22Etats-unis2017-12-04 10:51:25' +
+                '  Voir le détail11mirakl_test_11Success IdentifiedActivéNon bloqués11Italie2017-12-04 10:50:57' +
+                '  Voir le détail7mirakl_test_7Success IdentifiedActivéNon bloqués7France2017-12-04 10:50:47' +
+                '  Voir le détail'
             );
         })
         .then(function () {
@@ -118,16 +120,17 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '23mirakl_test_23Success Not identifiedActivé23Etats-unis2017-12-04 10:51:28  ' +
-                'Voir le détail21mirakl_test_21Success Not identifiedActivé21France2017-12-04 10:51:22  ' +
-                'Voir le détail20mirakl_test_20Success Not identifiedActivé20France2017-12-04 10:51:19  ' +
-                'Voir le détail19mirakl_test_19Success Not identifiedActivé19France2017-12-04 10:51:17  ' +
-                'Voir le détail18mirakl_test_18Success Not identifiedActivé18France2017-12-04 10:51:14  ' +
-                'Voir le détail17mirakl_test_17Success Not identifiedActivé17France2017-12-04 10:51:12  ' +
-                'Voir le détail16mirakl_test_16Success Not identifiedActivé16France2017-12-04 10:51:09  ' +
-                'Voir le détail15mirakl_test_15Success Not identifiedActivé15France2017-12-04 10:51:07  ' +
-                'Voir le détail14mirakl_test_14Success Not identifiedActivé14France2017-12-04 10:51:04  ' +
-                'Voir le détail13mirakl_test_13Success Not identifiedActivé13Inconnu2017-12-04 10:51:02  Voir le détail'
+                '23mirakl_test_23Success Not identifiedActivéNon bloqués23Etats-unis2017-12-04 10:51:28  ' +
+                'Voir le détail21mirakl_test_21Success Not identifiedActivéNon bloqués21France2017-12-04 10:51:22  ' +
+                'Voir le détail20mirakl_test_20Success Not identifiedActivéNon bloqués20France2017-12-04 10:51:19  ' +
+                'Voir le détail19mirakl_test_19Success Not identifiedActivéNon bloqués19France2017-12-04 10:51:17  ' +
+                'Voir le détail18mirakl_test_18Success Not identifiedActivéNon bloqués18France2017-12-04 10:51:14  ' +
+                'Voir le détail17mirakl_test_17Success Not identifiedActivéNon bloqués17France2017-12-04 10:51:12  ' +
+                'Voir le détail16mirakl_test_16Success Not identifiedActivéNon bloqués16France2017-12-04 10:51:09  ' +
+                'Voir le détail15mirakl_test_15Success Not identifiedActivéNon bloqués15France2017-12-04 10:51:07  ' +
+                'Voir le détail14mirakl_test_14Success Not identifiedActivéNon bloqués14France2017-12-04 10:51:04  ' +
+                'Voir le détail13mirakl_test_13Success Not identifiedActivéNon bloqués13Inconnu2017-12-04 10:51:02  ' +
+                'Voir le détail'
             );
         })
         .then(function () {
@@ -161,7 +164,8 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37  Voir le détail'
+                '27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués27France2017-12-05 16:16:37' +
+                '  Voir le détail'
             );
         })
         .then(function () {
@@ -214,10 +218,10 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '28mirakl_test_28Critical Afficher messageNot createdActivé28France2017-12-05 16:18:28  ' +
-                'Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37  ' +
-                'Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé26France2017-12-05 15:55:47 ' +
-                ' Voir le détail'
+                '28mirakl_test_28Critical Afficher messageNot createdActivéNon bloqués28France2017-12-05 16:18:28' +
+                '  Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués27France' +
+                '2017-12-05 16:16:37  Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé' +
+                'Non bloqués26France2017-12-05 15:55:47  Voir le détail'
             );
 
         })
@@ -237,10 +241,10 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '28mirakl_test_28Critical Afficher messageNot createdActivé28France2017-12-05 16:18:28  ' +
-                'Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37 ' +
-                ' Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé26France2017-12-05 15:55:47' +
-                '  Voir le détail'
+                '28mirakl_test_28Critical Afficher messageNot createdActivéNon bloqués28France2017-12-05 16:18:28  ' +
+                'Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués27France' +
+                '2017-12-05 16:16:37  Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé' +
+                'Non bloqués26France2017-12-05 15:55:47  Voir le détail'
             );
 
         })
@@ -260,17 +264,17 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '25mirakl_test_25Critical Afficher messageNot createdActivé25France2017-12-04 15:21:24  '+
-                'Voir le détail24mirakl_test_24Info Not identifiedActivé24France2017-12-04 10:51:30  '+
-                'Voir le détail23mirakl_test_23Success Not identifiedActivé23Etats-unis2017-12-04 10:51:28  '+
-                'Voir le détail22mirakl_test_22Success IdentifiedActivé22Etats-unis2017-12-04 10:51:25  '+
-                'Voir le détail21mirakl_test_21Success Not identifiedActivé21France2017-12-04 10:51:22  ' +
-                'Voir le détail20mirakl_test_20Success Not identifiedActivé20France2017-12-04 10:51:19  ' +
-                'Voir le détail19mirakl_test_19Success Not identifiedActivé19France2017-12-04 10:51:17  ' +
-                'Voir le détail18mirakl_test_18Success Not identifiedActivé18France2017-12-04 10:51:14  ' +
-                'Voir le détail17mirakl_test_17Success Not identifiedActivé17France2017-12-04 10:51:12  ' +
-                'Voir le détail16mirakl_test_16Success Not identifiedActivé16France2017-12-04 10:51:09  ' +
-                'Voir le détail'
+                '25mirakl_test_25Critical Afficher messageNot createdActivéNon bloqués25France2017-12-04 15:21:24  ' +
+                'Voir le détail24mirakl_test_24Info Not identifiedActivéNon bloqués24France2017-12-04 10:51:30  ' +
+                'Voir le détail23mirakl_test_23Success Not identifiedActivéNon bloqués23Etats-unis2017-12-04 10:51:28' +
+                '  Voir le détail22mirakl_test_22Success IdentifiedActivéNon bloqués22Etats-unis2017-12-04 10:51:25' +
+                '  Voir le détail21mirakl_test_21Success Not identifiedActivéNon bloqués21France2017-12-04 10:51:22' +
+                '  Voir le détail20mirakl_test_20Success Not identifiedActivéNon bloqués20France2017-12-04 10:51:19' +
+                '  Voir le détail19mirakl_test_19Success Not identifiedActivéNon bloqués19France2017-12-04 10:51:17' +
+                '  Voir le détail18mirakl_test_18Success Not identifiedActivéNon bloqués18France2017-12-04 10:51:14' +
+                '  Voir le détail17mirakl_test_17Success Not identifiedActivéNon bloqués17France2017-12-04 10:51:12' +
+                '  Voir le détail16mirakl_test_16Success Not identifiedActivéNon bloqués16France2017-12-04 10:51:09' +
+                '  Voir le détail'
             );
             
         })
@@ -290,7 +294,8 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37  Voir le détail'
+                '27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués' +
+                '27France2017-12-05 16:16:37  Voir le détail'
             );
         })
         .then(function () {
@@ -309,16 +314,17 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
                 'table_vendor',
                 'form#vendor-filter-form',
                 formInputs,
-                '28mirakl_test_28Critical Afficher messageNot createdActivé28France2017-12-05 16:18:28  ' +
-                'Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37  ' +
-                'Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé26France2017-12-05 15:55:47' +
-                '  Voir le détail25mirakl_test_25Critical Afficher messageNot createdActivé25France2017-12-04 15:21:24' +
-                '  Voir le détail24mirakl_test_24Info Not identifiedActivé24France2017-12-04 10:51:30' +
-                '  Voir le détail23mirakl_test_23Success Not identifiedActivé23Etats-unis2017-12-04 10:51:28' +
-                '  Voir le détail22mirakl_test_22Success IdentifiedActivé22Etats-unis2017-12-04 10:51:25' +
-                '  Voir le détail21mirakl_test_21Success Not identifiedActivé21France2017-12-04 10:51:22' +
-                '  Voir le détail20mirakl_test_20Success Not identifiedActivé20France2017-12-04 10:51:19' +
-                '  Voir le détail19mirakl_test_19Success Not identifiedActivé19France2017-12-04 10:51:17' +
+                '28mirakl_test_28Critical Afficher messageNot createdActivéNon bloqués28France2017-12-05 16:18:28' +
+                '  Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués' +
+                '27France2017-12-05 16:16:37  Voir le détail26mirakl_test_26Critical Afficher message' +
+                'Not createdActivéNon bloqués26France2017-12-05 15:55:47  Voir le détail25mirakl_test_25Critical' +
+                ' Afficher messageNot createdActivéNon bloqués25France2017-12-04 15:21:24  Voir le détail24' +
+                'mirakl_test_24Info Not identifiedActivéNon bloqués24France2017-12-04 10:51:30  Voir le détail' +
+                '23mirakl_test_23Success Not identifiedActivéNon bloqués23Etats-unis2017-12-04 10:51:28' +
+                '  Voir le détail22mirakl_test_22Success IdentifiedActivéNon bloqués22Etats-unis2017-12-04 10:51:25' +
+                '  Voir le détail21mirakl_test_21Success Not identifiedActivéNon bloqués21France2017-12-04 10:51:22' +
+                '  Voir le détail20mirakl_test_20Success Not identifiedActivéNon bloqués20France2017-12-04 10:51:19' +
+                '  Voir le détail19mirakl_test_19Success Not identifiedActivéNon bloqués19France2017-12-04 10:51:17' +
                 '  Voir le détail'
             );
 
@@ -335,16 +341,17 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
             table.testFilter(
                 test,
                 'table_vendor',
-                '28mirakl_test_28Critical Afficher messageNot createdActivé28France2017-12-05 16:18:28' +
-                '  Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37' +
-                '  Voir le détail26mirakl_test_26Critical Afficher messageNot createdActivé26France2017-12-05 15:55:47' +
-                '  Voir le détail25mirakl_test_25Critical Afficher messageNot createdActivé25France2017-12-04 15:21:24' +
-                '  Voir le détail24mirakl_test_24Info Not identifiedActivé24France2017-12-04 10:51:30' +
-                '  Voir le détail21mirakl_test_21Success Not identifiedActivé21France2017-12-04 10:51:22' +
-                '  Voir le détail20mirakl_test_20Success Not identifiedActivé20France2017-12-04 10:51:19' +
-                '  Voir le détail19mirakl_test_19Success Not identifiedActivé19France2017-12-04 10:51:17' +
-                '  Voir le détail18mirakl_test_18Success Not identifiedActivé18France2017-12-04 10:51:14' +
-                '  Voir le détail17mirakl_test_17Success Not identifiedActivé17France2017-12-04 10:51:12' +
+                '28mirakl_test_28Critical Afficher messageNot createdActivéNon bloqués28France2017-12-05 16:18:28' +
+                '  Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués' +
+                '27France2017-12-05 16:16:37  Voir le détail26mirakl_test_26Critical Afficher message' +
+                'Not createdActivéNon bloqués26France2017-12-05 15:55:47  Voir le détail25mirakl_test_25Critical' +
+                ' Afficher messageNot createdActivéNon bloqués25France2017-12-04 15:21:24  Voir le détail' +
+                '24mirakl_test_24Info Not identifiedActivéNon bloqués24France2017-12-04 10:51:30  Voir le détail' +
+                '21mirakl_test_21Success Not identifiedActivéNon bloqués21France2017-12-04 10:51:22  Voir le détail' +
+                '20mirakl_test_20Success Not identifiedActivéNon bloqués20France2017-12-04 10:51:19  ' +
+                'Voir le détail19mirakl_test_19Success Not identifiedActivéNon bloqués19France2017-12-04 10:51:17' +
+                '  Voir le détail18mirakl_test_18Success Not identifiedActivéNon bloqués18France2017-12-04 10:51:14' +
+                '  Voir le détail17mirakl_test_17Success Not identifiedActivéNon bloqués17France2017-12-04 10:51:12' +
                 '  Voir le détail'
             );
 
@@ -360,14 +367,14 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
             table.testFilter(
                 test,
                 'table_vendor',
-                '13mirakl_test_13Success Not identifiedActivé13Inconnu2017-12-04 10:51:02 ' +
-                ' Voir le détail12mirakl_test_12Success Not identifiedActivé12Inconnu2017-12-04 10:50:59 ' +
-                ' Voir le détail'
+                '13mirakl_test_13Success Not identifiedActivéNon bloqués13Inconnu2017-12-04 10:51:02  ' +
+                'Voir le détail12mirakl_test_12Success Not identifiedActivéNon bloqués12Inconnu2017-12-04 10:50:59  ' +
+                'Voir le détail'
             );
 
         })
         .then(function(){
-            this.echo("Country = Inconnu ", "INFO");
+            this.echo("Country = FRANCE ITALIA USA ", "INFO");
 
             this.click('.multiselect.dropdown-toggle.btn.btn-default');
 
@@ -379,18 +386,18 @@ casper.test.begin('Test vendor logs table filtering', function (test) {
             table.testFilter(
                 test,
                 'table_vendor',
-                '28mirakl_test_28Critical Afficher messageNot createdActivé28France2017-12-05 16:18:28' +
-                '  Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivé27France2017-12-05 16:16:37' +
-                '  Voir le détail26mirakl_test_26Critical Afficher messageNot' +
-                ' createdActivé26France2017-12-05 15:55:47  Voir le détail25mirakl_test_25Critical' +
-                ' Afficher messageNot createdActivé25France2017-12-04 15:21:24' +
-                '  Voir le détail24mirakl_test_24Info Not identifiedActivé24France2017-12-04 10:51:30' +
-                '  Voir le détail23mirakl_test_23Success Not identifiedActivé23Etats-unis2017-12-04 10:51:28' +
-                '  Voir le détail22mirakl_test_22Success IdentifiedActivé22Etats-unis2017-12-04 10:51:25' +
-                '  Voir le détail21mirakl_test_21Success Not identifiedActivé21France2017-12-04 10:51:22' +
-                '  Voir le détail20mirakl_test_20Success Not identifiedActivé20France2017-12-04 10:51:19' +
-                '  Voir le détail19mirakl_test_19Success Not identifiedActivé19France2017-12-04 10:51:17' +
-                '  Voir le détail'
+                '28mirakl_test_28Critical Afficher messageNot createdActivéNon bloqués28France2017-12-05 16:18:28' +
+                '  Voir le détail27mirakl_test_27Warning Afficher messageNot createdActivéNon bloqués27' +
+                'France2017-12-05 16:16:37  Voir le détail26mirakl_test_26Critical Afficher messageNot created' +
+                'ActivéNon bloqués26France2017-12-05 15:55:47  Voir le détail25mirakl_test_25Critical ' +
+                'Afficher messageNot createdActivéNon bloqués25France2017-12-04 15:21:24  ' +
+                'Voir le détail24mirakl_test_24Info Not identifiedActivéNon bloqués24France2017-12-04 10:51:30' +
+                '  Voir le détail23mirakl_test_23Success Not identifiedActivéNon bloqués23Etats-unis' +
+                '2017-12-04 10:51:28  Voir le détail22mirakl_test_22Success IdentifiedActivéNon bloqués22' +
+                'Etats-unis2017-12-04 10:51:25  Voir le détail21mirakl_test_21Success Not identifiedActivé' +
+                'Non bloqués21France2017-12-04 10:51:22  Voir le détail20mirakl_test_20Success Not identifiedActivé' +
+                'Non bloqués20France2017-12-04 10:51:19  Voir le détail19mirakl_test_19Success Not identifiedActivé' +
+                'Non bloqués19France2017-12-04 10:51:17  Voir le détail'
             );
 
         })

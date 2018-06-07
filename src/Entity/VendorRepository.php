@@ -25,10 +25,15 @@ class VendorRepository extends AbstractTableRepository implements VendorManagerI
      * @return VendorInterface
      */
     public function create(
-    $email, $miraklId, $hipayId, $hipayUserSpaceId, $hipayIdentified, $vatNumber, $callbackSalt,
-    array $miraklData = array()
-    )
-    {
+        $email,
+        $miraklId,
+        $hipayId,
+        $hipayUserSpaceId,
+        $hipayIdentified,
+        $vatNumber,
+        $callbackSalt,
+        array $miraklData = array()
+    ) {
         if ($vatNumber == null && array_key_exists('pro_details', $miraklData)) {
             $vatNumber = $miraklData['pro_details']['VAT_number'];
         }
@@ -59,9 +64,9 @@ class VendorRepository extends AbstractTableRepository implements VendorManagerI
      * @return void
      */
     public function update(
-    VendorInterface $vendor, array $miraklData
-    )
-    {
+        VendorInterface $vendor,
+        array $miraklData
+    ) {
         return;
     }
 
@@ -111,11 +116,13 @@ class VendorRepository extends AbstractTableRepository implements VendorManagerI
         return true;
     }
 
-    protected function getSelectString(){
+    protected function getSelectString()
+    {
         return 'a.miraklId, a.hipayId, a.hipayIdentified';
     }
 
-    protected function getCountString(){
+    protected function getCountString()
+    {
         return 'COUNT(a.miraklId)';
     }
 
@@ -124,12 +131,12 @@ class VendorRepository extends AbstractTableRepository implements VendorManagerI
 
         if (!empty($search)) {
             $queryBuilder->where(
-                    $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('a.miraklId', '?1'),
-                        $queryBuilder->expr()->like('a.hipayId','?1')
-                    )
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->like('a.miraklId', '?1'),
+                    $queryBuilder->expr()->like('a.hipayId', '?1')
                 )
-                ->setParameter(1, '%'.$search.'%');
+            )
+                ->setParameter(1, '%' . $search . '%');
         }
 
         return $queryBuilder;
