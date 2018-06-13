@@ -1,7 +1,7 @@
 {
   "name": "hipay/hipay-wallet-cashout-mirakl-integration",
   "description": "Turnkey integration which handles cash-out operations between HiPay and the Mirakl marketplace solution.",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "minimum-stability": "stable",
   "license": "Apache-2.0",
   "authors": [
@@ -23,7 +23,7 @@
     "symfony/console": "~2.8.27",
     "silex/web-profiler": "~1.0",
     "symfony/yaml": "~2.8.27",
-    "hipay/hipay-wallet-cashout-mirakl-library" : "dev-feature/EC-317",
+    "hipay/hipay-wallet-cashout-mirakl-library" : "~2.10.0",
     "incenteev/composer-parameter-handler": "~2.1.2",
     "gedmo/doctrine-extensions" : "~2.4.30",
     "swiftmailer/swiftmailer": "~5.4.8",
