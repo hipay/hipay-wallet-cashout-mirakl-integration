@@ -1,3 +1,8 @@
+# Version 3.3.0
+- Add country to vendor data
+- Block withdraw for vendor flag as "Payment Bocked" (Mirakl BO)
+- Add payment voucher to public and private label (transaction)
+
 # Version 3.2.0
 - New - Add functionals tests
 
