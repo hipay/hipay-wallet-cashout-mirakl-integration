@@ -97,6 +97,20 @@ class Vendor implements VendorInterface, Timestampable
     protected $enabled;
 
     /**
+     * @var Vendor country
+     *
+     * @ORM\Column(type="string", unique=false, nullable=true)
+     */
+    protected $country;
+
+    /**
+     * @var Vendor payment blocked
+     *
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    protected $paymentBlocked;
+
+    /**
      * Vendor constructor.
      * @param int $miraklId
      * @param string $email
@@ -237,4 +251,35 @@ class Vendor implements VendorInterface, Timestampable
         $this->enabled = $enabled;
     }
 
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return Boolean
+     */
+    public function isPaymentBlocked()
+    {
+        return $this->paymentBlocked;
+    }
+
+    /**
+     * @param Boolean $paymentBlocked
+     */
+    public function setPaymentBlocked($paymentBlocked)
+    {
+        $this->paymentBlocked = $paymentBlocked;
+    }
 }

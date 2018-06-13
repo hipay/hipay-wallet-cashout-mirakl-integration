@@ -41,9 +41,9 @@ parameters:
   mail.to: ~
   mail.from: ~
 
-  label.public: "public {{miraklId}} – {{hipayId}} - {{cycleDate}}"
-  label.private: "private {{miraklId}} – {{hipayId}} - {{cycleDate}}"
-  label.withdraw: "withdraw {{miraklId}} – {{hipayId}} - {{cycleDate}}"
+  label.public: "public {{miraklId}} – {{hipayId}} - {{cycleDate}} - {{paymentVoucher}}"
+  label.private: "private {{miraklId}} – {{hipayId}} - {{cycleDate}} - {{paymentVoucher}}"
+  label.withdraw: "withdraw {{miraklId}} – {{hipayId}} - {{cycleDate}} - {{paymentVoucher}}"
 
   cashout.transactionFilterRegex: ~
 
@@ -75,3 +75,4 @@ parameters:
   db.logger.level: 300
   dashboard.locale: fr
   github.token: ~
+  country.filter: ~

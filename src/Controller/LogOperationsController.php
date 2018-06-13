@@ -18,7 +18,6 @@ use HiPay\Wallet\Mirakl\Cashout\Model\Operation\Status;
 
 class LogOperationsController extends AbstractTableController
 {
-
     public function __construct(
         LogOperationsRepository $repo,
         Serializer $serializer,
@@ -36,7 +35,6 @@ class LogOperationsController extends AbstractTableController
     protected function prepareAjaxData($data)
     {
         foreach ($data as $key => $logRow) {
-
             $data[$key]['statusTransferts'] = array(
                 "status" => $logRow['statusTransferts'],
                 "label" => $this->getStatusLabel($logRow['statusTransferts']),
@@ -62,29 +60,31 @@ class LogOperationsController extends AbstractTableController
     private function getStatusLabel($status)
     {
         switch ($status) {
-            case Status::WITHDRAW_FAILED :
+            case Status::WITHDRAW_FAILED:
                 return $this->translator->trans('withdraw.request.failed');
-            case Status::WITHDRAW_NEGATIVE :
+            case Status::WITHDRAW_NEGATIVE:
                 return $this->translator->trans('withdraw.request.negative');
-            case Status::WITHDRAW_CANCELED :
+            case Status::WITHDRAW_CANCELED:
                 return $this->translator->trans('withdraw.request.canceled');
-            case Status::WITHDRAW_REQUESTED :
+            case Status::WITHDRAW_REQUESTED:
                 return $this->translator->trans('withdraw.request.requested');
-            case Status::WITHDRAW_VENDOR_DISABLED :
+            case Status::WITHDRAW_VENDOR_DISABLED:
                 return $this->translator->trans('withdraw.vendor.disabled');
-            case Status::TRANSFER_FAILED :
+            case Status::WITHDRAW_PAYMENT_BLOCKED:
+                return $this->translator->trans('withdraw.payment.blocked');
+            case Status::TRANSFER_FAILED:
                 return $this->translator->trans('transfer.request.failed');
-            case Status::TRANSFER_NEGATIVE :
+            case Status::TRANSFER_NEGATIVE:
                 return $this->translator->trans('transfer.request.negative');
-            case Status::TRANSFER_SUCCESS :
+            case Status::TRANSFER_SUCCESS:
                 return $this->translator->trans('transfer.request.success');
-            case Status::TRANSFER_VENDOR_DISABLED :
+            case Status::TRANSFER_VENDOR_DISABLED:
                 return $this->translator->trans('transfer.vendor.disabled');
-            case Status::WITHDRAW_SUCCESS :
+            case Status::WITHDRAW_SUCCESS:
                 return $this->translator->trans('withdraw.request.success');
-            case Status::ADJUSTED_OPERATIONS :
+            case Status::ADJUSTED_OPERATIONS:
                 return $this->translator->trans('adjusted.operations');
-            case Status::INVALID_AMOUNT :
+            case Status::INVALID_AMOUNT:
                 return $this->translator->trans('invalid.amount');
             default:
                 return "";
@@ -100,9 +100,10 @@ class LogOperationsController extends AbstractTableController
             case Status::INVALID_AMOUNT:
             case Status::TRANSFER_FAILED:
             case Status::WITHDRAW_FAILED:
-            case Status::TRANSFER_VENDOR_DISABLED :
-            case Status::WITHDRAW_VENDOR_DISABLED :
+            case Status::TRANSFER_VENDOR_DISABLED:
+            case Status::WITHDRAW_VENDOR_DISABLED:
             case Status::WITHDRAW_CANCELED:
+            case Status::WITHDRAW_PAYMENT_BLOCKED:
                 return '<button type="button" class="btn btn-info btn-xs vendor-notice" data-container="body"'.
                 ' data-toggle="popover" data-placement="bottom" data-content="' .
                 $this->translator->trans($logRow["message"]) .

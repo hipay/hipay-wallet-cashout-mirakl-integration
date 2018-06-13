@@ -30,7 +30,8 @@ $app['log.vendors.controller'] = function () use ($app) {
         $app['log.vendors.repository'],
         $app['serializer'],
         $app['translator'],
-        $app['twig']
+        $app['twig'],
+        $app['hipay.parameters']
     );
 };
 

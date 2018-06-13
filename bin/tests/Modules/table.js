@@ -185,6 +185,28 @@ exports.checkFilter = function checkFilter(test, tableId, formId, formInputs, ex
 };
 
 /**
+ * Test filter results
+ * @param test
+ * @param tableId
+ * @param expectedValue
+ */
+exports.testFilter = function checkFilter(test, tableId, expectedValue) {
+    casper.then(function () {
+        this.echo("test filter ... ", "INFO");
+
+        this.click("#filter-action");
+
+        this.waitWhileVisible('#' + tableId + '_processing', function success() {
+            var value = this.fetchText('#' + tableId + ' > tbody > tr');
+            test.assertEquals(value, expectedValue, "Filters working ");
+        }, function fail() {
+            var value = this.fetchText('#' + tableId + ' > tbody > tr');
+            test.assertEquals(value, expectedValue, "Filters working ");
+        }, 10000);
+    });
+};
+
+/**
  * Check if documents details links loads the right data
  * @param test
  * @param tableId
@@ -206,7 +228,7 @@ exports.checkDocumentsDetails = function checkDocumentsDetails(test, tableId, mi
         this.waitWhileVisible('#' + tableId + '_processing', function success() {
 
             //test.assertEquals(value, miraklId, "Search working ");
-            this.click('#' + tableId + ' > tbody > tr > td:nth-child(8) > a');
+            this.click('#' + tableId + ' > tbody > tr > td:nth-child(10) > a');
 
             this.waitWhileSelector('#loader-document-page', function success() {
                 var value = this.fetchText('#documents-page .table > tbody > tr').replace(/\s/g, '');

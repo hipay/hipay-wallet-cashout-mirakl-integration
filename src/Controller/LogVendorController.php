@@ -18,19 +18,36 @@ use Silex\Translator;
 
 class LogVendorController extends AbstractTableController
 {
+    protected $parameters;
 
+    /**
+     * LogVendorController constructor.
+     * @param LogVendorsRepository $repo
+     * @param Serializer $serializer
+     * @param Translator $translator
+     * @param \Twig_Environment $twig
+     * @param $parameters
+     */
     public function __construct(
         LogVendorsRepository $repo,
         Serializer $serializer,
         Translator $translator,
-        \Twig_Environment $twig
+        \Twig_Environment $twig,
+        $parameters
     ) {
         parent::__construct($repo, $serializer, $translator, $twig);
+        $this->parameters = $parameters;
     }
 
     public function indexAction()
     {
-        return $this->twig->render('pages/vendors.twig', array());
+        return $this->twig->render(
+            'pages/vendors.twig',
+            array(
+                "countries" => $this->repo->getAllCountries(),
+                "defaultFilteredCountries" => $this->parameters["country.filter"]
+            )
+        );
     }
 
     protected function prepareAjaxData($data)
@@ -60,6 +77,12 @@ class LogVendorController extends AbstractTableController
                 );
             }
 
+            if (empty($data[$key]['country'])) {
+                $data[$key]['country'] = $this->translator->trans('unknown');
+            } else {
+                $data[$key]['country'] = $this->translator->trans($data[$key]['country']);
+            }
+
             $data[$key]['status'] = array(
                 "status" => $logRow['status'],
                 "label" => $this->getStatusString($logRow['status']),
@@ -69,6 +92,12 @@ class LogVendorController extends AbstractTableController
             $data[$key]['enabled'] = array(
                 "enabled" => $logRow['enabled'],
                 "label" => $this->getEnableLabel($logRow['enabled'])
+            );
+
+            $data[$key]['paymentBlocked'] = array(
+                "paymentBlocked" => $logRow['paymentBlocked'],
+                "label" => ($logRow['paymentBlocked']) ? $this->translator->trans("blocked")
+                    : $this->translator->trans("not.blocked")
             );
         }
 

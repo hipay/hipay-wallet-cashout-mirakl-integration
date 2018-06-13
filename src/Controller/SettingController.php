@@ -81,7 +81,6 @@ class SettingController
                 $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
 
                 if ($command == "vendor:process" && $date) {
-                    // vendor:process 
                     shell_exec("php ../bin/console $command {$date->format('Y-m-d')} >/dev/null 2>&1 &");
                 } elseif ($command == "cashout:generate" && $date) {
                     $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
@@ -135,7 +134,6 @@ class SettingController
 
         try {
             system('cd ' . __DIR__ . '/../.. && php bin/console app:update 2>&1', $status);
-
         } catch (Exception $ex) {
             return '<div class="alert alert-dismissible alert-danger">Error</div>';
         }
@@ -143,7 +141,6 @@ class SettingController
         echo '<div class="alert alert-dismissible alert-success">Success</div>';
 
         return new RedirectResponse($this->urlGenerator->generate("settings"), 302);
-
     }
 
     /**
@@ -185,9 +182,8 @@ class SettingController
 
         $githubRateLimit = false;
 
-        $githubTokenIsSet = ($this->parameters->offsetExists('github.token') && !empty($this->parameters->offsetGet(
-                'github.token'
-            )));
+        $githubTokenIsSet = ($this->parameters->offsetExists('github.token') &&
+            !empty($this->parameters->offsetGet('github.token')));
 
         try {
             $updateLibrary = $this->updateAvailable(
@@ -280,7 +276,8 @@ class SettingController
                         'vendor:process' => $this->translator->trans('wallet.account.creation'),
                         'cashout:generate' => $this->translator->trans('generate.operation'),
                         'cashout:transfer' => $this->translator->trans('transfer'),
-                        'cashout:withdraw' => $this->translator->trans('withdraw')
+                        'cashout:withdraw' => $this->translator->trans('withdraw'),
+                        'logs:vendors:country' => $this->translator->trans('logs.vendors.country'),
                     ),
                     'attr' => array('class' => 'form-control'),
                     'multiple' => true,
