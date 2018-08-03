@@ -7,7 +7,6 @@ parameters:
 
     # Other services launched with Docker Compose
     db.driver: 'pdo_mysql'
-    db.host: db
     db.username: dev
     db.password: '123456'
     db.name: app

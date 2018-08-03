@@ -29,8 +29,8 @@ casper.test.begin('Test vendor logs documents details link', function (test) {
                 test,
                 'table_vendor',
                 '2019',
-                'IdentitycardRefusedMissinginformationsCompanyRegistrationValidated' +
-                '-DistributionofpowerValidated-BankValidated-'
+                'IdentitycardRefusedMissinginformationsCompanyRegistrationValidated-' +
+                'DistributionofpowerValidated-BankMissingdocument-'
             );
         })
         .run(function () {
