@@ -1,29 +1,34 @@
-mirakl:
-  build: .
-  container_name: hipay-mirakl-running
-  environment:
-    XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
-  env_file:
-    - ./docker/conf/development/hipay.env
-  volumes:
-    - .:/var/www/html
-  ports:
-    - "8080:80"
-  links:
-    - db
-    - smtp
-db:
-  image: mysql:5.7
-  container_name: hipay-mirakl-db-running
-  ports:
-    - "2563:3306"
-  environment:
-    MYSQL_ROOT_PASSWORD: 123456
-    MYSQL_USER: dev
-    MYSQL_PASSWORD: 123456
-    MYSQL_DATABASE: app
-smtp:
-  image: hipay/mailcatcher:1.0.0
-  container_name: hipay-mirakl-smtp-running
-  ports:
-    - "1089:1080"
+version: "3.3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./bin/docker/images/mirakl/Dockerfile
+    container_name: mirakl_web
+    environment:
+      XDEBUG_CONFIG: idekey=PHPSTORM remote_enable=on remote_port=9000 remote_connect_back=On remote_handler=dbgp profiler_enable=0 profiler_output_dir="/temp/profiledir"
+    env_file:
+      - ./bin/docker/conf/development/hipay.env
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8080:80"
+    links:
+      - database
+      - smtp
+  database:
+    image: mysql:5.7
+    container_name: mirakl_database
+    ports:
+      - "2563:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: app
+  smtp:
+    image: hipay/mailcatcher:1.0.0
+    container_name: mirakl_smtp
+    ports:
+      - "1089:1080"

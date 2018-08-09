@@ -16,8 +16,9 @@ config/parameters.ini
 /vendor/
 
 *.env
-docker/config/parameters.yml
 composer.lock
+
+bin/config/parameters.yml
 
 # Assets and user uploads
 /web/bundles/

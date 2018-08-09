@@ -1,0 +1,47 @@
+version: "3.3"
+
+networks:
+  mirakl:
+    internal: true
+  outside:
+    external: true
+
+services:
+  web:
+    build:
+     context: .
+     dockerfile: ./bin/docker/images/mirakl/Dockerfile
+    image: ${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+    depends_on:
+      - database
+    networks:
+      mirakl:
+      outside:
+        aliases:
+          - ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web
+    container_name: ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web
+    env_file:
+      - ./bin/docker/conf/test/hipay.env.dist
+  database:
+    image: mysql:5.7
+    container_name: ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_database
+    environment:
+        MYSQL_ROOT_PASSWORD: 123456
+        MYSQL_USER: dev
+        MYSQL_PASSWORD: 123456
+        MYSQL_DATABASE: app
+    networks:
+      mirakl:
+        aliases:
+          - ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_database
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  smtp:
+    image: hipay/mailcatcher:1.0.0
+    container_name: ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_smtp
+    networks:
+      mirakl:
+        aliases:
+          - ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_smtp
