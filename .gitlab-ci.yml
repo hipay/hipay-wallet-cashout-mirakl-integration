@@ -5,10 +5,7 @@ variables:
 
 .clean_docker_compose: &clean_docker_compose
   after_script:
-    - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml stop
-    - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml rm -fv
-    - /tools/docker-network-rm.sh ${PROJECT_NAME_TEST_1}_mirakl
-    - /tools/docker-rmi.sh ${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+    - /tools/clean-job.sh $PROJECT_NAME_TEST_1 docker-compose.test.yml mirakl ${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
 
 stages:
  - build-test
@@ -109,11 +106,7 @@ deploy2acceptance:
     - ./bin/docker/gitlab/substitute.sh ./bin/docker/conf/acceptance/hipay.env.dist
     - echo "Deploy from registry"
       # Substitute env variables which dont exists on the distant machine
-    - sed -i -e "s|\${DOCKER_STACK}|$DOCKER_STACK|g" docker-compose.acceptance.yml
-    - sed -i -e "s|\${DOCKER_SERVICE}|$DOCKER_SERVICE|g" docker-compose.acceptance.yml
-    - sed -i -e "s|\${CI_COMMIT_REF_SLUG}|$CI_COMMIT_REF_SLUG|g" docker-compose.acceptance.yml
-    - sed -i -e "s|\${CI_JOB_ID}|$CI_JOB_ID|g" docker-compose.acceptance.yml
-    - sed -i -e "s|\${REGISTRY_URL}|$REGISTRY_URL|g" docker-compose.acceptance.yml
+    - /tools/substitute-env-var.sh docker-compose.acceptance.yml
       # Change path for relative path to environment files
     - sed -i -e "s|bin/docker/conf/acceptance/hipay.env.dist|hipay.env.dist|g" docker-compose.acceptance.yml
       # Push file on distant machine and launch deploy
