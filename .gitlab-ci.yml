@@ -42,7 +42,7 @@ test:
     - curl --retry 10 --retry-delay 5 -v ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web/web/index.php
     - docker cp ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web:/var/www/html/vendor ./
     - sh bin/tests/import_test_data.sh $PROJECT_NAME_TEST_1
-    - sh bin/tests/casper_run_circle.sh http://${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web/web/index.php
+    - sh bin/tests/casper_run_circle.sh http://${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}-web/web/index.php
   allow_failure: false
   artifacts:
       paths:

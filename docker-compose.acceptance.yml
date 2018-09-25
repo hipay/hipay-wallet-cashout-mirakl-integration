@@ -37,7 +37,7 @@ services:
     networks:
       mirakl:
         aliases:
-          - ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_database
+          - ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}-database
   smtp:
     restart: on-failure:5
     image: schickling/mailcatcher
@@ -45,7 +45,7 @@ services:
       traefik_traefik:
       mirakl:
         aliases:
-          - ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_smtp
+          - ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}-smtp
     deploy:
       labels:
         - "traefik.frontend.rule=Host:${DOCKER_STACK}-${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-smtp.hipay-pos-platform.com"
