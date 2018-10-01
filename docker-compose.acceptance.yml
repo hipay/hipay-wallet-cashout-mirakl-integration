@@ -21,6 +21,15 @@ services:
       - traefik_traefik
       - mirakl
       - outside-pi-overlay
+
+    labels:
+      - "com.hipay.ir.publish=1"
+      - "com.hipay.ir.name=web"
+      - "com.hipay.ir.branch=${CI_COMMIT_REF_SLUG}"
+      - "com.hipay.ir.gitlab.feature.link=${CI_PROJECT_URL}/tree/${CI_COMMIT_REF_NAME}"
+      - "com.hipay.ir.gitlab.org=pi-ecommerce"
+      - "com.hipay.ir.gitlab.project=hipay-wallet-cashout-mirakl-integration"
+      - "com.hipay.ir.admin.url=${DOCKER_STACK}-${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}.hipay-pos-platform.com"
     deploy:
       labels:
         - "traefik.frontend.rule=Host:${DOCKER_STACK}-${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}.hipay-pos-platform.com"
