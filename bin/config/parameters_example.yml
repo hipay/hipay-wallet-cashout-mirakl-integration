@@ -12,7 +12,7 @@ parameters:
     db.name: app
     db.port: 3306
 
-    mail.host: smtp
+    mail.host: common-smtp
     mail.port: 1025
     mail.security: null
     mail.username:

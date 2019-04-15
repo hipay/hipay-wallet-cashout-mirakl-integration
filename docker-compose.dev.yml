@@ -16,7 +16,7 @@ services:
       - "8080:80"
     links:
       - database
-      - smtp
+#      - smtp
   database:
     image: mysql:5.7
     container_name: mirakl_database
@@ -27,8 +27,8 @@ services:
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
       MYSQL_DATABASE: app
-  smtp:
-    image: hipay/mailcatcher:1.0.0
-    container_name: mirakl_smtp
-    ports:
-      - "1089:1080"
+#  smtp:
+#    image: hipay/mailcatcher:1.0.0
+#    container_name: mirakl_smtp
+#    ports:
+#      - "1089:1080"
