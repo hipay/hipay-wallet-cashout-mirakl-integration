@@ -59,4 +59,13 @@ touch /var/log/hipay.log
 
 chmod 777 /var/log/hipay.log
 
+#===================================#
+#       START WEBSERVER
+#===================================#
+printf "${COLOR_SUCCESS}                                                                           ${NC}\n"
+printf "${COLOR_SUCCESS}    |======================================================================${NC}\n"
+printf "${COLOR_SUCCESS}    |                                                                      ${NC}\n"
+printf "${COLOR_SUCCESS}    |               DOCKER MIRAKL INTEGRATION IS UP                        ${NC}\n"
+printf "${COLOR_SUCCESS}    |                                                                      ${NC}\n"
+printf "${COLOR_SUCCESS}    |======================================================================${NC}\n"
 exec apache2-foreground
