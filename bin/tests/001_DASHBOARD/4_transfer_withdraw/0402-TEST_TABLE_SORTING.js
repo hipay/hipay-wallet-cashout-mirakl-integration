@@ -68,7 +68,7 @@ casper.test.begin('Test Transfer & withdraw logs table columns sorting', functio
                 'table_transfers',
                 'Withdraw status',
                 7,
-                '        KO (paiement bloqué) Afficher messageKO (Fonds insuffisants) '
+                '         KO (paiement bloqué) Afficher message'
             );
         })
         .then(function () {

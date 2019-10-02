@@ -78,6 +78,8 @@ class LogOperationsController extends AbstractTableController
                 return $this->translator->trans('transfer.request.negative');
             case Status::TRANSFER_SUCCESS:
                 return $this->translator->trans('transfer.request.success');
+            case Status::TRANSFER_REQUESTED:
+                return $this->translator->trans('transfer.request.requested');
             case Status::TRANSFER_VENDOR_DISABLED:
                 return $this->translator->trans('transfer.vendor.disabled');
             case Status::WITHDRAW_SUCCESS:
