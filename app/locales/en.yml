@@ -60,6 +60,7 @@ select.transfer.status: Select transfer status
 withdraw.status: Withdraw status
 select.withdraw.status: Select withdraw status
 transfer.request.success: OK
+transfer.request.requested: OK (requested)
 transfer.request.failed: KO
 withdraw.request.requested: OK (requested)
 withdraw.request.failed: KO (failed)
@@ -69,6 +70,7 @@ withdraw.request.negative: KO (Insufficient funds)
 transfer.request.negative: KO (Insufficient funds)
 transfer.vendor.disabled: KO (Vendor disabled)
 withdraw.vendor.disabled: KO (Vendor disabled)
+transfer.notification.failed: Transfer failed
 adjusted.operations: OK (Adjusted)
 payment.order.id: Payment order Id
 amount: Amount

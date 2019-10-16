@@ -46,7 +46,7 @@ if [ "$ENV" != "dev" ];then
     chmod 755 -Rf /var/www/html/
 else
     # INSTALL X DEBUG
-    echo '' | pecl install xdebug-2.5.0
+    echo '' | pecl install xdebug-2.6.1
 
     echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
     echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini
@@ -59,4 +59,13 @@ touch /var/log/hipay.log
 
 chmod 777 /var/log/hipay.log
 
+#===================================#
+#       START WEBSERVER
+#===================================#
+printf "${COLOR_SUCCESS}                                                                           ${NC}\n"
+printf "${COLOR_SUCCESS}    |======================================================================${NC}\n"
+printf "${COLOR_SUCCESS}    |                                                                      ${NC}\n"
+printf "${COLOR_SUCCESS}    |               DOCKER MIRAKL INTEGRATION IS UP                        ${NC}\n"
+printf "${COLOR_SUCCESS}    |                                                                      ${NC}\n"
+printf "${COLOR_SUCCESS}    |======================================================================${NC}\n"
 exec apache2-foreground

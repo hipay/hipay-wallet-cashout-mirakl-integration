@@ -60,6 +60,7 @@ select.transfer.status: Selectionner un statut de transfert
 withdraw.status: Statut de retrait
 select.withdraw.status: Selectionner un statut de retrait
 transfer.request.success: OK
+transfer.request.requested: OK (demandé)
 transfer.request.failed: KO
 withdraw.request.requested: OK (demandé)
 withdraw.request.failed: KO (échec)
@@ -69,6 +70,7 @@ withdraw.request.negative: KO (Fonds insuffisants)
 transfer.request.negative: KO (Fonds insuffisants)
 transfer.vendor.disabled: KO (Vendeur désactivé)
 withdraw.vendor.disabled: KO (Vendeur désactivé)
+transfer.notification.failed: Le transfert a échoué
 adjusted.operations: OK (Rattrapage)
 payment.order.id: "Id d'ordre de paiement"
 amount: Montant

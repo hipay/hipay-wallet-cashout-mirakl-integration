@@ -169,6 +169,11 @@ class OperationRepository extends AbstractTableRepository implements ManagerInte
         return $this->findOneBy(array("withdrawId" => $withdrawalId));
     }
 
+    public function findOneByTransferId($transferId)
+    {
+        return $this->findOneBy(array("transferId" => $transferId));
+    }
+
     /**
      * Create an operation.
      *
