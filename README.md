@@ -1,5 +1,6 @@
 # HiPay Wallet cash-out integration for Mirakl
 
+[![Build Status](https://hook.hipay.org/badge-ci/build/pi-ecommerce/hipay-wallet-cashout-mirakl-integration/develop?service=github)](https://hook.hipay.org/badge-ci/build/pi-ecommerce/hipay-wallet-cashout-mirakl-integration/develop?service=github)
 [![Package version](https://img.shields.io/packagist/v/hipay/hipay-wallet-cashout-mirakl-integration.svg)](https://packagist.org/packages/hipay/hipay-wallet-cashout-mirakl-integration) [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/hipay/hipay-wallet-cashout-mirakl-integration/master/LICENSE.md)
 
 The **HiPay Wallet cash-out integration for Mirakl** is an application based on the [Silex PHP micro-framework][silex], which intends to facilitate cash-out operations between HiPay and the Mirakl marketplace solution.

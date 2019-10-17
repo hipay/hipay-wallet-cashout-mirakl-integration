@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7.2-apache
 
 
 COPY . /var/www/html
@@ -6,7 +6,7 @@ COPY . /var/www/html
 RUN apt-get update && apt-get install -y \
 	vim \
 	libssl-dev \
-	mysql-client \
+	default-mysql-client \
     git
 
 # pdo_mysql

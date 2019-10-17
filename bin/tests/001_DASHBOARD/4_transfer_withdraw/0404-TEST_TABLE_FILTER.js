@@ -45,13 +45,13 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'table_transfers',
                 'form#operations-filter-form',
                 formInputs,
-                '15152302151616 KO (paiement bloqué) Afficher message2552017-12-08 11:00:00131323019593.5993.59KO' +
-                ' Afficher message 33233.192017-12-08 10:59:52141423019593.5993.59KO (Vendeur désactivé)' +
-                ' Afficher messageKO (Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52112302061515' +
-                '  2552017-12-08 10:59:5111112302051414  2552017-12-08 10:59:5010102302041313' +
-                '  2552017-12-08 10:59:4982302031212  2552017-12-08 10:59:48882302021111 KO (Fonds insuffisants)' +
-                ' 02017-12-08 10:59:47772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:466623020099OK' +
-                ' KO (échec) Afficher message2552017-12-08 10:59:45'
+                '16162302151616 KO (paiement bloqué) Afficher message2552017-12-08 11:00:0015152402071616OK (demandé)' +
+                '  2552017-12-08 10:59:54131323019593.5993.59KO Afficher message ' +
+                '33233.192017-12-08 10:59:52141423019593.5993.59KO (Vendeur désactivé) Afficher message' +
+                'KO (Vendeur désactivé) Afficher message33233.192017-12-08 10:59:52112302061515  ' +
+                '2552017-12-08 10:59:5111112302051414  2552017-12-08 10:59:5010102302041313  ' +
+                '2552017-12-08 10:59:4982302031212  2552017-12-08 10:59:48882302021111 KO (Fonds insuffisants)' +
+                ' 02017-12-08 10:59:47772302011010OK KO (annulé) Afficher message2552017-12-08 10:59:46'
             );
         })
         .then(function () {
@@ -172,7 +172,7 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 'table_transfers',
                 'form#operations-filter-form',
                 formInputs,
-                '15152302151616 KO (paiement bloqué) Afficher message2552017-12-08 11:00:00'
+                '16162302151616 KO (paiement bloqué) Afficher message2552017-12-08 11:00:00'
             );
         })
         .then(function () {
@@ -655,6 +655,23 @@ casper.test.begin('Test Transfer & withdraw logs table filtering', function (tes
                 formInputs,
                 '141423019593.5993.59KO (Vendeur désactivé) Afficher messageKO (Vendeur désactivé)' +
                 ' Afficher message33233.192017-12-08 10:59:52'
+            );
+        })
+        .then(function () {
+
+            this.echo("Status transfer = OK (requested) & status withdraw = empty ", "INFO");
+
+            var formInputs = {
+                'status-transfer': '4',
+                'status-withdraw': '-1'
+            };
+
+            table.checkFilter(
+                test,
+                'table_transfers',
+                'form#operations-filter-form',
+                formInputs,
+                '15152402071616OK (demandé)  2552017-12-08 10:59:54'
             );
         })
         .run(function () {

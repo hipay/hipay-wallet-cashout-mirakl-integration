@@ -144,7 +144,7 @@
                     }
                     if (data.statusTransferts.status == -9 || data.statusTransferts.status == -10 || data.statusTransferts.status == -5) {
                         $('td', row).eq(5).addClass('danger');
-                    } else if (data.statusTransferts.status == 3 || data.statusTransferts.status == 2) {
+                    } else if (data.statusTransferts.status == 3 || data.statusTransferts.status == 2 || data.statusTransferts.status == 4) {
                         $('td', row).eq(5).addClass('success');
                     } else if (data.statusTransferts.status == -1) {
                         $('td', row).eq(5).addClass('info');

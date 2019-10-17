@@ -11,10 +11,8 @@ stages:
  - build-test
  - test
  - clean-stack
- - analysis
  - build
  - deploy
- - sync
 
 build-test:
   stage: build-test
@@ -36,13 +34,13 @@ test:
     - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml stop
     - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml rm -fv
     - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml up -d
-    - sleep 250
+    - until docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml logs | grep -m 1 "DOCKER MIRAKL INTEGRATION IS UP" ; do sleep 1 ; done
     - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml logs
   script:
     - curl --retry 10 --retry-delay 5 -v ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web/web/index.php
     - docker cp ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web:/var/www/html/vendor ./
     - sh bin/tests/import_test_data.sh $PROJECT_NAME_TEST_1
-    - sh bin/tests/casper_run_circle.sh http://${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web/web/index.php
+    - sh bin/tests/casper_run_circle.sh http://${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}-web/web/index.php
   allow_failure: false
   artifacts:
       paths:
@@ -58,32 +56,6 @@ clean-stack-test:
   tags:
     - pi-commerce-no-overlay
   when: always
-
-
-sonarqube:
-  stage: analysis
-  tags:
-    - pi-commerce-no-overlay
-  image: ciricihq/gitlab-sonar-scanner
-  variables:
-    SONAR_URL: http://172.17.0.1:19000
-    SONAR_ANALYSIS_MODE: preview
-    SONAR_TOKEN: $SONAR_LOGIN
-  script:
-  - /usr/bin/sonar-scanner-run.sh -X
-
-sonarqube-reports:
-  stage: analysis
-  tags:
-    - pi-commerce-no-overlay
-  image: ciricihq/gitlab-sonar-scanner
-  variables:
-    SONAR_URL: http://172.17.0.1:19000
-    SONAR_ANALYSIS_MODE: "publish"
-    SONAR_TOKEN: $SONAR_LOGIN
-  script:
-  - unset CI_BUILD_REF && /usr/bin/sonar-scanner-run.sh
-
 
 build:
   stage: build
@@ -112,13 +84,3 @@ deploy2acceptance:
       # Push file on distant machine and launch deploy
     - bash /tools/deployToDockerMachine.sh -e ./bin/docker/conf/acceptance/hipay.env.dist -s docker-compose.acceptance.yml -n $DOCKER_STACK-$DOCKER_SERVICE-$CI_COMMIT_REF_SLUG
   allow_failure: false
-
-sync:
-  stage: sync
-  tags:
-    - pi-commerce-no-overlay
-  script:
-  - git clone --mirror https://$GITLAB_USER:$GITLAB_PASSWORD@gitlab.hipay.org/pi-ecommerce/hipay-wallet-cashout-mirakl-integration.git
-  - cd hipay-wallet-cashout-mirakl-integration.git
-  - git push --mirror https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/hipay/hipay-wallet-cashout-mirakl-integration.git
-  allow_failure: true
