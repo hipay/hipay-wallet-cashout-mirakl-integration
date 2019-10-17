@@ -1,3 +1,6 @@
+# Version 3.4.0
+- Handle new transfer status
+
 # Version 3.3.0
 - Add country to vendor data
 - Block withdraw for vendor flag as "Payment Bocked" (Mirakl BO)
