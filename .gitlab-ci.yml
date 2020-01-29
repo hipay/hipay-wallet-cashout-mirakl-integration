@@ -1,18 +1,19 @@
-image: hipay/gitlab-ci-base:jessie
+image: $REGISTRY_CI/gitlab-ci-base:buster
 
 variables:
+  DOCKER_HOST: tcp://localhost:2375/
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
   PROJECT_NAME_TEST_1:  ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}_1
 
-.clean_docker_compose: &clean_docker_compose
-  after_script:
-    - /tools/clean-job.sh $PROJECT_NAME_TEST_1 docker-compose.test.yml mirakl ${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+services:
+  - docker:19.03.1-dind
 
 stages:
  - build-test
  - test
- - clean-stack
- - build
- - deploy
+# - build
+# - deploy
 
 build-test:
   stage: build-test
@@ -20,12 +21,12 @@ build-test:
     - docker-compose -f docker-compose.test.yml build
   allow_failure: false
   tags:
-    - pi-commerce-no-overlay
+    - gcp-default-runner-prod
 
 test:
   stage: test
   tags:
-    - pi-commerce-no-overlay
+    - gcp-high-load-runner-prod
   before_script:
     - npm install yamljs
     - chmod -R 766 ./bin/config
@@ -36,51 +37,42 @@ test:
     - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml up -d
     - until docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml logs | grep -m 1 "DOCKER MIRAKL INTEGRATION IS UP" ; do sleep 1 ; done
     - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml logs
+    - export OPENSSL_CONF=/etc/ssl/
   script:
-    - curl --retry 10 --retry-delay 5 -v ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web/web/index.php
+    - curl --retry 10 --retry-delay 5 -v localhost:8080/web/index.php
     - docker cp ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web:/var/www/html/vendor ./
     - sh bin/tests/import_test_data.sh $PROJECT_NAME_TEST_1
-    - sh bin/tests/casper_run_circle.sh http://${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}-web/web/index.php
+    - sh bin/tests/casper_run_circle.sh http:\/\/localhost:8080/web/index.php
   allow_failure: false
   artifacts:
       paths:
       - bin/tests/errors
       when: always
-  <<: *clean_docker_compose
 
-clean-stack-test:
-  stage: clean-stack
-  script:
-    - echo "Clean remaining containers, network and images"
-  <<: *clean_docker_compose
-  tags:
-    - pi-commerce-no-overlay
-  when: always
-
-build:
-  stage: build
-  before_script:
-    - /tools/docker-rmi.sh ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
-  script:
-    - docker-compose -f docker-compose.acceptance.yml build
-    - docker-compose -f docker-compose.acceptance.yml push
-  after_script:
-    - docker rmi ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
-  tags:
-    - pi-commerce-no-overlay
-
-deploy2acceptance:
-  stage: deploy
-  tags:
-    - pi-commerce-no-overlay
-  script:
-    - chmod u+x bin/docker/gitlab/substitute.sh
-    - ./bin/docker/gitlab/substitute.sh ./bin/docker/conf/acceptance/hipay.env.dist
-    - echo "Deploy from registry"
-      # Substitute env variables which dont exists on the distant machine
-    - /tools/substitute-env-var.sh docker-compose.acceptance.yml
-      # Change path for relative path to environment files
-    - sed -i -e "s|bin/docker/conf/acceptance/hipay.env.dist|hipay.env.dist|g" docker-compose.acceptance.yml
-      # Push file on distant machine and launch deploy
-    - bash /tools/deployToDockerMachine.sh -e ./bin/docker/conf/acceptance/hipay.env.dist -s docker-compose.acceptance.yml -n $DOCKER_STACK-$DOCKER_SERVICE-$CI_COMMIT_REF_SLUG
-  allow_failure: false
+#build:
+#  stage: build
+#  before_script:
+#    - /tools/docker-rmi.sh ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+#  script:
+#    - docker-compose -f docker-compose.acceptance.yml build
+#    - docker-compose -f docker-compose.acceptance.yml push
+#  after_script:
+#    - docker rmi ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+#  tags:
+#    - pi-commerce-no-overlay
+#
+#deploy2acceptance:
+#  stage: deploy
+#  tags:
+#    - pi-commerce-no-overlay
+#  script:
+#    - chmod u+x bin/docker/gitlab/substitute.sh
+#    - ./bin/docker/gitlab/substitute.sh ./bin/docker/conf/acceptance/hipay.env.dist
+#    - echo "Deploy from registry"
+#      # Substitute env variables which dont exists on the distant machine
+#    - /tools/substitute-env-var.sh docker-compose.acceptance.yml
+#      # Change path for relative path to environment files
+#    - sed -i -e "s|bin/docker/conf/acceptance/hipay.env.dist|hipay.env.dist|g" docker-compose.acceptance.yml
+#      # Push file on distant machine and launch deploy
+#    - bash /tools/deployToDockerMachine.sh -e ./bin/docker/conf/acceptance/hipay.env.dist -s docker-compose.acceptance.yml -n $DOCKER_STACK-$DOCKER_SERVICE-$CI_COMMIT_REF_SLUG
+#  allow_failure: false
