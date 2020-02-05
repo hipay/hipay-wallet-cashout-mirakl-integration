@@ -34,9 +34,6 @@
                                 <p>{{ 'date.batch.notice.empty'| trans }} : </p>
                                 <ul>
                                     <li>{{ 'date.batch.notice.vendor'| trans }}</li>
-                                    <li>{{ 'date.batch.notice.cashout'| trans }}. <a target="_blank"
-                                                                                     href="https://developer.hipay.com/doc/hipay-marketplace-cashout-mirakl-integration/#parameters-mirakl-cycles">{{ 'hipay.doc'|trans }}</a>
-                                    </li>
                                 </ul>
                             </div>
                             <label>{{ 'date.batch'|trans }} : </label>
@@ -86,7 +83,7 @@
     $('#batch-send').click(function (event) {
         event.preventDefault();
         var command = $("#form_batch").val();
-        if (command.indexOf("vendor:process") != -1 || command.indexOf("cashout:generate") != -1) {
+        if (command.indexOf("vendor:process") != -1) {
 
             $('#date-modal').modal('show');
         } else {
