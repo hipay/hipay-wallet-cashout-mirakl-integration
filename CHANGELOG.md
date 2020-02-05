@@ -1,3 +1,6 @@
+# Version 3.5.0
+- **New**: Remove action from settings page
+
 # Version 3.4.0
 - Handle new transfer status
 

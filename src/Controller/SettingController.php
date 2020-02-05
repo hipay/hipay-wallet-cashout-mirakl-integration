@@ -82,13 +82,6 @@ class SettingController
 
                 if ($command == "vendor:process" && $date) {
                     shell_exec("php ../bin/console $command {$date->format('Y-m-d')} >/dev/null 2>&1 &");
-                } elseif ($command == "cashout:generate" && $date) {
-                    $date = \DateTime::createFromFormat("d/m/Y", $data["date"]);
-                    $dateInterval = $date->diff(new \DateTime());
-                    shell_exec(
-                        "php ../bin/console $command {$date->format('Y-m-d')}" .
-                        " -a=\"{$dateInterval->format('%a days')}\" -b=\"0 days\" >/dev/null 2>&1 &"
-                    );
                 } else {
                     shell_exec("php ../bin/console $command >/dev/null 2>&1 &");
                 }
@@ -274,9 +267,6 @@ class SettingController
                 array(
                     'choices' => array(
                         'vendor:process' => $this->translator->trans('wallet.account.creation'),
-                        'cashout:generate' => $this->translator->trans('generate.operation'),
-                        'cashout:transfer' => $this->translator->trans('transfer'),
-                        'cashout:withdraw' => $this->translator->trans('withdraw'),
                         'logs:vendors:country' => $this->translator->trans('logs.vendors.country'),
                     ),
                     'attr' => array('class' => 'form-control'),

@@ -45,22 +45,6 @@ casper.test.begin('Test batch form in settings page', function (test) {
         })
         .then(function () {
 
-            this.echo("cashout:generate batch", "INFO");
-
-            var formInputs = {
-                'form[batch][]': 'cashout:generate'
-            };
-
-            settings.checkBatchForm(
-                test,
-                formInputs,
-                true,
-                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:generate/,
-                ''
-            );
-        })
-        .then(function () {
-
             this.echo("vendor:process batch with date", "INFO");
 
             var formInputs = {
@@ -73,38 +57,6 @@ casper.test.begin('Test batch form in settings page', function (test) {
                 true,
                 /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}vendor:process/,
                 '01/01/2018'
-            );
-        })
-        .then(function () {
-
-            this.echo("cashout:transfer batch", "INFO");
-
-            var formInputs = {
-                'form[batch][]': 'cashout:transfer'
-            };
-
-            settings.checkBatchForm(
-                test,
-                formInputs,
-                false,
-                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:transfer/,
-                ''
-            );
-        })
-        .then(function () {
-
-            this.echo("cashout:withdraw batch", "INFO");
-
-            var formInputs = {
-                'form[batch][]': 'cashout:withdraw'
-            };
-
-            settings.checkBatchForm(
-                test,
-                formInputs,
-                false,
-                /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}cashout:withdraw/,
-                ''
             );
         })
         .then(function () {
