@@ -1,3 +1,6 @@
+# Version 3.6.0
+- **New**: Transaction status sync command
+- 
 # Version 3.5.0
 - **New**: Remove action from settings page
 
