@@ -15,6 +15,7 @@ use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\VendorProcessorSer
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\CashoutInitializerServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\CashoutWithdrawServiceProvider as WithdrawProcessor;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\CashoutTransferServiceProvider as TransferProcessor;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Processor\CashoutTransactionStatusServiceProvider as TransactionStatusProcessor;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorProcessServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutGenerateServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\VendorRecordServiceProvider;
@@ -25,6 +26,7 @@ use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\LogVendorsCountrySer
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\UpdateApplicationServiceProvider;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutTransferServiceProvider as TransferCommand;
 use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutWithdrawServiceProvider as WithdrawCommand;
+use HiPay\Wallet\Mirakl\Integration\ServiceProvider\Command\CashoutTransactionStatusServiceProvider as TransactionStatusCommand;
 
 $app = require_once __DIR__ . '/../app/bootstrap.php';
 
@@ -80,11 +82,16 @@ $app->register(new UpdateApplicationServiceProvider());
 
 $app->register(new TransferCommand());
 
+$app->register(new TransactionStatusProcessor());
+
+$app->register(new TransactionStatusCommand());
+
 $commands = array(
     $app['command.vendor.process'],
     $app['command.vendor.record'],
     $app['command.cashout.withdraw'],
     $app['command.cashout.generate'],
+    $app['command.cashout.transaction.status'],
     $app['command.vendor.list'],
     $app['command.bank.info'],
     $app['command.log.vendors.recover'],
