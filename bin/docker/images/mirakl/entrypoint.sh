@@ -53,6 +53,13 @@ else
     echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
 fi
 
+if [ "$ENV" != "test" ];then
+    php bin/console dbal:import bin/docker/images/Data/import_log_vendors.sql
+    php bin/console dbal:import bin/docker/images/Data/import_vendors.sql
+    php bin/console dbal:import bin/docker/images/Data/import_log_operations.sql
+    php bin/console dbal:import bin/docker/images/Data/import_logs.sql
+fi
+
 chmod 777 -Rf /var/www/html/var
 
 touch /var/log/hipay.log

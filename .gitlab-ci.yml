@@ -1,78 +1,56 @@
 image: $REGISTRY_CI/gitlab-ci-base:buster
 
-variables:
-  DOCKER_HOST: tcp://localhost:2375/
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-  PROJECT_NAME_TEST_1:  ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_PIPELINE_ID}_1
-
-services:
-  - docker:19.03.1-dind
-
 stages:
  - build-test
  - test
-# - build
-# - deploy
+
+services:
+ - name: $CI_REGISTRY/test-jobs-${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+   alias: mirakl
+ - name: mysql:5.7
+   alias: database
 
 build-test:
   stage: build-test
+  image:
+    name: gcr.io/kaniko-project/executor:v1.6.0-debug
   script:
-    - docker-compose -f docker-compose.test.yml build
+    - /kaniko/executor
+      --cache=true
+      --context "dir://${CI_PROJECT_DIR}"
+      --dockerfile "./bin/docker/images/mirakl/Dockerfile"
+      --destination "$CI_REGISTRY/test-jobs-${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}"
   allow_failure: false
   tags:
-    - gcp-default-runner-prod
+    - small
 
 test:
   stage: test
   tags:
-    - gcp-high-load-runner-prod
-  before_script:
-    - npm install yamljs
-    - chmod -R 766 ./bin/config
-    - chmod u+x bin/docker/gitlab/substitute.sh
-    - ./bin/docker/gitlab/substitute.sh ./bin/docker/conf/test/hipay.env.dist
-    - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml stop
-    - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml rm -fv
-    - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml up -d
-    - until docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml logs | grep -m 1 "DOCKER MIRAKL INTEGRATION IS UP" ; do sleep 1 ; done
-    - docker-compose -p $PROJECT_NAME_TEST_1 -f docker-compose.test.yml logs
-    - export OPENSSL_CONF=/etc/ssl/
+    - small
+  variables:
+    MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL: $MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_EMAIL
+    MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID: $MIRAKL_CONNECTOR_ACCOUNT_OPERATOR_HIPAY_ID
+    MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL: $MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL
+    MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID: $MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID
+    MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL: $MIRAKL_CONNECTOR_HIPAY_BASE_SOAP_URL
+    MIRAKL_CONNECTOR_HIPAY_ENTITY: $MIRAKL_CONNECTOR_HIPAY_ENTITY
+    MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID: $MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID
+    MIRAKL_CONNECTOR_HIPAY_WS_LOGIN: $MIRAKL_CONNECTOR_HIPAY_WS_LOGIN
+    MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD: $MIRAKL_CONNECTOR_HIPAY_WS_PASSWORD
+    MIRAKL_CONNECTOR_MIRAKL_BASE_URL: $MIRAKL_CONNECTOR_MIRAKL_BASE_URL
+    MIRAKL_CONNECTOR_MIRAKL_FRONT_KEY: $MIRAKL_CONNECTOR_MIRAKL_FRONT_KEY
+    MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY: $MIRAKL_CONNECTOR_MIRAKL_OPERATOR_KEY
+    MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY: $MIRAKL_CONNECTOR_MIRAKL_SHOP_KEY
+    MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL: $MIRAKL_CONNECTOR_HIPAY_BASE_REST_URL
+    GITHUB_TOKEN: $GITHUB_TOKEN
+    MIRAKL_CONNECTOR_MIRAKL_DB_HOST: database
+    ENV: test
   script:
-    - curl --retry 10 --retry-delay 5 -v localhost:8080/web/index.php
-    - docker cp ${DOCKER_SERVICE}-${CI_COMMIT_REF_SLUG}-${CI_JOB_ID}_web:/var/www/html/vendor ./
-    - sh bin/tests/import_test_data.sh $PROJECT_NAME_TEST_1
-    - sh bin/tests/casper_run_circle.sh http:\/\/localhost:8080/web/index.php
+    - curl --retry 10 --retry-delay 5 -v http://mirakl/web/index.php
+    - sh bin/tests/casper_run_circle.sh http:\/\/mirakl/web/index.php
   allow_failure: false
   artifacts:
       paths:
       - bin/tests/errors
       when: always
-
-#build:
-#  stage: build
-#  before_script:
-#    - /tools/docker-rmi.sh ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
-#  script:
-#    - docker-compose -f docker-compose.acceptance.yml build
-#    - docker-compose -f docker-compose.acceptance.yml push
-#  after_script:
-#    - docker rmi ${REGISTRY_URL}/${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
-#  tags:
-#    - pi-commerce-no-overlay
-#
-#deploy2acceptance:
-#  stage: deploy
-#  tags:
-#    - pi-commerce-no-overlay
-#  script:
-#    - chmod u+x bin/docker/gitlab/substitute.sh
-#    - ./bin/docker/gitlab/substitute.sh ./bin/docker/conf/acceptance/hipay.env.dist
-#    - echo "Deploy from registry"
-#      # Substitute env variables which dont exists on the distant machine
-#    - /tools/substitute-env-var.sh docker-compose.acceptance.yml
-#      # Change path for relative path to environment files
-#    - sed -i -e "s|bin/docker/conf/acceptance/hipay.env.dist|hipay.env.dist|g" docker-compose.acceptance.yml
-#      # Push file on distant machine and launch deploy
-#    - bash /tools/deployToDockerMachine.sh -e ./bin/docker/conf/acceptance/hipay.env.dist -s docker-compose.acceptance.yml -n $DOCKER_STACK-$DOCKER_SERVICE-$CI_COMMIT_REF_SLUG
-#  allow_failure: false
