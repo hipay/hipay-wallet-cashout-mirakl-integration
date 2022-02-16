@@ -35,4 +35,4 @@ RUN echo "DocumentRoot /var/www/html/web" >> /etc/apache2/sites-available/100-de
 
 RUN chmod 777 -Rf /var/www/html/bin/docker
 
-ENTRYPOINT ["/var/www/html/bin/docker/images/mirakl/entrypoint.sh"]
+ENTRYPOINT ["./bin/docker/images/mirakl/entrypoint.sh"]
