@@ -45,8 +45,11 @@ test:
     GITHUB_TOKEN: $GITHUB_TOKEN
     MIRAKL_CONNECTOR_MIRAKL_DB_HOST: database
     ENV: test
+    MYSQL_ROOT_PASSWORD: 123456
+    MYSQL_USER: dev
+    MYSQL_PASSWORD: 123456
+    MYSQL_DATABASE: app
   script:
-    - sleep 600
     - curl --retry 10 --retry-delay 5 -v http://mirakl/web/index.php
     - sh bin/tests/casper_run_circle.sh http:\/\/mirakl/web/index.php
   allow_failure: false
