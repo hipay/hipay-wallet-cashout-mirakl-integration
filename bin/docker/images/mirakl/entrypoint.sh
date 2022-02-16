@@ -54,10 +54,13 @@ else
 fi
 
 if [[ "$ENV" == "test" ]];then
-    php bin/console dbal:import bin/docker/images/Data/import_log_vendors.sql
-    php bin/console dbal:import bin/docker/images/Data/import_vendors.sql
-    php bin/console dbal:import bin/docker/images/Data/import_log_operations.sql
-    php bin/console dbal:import bin/docker/images/Data/import_logs.sql
+  echo "Initialize database data"
+  php bin/console dbal:import bin/docker/images/Data/import_log_vendors.sql
+  php bin/console dbal:import bin/docker/images/Data/import_vendors.sql
+  php bin/console dbal:import bin/docker/images/Data/import_log_operations.sql
+  php bin/console dbal:import bin/docker/images/Data/import_logs.sql
+else
+  echo "No database data Initialisation"
 fi
 
 chmod 777 -Rf /var/www/html/var
