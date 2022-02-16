@@ -46,6 +46,7 @@ test:
     MIRAKL_CONNECTOR_MIRAKL_DB_HOST: database
     ENV: test
   script:
+    - sleep 600
     - curl --retry 10 --retry-delay 5 -v http://mirakl/web/index.php
     - sh bin/tests/casper_run_circle.sh http:\/\/mirakl/web/index.php
   allow_failure: false
