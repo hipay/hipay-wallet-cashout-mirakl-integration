@@ -10,7 +10,7 @@ build-test:
     name: gcr.io/kaniko-project/executor:v1.6.0-debug
   script:
     - /kaniko/executor
-      --cache=false
+      --cache=true
       --context "dir://${CI_PROJECT_DIR}"
       --dockerfile "./bin/docker/images/mirakl/Dockerfile"
       --destination "$CI_REGISTRY/test-jobs-${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}"
