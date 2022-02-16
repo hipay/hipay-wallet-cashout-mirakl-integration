@@ -4,12 +4,6 @@ stages:
  - build-test
  - test
 
-services:
- - name: $CI_REGISTRY/test-jobs-${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
-   alias: mirakl
- - name: mysql:5.7
-   alias: database
-
 build-test:
   stage: build-test
   image:
@@ -25,6 +19,11 @@ build-test:
     - small
 
 test:
+  services:
+    - name: $CI_REGISTRY/test-jobs-${DOCKER_STACK}-${DOCKER_SERVICE}_web:${CI_COMMIT_REF_SLUG}
+      alias: mirakl
+    - name: mysql:5.7
+      alias: database
   stage: test
   tags:
     - small
