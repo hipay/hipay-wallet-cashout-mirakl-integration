@@ -53,7 +53,9 @@ else
     echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
 fi
 
-if [[ "$ENV" == "test" ]];then
+echo $ENV
+
+if [ "$ENV" = "test" ];then
   echo "Initialize database data"
   php bin/console dbal:import bin/docker/images/Data/import_log_vendors.sql
   php bin/console dbal:import bin/docker/images/Data/import_vendors.sql
