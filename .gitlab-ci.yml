@@ -50,6 +50,7 @@ test:
     MYSQL_PASSWORD: 123456
     MYSQL_DATABASE: app
   script:
+    - npm install yamljs
     - export OPENSSL_CONF=/etc/ssl/
     - curl --retry 30 --retry-delay 5 --retry-connrefused --output /dev/null http://mirakl/web/index.php
     - sh bin/tests/casper_run_circle.sh http:\/\/mirakl/web/index.php
