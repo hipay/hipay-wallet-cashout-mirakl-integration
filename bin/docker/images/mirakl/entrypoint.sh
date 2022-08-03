@@ -17,8 +17,11 @@ echo "
     hipay.transfer.withdraw.rest: true
     hipay.entity: ${MIRAKL_CONNECTOR_HIPAY_ENTITY}
     hipay.merchantGroupId: ${MIRAKL_CONNECTOR_HIPAY_MERCHANT_GROUP_ID}
+    hipay.mkp.technical.id: ${MIRAKL_CONNECTOR_HIPAY_MKP_TECH_ID}
 
     db.host: ${MIRAKL_CONNECTOR_MIRAKL_DB_HOST}
+
+    debug: true
 
     account.technical.email: ${MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_EMAIL}
     account.technical.hipayId: ${MIRAKL_CONNECTOR_ACCOUNT_TECHNICAL_HIPAY_ID}

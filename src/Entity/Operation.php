@@ -122,6 +122,29 @@ class Operation implements OperationInterface
     protected $adjustmentIds;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=false, nullable=true)
+     */
+    protected $merchantUniqueId;
+
+    /**
+     * @return string
+     */
+    public function getMerchantUniqueId()
+    {
+        return $this->merchantUniqueId;
+    }
+
+    /**
+     * @param string $merchantUniqueId
+     */
+    public function setMerchantUniqueId($merchantUniqueId)
+    {
+        $this->merchantUniqueId = $merchantUniqueId;
+    }
+
+    /**
      * @return float
      */
     public function getWithdrawnAmount()
