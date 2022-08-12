@@ -40,7 +40,8 @@ class CashoutInitializerServiceProvider implements ServiceProviderInterface
                 return new CashoutInitializer(
                     $app['hipay.event.dispatcher'], $app['monolog'], $app['api.hipay.factory'], $operatorAccount,
                     $technicalAccount, $transactionValidator, $app['operations.repository'],
-                    $app['log.operations.repository'], $app['vendors.repository']
+                    $app['log.operations.repository'], $app['vendors.repository'],
+                    isset($app['hipay.parameters']['hipay.mkp.technical.id']) ? $app['hipay.parameters']['hipay.mkp.technical.id'] : null
                 );
             }
         );

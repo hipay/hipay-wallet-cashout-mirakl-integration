@@ -10,6 +10,7 @@ parameters:
   hipay.baseSoapUrl: 'https://test-ws.hipay.com'
   hipay.baseRestUrl: 'https://test-merchant.hipaywallet.com'
   hipay.transfer.withdraw.rest: true
+  hipay.mkp.technical.id: ~
 
   ## To get from hipay
   hipay.entity: ~
