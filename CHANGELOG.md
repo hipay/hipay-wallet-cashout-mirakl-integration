@@ -1,3 +1,7 @@
+# Version 3.8.0
+- **New**: Add merchantUniqueId to operation
+- Update the HiPay Wallet cash-out library for Mirakl dependency to version 2.14.0. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.14.0).
+
 # Version 3.7.0
 - Update the HiPay Wallet cash-out library for Mirakl dependency to version 2.13.0. [More information here](https://github.com/hipay/hipay-wallet-cashout-mirakl-library/releases/tag/2.13.0).
 
